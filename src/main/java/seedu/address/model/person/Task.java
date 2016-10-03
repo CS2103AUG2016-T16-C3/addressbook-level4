@@ -14,19 +14,19 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
+    private Priority priority;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name, Phone phone, Email email, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, phone, email, priority, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getPriority(), source.getTags());
     }
 
     @Override
@@ -53,8 +53,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Priority getPriority() {
+        return priority;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, priority, tags);
     }
 
     @Override

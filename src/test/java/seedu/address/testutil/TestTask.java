@@ -9,7 +9,7 @@ import seedu.address.model.person.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
+    private Priority priority;
     private Email email;
     private Phone phone;
     private UniqueTagList tags;
@@ -22,8 +22,8 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public void setEmail(Email email) {
@@ -50,8 +50,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Priority getPriority() {
+        return priority;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("a/" + this.getPriority().getValue() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

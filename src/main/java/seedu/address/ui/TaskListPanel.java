@@ -17,7 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
@@ -26,7 +26,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> personListView;
+    private ListView<ReadOnlyTask> taskListView;
 
     public TaskListPanel() {
         super();
@@ -47,22 +47,22 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
-        TaskListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
-        personListPanel.configure(personList);
-        return personListPanel;
+    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyTask> taskList) {
+        TaskListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        taskListPanel.configure(taskList);
+        return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyTask> taskList) {
+        setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new TaskListViewCell());
+    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+        taskListView.setItems(taskList);
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,9 +72,9 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
@@ -82,8 +82,8 @@ public class TaskListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            taskListView.scrollTo(index);
+            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -93,14 +93,14 @@ public class TaskListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }

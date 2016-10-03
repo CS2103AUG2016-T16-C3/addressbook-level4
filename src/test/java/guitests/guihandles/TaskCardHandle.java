@@ -10,7 +10,7 @@ import seedu.address.model.person.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String PRIORITY_FIELD_ID = "#priority";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
 
@@ -30,7 +30,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
     public String getPhone() {
@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
 
     public boolean isSameTask(ReadOnlyTask person){
         return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
+                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getPriority().getValue());
     }
 
     @Override
