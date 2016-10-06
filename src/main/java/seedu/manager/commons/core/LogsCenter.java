@@ -33,7 +33,7 @@ public class LogsCenter {
     }
 
     /**
-     * Creates a logger with the given name the given name.
+     * Creates a logger with the given name.
      */
     public static Logger getLogger(String name) {
         Logger logger = Logger.getLogger(name);

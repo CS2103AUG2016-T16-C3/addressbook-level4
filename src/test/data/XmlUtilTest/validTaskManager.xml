@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@google.com</email>
+        <desc>Hans Muster</desc>
+        <venue isPrivate="false">9482424</venue>
+        <time isPrivate="false">hans@google.com</time>
         <priority isPrivate="false">med</priority>
     </tasks>
     <tasks>
-        <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@google.com</email>
+        <desc>Ruth Mueller</desc>
+        <venue isPrivate="false">87249245</venue>
+        <time isPrivate="false">ruth@google.com</time>
         <priority isPrivate="false">high</priority>
     </tasks>
     <tasks>
-        <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@yahoo.com</email>
+        <desc>Heinz Kurz</desc>
+        <venue isPrivate="false">95352563</venue>
+        <time isPrivate="false">heinz@yahoo.com</time>
         <priority isPrivate="false">low</priority>
     </tasks>
     <tasks>
-        <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@google.com</email>
+        <desc>Cornelia Meier</desc>
+        <venue isPrivate="false">87652533</venue>
+        <time isPrivate="false">cornelia@google.com</time>
         <priority isPrivate="false">low</priority>
     </tasks>
     <tasks>
-        <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@gmail.com</email>
+        <desc>Werner Meyer</desc>
+        <venue isPrivate="false">9482224</venue>
+        <time isPrivate="false">werner@gmail.com</time>
         <priority isPrivate="false">med</priority>
     </tasks>
     <tasks>
-        <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@gmail.com</email>
+        <desc>Lydia Kunz</desc>
+        <venue isPrivate="false">9482427</venue>
+        <time isPrivate="false">lydia@gmail.com</time>
         <priority isPrivate="false">low</priority>
     </tasks>
     <tasks>
-        <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@google.com</email>
+        <desc>Anna Best</desc>
+        <venue isPrivate="false">9482442</venue>
+        <time isPrivate="false">anna@google.com</time>
         <priority isPrivate="false">high</priority>
     </tasks>
     <tasks>
-        <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@mail.com</email>
+        <desc>Stefan Meier</desc>
+        <venue isPrivate="false">8482424</venue>
+        <time isPrivate="false">stefan@mail.com</time>
         <priority isPrivate="false">high</priority>
     </tasks>
     <tasks>
-        <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@google.com</email>
+        <desc>Martin Mueller</desc>
+        <venue isPrivate="false">8482131</venue>
+        <time isPrivate="false">hans@google.com</time>
         <priority isPrivate="false">high</priority>
     </tasks>
 </taskmanager>

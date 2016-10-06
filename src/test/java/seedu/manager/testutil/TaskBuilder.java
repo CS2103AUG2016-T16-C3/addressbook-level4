@@ -15,8 +15,8 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
-    public TaskBuilder withName(String name) throws IllegalValueException {
-        this.task.setName(new Name(name));
+    public TaskBuilder withDesc(String desc) throws IllegalValueException {
+        this.task.setDesc(new Desc(desc));
         return this;
     }
 
@@ -32,13 +32,13 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.task.setPhone(new Phone(phone));
+    public TaskBuilder withVenue(String venue) throws IllegalValueException {
+        this.task.setVenue(new Venue(venue));
         return this;
     }
 
-    public TaskBuilder withEmail(String email) throws IllegalValueException {
-        this.task.setEmail(new Email(email));
+    public TaskBuilder withTime(String time) throws IllegalValueException {
+        this.task.setTime(new Time(time));
         return this;
     }
 

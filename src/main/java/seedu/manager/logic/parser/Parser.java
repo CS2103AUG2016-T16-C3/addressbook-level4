@@ -27,9 +27,9 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
+            Pattern.compile("(?<desc>[^/]+)"
+                    + " (?<isVenuePrivate>p?)p/(?<venue>[^/]+)"
+                    + " (?<isTimePrivate>p?)e/(?<time>[^/]+)"
                     + " (?<isPriorityPrivate>p?)a/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -94,9 +94,9 @@ public class Parser {
         }
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
+                    matcher.group("desc"),
+                    matcher.group("venue"),
+                    matcher.group("time"),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );

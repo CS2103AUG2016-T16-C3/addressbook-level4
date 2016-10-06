@@ -4,30 +4,36 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 
 public abstract class TaskProperty {
     protected String value;
+    private static String MESSAGE_CONSTRAINTS;
+    private static String VALIDATION_REGEX;
     
-    public TaskProperty(String property) throws IllegalValueException {
+    public TaskProperty(String property, String validationRegex, String messageConstraints) throws IllegalValueException {
         assert property != null;
-        if (!isValid(property)) {
+        MESSAGE_CONSTRAINTS = messageConstraints;
+        VALIDATION_REGEX = validationRegex;
+        if (!isValid(property, VALIDATION_REGEX)) {
             throw new IllegalValueException(this.getMessageConstraints());
         }
         this.value = property;
     }
     
-    public boolean isValid(String test) {
-        return test.matches(this.getValidationRegex());
+    public boolean isValid(String test, String validationRegex) {
+        return test.matches(validationRegex);
     }
     
     public String getValue() {
         return this.toString();
     }
     
-    protected abstract String getMessageConstraints();
+    public int hashCode() {
+        return value.hashCode();
+    };
     
-    protected abstract String getValidationRegex();
+    public String getMessageConstraints() {
+        return MESSAGE_CONSTRAINTS;
+    };
     
     public abstract String toString();
     
     public abstract boolean equals(Object other);
-    
-    public abstract int hashCode();
 }

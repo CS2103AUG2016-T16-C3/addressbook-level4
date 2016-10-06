@@ -8,45 +8,45 @@ import seedu.manager.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
+    private Desc desc;
     private Priority priority;
-    private Email email;
-    private Phone phone;
+    private Time time;
+    private Venue venue;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setDesc(Desc desc) {
+        this.desc = desc;
     }
 
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setTime(Time time) {
+        this.time = time;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
-    }
-
-    @Override
-    public Name getName() {
-        return name;
+    public void setVenue(Venue venue) {
+        this.venue = venue;
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Desc getDesc() {
+        return desc;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public Venue getVenue() {
+        return venue;
+    }
+
+    @Override
+    public Time getTime() {
+        return time;
     }
 
     @Override
@@ -66,9 +66,9 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
+        sb.append("add " + this.getDesc().getValue() + " ");
+        sb.append("p/" + this.getVenue().getValue() + " ");
+        sb.append("e/" + this.getTime().getValue() + " ");
         sb.append("a/" + this.getPriority().getValue() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

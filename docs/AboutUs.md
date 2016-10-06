@@ -24,7 +24,9 @@ We are a team based in the [School of Computing, National University of Singapor
 **Responsibilities**:
 
 -----
+
 #### [Jiang Yisong](http://github.com/whateverJ)
+<img src="images/Jiang Yisong.png" width="150"><br><br>
 **Role**: Developer<br>
 **Responsibilities**:
 
