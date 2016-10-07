@@ -66,16 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Desc("Do CS2101 UG"), new Venue("School of Computing"), new Priority("high"), new StartTime("8:00pm"), new EndTime("9:30pm"), new UniqueTagList()),
-                    new Task(new Desc("Do CS2101 DG"), new Venue("School of Computing"), new Priority("high"), new StartTime("9:30pm"), new EndTime("11:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Do EE2021 Tutorial 4"), new Venue("Faculty of Engineering"), new Priority("high"), new StartTime("10:00am"), new EndTime("12:00pm"), new UniqueTagList()),
-                    new Task(new Desc("EE2020 project"), new Venue("E4 Lab"), new Priority("med"), new StartTime("2:00pm"), new EndTime("5:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Continue doing CS2103"), new Venue("Home"), new Priority("low"),new StartTime("8:30pm"), new EndTime("10:00pm"),  new UniqueTagList()),
-                    new Task(new Desc("CS2103 group meet-up"), new Venue("PGP R5"), new Priority("high"), new StartTime("8:00pm"), new EndTime("10:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Buy stuff for mum"), new Venue("Popular @ Junction 8"), new Priority("med"), new StartTime("6:00pm"), new EndTime("6:10pm"), new UniqueTagList()),
-                    new Task(new Desc("Help dad fix his phone"), new Venue("Home"), new Priority("high"), new StartTime("6:30pm"), new EndTime("7:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Help mum set up the computer properly"), new Venue("Home"), new Priority("med"), new StartTime("7:30pm"), new EndTime("7:40pm"), new UniqueTagList()),
-                    new Task(new Desc("Help Varun with debugging"), new Venue("School of Computing"), new Priority("high"), new StartTime("3:00pm"), new EndTime("5:30pm"), new UniqueTagList())
+                    new Task(new Desc("Ali Muster"), new Venue("9482424"), new Time("hans@google.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Desc("Boris Mueller"), new Venue("87249245"), new Time("ruth@google.com"), new Priority("low"), new UniqueTagList()),
+                    new Task(new Desc("Carl Kurz"), new Venue("95352563"), new Time("heinz@yahoo.com"), new Priority("med"), new UniqueTagList()),
+                    new Task(new Desc("Daniel Meier"), new Venue("87652533"), new Time("cornelia@google.com"), new Priority("med"), new UniqueTagList()),
+                    new Task(new Desc("Elle Meyer"), new Venue("9482224"), new Time("werner@gmail.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Desc("Fiona Kunz"), new Venue("9482427"), new Time("lydia@gmail.com"), new Priority("med"), new UniqueTagList()),
+                    new Task(new Desc("George Best"), new Venue("9482442"), new Time("anna@google.com"), new Priority("high"), new UniqueTagList()),
+                    new Task(new Desc("Hoon Meier"), new Venue("8482424"), new Time("stefan@mail.com"), new Priority("low"), new UniqueTagList()),
+                    new Task(new Desc("Ida Mueller"), new Venue("8482131"), new Time("hans@google.com"), new Priority("low"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

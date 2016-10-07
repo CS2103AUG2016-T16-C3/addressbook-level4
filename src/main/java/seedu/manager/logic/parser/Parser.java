@@ -96,10 +96,8 @@ public class Parser {
             return new AddCommand(
                     matcher.group("desc"),
                     matcher.group("venue"),
-                    //matcher.group("time"),
+                    matcher.group("time"),
                     matcher.group("priority"),
-                    matcher.group("startTime"),
-                    matcher.group("endTime"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
