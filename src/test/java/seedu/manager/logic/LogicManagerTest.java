@@ -166,13 +166,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/low", Desc.MESSAGE_DESC_CONSTRAINTS);
+                "add []\\[;] v/12345 st/1:30pm et/2:30pm p/low", Desc.MESSAGE_DESC_CONSTRAINTS);
 //        assertCommandBehavior(
 //                "add Valid Desc p/not_numbers e/valid@e.mail a/low", Venue.MESSAGE_VENUE_CONSTRAINTS);
 //        assertCommandBehavior(
 //                "add Valid Desc p/12345 e/notAnTime a/med", Time.MESSAGE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Desc p/12345 e/valid@e.mail a/med t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Desc v/12345 st/1:30pm et/2:30pm p/med t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -388,15 +388,14 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Desc desc = new Desc("Adam Brown");
-            Venue privateVenue = new Venue("111111");
-            //Time time = new Time("adam@gmail.com");
+            Venue privateVenue = new Venue("Work");
             Priority privatePriority = new Priority("med");
             StartTime privateStartTime = new StartTime("1:00pm");
             EndTime privateEndTime = new EndTime("2:00pm");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(desc, privateVenue,/*time,*/ privatePriority, privateStartTime, privateEndTime, tags);
+            return new Task(desc, privateVenue, privatePriority, privateStartTime, privateEndTime, tags);
         }
 
         /**
@@ -410,9 +409,8 @@ public class LogicManagerTest {
             return new Task(
                     new Desc("Task " + seed),
                     new Venue("" + Math.abs(seed)),
-                    //new Time(seed + "@time"),
                     new Priority(new String[] {"low", "med", "high"}[seed % 3]),
-                    new StartTime(seed + "@startTime"), new EndTime(seed + "@endTime"),
+                    new StartTime(Math.abs(seed) + "@startTime"), new EndTime(Math.abs(seed) + "@endTime"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -424,11 +422,10 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getDesc().toString());
-            cmd.append(" p/").append(p.getVenue());
-            //cmd.append(" e/").append(p.getTime());
-            cmd.append(" a/").append(p.getPriority());
+            cmd.append(" v/").append(p.getVenue());
             cmd.append(" st/").append(p.getStartTime());
             cmd.append(" et/").append(p.getEndTime());
+            cmd.append(" p/").append(p.getPriority());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -512,7 +509,6 @@ public class LogicManagerTest {
             return new Task(
                     new Desc(desc),
                     new Venue("1"),
-                    //new Time("1@time"),
                     new Priority("low"),
                     new StartTime("1@startTime"),
                     new EndTime("1@endTime"),

@@ -71,7 +71,7 @@ public class TestUtil {
                     new Task(new Desc("Do EE2021 Tutorial 4"), new Venue("Faculty of Engineering"), new Priority("high"), new StartTime("10:00am"), new EndTime("12:00pm"), new UniqueTagList()),
                     new Task(new Desc("EE2020 project"), new Venue("E4 Lab"), new Priority("med"), new StartTime("2:00pm"), new EndTime("5:00pm"), new UniqueTagList()),
                     new Task(new Desc("Continue doing CS2103"), new Venue("Home"), new Priority("low"),new StartTime("8:30pm"), new EndTime("10:00pm"),  new UniqueTagList()),
-                    new Task(new Desc("CS2103 group meet-up"), new Venue("PGP R5"), new Priority("high"), new StartTime("8:00pm"), new EndTime("10:00pm"), new UniqueTagList()),
+                    new Task(new Desc("CS2103 group meetup"), new Venue("PGP R5"), new Priority("high"), new StartTime("8:00pm"), new EndTime("10:00pm"), new UniqueTagList()),
                     new Task(new Desc("Buy stuff for mum"), new Venue("Popular @ Junction 8"), new Priority("med"), new StartTime("6:00pm"), new EndTime("6:10pm"), new UniqueTagList()),
                     new Task(new Desc("Help dad fix his phone"), new Venue("Home"), new Priority("high"), new StartTime("6:30pm"), new EndTime("7:00pm"), new UniqueTagList()),
                     new Task(new Desc("Help mum set up the computer properly"), new Venue("Home"), new Priority("med"), new StartTime("7:30pm"), new EndTime("7:40pm"), new UniqueTagList()),

@@ -46,7 +46,6 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         desc = source.getDesc().getValue();
         venue = source.getVenue().getValue();
-        //time = source.getTime().getValue();
         priority = source.getPriority().getValue();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -68,11 +67,10 @@ public class XmlAdaptedTask {
         }
         final Desc desc = new Desc(this.desc);
         final Venue venue = new Venue(this.venue);
-        //final Time time = new Time(this.time);
         final Priority priority = new Priority(this.priority);
         final StartTime startTime = new StartTime(this.startTime);
         final EndTime endTime = new EndTime(this.endTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(desc, venue, /*time,*/ priority, startTime, endTime, tags);
+        return new Task(desc, venue, priority, startTime, endTime, tags);
     }
 }

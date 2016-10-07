@@ -29,7 +29,6 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getDesc().equals(this.getDesc()) // state checks here onwards
                 && other.getVenue().equals(this.getVenue())
-                //&& other.getTime().equals(this.getTime())
                 && other.getPriority().equals(this.getPriority())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime()));
@@ -43,8 +42,6 @@ public interface ReadOnlyTask {
         builder.append(getDesc())
                 .append(" Venue: ")
                 .append(getVenue())
-                /*.append(" Time: ")
-                .append(getTime())*/
                 .append(" Priority: ")
                 .append(getPriority())
                 .append(" Start Time: ")

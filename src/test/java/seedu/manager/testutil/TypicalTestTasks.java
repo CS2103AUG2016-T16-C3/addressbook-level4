@@ -22,7 +22,7 @@ public class TypicalTestTasks {
             charlie = new TaskBuilder().withDesc("Do EE2021 Tutorial 4").withVenue("Faculty of Engineering").withStartTime("10:00am").withEndTime("12:00pm").withPriority("high").build();
             delta = new TaskBuilder().withDesc("EE2020 project").withVenue("E4 lab").withStartTime("2:00pm").withEndTime("5:00pm").withPriority("med").build();
             echo = new TaskBuilder().withDesc("Continue doing CS2103").withVenue("Home").withStartTime("8:30pm").withEndTime("10:00pm").withPriority("low").build();
-            foxtrot = new TaskBuilder().withDesc("CS2103 group meet-up").withVenue("PGP R5").withStartTime("8:00pm").withEndTime("10:00pm").withPriority("high").build();
+            foxtrot = new TaskBuilder().withDesc("CS2103 group meetup").withVenue("PGP R5").withStartTime("8:00pm").withEndTime("10:00pm").withPriority("high").build();
             golf = new TaskBuilder().withDesc("Buy stuff for mum").withVenue("Popular @ Junction 8").withStartTime("6:00pm").withEndTime("6:10pm").withPriority("med").build();
 
             //Manually added

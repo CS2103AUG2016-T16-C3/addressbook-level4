@@ -7,7 +7,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidDesc(String)}
  */
 public class Desc extends TaskProperty {
-    public static final String MESSAGE_DESC_CONSTRAINTS = "Task priorities should be either low, med or high";
+    public static final String MESSAGE_DESC_CONSTRAINTS = "Task descriptions can contain any characters";
     public static final String DESC_VALIDATION_REGEX = "[\\p{Alnum} ]+";
     
     /**

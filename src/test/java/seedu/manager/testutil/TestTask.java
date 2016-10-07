@@ -87,11 +87,10 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDesc().getValue() + " ");
-        sb.append("p/" + this.getVenue().getValue() + " ");
-        //sb.append("e/" + this.getTime().getValue() + " ");
+        sb.append("v/" + this.getVenue().getValue() + " ");
         sb.append("st/" + this.getStartTime().getValue() + " ");
         sb.append("et/" + this.getEndTime().getValue() + " ");
-        sb.append("a/" + this.getPriority().getValue() + " ");
+        sb.append("p/" + this.getPriority().getValue() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

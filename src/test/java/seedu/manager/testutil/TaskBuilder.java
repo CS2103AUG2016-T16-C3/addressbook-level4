@@ -36,12 +36,7 @@ public class TaskBuilder {
         this.task.setVenue(new Venue(venue));
         return this;
     }
-    /*
-    public TaskBuilder withTime(String time) throws IllegalValueException {
-        this.task.setTime(new Time(time));
-        return this;
-    }
-    */
+    
     public TaskBuilder withStartTime(String startTime) throws IllegalValueException {
         this.task.setStartTime(new StartTime(startTime));
         return this;
