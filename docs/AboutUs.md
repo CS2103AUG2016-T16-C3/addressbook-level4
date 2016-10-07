@@ -7,28 +7,28 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Varun Gupta](http://github.com/varung97) <br>
 <img src="images/Varun.png" width="150"><br><br>
 **Role**: Developer<br>
-**Responsibilities**:
+**Responsibilities**: Logic, Model
 
 -----
 
 #### [Gary Tang](https://github.com/e0003506)
 <img src="images/Gary.png" width="150"><br><br>
 **Role**: Developer<br>
-**Responsibilities**:
+**Responsibilities**: Storage
 
 -----
 
 #### [Zhao Dingfan](https://github.com/ZhaoDingfan)
 <img src="images/Zhao Dingfan.png" width="150"><br><br>
 **Role**: Developer<br>
-**Responsibilities**:
+**Responsibilities**: UI
 
 -----
 
 #### [Jiang Yisong](http://github.com/whateverJ)
 <img src="images/Jiang Yisong.png" width="150"><br><br>
 **Role**: Developer<br>
-**Responsibilities**:
+**Responsibilities**: Commons
 
 -----
 
