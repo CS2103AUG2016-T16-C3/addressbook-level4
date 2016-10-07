@@ -389,12 +389,14 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Desc desc = new Desc("Adam Brown");
             Venue privateVenue = new Venue("111111");
-            Time time = new Time("adam@gmail.com");
+            //Time time = new Time("adam@gmail.com");
             Priority privatePriority = new Priority("med");
+            StartTime privateStartTime = new StartTime("1:00pm");
+            EndTime privateEndTime = new EndTime("2:00pm");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(desc, privateVenue, time, privatePriority, tags);
+            return new Task(desc, privateVenue,/*time,*/ privatePriority, privateStartTime, privateEndTime, tags);
         }
 
         /**
@@ -408,8 +410,9 @@ public class LogicManagerTest {
             return new Task(
                     new Desc("Task " + seed),
                     new Venue("" + Math.abs(seed)),
-                    new Time(seed + "@time"),
+                    //new Time(seed + "@time"),
                     new Priority(new String[] {"low", "med", "high"}[seed % 3]),
+                    new StartTime(seed + "@startTime"), new EndTime(seed + "@endTime"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -422,8 +425,10 @@ public class LogicManagerTest {
 
             cmd.append(p.getDesc().toString());
             cmd.append(" p/").append(p.getVenue());
-            cmd.append(" e/").append(p.getTime());
+            //cmd.append(" e/").append(p.getTime());
             cmd.append(" a/").append(p.getPriority());
+            cmd.append(" st/").append(p.getStartTime());
+            cmd.append(" et/").append(p.getEndTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -507,8 +512,10 @@ public class LogicManagerTest {
             return new Task(
                     new Desc(desc),
                     new Venue("1"),
-                    new Time("1@time"),
+                    //new Time("1@time"),
                     new Priority("low"),
+                    new StartTime("1@startTime"),
+                    new EndTime("1@endTime"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
