@@ -13,28 +13,32 @@ public class Task implements ReadOnlyTask {
 
     private Desc desc;
     private Venue venue;
-    private Time time;
+    //private Time time;
     private Priority priority;
+    private StartTime startTime;
+    private EndTime endTime;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Desc desc, Venue venue, Time time, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(desc, venue, time, priority, tags);
+    public Task(Desc desc, Venue venue, /*Time time,*/ Priority priority, StartTime startTime, EndTime endTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(desc, venue, /*time,*/ priority, startTime, endTime, tags);
         this.venue = venue;
         this.desc = desc;
-        this.time = time;
+        //this.time = time;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDesc(), source.getVenue(), source.getTime(), source.getPriority(), source.getTags());
+        this(source.getDesc(), source.getVenue(), /*source.getTime(),*/ source.getPriority(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
 
     @Override
@@ -47,10 +51,12 @@ public class Task implements ReadOnlyTask {
         return venue;
     }
 
+    /*
     @Override
     public Time getTime() {
         return time;
     }
+    */
 
     @Override
     public Priority getPriority() {
@@ -60,6 +66,16 @@ public class Task implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+
+    @Override
+    public StartTime getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public EndTime getEndTime() {
+        return endTime;
     }
 
     /**
@@ -79,7 +95,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(desc, venue, time, priority, tags);
+        return Objects.hash(desc, venue, /*time,*/ priority, tags, startTime, endTime);
     }
 
     @Override
