@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <desc>Hans Muster</desc>
-        <venue isPrivate="false">9482424</venue>
-        <time isPrivate="false">hans@google.com</time>
+        <desc>Do CS2101 UG</desc>
+        <venue isPrivate="false">School of Computing</venue>
+        <startTime isPrivate="false">2:30pm</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">med</priority>
     </tasks>
     <tasks>
-        <desc>Ruth Mueller</desc>
-        <venue isPrivate="false">87249245</venue>
-        <time isPrivate="false">ruth@google.com</time>
+        <desc>Do CS2101 DG</desc>
+        <venue isPrivate="false">School of Computing</venue>
+        <startTime isPrivate="false">3:30pm</startTime>
+        <endTime isPrivate="false">4:00pm</endTime>
         <priority isPrivate="false">high</priority>
     </tasks>
     <tasks>
-        <desc>Heinz Kurz</desc>
-        <venue isPrivate="false">95352563</venue>
-        <time isPrivate="false">heinz@yahoo.com</time>
+        <desc>Do EE2021 Tutorial 4</desc>
+        <venue isPrivate="false">FoE</venue>
+        <startTime isPrivate="false">10:00am</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">low</priority>
     </tasks>
     <tasks>
-        <desc>Cornelia Meier</desc>
-        <venue isPrivate="false">87652533</venue>
-        <time isPrivate="false">cornelia@google.com</time>
+        <desc>EE2020 project</desc>
+        <venue isPrivate="false">FoE</venue>
+        <startTime isPrivate="false">2:30pm</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">low</priority>
     </tasks>
     <tasks>
-        <desc>Werner Meyer</desc>
-        <venue isPrivate="false">9482224</venue>
-        <time isPrivate="false">werner@gmail.com</time>
+        <desc>Continue doing CS2103</desc>
+        <venue isPrivate="false">Home</venue>
+        <startTime isPrivate="false">2:30pm</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">med</priority>
     </tasks>
     <tasks>
-        <desc>Lydia Kunz</desc>
-        <venue isPrivate="false">9482427</venue>
-        <time isPrivate="false">lydia@gmail.com</time>
+        <desc>CS2103 group meetup</desc>
+        <venue isPrivate="false">PGP R5</venue>
+        <startTime isPrivate="false">2:30pm</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">low</priority>
     </tasks>
     <tasks>
-        <desc>Anna Best</desc>
-        <venue isPrivate="false">9482442</venue>
-        <time isPrivate="false">anna@google.com</time>
+        <desc>Buy stuff for mum</desc>
+        <venue isPrivate="false">Popular</venue>
+        <startTime isPrivate="false">2:30pm</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">high</priority>
     </tasks>
     <tasks>
-        <desc>Stefan Meier</desc>
-        <venue isPrivate="false">8482424</venue>
-        <time isPrivate="false">stefan@mail.com</time>
+        <desc>Help dad fix his phone</desc>
+        <venue isPrivate="false">Home</venue>
+        <startTime isPrivate="false">2:30pm</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">high</priority>
     </tasks>
     <tasks>
-        <desc>Martin Mueller</desc>
-        <venue isPrivate="false">8482131</venue>
-        <time isPrivate="false">hans@google.com</time>
+        <desc>Help mum set up the computer properly</desc>
+        <venue isPrivate="false">Home</venue>
+        <startTime isPrivate="false">2:30pm</startTime>
+        <endTime isPrivate="false">2:45pm</endTime>
         <priority isPrivate="false">high</priority>
     </tasks>
 </taskmanager>

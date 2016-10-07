@@ -33,7 +33,8 @@
                         </HBox>
                         <Label fx:id="venue" styleClass="cell_small_label" text="\$venue" />
                         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-                        <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
+                        <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
+                        <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
                     </children>
                 </VBox>
             </children>
