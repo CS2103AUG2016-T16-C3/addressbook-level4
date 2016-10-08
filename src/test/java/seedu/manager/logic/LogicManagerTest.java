@@ -13,8 +13,6 @@ import seedu.manager.model.TaskManager;
 import seedu.manager.model.Model;
 import seedu.manager.model.ModelManager;
 import seedu.manager.model.ReadOnlyTaskManager;
-import seedu.manager.model.tag.Tag;
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.*;
 import seedu.manager.storage.StorageManager;
 
@@ -171,9 +169,6 @@ public class LogicManagerTest {
 //                "add Valid Desc p/not_numbers e/valid@e.mail a/low", Venue.MESSAGE_VENUE_CONSTRAINTS);
 //        assertCommandBehavior(
 //                "add Valid Desc p/12345 e/notAnTime a/med", Time.MESSAGE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Desc v/12345 st/1:30pm et/2:30pm p/med t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
 
     @Test
@@ -392,10 +387,7 @@ public class LogicManagerTest {
             Priority privatePriority = new Priority("med");
             StartTime privateStartTime = new StartTime("1:00pm");
             EndTime privateEndTime = new EndTime("2:00pm");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(desc, privateVenue, privatePriority, privateStartTime, privateEndTime, tags);
+            return new Task(desc, privateVenue, privatePriority, privateStartTime, privateEndTime);
         }
 
         /**
@@ -410,8 +402,7 @@ public class LogicManagerTest {
                     new Desc("Task " + seed),
                     new Venue("" + Math.abs(seed)),
                     new Priority(new String[] {"low", "med", "high"}[seed % 3]),
-                    new StartTime(Math.abs(seed) + "@startTime"), new EndTime(Math.abs(seed) + "@endTime"),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new StartTime(Math.abs(seed) + "@startTime"), new EndTime(Math.abs(seed) + "@endTime")
             );
         }
 
@@ -426,11 +417,6 @@ public class LogicManagerTest {
             cmd.append(" st/").append(p.getStartTime());
             cmd.append(" et/").append(p.getEndTime());
             cmd.append(" p/").append(p.getPriority());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
 
             return cmd.toString();
         }
@@ -511,8 +497,7 @@ public class LogicManagerTest {
                     new Venue("1"),
                     new Priority("low"),
                     new StartTime("1@startTime"),
-                    new EndTime("1@endTime"),
-                    new UniqueTagList(new Tag("tag"))
+                    new EndTime("1@endTime")
             );
         }
     }

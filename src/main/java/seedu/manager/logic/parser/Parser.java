@@ -28,11 +28,10 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<desc>[^/]+)"
-                    + " (?<isVenuePrivate>p?)v/(?<venue>[^/]+)"
-                    + " (?<isStartTimePrivate>p?)st/(?<startTime>[^/]+)"
-                    + " (?<isEndTimePrivate>p?)et/(?<endTime>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + " v/(?<venue>[^/]+)"
+                    + " st/(?<startTime>[^/]+)"
+                    + " et/(?<endTime>[^/]+)"
+                    + " p/(?<priority>[^/]+)");
 
     public Parser() {}
 
@@ -97,29 +96,13 @@ public class Parser {
             return new AddCommand(
                     matcher.group("desc"),
                     matcher.group("venue"),
-                    //matcher.group("time"),
                     matcher.group("priority"),
                     matcher.group("startTime"),
-                    matcher.group("endTime"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher.group("endTime")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**

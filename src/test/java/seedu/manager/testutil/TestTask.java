@@ -1,6 +1,5 @@
 package seedu.manager.testutil;
 
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.*;
 
 /**
@@ -14,10 +13,8 @@ public class TestTask implements ReadOnlyTask {
     private Venue venue;
     private StartTime startTime;
     private EndTime endTime;
-    private UniqueTagList tags;
 
     public TestTask() {
-        tags = new UniqueTagList();
     }
 
     public void setDesc(Desc desc) {
@@ -27,11 +24,7 @@ public class TestTask implements ReadOnlyTask {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-    /*
-    public void setTime(Time time) {
-        this.time = time;
-    }
-    */
+    
     public void setVenue(Venue venue) {
         this.venue = venue;
     }
@@ -75,11 +68,6 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return tags;
-    }
-
-    @Override
     public String toString() {
         return getAsText();
     }
@@ -91,7 +79,6 @@ public class TestTask implements ReadOnlyTask {
         sb.append("st/" + this.getStartTime().getValue() + " ");
         sb.append("et/" + this.getEndTime().getValue() + " ");
         sb.append("p/" + this.getPriority().getValue() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 }

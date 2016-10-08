@@ -18,8 +18,6 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.FileUtil;
 import seedu.manager.commons.util.XmlUtil;
 import seedu.manager.model.TaskManager;
-import seedu.manager.model.tag.Tag;
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.*;
 import seedu.manager.storage.XmlSerializableTaskManager;
 
@@ -66,36 +64,21 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Desc("Do CS2101 UG"), new Venue("School of Computing"), new Priority("high"), new StartTime("8:00pm"), new EndTime("9:30pm"), new UniqueTagList()),
-                    new Task(new Desc("Do CS2101 DG"), new Venue("School of Computing"), new Priority("high"), new StartTime("9:30pm"), new EndTime("11:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Do EE2021 Tutorial 4"), new Venue("Faculty of Engineering"), new Priority("high"), new StartTime("10:00am"), new EndTime("12:00pm"), new UniqueTagList()),
-                    new Task(new Desc("EE2020 project"), new Venue("E4 Lab"), new Priority("med"), new StartTime("2:00pm"), new EndTime("5:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Continue doing CS2103"), new Venue("Home"), new Priority("low"),new StartTime("8:30pm"), new EndTime("10:00pm"),  new UniqueTagList()),
-                    new Task(new Desc("CS2103 group meetup"), new Venue("PGP R5"), new Priority("high"), new StartTime("8:00pm"), new EndTime("10:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Buy stuff for mum"), new Venue("Popular @ Junction 8"), new Priority("med"), new StartTime("6:00pm"), new EndTime("6:10pm"), new UniqueTagList()),
-                    new Task(new Desc("Help dad fix his phone"), new Venue("Home"), new Priority("high"), new StartTime("6:30pm"), new EndTime("7:00pm"), new UniqueTagList()),
-                    new Task(new Desc("Help mum set up the computer properly"), new Venue("Home"), new Priority("med"), new StartTime("7:30pm"), new EndTime("7:40pm"), new UniqueTagList()),
-                    new Task(new Desc("Help Varun with debugging"), new Venue("School of Computing"), new Priority("high"), new StartTime("3:00pm"), new EndTime("5:30pm"), new UniqueTagList())
+                    new Task(new Desc("Do CS2101 UG"), new Venue("School of Computing"), new Priority("high"), new StartTime("8:00pm"), new EndTime("9:30pm")),
+                    new Task(new Desc("Do CS2101 DG"), new Venue("School of Computing"), new Priority("high"), new StartTime("9:30pm"), new EndTime("11:00pm")),
+                    new Task(new Desc("Do EE2021 Tutorial 4"), new Venue("Faculty of Engineering"), new Priority("high"), new StartTime("10:00am"), new EndTime("12:00pm")),
+                    new Task(new Desc("EE2020 project"), new Venue("E4 Lab"), new Priority("med"), new StartTime("2:00pm"), new EndTime("5:00pm")),
+                    new Task(new Desc("Continue doing CS2103"), new Venue("Home"), new Priority("low"),new StartTime("8:30pm"), new EndTime("10:00pm")),
+                    new Task(new Desc("CS2103 group meetup"), new Venue("PGP R5"), new Priority("high"), new StartTime("8:00pm"), new EndTime("10:00pm")),
+                    new Task(new Desc("Buy stuff for mum"), new Venue("Popular @ Junction 8"), new Priority("med"), new StartTime("6:00pm"), new EndTime("6:10pm")),
+                    new Task(new Desc("Help dad fix his phone"), new Venue("Home"), new Priority("high"), new StartTime("6:30pm"), new EndTime("7:00pm")),
+                    new Task(new Desc("Help mum set up the computer properly"), new Venue("Home"), new Priority("med"), new StartTime("7:30pm"), new EndTime("7:40pm")),
+                    new Task(new Desc("Help Varun with debugging"), new Venue("School of Computing"), new Priority("high"), new StartTime("3:00pm"), new EndTime("5:30pm"))
             };
         } catch (IllegalValueException e) {
             assert false;
             //not possible
             return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
         }
     }
 
@@ -137,7 +120,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyTaskManager() {
-        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
+        return new TaskManager(new UniqueTaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageTaskManager() {
@@ -331,26 +314,4 @@ public class TestUtil {
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
-    }
-
 }

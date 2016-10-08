@@ -3,7 +3,6 @@ package seedu.manager.model.task;
 import java.util.Objects;
 
 import seedu.manager.commons.util.CollectionUtil;
-import seedu.manager.model.tag.UniqueTagList;
 
 /**
  * Represents a Task in the task manager.
@@ -18,17 +17,14 @@ public class Task implements ReadOnlyTask {
     private StartTime startTime;
     private EndTime endTime;
 
-    private UniqueTagList tags;
-
     /**
      * Every field must be present and not null.
      */
-    public Task(Desc desc, Venue venue, Priority priority, StartTime startTime, EndTime endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, tags);
+    public Task(Desc desc, Venue venue, Priority priority, StartTime startTime, EndTime endTime) {
+        assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime);
         this.venue = venue;
         this.desc = desc;
         this.priority = priority;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -37,7 +33,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDesc(), source.getVenue(), source.getPriority(), source.getStartTime(), source.getEndTime(), source.getTags());
+        this(source.getDesc(), source.getVenue(), source.getPriority(), source.getStartTime(), source.getEndTime());
     }
 
     @Override
@@ -56,11 +52,6 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    @Override
     public StartTime getStartTime() {
         return startTime;
     }
@@ -68,13 +59,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public EndTime getEndTime() {
         return endTime;
-    }
-
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
     }
 
     @Override
@@ -87,7 +71,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(desc, venue, priority, tags, startTime, endTime);
+        return Objects.hash(desc, venue, priority, startTime, endTime);
     }
 
     @Override

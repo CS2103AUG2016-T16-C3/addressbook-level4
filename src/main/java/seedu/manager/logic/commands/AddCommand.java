@@ -1,11 +1,6 @@
 package seedu.manager.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.tag.Tag;
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.*;
 
 /**
@@ -30,20 +25,14 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String desc, String venue, /*String time,*/ String priority, String startTime, String endTime, Set<String> tags)
+    public AddCommand(String desc, String venue, String priority, String startTime, String endTime)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toAdd = new Task(
                 new Desc(desc),
                 new Venue(venue),
-                //new Time(time),
                 new Priority(priority),
                 new StartTime(startTime),
-                new EndTime(endTime),
-                new UniqueTagList(tagSet)
+                new EndTime(endTime)
         );
     }
 
