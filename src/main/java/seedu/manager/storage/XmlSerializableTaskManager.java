@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.ReadOnlyTaskManager;
 import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.Task;
 import seedu.manager.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
@@ -43,7 +44,8 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
-                lists.add(p.toModelType());
+                Task toAdd = p.toModelType(); 
+                lists.add(toAdd);
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }

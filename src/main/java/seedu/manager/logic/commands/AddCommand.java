@@ -1,7 +1,11 @@
 package seedu.manager.logic.commands;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
+import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * Adds a task to the task manager.
@@ -25,14 +29,13 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String desc, String venue, String priority, String startTime, String endTime)
+    public AddCommand(HashMap<TaskProperties, Optional<TaskProperty>> properties)
             throws IllegalValueException {
+        if (!properties.get(TaskProperties.DESC).isPresent()) {
+            throw new IllegalValueException(MESSAGE_USAGE);
+        }
         this.toAdd = new Task(
-                new Desc(desc),
-                new Venue(venue),
-                new Priority(priority),
-                new StartTime(startTime),
-                new EndTime(endTime)
+                properties
         );
     }
 

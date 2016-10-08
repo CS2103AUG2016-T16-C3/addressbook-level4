@@ -1,9 +1,13 @@
 package seedu.manager.storage;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
+import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * JAXB-friendly version of the Task.
@@ -33,11 +37,11 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        desc = source.getDesc().getValue();
-        venue = source.getVenue().getValue();
-        priority = source.getPriority().getValue();
-        startTime = source.getStartTime().getValue();
-        endTime = source.getEndTime().getValue();
+        desc = source.getDesc().get().getValue();
+        venue = source.getVenue().isPresent() ? source.getVenue().get().getValue() : "";
+        priority = source.getPriority().isPresent() ? source.getPriority().get().getValue() : "";
+        startTime = source.getStartTime().isPresent() ? source.getStartTime().get().getValue() : "";
+        endTime = source.getEndTime().isPresent() ? source.getEndTime().get().getValue() : "";
     }
 
     /**
@@ -46,11 +50,6 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final Desc desc = new Desc(this.desc);
-        final Venue venue = new Venue(this.venue);
-        final Priority priority = new Priority(this.priority);
-        final StartTime startTime = new StartTime(this.startTime);
-        final EndTime endTime = new EndTime(this.endTime);
         return new Task(desc, venue, priority, startTime, endTime);
     }
 }

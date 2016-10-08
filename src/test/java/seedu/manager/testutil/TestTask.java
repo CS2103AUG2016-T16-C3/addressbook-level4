@@ -1,70 +1,63 @@
 package seedu.manager.testutil;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 import seedu.manager.model.task.*;
+import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
-
-    private Desc desc;
-    private Priority priority;
-    //private Time time;
-    private Venue venue;
-    private StartTime startTime;
-    private EndTime endTime;
+    private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 
     public TestTask() {
     }
 
     public void setDesc(Desc desc) {
-        this.desc = desc;
+        this.properties.put(TaskProperties.DESC, Optional.of(desc));
     }
 
     public void setPriority(Priority priority) {
-        this.priority = priority;
+        this.properties.put(TaskProperties.PRIORITY, Optional.of(priority));
     }
     
     public void setVenue(Venue venue) {
-        this.venue = venue;
+        this.properties.put(TaskProperties.VENUE, Optional.of(venue));
     }
 
     public void setStartTime(StartTime startTime) {
-    	this.startTime = startTime;
+        this.properties.put(TaskProperties.STARTTIME, Optional.of(startTime));
     }
 
     public void setEndTime(EndTime endTime) {
-    	this.endTime = endTime;
+        this.properties.put(TaskProperties.ENDTIME, Optional.of(endTime));
     }
 
     @Override
-    public Desc getDesc() {
-        return desc;
+    public Optional<TaskProperty> getDesc() {
+        return properties.get(TaskProperties.DESC);
     }
 
     @Override
-    public Venue getVenue() {
-        return venue;
+    public Optional<TaskProperty> getVenue() {
+        return properties.get(TaskProperties.VENUE);
     }
-    /*
+    
     @Override
-    public Time getTime() {
-        return time;
-    }
-    */
-    @Override
-    public Priority getPriority() {
-        return priority;
+    public Optional<TaskProperty> getPriority() {
+        return properties.get(TaskProperties.PRIORITY);
     }
 
     @Override
-    public StartTime getStartTime() {
-        return startTime;
+    public Optional<TaskProperty> getStartTime() {
+        return properties.get(TaskProperties.STARTTIME);
     }
 
     @Override
-    public EndTime getEndTime() {
-        return endTime;
+    public Optional<TaskProperty> getEndTime() {
+        return properties.get(TaskProperties.ENDTIME);
     }
 
     @Override
@@ -74,11 +67,23 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getDesc().getValue() + " ");
-        sb.append("v/" + this.getVenue().getValue() + " ");
-        sb.append("st/" + this.getStartTime().getValue() + " ");
-        sb.append("et/" + this.getEndTime().getValue() + " ");
-        sb.append("p/" + this.getPriority().getValue() + " ");
+        sb.append("add " + this.getDesc().get().getValue() + " ");
+        if (this.getVenue().isPresent()) {
+            sb.append("venue " + this.getVenue().get().getValue() + " ");  
+        }
+        if (this.getPriority().isPresent()) {
+            sb.append("priority " + this.getPriority().get().getValue() + " ");
+        }
+        if (this.getStartTime().isPresent()) {
+            sb.append("after " + this.getStartTime().get().getValue() + " ");
+        }
+        sb.append("before " + this.getEndTime().get().getValue() + " ");
         return sb.toString();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public HashMap<TaskProperties, Optional<TaskProperty>> getProperties() {
+        return (HashMap<TaskProperties, Optional<TaskProperty>>) properties.clone();
     }
 }

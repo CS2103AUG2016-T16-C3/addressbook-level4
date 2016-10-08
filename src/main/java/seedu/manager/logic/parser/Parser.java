@@ -25,13 +25,8 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<desc>[^/]+)"
-                    + " v/(?<venue>[^/]+)"
-                    + " st/(?<startTime>[^/]+)"
-                    + " et/(?<endTime>[^/]+)"
-                    + " p/(?<priority>[^/]+)");
+    
+    private static final ExtensionParser extParser = new ExtensionParser();
 
     public Parser() {}
 
@@ -87,18 +82,15 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+//        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+//        // Validate arg string format
+//        if (!matcher.matches()) {
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+//        }
+        
         try {
             return new AddCommand(
-                    matcher.group("desc"),
-                    matcher.group("venue"),
-                    matcher.group("priority"),
-                    matcher.group("startTime"),
-                    matcher.group("endTime")
+                    extParser.getTask(args)
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

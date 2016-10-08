@@ -1,17 +1,22 @@
 package seedu.manager.model.task;
 
+import java.util.HashMap;
+import java.util.Optional;
+
+import seedu.manager.model.task.Task.TaskProperties;
+
 /**
  * A read-only immutable interface for a Task in the taskmanager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
 
-    Desc getDesc();
-    Venue getVenue();
-    //Time getTime();
-    Priority getPriority();
-    StartTime getStartTime();
-    EndTime getEndTime();
+    Optional<TaskProperty> getDesc();
+    Optional<TaskProperty> getVenue();
+    Optional<TaskProperty> getPriority();
+    Optional<TaskProperty> getStartTime();
+    Optional<TaskProperty> getEndTime();
+    HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -31,6 +36,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
+        // TODO: Change string rep
         builder.append(getDesc())
                 .append(" Venue: ")
                 .append(getVenue())
