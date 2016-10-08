@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        assert model != null;
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
