@@ -14,6 +14,7 @@ import seedu.manager.model.Model;
 import seedu.manager.model.ModelManager;
 import seedu.manager.model.ReadOnlyTaskManager;
 import seedu.manager.model.task.*;
+import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.storage.StorageManager;
 
 import org.junit.After;
@@ -25,7 +26,9 @@ import org.junit.rules.TemporaryFolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -149,22 +152,73 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-//        assertCommandBehavior(
-//                "add wrong args wrong args", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Desc 12345 e/valid@time.butNoVenuePrefix a/med", expectedMessage);
+    public void execute_edit_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        assertCommandBehavior(
+                "edit no index wrong args", expectedMessage);
+        assertCommandBehavior(
+                "edit 1", expectedMessage);
 //        assertCommandBehavior(
 //                "add Valid Desc p/12345 valid@time.butNoPrefix a/low", expectedMessage);
 //        assertCommandBehavior(
 //                "add Valid Desc p/12345 e/valid@time.butNoAddressPrefix low", expectedMessage);
     }
+    
+    @Test
+    public void execute_edit_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.adam();
+        model.addTask(toBeAdded);
+        
+        HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
+                toBeAdded.getProperties();
+        newProps.put(TaskProperties.DESC, Optional.of(new Desc("Dinner with Guinevere")));
+        
+        Task newTask = new Task(newProps);        
+        
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(newTask);
+        
+        String editCommand = "edit 1 Dinner with Guinevere";
+        
+        assertCommandBehavior(
+                editCommand, 
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, newTask), 
+                expectedTM, 
+                expectedTM.getTaskList()
+        );
+        
+        assertCommandBehavior(
+                editCommand, 
+                String.format(EditCommand.MESSAGE_DUPLICATE_PARAMS, newTask), 
+                expectedTM, 
+                expectedTM.getTaskList()
+        );
+        
+        HashMap<TaskProperties, Optional<TaskProperty>> newProps1 = 
+                newTask.getProperties();
+        newProps1.put(TaskProperties.DESC, Optional.of(new Desc("Dinner with Lancelot")));
+        newProps1.put(TaskProperties.VENUE, Optional.of(new Venue("Avalon")));
+        
+        Task newTask1 = new Task(newProps1);
+        
+        expectedTM.removeTask(newTask);
+        expectedTM.addTask(newTask1);
+        
+        String editCommand1 = "edit 1 Dinner with Lancelot venue Avalon";
+        
+        assertCommandBehavior(
+                editCommand1, 
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, newTask1), 
+                expectedTM,
+                expectedTM.getTaskList()
+        );
+    }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
-//        assertCommandBehavior(
-//                "add []\\[;] v/12345 st/1:30pm et/2:30pm p/low", Desc.MESSAGE_DESC_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Dinner with Lancelot venue Acceptable Venue priority wrong", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
 //        assertCommandBehavior(
 //                "add Valid Desc p/not_numbers e/valid@e.mail a/low", Venue.MESSAGE_VENUE_CONSTRAINTS);
 //        assertCommandBehavior(
@@ -415,6 +469,23 @@ public class LogicManagerTest {
             cmd.append(" priority ").append(p.getPriority().get().toString());
 
             return cmd.toString();
+        }
+        
+        /**
+         * Generates new and edited properties for edit command 
+         */
+        Task makeNewAndEditedProperties(HashMap<TaskProperties, Optional<TaskProperty>> editedProperties,
+                HashMap<TaskProperties, Optional<TaskProperty>> newProperties) {
+            for (TaskProperties prop : editedProperties.keySet()) {
+                newProperties.put(prop, editedProperties.get(prop));
+            }
+            for (TaskProperties prop : TaskProperties.values()) {
+                if (!editedProperties.containsKey(prop)) {
+                    editedProperties.put(prop, Optional.empty());
+                }
+            }
+            
+            return new Task(newProperties);
         }
 
         /**

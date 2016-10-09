@@ -11,8 +11,12 @@ import seedu.manager.model.task.Task.TaskProperties;
  */
 public class TestTask implements ReadOnlyTask {
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-
+    
     public TestTask() {
+    }
+    
+    public TestTask(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
+        this.properties = properties;
     }
 
     public void setDesc(Desc desc) {

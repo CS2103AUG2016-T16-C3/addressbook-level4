@@ -56,8 +56,8 @@ public class EditCommand extends Command {
         
         try {
             Task newTask = new Task(buildNewPropsFromOldAndEdited(taskToEdit.getProperties(), editedProperties));
-            model.deleteTask(taskToEdit);
             model.addTask(newTask);
+            model.deleteTask(taskToEdit);
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newTask));
         } catch (TaskNotFoundException e) {
             return new CommandResult("The target task cannot be missing");
