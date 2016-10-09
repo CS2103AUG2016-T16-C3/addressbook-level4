@@ -37,15 +37,20 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         // TODO: Change string rep
-        builder.append(getDesc())
-                .append(" Venue: ")
-                .append(getVenue())
-                .append(" Priority: ")
-                .append(getPriority())
-                .append(" Start Time: ")
-                .append(getStartTime())
-                .append(" End Time: ")
-                .append(getEndTime());
+        builder.append(getDesc().get());
+        
+        if (getVenue().isPresent()) {
+            builder.append(" Venue: ").append(getVenue().get());
+        }
+        if (getPriority().isPresent()) {
+            builder.append(" Priority: ").append(getPriority().get());
+        }
+        if (getStartTime().isPresent()) {
+            builder.append(" Start Time: ").append(getStartTime().get());
+        }
+        if (getEndTime().isPresent()) {
+            builder.append(" End Time: ").append(getEndTime().get());
+        }
         return builder.toString();
     }
 

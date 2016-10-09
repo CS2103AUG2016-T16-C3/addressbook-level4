@@ -42,7 +42,7 @@ public class ExtensionParser {
     static {
         EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.value).toArray(size -> new String[size]));
         EXTENSIONS_DESC_FORMAT = 
-                Pattern.compile("(^.+?(?=(?:(?:\\s(?:"
+                Pattern.compile("(^.*?(?=(?:(?:(\\s|^)(?:"
                         + EXTENSION_REGEX_OPTIONS
                         + ")\\s)|$)))");
         EXTENSIONS_ARGS_FORMAT =
@@ -58,7 +58,7 @@ public class ExtensionParser {
     /**
      * Build task from extensions
      */
-    public HashMap<Task.TaskProperties, Optional<TaskProperty>> getTask(String extensionsStr) throws IllegalValueException {
+    public HashMap<Task.TaskProperties, Optional<TaskProperty>> getTaskProperties(String extensionsStr) throws IllegalValueException {
         HashMap<Task.TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
         extensionsStr = extensionsStr.trim();
         
@@ -68,7 +68,9 @@ public class ExtensionParser {
         
         Matcher descMatcher = EXTENSIONS_DESC_FORMAT.matcher(extensionsStr);
         if (descMatcher.find()) {
-            properties.put(TaskProperties.DESC, Optional.of(parseDesc(descMatcher.group())));
+            String desc = descMatcher.group();
+            properties.put(TaskProperties.DESC, 
+                    desc.equals("") ? Optional.empty() : Optional.of(parseDesc(desc)));
             if (descMatcher.find()) {
                 throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
             }
@@ -107,19 +109,24 @@ public class ExtensionParser {
             
             switch (matchedCommand) {
             case VENUE:
-                properties.put(TaskProperties.VENUE, Optional.of(parseVenue(arguments)));
+                properties.put(TaskProperties.VENUE, 
+                        arguments.equals("") ? Optional.empty() : Optional.of(parseVenue(arguments)));
                 break;
             case BEFORE:
-                properties.put(TaskProperties.ENDTIME, Optional.of(parseEndTime(arguments)));
+                properties.put(TaskProperties.ENDTIME, 
+                        arguments.equals("") ? Optional.empty() : Optional.of(parseEndTime(arguments)));
                 break;
             case AFTER:
-                properties.put(TaskProperties.STARTTIME, Optional.of(parseStartTime(arguments)));
+                properties.put(TaskProperties.STARTTIME, 
+                        arguments.equals("") ? Optional.empty() : Optional.of(parseStartTime(arguments)));
                 break;
             case AT:
-                properties.put(TaskProperties.STARTTIME, Optional.of(parseStartTime(arguments)));
+                properties.put(TaskProperties.STARTTIME, 
+                        arguments.equals("") ? Optional.empty() : Optional.of(parseStartTime(arguments)));
                 break;
             case PRIORITY:
-                properties.put(TaskProperties.PRIORITY, Optional.of(parsePriority(arguments)));
+                properties.put(TaskProperties.PRIORITY, 
+                        arguments.equals("") ? Optional.empty() : Optional.of(parsePriority(arguments)));
                 break;
             default:
                 throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
@@ -130,6 +137,7 @@ public class ExtensionParser {
     }
     
     private TaskProperty parseDesc(String desc) throws IllegalValueException {
+        
         return new Desc(desc);
     }
     

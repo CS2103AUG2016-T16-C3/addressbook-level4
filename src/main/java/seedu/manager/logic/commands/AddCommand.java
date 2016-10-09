@@ -15,9 +15,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: DESC v/VENUE st/STARTTIME et/ENDTIME p/PRIORITY \n"
+            + "Parameters: DESC [<extensions>] \n"
             + "Example: " + COMMAND_WORD
-            + " Dinner with Lancelot v/Avalon st/8:30pm et/9:00pm p/high";
+            + " Dinner with Lancelot venue Avalon after 8:30pm before 9:00pm priority med";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
@@ -34,9 +34,7 @@ public class AddCommand extends Command {
         if (!properties.get(TaskProperties.DESC).isPresent()) {
             throw new IllegalValueException(MESSAGE_USAGE);
         }
-        this.toAdd = new Task(
-                properties
-        );
+        this.toAdd = new Task(properties);
     }
 
     @Override

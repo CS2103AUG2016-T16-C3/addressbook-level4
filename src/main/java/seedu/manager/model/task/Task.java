@@ -11,7 +11,7 @@ import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * Represents a Task in the task manager.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: description is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
     

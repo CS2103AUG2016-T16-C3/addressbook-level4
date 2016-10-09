@@ -8,7 +8,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  */
 public class Desc extends TaskProperty {
     public static final String MESSAGE_DESC_CONSTRAINTS = "Task descriptions can contain any characters";
-    public static final String DESC_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String DESC_VALIDATION_REGEX = ".+";
     public static final String COMMAND_WORD = "desc";
     
     /**
