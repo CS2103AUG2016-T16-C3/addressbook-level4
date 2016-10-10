@@ -21,8 +21,8 @@ public class Task implements ReadOnlyTask {
 
     
     public Task(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
-//        assert properties.get(TaskProperties.DESC).isPresent();
-//        assert !properties.get(TaskProperties.DESC).get().getValue().equals("");
+        assert properties.get(TaskProperties.DESC).isPresent();
+        assert !properties.get(TaskProperties.DESC).get().getValue().equals("");
         
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
             this.properties.put(prop.getKey(), prop.getValue());
@@ -33,8 +33,8 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(String desc, String venue, String priority, String startTime, String endTime) throws IllegalValueException {
-//       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime);
-//       assert !desc.equals("");
+       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime);
+       assert !desc.equals("");
        
        properties.put(TaskProperties.DESC, Optional.of(new Desc(desc)));
        properties.put(TaskProperties.VENUE, venue == "" ? Optional.empty() : Optional.of(new Venue(venue)));
