@@ -2,12 +2,10 @@ package seedu.manager.model.task;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Optional;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.CollectionUtil;
-import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * Represents a Task in the task manager.
@@ -23,6 +21,9 @@ public class Task implements ReadOnlyTask {
 
     
     public Task(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
+//        assert properties.get(TaskProperties.DESC).isPresent();
+//        assert !properties.get(TaskProperties.DESC).get().getValue().equals("");
+        
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
             this.properties.put(prop.getKey(), prop.getValue());
         }
@@ -32,9 +33,10 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(String desc, String venue, String priority, String startTime, String endTime) throws IllegalValueException {
-       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime);
+//       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime);
+//       assert !desc.equals("");
        
-       properties.put(TaskProperties.DESC, desc == "" ? Optional.empty() : Optional.of(new Desc(desc)));
+       properties.put(TaskProperties.DESC, Optional.of(new Desc(desc)));
        properties.put(TaskProperties.VENUE, venue == "" ? Optional.empty() : Optional.of(new Venue(venue)));
        properties.put(TaskProperties.PRIORITY, priority == "" ? Optional.empty() : Optional.of(new Priority(priority)));
        properties.put(TaskProperties.STARTTIME, startTime == "" ? Optional.empty() : Optional.of(new StartTime(startTime)));

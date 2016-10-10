@@ -150,12 +150,72 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
+    @Test
+    public void execute_add_invalidTaskData() throws Exception {
+        assertCommandBehavior(
+                "add Dinner with Lancelot venue Acceptable Venue priority wrong", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+        assertCommandBehavior(
+                "add venue No Description priority low", AddCommand.MESSAGE_USAGE);
+    }
 
+    @Test
+    public void execute_add_only_desc_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.guinevere();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_add_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.lancelot();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+
+    @Test
+    public void execute_addDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.guinevere();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task manager
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    
     @Test
     public void execute_edit_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "edit no index wrong args", expectedMessage);
+                "edit no index", expectedMessage);
         assertCommandBehavior(
                 "edit 1", expectedMessage);
 //        assertCommandBehavior(
@@ -167,7 +227,7 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.lancelot();
         model.addTask(toBeAdded);
         
         HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
@@ -213,52 +273,6 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedTM.getTaskList()
         );
-    }
-
-    @Test
-    public void execute_add_invalidTaskData() throws Exception {
-        assertCommandBehavior(
-                "add Dinner with Lancelot venue Acceptable Venue priority wrong", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Desc p/not_numbers e/valid@e.mail a/low", Venue.MESSAGE_VENUE_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Desc p/12345 e/notAnTime a/med", Time.MESSAGE_CONSTRAINTS);
-    }
-
-    @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
-
-        // setup starting state
-        model.addTask(toBeAdded); // task already in internal task manager
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
-                expectedAB,
-                expectedAB.getTaskList());
-
     }
 
 
@@ -435,8 +449,12 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            return new Task("Adam Brown", "Work", "med", "1:00pm", "2:00pm");
+        Task guinevere() throws Exception {
+            return new Task("Picnic with Guinevere", "", "", "", "");
+        }
+        
+        Task lancelot() throws Exception {
+            return new Task("Joust with Lancelot", "Avalon", "", "", "med");
         }
 
         /**
@@ -463,10 +481,18 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getDesc().get().toString());
-            cmd.append(" venue ").append(p.getVenue().get().toString());
-            cmd.append(" after ").append(p.getStartTime().get().toString());
-            cmd.append(" before ").append(p.getEndTime().get().toString());
-            cmd.append(" priority ").append(p.getPriority().get().toString());
+            if (p.getVenue().isPresent()) {
+                cmd.append(" venue ").append(p.getVenue().get().toString());
+            }
+            if (p.getStartTime().isPresent()) {
+                cmd.append(" after ").append(p.getStartTime().get().toString());
+            }
+            if (p.getEndTime().isPresent()) {
+                cmd.append(" before ").append(p.getEndTime().get().toString());
+            }
+            if (p.getPriority().isPresent()) {
+                cmd.append(" priority ").append(p.getPriority().get().toString());
+            }
 
             return cmd.toString();
         }
