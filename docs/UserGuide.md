@@ -258,11 +258,11 @@ Format: `after <time> [<date>]`
 
 Examples:
   * `add Pay bills #after 11:50pm 30 Dec 2030`
-  * `#edit 2 #after 11:59pm 30 Dec 2030`
-  * `#find #after 11am`
+  * `edit 2 after 11:59pm 30 Dec 2030`
+  * `find after 11am`
 
 
-<br>
+<!-- <br>
 <a id="duration"></a>
 #### For a certain duration: `#duration`
 _Allows you to specify how long the task will last._<br>
@@ -274,108 +274,97 @@ Time units is one of mins/hours/days/weeks/years
 Examples:
   * `#add Mid-term exam #at 7pm 3 Oct 2016 #duration 1 hr`
   * `#edit 2 #duration 2 weeks`
-  * `#find #duration 3 hrs`
+  * `#find #duration 3 hrs` -->
 
-
-<br>
 <a id="remind"></a>
-#### Getting reminders: `#remind`
+#### Getting reminders: `remind`
 _Feeling forgetful? Get reminders using this command._<br>
-Format: `#remind <time> [<date>], [<further times and dates>]`
+Format: `remind <time> [<date>], [<further times and dates>]`
 
 > Will send you a reminder by email at the time and date specified. See format [here](#time-date)
 
 Examples:
-  * `#add Meeting with Boss #at 1pm #remind 11am`
-  * `#add Meeting with Boss #at 1pm #remind 11am, 12:30pm`
-  * `#add Complete Assignment #remind 7am 10 Oct, 7am 11 Oct`
+  * `add Meeting with Boss at 1pm remind 11am`
+  * `add Meeting with Boss at 1pm remind 11am, 12:30pm`
+  * `add Complete Assignment remind 7am 10 Oct, 7am 11 Oct`
 
-
-<br>
 <a id="venue"></a>
-#### At a Venue: `#venue`
-_Going to university and ended up at the mall? Remember your destination with this extension._<br>
-Format: `#venue <description of venue>`
+#### At a Venue: `venue`
+_Go to university and end up at the mall? Remember your destination with this extension._<br>
+Format: `venue <description of venue>`
 
 > The venue description is just stored as plain text
 
 Examples:
-  * `#add Lunch with Arthur #venue Avalon`
-  * `#edit 1 #venue Round Table`
-  * `#find #venue Avalon`
+  * `add Lunch with Arthur venue Avalon`
+  * `edit 1 venue Round Table`
+  * `find venue Avalon`
 
-
-<br>
-<a id="repeat"></a>
-#### Recurring Task: `#repeatevery`
-_Saves you from having to type in a task multiple times._<br>
-Format: `#repeatevery <number> <time units>`
+<!-- <a id="repeat"></a>
+#### Recurring Task: `repeatevery`
+_Save you from having to type in a task multiple times._<br>
+Format: `repeatevery <number> <time units>`
 
 > Number specifies how often the task should repeat. For example, #repeatevery 3 weeks would repeat every 3 weeks<br> Time units is one of hours/weeks/months/years
 
 Examples:
-  * `#add Lunch with Arthur #at 8pm #repeatevery 2 weeks`
-  * `#add 2103T Tutorial #at 4pm #repeatevery 1 weeks`
-  * `#edit 1 #repeatevery 3 months`
+  * `add Lunch with Arthur at 8pm repeatevery 2 weeks`
+  * `add 2103T Tutorial at 4pm repeatevery 1 weeks`
+  * `edit 1 repeatevery 3 months` -->
 
-
-<br>
 <a id="priority"></a>
-#### Priority level for tasks: `#priority`
+#### Priority level for tasks: `priority`
 _Assign a priority level to tasks._<br>
-Format: `#priority <low/med/high>`
+Format: `priority <low/med/high>`
 
-> Helps give levels of importance to tasks <br>
-You can sort by priority so that it is easier to decide what task to do next<br>
-Priority level can be low, medium or high
+> Help to give levels of importance to tasks. <br>
+You can sort by priority so that it is easier to decide what task to do next. <br>
+Priority level can be low, medium or high. <br>
 
 Examples:
-  * `#add Lunch with Arthur #priority high`
-  * `#edit 1 #priority med`
-  * `#find #priority high`
+  * `add Lunch with Arthur priority high`
+  * `edit 1 priority med`
+  * `find priority high`
 
-
-<br>
 <a id="sort"></a>
-#### Sort by priority level: `#sort`
+#### Sort by priority level: `sort`
 _Sort your find results by priority._<br>
-Format: `#sort`
+Format: `sort`
 
-> ONLY works with find
+> ONLY works with find!
 
 Examples:
-  * `#find #before 7pm #sort`
-  * `#find #after 1pm 12 Oct #sort`
-  * `#find #sort`
-    * Displays all tasks sorted by priority
-  * `#sort`
-    * Okay, we lied. You can use `#sort` without primary commands to.
-    * Sorts the currently displayed tasks by priority
+  * `find before 7pm sort`
+  * `find after 1pm 12 Oct sort`
+  * `find sort`
+    * Display all tasks sorted by priority
+  * `sort`
+    * Okay, we lied. You can use `sort` without primary commands.
+    * Sort the currently displayed tasks by priority.
 
 
 <br>
 <a id="float"></a>
-#### find for floating tasks: `#float`
+#### find for floating tasks: `float`
 _Let's you find for floating tasks (tasks with no specified time and date)._<br>
-Format: `#float`
+Format: `float`
 
 > ONLY works with find<br>
 Will match any task without a set time and date
 
 Examples:
-  * `#find #float`
-  * `#find #float #venue Avalon`
-  * `#find #float #priority high`
+  * `find float`
+  * `find float venue Avalon`
+  * `find float priority high`
 
 
-<br>
 ## Data Formats
 
 <a id="time-date"></a>
 * `time and date`: `time or date or both`
-  > Formats of [time](#time) and [date](#date) are below<br>
-  Time defaults to 12:01 am if not specified<br>
-  Date defaults to the current date if not specified
+  > Formats of [time](#time) and [date](#date) are below. <br>
+  Time defaults to 12:01 am if not specified. <br>
+  Date defaults to the current date if not specified. <br>
 
   Examples:
   * `7pm 5 Oct`
@@ -384,7 +373,6 @@ Examples:
   * `1pm`
     * Stored as `1pm <today's date>`
 
-<br>
 <a id="time"></a>
 * `time`: `<hour>[:<minutes>]<am/pm>`<br>
   Examples:
@@ -393,21 +381,18 @@ Examples:
   * `1:00pm`
   * `2:02am`
 
-<br>
 <a id="hour"></a>
 * `hour`: `<number 1-12>`<br>
   Examples:
   * `7`
   * `12`
 
-<br>
 <a id="minutes"></a>
 * `minutes`: `<2-digit number 00-59>`<br>
   Examples:
   * `03`
   * `58`
 
-<br>
 <a id="date"></a>
 * `date`: `<day> <month> [<year>]`<br>
   > Year defaults to current year if not specified
@@ -417,14 +402,12 @@ Examples:
   * `5 Nov`
   * `1 Jan 2017`
 
-<br>
 <a id="day"></a>
 * `day`: `<number 1-31>`<br>
   Examples:
   * `1`
   * `31`
 
-<br>
 <a id="month"></a>
 * `month`: `<3-letter abbreviation>`<br>
   Examples:
@@ -432,7 +415,6 @@ Examples:
   * `Mar`
   * `Sep`
 
-<br>
 <a id="year"></a>
 * `year`: `4-digit integer`<br>
   Examples:
@@ -440,34 +422,31 @@ Examples:
   * `2020`
 
 
-<br>
 ## Cheat Sheet
 
 Type | Command | Format
 :--------: | :--------: | ----- |
-Primary | [Help](#help) | `#help [#<command>]`
-Primary | [Add](#add) | `#add <task description> [<extensions>]`
-Primary | [find](#find) | `#find [<extensions>]`
-Primary | [Edit](#edit) | `#edit <task number> [<extensions>]`
-Primary | [Delete](#delete) | `#delete <task number>`
-Primary | [Done](#done) | `#done <task number>`
-Primary | [Undo](#undo) | `#undo [<number of changes>]`
-Primary | [Redo](#redo) | `#redo [<number of changes>]`
-Primary | [Exit](#exit) | `#exit`
-Primary | [Storage](#storage) | `#storage </absolute/path/to/folder>`
-Primary | [Alias](#alias) | `#alias #<old command> #<new command>`
-Primary | [Command Char](#commandchar) | `#commandchar <new command character>`
-Primary | [Email](#email) | `#email <your email id>`
-Extension | [At](#at) | `#at <time> [<date>], [<further times and dates>]`
-Extension | [Before](#before) | `#before <time> [<date>]`
-Extension | [After](#after) | `#after <time> [<date>]`
-Extension | [Duration](#duration) | `#duration <number> <time units>`
-Extension | [Remind](#remind) | `#remind <time> [<date>], [<further times and dates>]`
-Extension | [Venue](#venue) | `#venue <description of venue>`
-Extension | [Repeat](#repeat) | `#repeatevery <number> <time units>`
-Extension | [Priority](#priority) | `#priority <low/med/high>`
-Extension | [Sort](#sort) | `#sort`
-Extension | [Float](#float) | `#float`
+Primary | [Help](#help) | `help [<command>]`
+Primary | [Add](#add) | `add <task description> [<extensions>]`
+Primary | [find](#find) | `find [<extensions>]`
+Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
+Primary | [Delete](#delete) | `delete <task number>`
+Primary | [Done](#done) | `done <task number>`
+Primary | [Undo](#undo) | `undo [<number of changes>]`
+Primary | [Redo](#redo) | `redo [<number of changes>]`
+Primary | [Exit](#exit) | `exit`
+Primary | [Storage](#storage) | `storage </absolute/path/to/folder>`
+Primary | [Alias](#alias) | `alias <old command> #<new command>`
+Primary | [Email](#email) | `email <your email id>`
+Extension | [At](#at) | `at <time> [<date>], [<further times and dates>]`
+Extension | [Before](#before) | `before <time> [<date>]`
+Extension | [After](#after) | `after <time> [<date>]`
+Extension | [Remind](#remind) | `remind <time> [<date>], [<further times and dates>]`
+Extension | [Venue](#venue) | `venue <description of venue>`
+Extension | [Repeat](#repeat) | `repeatevery <number> <time units>`
+Extension | [Priority](#priority) | `priority <low/med/high>`
+Extension | [Sort](#sort) | `sort`
+Extension | [Float](#float) | `float`
 Data | [Time and Date](#time-date) | `time or date or both`
 Data | [Time](#time) | `<hour>[:<minutes>]<am/pm>`
 Data | [Hour](#hour) | `<number 1-12>`
@@ -476,3 +455,9 @@ Data | [Date](#date) | `<day> <month> [<year>]`
 Data | [Day](#day) | `<number 1-31>`
 Data | [Month](#month) | `<3-letter abbreviation>`
 Data | [Year](#year) | `<4-digit number>`
+
+
+
+
+<!-- Primary | [Command Char](#commandchar) | `#commandchar <new command character>`
+Extension | [Duration](#duration) | `#duration <number> <time units>` -->
