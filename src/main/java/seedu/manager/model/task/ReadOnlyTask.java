@@ -1,6 +1,9 @@
 package seedu.manager.model.task;
 
-import seedu.manager.model.tag.UniqueTagList;
+import java.util.HashMap;
+import java.util.Optional;
+
+import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * A read-only immutable interface for a Task in the taskmanager.
@@ -8,18 +11,12 @@ import seedu.manager.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Desc getDesc();
-    Venue getVenue();
-    //Time getTime();
-    Priority getPriority();
-    StartTime getStartTime();
-    EndTime getEndTime();
-
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
-     */
-    UniqueTagList getTags();
+    Optional<TaskProperty> getDesc();
+    Optional<TaskProperty> getVenue();
+    Optional<TaskProperty> getPriority();
+    Optional<TaskProperty> getStartTime();
+    Optional<TaskProperty> getEndTime();
+    HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -39,32 +36,22 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDesc())
-                .append(" Venue: ")
-                .append(getVenue())
-                .append(" Priority: ")
-                .append(getPriority())
-                .append(" Start Time: ")
-                .append(getStartTime())
-                .append(" End Time: ")
-                .append(getEndTime())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        return builder.toString();
-    }
-
-    /**
-     * Returns a string representation of this Task's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
+        // TODO: Change string rep
+        builder.append(getDesc().get());
+        
+        if (getVenue().isPresent()) {
+            builder.append(" Venue: ").append(getVenue().get());
         }
+        if (getPriority().isPresent()) {
+            builder.append(" Priority: ").append(getPriority().get());
+        }
+        if (getStartTime().isPresent()) {
+            builder.append(" Start Time: ").append(getStartTime().get());
+        }
+        if (getEndTime().isPresent()) {
+            builder.append(" End Time: ").append(getEndTime().get());
+        }
+        return builder.toString();
     }
 
 }

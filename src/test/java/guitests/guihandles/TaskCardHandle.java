@@ -1,9 +1,12 @@
 package guitests.guihandles;
 
+import java.util.Optional;
+
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.TaskProperty;
 
 /**
  * Provides a handle to a task card in the task list panel.
@@ -47,10 +50,21 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullDesc().equals(task.getDesc().getValue()) && getVenue().equals(task.getVenue().getValue())
-                 && getPriority().equals(task.getPriority().getValue())
-                 && getStartTime().equals(task.getStartTime().getValue())
-                 && getEndTime().equals(task.getEndTime().getValue());
+        return compareStringandOptional(getFullDesc(), task.getDesc()) &&
+                compareStringandOptional(getVenue(), task.getVenue()) &&
+                compareStringandOptional(getPriority(), task.getPriority()) &&
+                compareStringandOptional(getStartTime(), task.getStartTime()) &&
+                compareStringandOptional(getEndTime(), task.getEndTime());
+    }
+    
+    private boolean compareStringandOptional(String string, Optional<TaskProperty> optional) {
+        if (string == "" && !optional.isPresent()) {
+            return true;
+        } else if (string == "" || !optional.isPresent()) {
+            return false;
+        } else {
+            return string.equals(optional.get().getValue());
+        }
     }
 
     @Override
