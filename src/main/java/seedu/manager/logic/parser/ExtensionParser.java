@@ -23,7 +23,7 @@ import seedu.manager.model.task.Venue;
  */
 public class ExtensionParser {
     
-    private static enum ExtensionCmds {
+    public static enum ExtensionCmds {
         VENUE("venue"), BEFORE("before"), AT("at"), AFTER("after"), PRIORITY("priority");
         
         private String value;
@@ -31,16 +31,22 @@ public class ExtensionParser {
         private ExtensionCmds(String value) {
             this.value = value;
         }
+        
+        public String getValue() {
+            return value;
+        }
     };
     private static final String EXTENSION_REGEX_OPTIONS;
     private static final Pattern EXTENSIONS_DESC_FORMAT;
     private static final Pattern EXTENSIONS_ARGS_FORMAT;
     private static final Pattern EXTENSION_ARGS_FORMAT = 
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>"; 
+    private static final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
+    
+    public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s"; 
     
     static {
-        EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.value).toArray(size -> new String[size]));
+        EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.getValue()).toArray(size -> new String[size]));
         EXTENSIONS_DESC_FORMAT = 
                 Pattern.compile("(^.*?(?=(?:(?:(\\s|^)(?:"
                         + EXTENSION_REGEX_OPTIONS
@@ -68,7 +74,7 @@ public class ExtensionParser {
         
         Matcher descMatcher = EXTENSIONS_DESC_FORMAT.matcher(extensionsStr);
         if (descMatcher.find()) {
-            String desc = descMatcher.group();
+            String desc = descMatcher.group().trim();
             properties.put(TaskProperties.DESC, 
                     desc.equals("") ? Optional.empty() : Optional.of(parseDesc(desc)));
             if (descMatcher.find()) {
@@ -109,23 +115,28 @@ public class ExtensionParser {
             
             switch (matchedCommand) {
             case VENUE:
+                throwExceptionIfDuplicate(properties, TaskProperties.VENUE, ExtensionCmds.VENUE);
                 properties.put(TaskProperties.VENUE, 
                         arguments.equals("") ? Optional.empty() : Optional.of(parseVenue(arguments)));
                 break;
             case BEFORE:
+                throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.BEFORE);
                 properties.put(TaskProperties.ENDTIME, 
                         arguments.equals("") ? Optional.empty() : Optional.of(parseEndTime(arguments)));
                 break;
             case AFTER:
+                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.AFTER);
                 properties.put(TaskProperties.STARTTIME, 
                         arguments.equals("") ? Optional.empty() : Optional.of(parseStartTime(arguments)));
                 break;
             case AT:
+                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.AT);
                 properties.put(TaskProperties.STARTTIME, 
                         arguments.equals("") ? Optional.empty() : Optional.of(parseStartTime(arguments)));
                 break;
             case PRIORITY:
-                properties.put(TaskProperties.PRIORITY, 
+                throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, ExtensionCmds.PRIORITY);
+                properties.put(TaskProperties.PRIORITY,
                         arguments.equals("") ? Optional.empty() : Optional.of(parsePriority(arguments)));
                 break;
             default:
@@ -133,6 +144,13 @@ public class ExtensionParser {
             }
         } else {
             throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
+        }
+    }
+    
+    private void throwExceptionIfDuplicate(HashMap<Task.TaskProperties, Optional<TaskProperty>> properties,
+            TaskProperties taskProperty, ExtensionCmds extensionCmd) throws IllegalValueException {
+        if (properties.get(taskProperty).isPresent()) {
+            throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionCmd.getValue()));
         }
     }
     
