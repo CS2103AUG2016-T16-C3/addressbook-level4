@@ -9,6 +9,7 @@ import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
 import seedu.manager.logic.commands.*;
+import seedu.manager.logic.parser.ExtensionParser;
 import seedu.manager.model.TaskManager;
 import seedu.manager.model.Model;
 import seedu.manager.model.ModelManager;
@@ -214,14 +215,19 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "edit no index", expectedMessage);
-        assertCommandBehavior(
-                "edit 1", expectedMessage);
+        assertCommandBehavior("edit no index", expectedMessage);
+        assertCommandBehavior("edit 1", expectedMessage);
 //        assertCommandBehavior(
 //                "add Valid Desc p/12345 valid@time.butNoPrefix a/low", expectedMessage);
 //        assertCommandBehavior(
 //                "add Valid Desc p/12345 e/valid@time.butNoAddressPrefix low", expectedMessage);
+    }
+    
+    @Test
+    public void execute_edit_invalidFromToFormat() throws Exception {
+        String expectedMessage = ExtensionParser.EXTENSION_FROM_TO_INVALID_FORMAT;
+        assertCommandBehavior("edit 1 from 7:30-8:30", expectedMessage);
+        assertCommandBehavior("edit 1 from 7:30", expectedMessage);
     }
     
     @Test
@@ -270,6 +276,26 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 editCommand1, 
                 String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, newTask1), 
+                expectedTM,
+                expectedTM.getTaskList()
+        );
+        
+        HashMap<TaskProperties, Optional<TaskProperty>> newProps2 = 
+                newTask1.getProperties();
+        newProps2.put(TaskProperties.STARTTIME, Optional.of(new StartTime("7:30pm")));
+        newProps2.put(TaskProperties.ENDTIME, Optional.of(new EndTime("8:50pm")));
+        newProps2.put(TaskProperties.PRIORITY, Optional.of(new Priority("low")));
+        
+        Task newTask2 = new Task(newProps2);
+        
+        expectedTM.removeTask(newTask1);
+        expectedTM.addTask(newTask2);
+        
+        String editCommand2 = "edit 1 from 7:30pm to 8:50pm priority low";
+        
+        assertCommandBehavior(
+                editCommand2, 
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, newTask2), 
                 expectedTM,
                 expectedTM.getTaskList()
         );
