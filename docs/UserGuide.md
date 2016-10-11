@@ -131,7 +131,7 @@ Examples:
   * `done 1`
   * `done 3`
 
-<a id="undo"></a>
+<!-- <a id="undo"></a>
 #### Undoing previous changes: `undo`
 _Made a mistake? Go back in time using this command!_<br>
 Format: `undo [<number of changes>]`
@@ -141,9 +141,9 @@ Max number of changes that you can undo is 25.
 
 Examples:
   * `undo`
-  * `undo 3`
+  * `undo 3` -->
 
-<a id="redo"></a>
+<!-- <a id="redo"></a>
 #### Redoing undone changes: `redo`
 _Made a mistake correcting a mistake? Use redo before you confuse yourself any further._<br>
 Format: `redo [<number of changes>]`
@@ -152,7 +152,7 @@ Format: `redo [<number of changes>]`
 
 Examples:
   * `redo`
-  * `redo 3`
+  * `redo 3` -->
 
 <a id="exit"></a>
 #### Exiting the task manager: `exit`
@@ -162,7 +162,7 @@ Format: `exit`
 Examples:
   * `exit`
 
-<a id="storage"></a>
+<!-- <a id="storage"></a>
 #### Specifying storage folder: `storage`
 _Wanna specify the path? This command allows you to specify where the storage file should be kept._<br>
 Format: `storage </absolute/path/to/folder>`
@@ -172,9 +172,9 @@ If this is set to a cloud storage folder, such as Dropbox, then this allows you 
 
 Examples:
   * `storage /Documents/TaskManager/Storage`
-  * `storage /Dropbox/MyTodoList/Storage`
+  * `storage /Dropbox/MyTodoList/Storage` -->
 
-<a id="alias"></a>
+<!-- <a id="alias"></a>
 #### Changing command names: `alias`
 _Prefer shorter or more personalised commands? Alias is here to help you change command names._<br>
 Format: `alias <old command> <new command>`
@@ -188,7 +188,7 @@ Examples:
     * Change `delete` to `-`, then delete 1st task on screen using this command
   * `alias undo u`<br>
     `u 4`
-    * Change `undo` to `u`, then undo previous 4 actions using this command
+    * Change `undo` to `u`, then undo previous 4 actions using this command -->
 
 <!-- As there is no more command character, "commandchar" will not be used anymore. -->
 
@@ -206,14 +206,14 @@ Examples:
     `-add Dinner with Mum` -->
 
 
-<a id="email"></a>
+<!-- <a id="email"></a>
 #### Specify your email: `email`
 _Supply the task manager with your email (for reminders)._<br>
 Format: `email <your email id>`
 
 Examples:
   * `email mileycyrus@weird.com`
-  * `email arthur@king.com`
+  * `email arthur@king.com` -->
 
 #### Reminder: Saving the data
 Tasks are saved in the hard disk automatically after any command that changes the data.<br>
@@ -276,7 +276,7 @@ Examples:
   * `#edit 2 #duration 2 weeks`
   * `#find #duration 3 hrs` -->
 
-<a id="remind"></a>
+<!-- <a id="remind"></a>
 #### Getting reminders: `remind`
 _Feeling forgetful? Get reminders using this command._<br>
 Format: `remind <time> [<date>], [<further times and dates>]`
@@ -286,7 +286,7 @@ Format: `remind <time> [<date>], [<further times and dates>]`
 Examples:
   * `add Meeting with Boss at 1pm remind 11am`
   * `add Meeting with Boss at 1pm remind 11am, 12:30pm`
-  * `add Complete Assignment remind 7am 10 Oct, 7am 11 Oct`
+  * `add Complete Assignment remind 7am 10 Oct, 7am 11 Oct` -->
 
 <a id="venue"></a>
 #### At a Venue: `venue`
@@ -432,18 +432,11 @@ Primary | [find](#find) | `find [<extensions>]`
 Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
 Primary | [Delete](#delete) | `delete <task number>`
 Primary | [Done](#done) | `done <task number>`
-Primary | [Undo](#undo) | `undo [<number of changes>]`
-Primary | [Redo](#redo) | `redo [<number of changes>]`
 Primary | [Exit](#exit) | `exit`
-Primary | [Storage](#storage) | `storage </absolute/path/to/folder>`
-Primary | [Alias](#alias) | `alias <old command> #<new command>`
-Primary | [Email](#email) | `email <your email id>`
 Extension | [At](#at) | `at <time> [<date>], [<further times and dates>]`
 Extension | [Before](#before) | `before <time> [<date>]`
 Extension | [After](#after) | `after <time> [<date>]`
-Extension | [Remind](#remind) | `remind <time> [<date>], [<further times and dates>]`
 Extension | [Venue](#venue) | `venue <description of venue>`
-Extension | [Repeat](#repeat) | `repeatevery <number> <time units>`
 Extension | [Priority](#priority) | `priority <low/med/high>`
 Extension | [Sort](#sort) | `sort`
 Extension | [Float](#float) | `float`
@@ -460,4 +453,10 @@ Data | [Year](#year) | `<4-digit number>`
 
 
 <!-- Primary | [Command Char](#commandchar) | `#commandchar <new command character>`
+Primary | [Undo](#undo) | `undo [<number of changes>]`
+Primary | [Redo](#redo) | `redo [<number of changes>]`
+Primary | [Alias](#alias) | `alias <old command> #<new command>`
+Primary | [Email](#email) | `email <your email id>`
+Extension | [Remind](#remind) | `remind <time> [<date>], [<further times and dates>]`
+Extension | [Repeat](#repeat) | `repeatevery <number> <time units>`
 Extension | [Duration](#duration) | `#duration <number> <time units>` -->
