@@ -149,25 +149,25 @@ Likeliness | As a... | I want to... | So that I can...
 `L` | User | Add tasks with only a description | Set tasks that need to be completed at some point of time
 `L` | User | Modify a task | Update deadlines and descriptions
 `L` | User | Delete a task | Reflect my not having to do a task anymore in my to do list
-`U` | User | Tick off a task | Record that this task is complete
-`U` | User | Search for (a) task(s) | Find (a) task(s) and maybe edit it
-`U` | User | See upcoming tasks | Decide what to do next
+`L` | User | Tick off a task | Record that this task is complete
+`L` | User | Search for (a) task(s) | Find (a) task(s) and maybe edit it
+`L` | User | See upcoming tasks | Decide what to do next
 `U` | User | List [floating tasks](#floating-task) | See whether I want to complete a floating task next
-`U` | User | Assign priority to tasks | Gauge which task should be done next
+`L` | User | Assign priority to tasks | Gauge which task should be done next
 `U` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
-`U` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
-`U` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
+`L` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
+`L` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
 `U` | User | Block multiple slots for a task | Choose later which slot I want to assign this task to and keep the selected slots free for that task
 `U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
-`U` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
+`L` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
 `U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
-`U` | User | Undo operation(s) | Remove a mistake
+`L` | User | Undo operation(s) | Remove a mistake
 `U` | User | Redo operation(s) | Redo a change that had been undone
 `U` | User | Declare recurring tasks | Remove the need to enter these tasks multiple times
 `U` | User | Search for empty slots (within a given time frame) | Decide when to schedule a task
-`U` | User | Specify a folder as the storage area | Access the tasks from multiple computers using cloud storage, or open them from a local storage.
-`U` | Advanced User | Edit the storage file | Make changes without having to go through the manager
-`U` | Advanced User | Declare my own names for commands | Personalise the experience and make it faster
+`L` | User | Specify a folder as the storage area | Access the tasks from multiple computers using cloud storage, or open them from a local storage.
+`L` | Advanced User | Edit the storage file | Make changes without having to go through the manager
+`L` | Advanced User | Declare my own names for commands | Personalise the experience and make it faster
 `U` | User | Integrate with third-party applications like GCalendar | Access my tasks on another platform too
 
 
