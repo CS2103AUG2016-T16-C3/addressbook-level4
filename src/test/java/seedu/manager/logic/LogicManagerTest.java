@@ -153,9 +153,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add Dinner with Lancelot venue Acceptable Venue priority wrong", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Dinner with Lancelot at Acceptable Venue priority wrong", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add venue No Description priority low", AddCommand.MESSAGE_USAGE);
+                "add at No Description priority low", AddCommand.MESSAGE_USAGE);
     }
 
     @Test
@@ -265,7 +265,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
         
-        String editCommand1 = "edit 1 Dinner with Lancelot venue Avalon";
+        String editCommand1 = "edit 1 Dinner with Lancelot at Avalon";
         
         assertCommandBehavior(
                 editCommand1, 
@@ -482,7 +482,7 @@ public class LogicManagerTest {
 
             cmd.append(p.getDesc().get().toString());
             if (p.getVenue().isPresent()) {
-                cmd.append(" venue ").append(p.getVenue().get().toString());
+                cmd.append(" at ").append(p.getVenue().get().toString());
             }
             if (p.getStartTime().isPresent()) {
                 cmd.append(" after ").append(p.getStartTime().get().toString());

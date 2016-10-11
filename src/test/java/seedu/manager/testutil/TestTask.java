@@ -73,7 +73,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDesc().get().getValue() + " ");
         if (this.getVenue().isPresent()) {
-            sb.append("venue " + this.getVenue().get().getValue() + " ");  
+            sb.append("at " + this.getVenue().get().getValue() + " ");  
         }
         if (this.getPriority().isPresent()) {
             sb.append("priority " + this.getPriority().get().getValue() + " ");
