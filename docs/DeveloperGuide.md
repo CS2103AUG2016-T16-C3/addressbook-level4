@@ -142,7 +142,6 @@ Likeliness | As a... | I want to... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `L` | All Users | Interact with the manager using a CLI and keys | Get rid of the need for a mouse
 `L` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
-`U` | New User | View the procedure of creating a task | Learn how to create a task first
 `L` | New User | View info about a command | Learn how to use these commands
 `L` | User | Add tasks with a description and a specific deadline | Set deadlines for tasks
 `L` | User | Add tasks with description, start time and end time | Create events in the calendar
@@ -152,24 +151,23 @@ Likeliness | As a... | I want to... | So that I can...
 `L` | User | Tick off a task | Record that this task is complete
 `L` | User | Search for (a) task(s) | Find (a) task(s) and maybe edit it
 `L` | User | See upcoming tasks | Decide what to do next
-`U` | User | List [floating tasks](#floating-task) | See whether I want to complete a floating task next
 `L` | User | Assign priority to tasks | Gauge which task should be done next
-`U` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
 `L` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
 `L` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
-`U` | User | Block multiple slots for a task | Choose later which slot I want to assign this task to and keep the selected slots free for that task
-`U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
 `L` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
-`U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
 `L` | User | Undo operation(s) | Remove a mistake
+`L` | Advanced User | Edit the storage file | Make changes without having to go through the manager
+`L` | Advanced User | Declare my own names for commands | Personalise the experience and make it faster
+`U` | New User | View the procedure of creating a task | Learn how to create a task first
 `U` | User | Redo operation(s) | Redo a change that had been undone
 `U` | User | Declare recurring tasks | Remove the need to enter these tasks multiple times
 `U` | User | Search for empty slots (within a given time frame) | Decide when to schedule a task
-`L` | User | Specify a folder as the storage area | Access the tasks from multiple computers using cloud storage, or open them from a local storage.
-`L` | Advanced User | Edit the storage file | Make changes without having to go through the manager
-`L` | Advanced User | Declare my own names for commands | Personalise the experience and make it faster
 `U` | User | Integrate with third-party applications like GCalendar | Access my tasks on another platform too
-
+`U` | User | List [floating tasks](#floating-task) | See whether I want to complete a floating task next
+`U` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
+`U` | User | Block multiple slots for a task | Choose later which slot I want to assign this task to and keep the selected slots free for that task
+`U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
+`U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
 
 ## Appendix B : Use Cases
 
@@ -198,6 +196,7 @@ Use case resumes at step 1
 #### Use case: List specific tasks
 
 **MSS**
+
 1. User supplies Task Manager with information about what kinds of tasks should be listed
 2. Task Manager shows the list of tasks <br>
 Use case ends.
