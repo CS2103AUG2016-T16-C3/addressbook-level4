@@ -3,6 +3,7 @@ package seedu.manager.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.manager.commons.core.EventsCenter;
+import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
@@ -217,10 +218,13 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertCommandBehavior("edit no index", expectedMessage);
         assertCommandBehavior("edit 1", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Desc p/12345 valid@time.butNoPrefix a/low", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Desc p/12345 e/valid@time.butNoAddressPrefix low", expectedMessage);
+    }
+    
+    @Test
+    public void execute_edit_indexInvalid() throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        assertCommandBehavior("edit 52 Dinner with Arthur", expectedMessage);
+        assertCommandBehavior("edit 10 Dinner with Arthur", expectedMessage);
     }
     
     @Test
@@ -388,6 +392,13 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
+    }
+    
+    @Test
+    public void execute_deleteIndexInvalid_errorMessageShown() throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        assertCommandBehavior("delete 52", expectedMessage);
+        assertCommandBehavior("delete 10", expectedMessage);
     }
 
     @Test
