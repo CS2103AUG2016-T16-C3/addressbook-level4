@@ -18,22 +18,23 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-
+    
 2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))  
+   
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 #### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
+1. Fork this repo, and clone the fork to your computer
+2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+3. Click `File` > `Import`
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+5. Click `Browse`, then locate the project's directory
+6. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
@@ -43,11 +44,13 @@
 #### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
+
 * Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
 * Solution: Refresh the project in Eclipse:<br>
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
 
 **Problem: Eclipse reports some required libraries missing**
+
 * Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
 
@@ -57,19 +60,21 @@
 Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
+
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
+
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-
+   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.manager.commons.UrlUtilTest`
@@ -81,6 +86,7 @@ We have two types of tests:
       e.g. `seedu.manager.logic.LogicManagerTest`
 
 **Headless GUI Testing** :
+
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
@@ -88,7 +94,9 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 #### Troubleshooting tests
+
  **Problem: Tests fail because NullPointException when AssertionError is expected**
+ 
  * Reason: Assertions are not enabled for JUnit tests.
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
  * Solution: Enable assertions in JUnit tests as described
@@ -111,9 +119,9 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 
 Here are the steps to create a new release.
 
- 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file). 
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
+ 3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
 ### Managing Dependencies
@@ -127,8 +135,8 @@ b. Require developers to download those libraries manually (this creates extra w
 
 
 ## Appendix A : User Stories
-Likeliness: Likely - `L`, Unlikely - `U`
 
+Likeliness: Likely - `L`, Unlikely - `U`
 
 Likeliness | As a... | I want to... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -167,7 +175,6 @@ Likeliness | As a... | I want to... | So that I can...
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise)
 
-
 #### Use case: Add a task
 
 **MSS**
@@ -188,7 +195,6 @@ Use case resumes at step 1
 > 2b1. User is notified that task already exists <br>
 Use case resumes at step 1
 
-
 #### Use case: List specific tasks
 
 **MSS**
@@ -206,7 +212,6 @@ Use case ends.
 
 > 2a1. User is shown correct format for data <br>
 Use case resumes at step 1
-
 
 #### Use case: Delete task
 
@@ -229,7 +234,6 @@ Use case ends.
 > 4a1. User is notified that index is invalid <br>
 Use case resumes at step 3
 
-
 #### Use case: Edit task
 
 **MSS**
@@ -240,6 +244,7 @@ Use case resumes at step 3
 4. Task Manager modifies the corresponding task
 
 **Extensions**
+
 2a. The list is empty
 
 > Use case ends
