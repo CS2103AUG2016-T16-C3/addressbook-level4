@@ -1,8 +1,5 @@
 # Developer Guide
 
-
-## Table of Contents
-
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
