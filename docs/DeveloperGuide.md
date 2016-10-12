@@ -441,7 +441,7 @@ Use case resumes at step 3
 We researched other task managers' special features to better understand the products available and thus enhance design of our own product. Here are the special features we found in four other products:
 
 ##### Todo.txt
-1. Uses command line to input task
+1. Uses command lines to input task
 2. Shows a piece of message of the index of task added
 3. Uses plain text as the normal text
 4. Sorts the task by priority
@@ -450,8 +450,8 @@ We researched other task managers' special features to better understand the pro
 ##### Google Calendar
 1. Very detailed, but have to click many times to add a task
 2. User can change visibility between public and private
-3. Location, video call, can change the time zone
-4. User can add attachments
+3. User can make video calls and change the time zone
+4. User can also add attachments and locations
 5. Also has a command line mode
 
 ##### Wunderlist
