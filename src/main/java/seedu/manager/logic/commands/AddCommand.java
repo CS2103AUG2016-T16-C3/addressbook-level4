@@ -1,12 +1,11 @@
 package seedu.manager.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Optional;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.tag.Tag;
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.*;
+import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * Adds a task to the task manager.
@@ -16,9 +15,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: DESC p/VENUE e/TIME a/PRIORITY  [t/TAG]...\n"
+            + "Parameters: DESC [<extensions>] \n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/med t/friends t/owesMoney";
+            + " Dinner with Lancelot venue Avalon after 8:30pm before 9:00pm priority med";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
@@ -30,21 +29,12 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String desc, String venue, /*String time,*/ String priority, String startTime, String endTime, Set<String> tags)
+    public AddCommand(HashMap<TaskProperties, Optional<TaskProperty>> properties)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
+        if (!properties.get(TaskProperties.DESC).isPresent()) {
+            throw new IllegalValueException(MESSAGE_USAGE);
         }
-        this.toAdd = new Task(
-                new Desc(desc),
-                new Venue(venue),
-                //new Time(time),
-                new Priority(priority),
-                new StartTime(startTime),
-                new EndTime(endTime),
-                new UniqueTagList(tagSet)
-        );
+        this.toAdd = new Task(properties);
     }
 
     @Override
