@@ -4,7 +4,6 @@
 * [Features](#features)
   * [Primary Commands](#primary-commands)
   * [Extensions](#extensions)
-* [Data Formats](#data-formats)
 * [Cheat Sheet](#cheat-sheet)
 
 
