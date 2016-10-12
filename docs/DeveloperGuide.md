@@ -449,10 +449,9 @@ We researched other task managers' special features to better understand the pro
 
 ##### Todo.txt
 1. Uses command lines to input task
-2. Shows a piece of message of the index of task added
-3. Uses plain text as the normal text
-4. Sorts the task by priority
-5. Allows user to enter multiple tasks in a single input box
+2. Uses plain text as the normal text
+3. Sorts the task by priority
+4. Allows user to enter multiple tasks in a single input box
 
 ##### Google Calendar
 1. Very detailed, but have to click many times to add a task
