@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -453,17 +453,17 @@ _We did a research to find out similar products' special features to enhance our
 3. Location, video call, can change the time zone
 4. Attachment
 5. Command line mode
-> For the command line mode, it inputs the task between the [start] and [end], which is different from other products on the market.
 
 ##### Wunderlist
 1. Amazing GUI
 2. Reminding message, and the "Do not disturb" button
 3. Mainly use a list to represent all the tasks rather than calendar
-4. Wunderline
-> the command line mode of Wunderlist <br>
- Use natural words as commands, put the content inside the single quotation market. <br>
- Export as JSON file. <br>
- Search by keywords without ''.
+
+##### Wunderline
+_the command line mode of Wunderlist_
+1. Use natural words as commands, put the content inside the single quotation market. <br>
+2. Export as JSON file. <br>
+3.  Search by keywords without ''.
 
 ##### Calendar Vim
 1. A calendar application for Vim
