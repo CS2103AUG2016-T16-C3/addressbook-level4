@@ -465,12 +465,11 @@ We researched other task managers' special features to better understand the pro
 1. Amazing GUI
 2. User can set reminders, additionally the "Do not disturb" button can be used to turn off reminders
 3. Mainly uses a list to represent all the tasks rather than a calendar
-
-###### Wunderline
-1. The command line mode of Wunderlist
-2. Uses natural words as commands, content is put inside single quotes
-3. Data can be exported as a JSON file
-4. Allows searching by keywords (doesn't need single quotes)
+4. Has a companion product called Wunderline
+    1. This is the command line mode of Wunderlist
+    2. Uses natural words as commands, content is put inside single quotes
+    3. Data can be exported as a JSON file
+    4. Allows searching by keywords
 
 ##### Calendar Vim
 1. A calendar application for Vim
