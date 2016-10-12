@@ -61,8 +61,8 @@
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600">
-<p align="center"><sub>Fig 1: Architecture Diagram for the App</sub></p>
+<p align="center"><img src="images/Architecture.png" width="600"><br>
+<sub>Fig 1: Architecture Diagram for the App</sub></p>
 
 <br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
@@ -95,9 +95,9 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 command `delete 3`.
 <br>
 
-<img src="images\SDforDeleteTask.png" width="800">
+<p align="center"><img src="images\SDforDeleteTask.png" width="800"><br>
 
-<p align="center"><sub>Fig 2: Sequence Diagram for Delete Task</sub></p>
+<sub>Fig 2: Sequence Diagram for Delete Task</sub></p>
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -105,9 +105,9 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the `UI` being updated to reflect the 'Last Updated' time. <br>
 
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<p align="center"><img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
 
-<p align="center"><sub>Fig 3: Sequence Diagram for Event Handling for Delete Task</sub></p>
+<sub>Fig 3: Sequence Diagram for Event Handling for Delete Task</sub></p>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -117,8 +117,8 @@ The sections below give more details of each component.
 
 ### `UI` component
 
-<img src="images/UiClassDiagram.png" width="800">
-<p align="center"><sub>Fig 4: Class Diagram for UI component</sub></p>
+<p align="center"><img src="images/UiClassDiagram.png" width="800"><br>
+<sub>Fig 4: Class Diagram for UI component</sub></p>
 
 **API** : [`Ui.java`](../src/main/java/seedu/manager/ui/Ui.java)
 
@@ -137,8 +137,8 @@ The `UI`,
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800">
-<p align="center"><sub>Fig 5: Class Diagram for Logic component</sub></p>
+<p align="center"><img src="images/LogicClassDiagram.png" width="800"><br>
+<sub>Fig 5: Class Diagram for Logic component</sub></p>
 
 **API** : [`Logic.java`](../src/main/java/seedu/manager/logic/Logic.java)
 
@@ -151,14 +151,14 @@ The `Logic`,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br><br>
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
-<p align="center"><sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></p>
+<p align="center"><img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+<sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></p>
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800">
-<p align="center"><sub>Fig 7: Class Diagram for Model component</sub></p>
+<p align="center"><img src="images/ModelClassDiagram.png" width="800"><br>
+<sub>Fig 7: Class Diagram for Model component</sub></p>
 
 **API** : [`Model.java`](../src/main/java/seedu/manager/model/Model.java)
 
@@ -170,9 +170,8 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800">
-
-<p align="center"><sub>Fig 8: Class Diagram for Storage component</sub></p>
+<p align="center"><img src="images/StorageClassDiagram.png" width="800"><br>
+<sub>Fig 8: Class Diagram for Storage component</sub></p>
 
 **API** : [`Storage.java`](../src/main/java/seedu/manager/storage/Storage.java)
 
