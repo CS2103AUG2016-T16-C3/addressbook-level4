@@ -1,6 +1,8 @@
 # Developer Guide
 
 * [Setting Up](#setting-up)
+* [Design](#design)
+* [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
 * [Appendix A: User Stories](#appendix-a--user-stories)
@@ -18,12 +20,12 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))  
-   
+
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 #### Importing the project into Eclipse
@@ -55,6 +57,158 @@
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
 
 
+## Design
+
+### Architecture
+
+<img src="images/Architecture.png" width="600">
+<center><sub>Fig 1: Architecture Diagram for the App</sub></center>
+
+<br>
+The **_Architecture Diagram_** given above explains the high-level design of the App.
+Given below is a quick overview of each component.
+
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/manager/MainApp.java). It is responsible for,
+* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
+* At shut down: Shutting down the components and invokes cleanup method where necessary.
+
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+Two of those classes play important roles at the architecture level.
+* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : This class is used by various other classes to write log messages to the App's log file.
+
+The rest of the App consists four components.
+* [**`UI`**](#ui-component) : The UI of the App.
+* [**`Logic`**](#logic-component) : The command executor.
+* [**`Model`**](#model-component) : The container for the App's in-memory data.
+* [**`Storage`**](#storage-component) : The interface between the App and the hard disk.
+
+Each of the four components
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component defines it's API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class.<br>
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `delete 3`.
+
+<img src="images\SDforDeleteTask.png" width="800">
+
+<center><sub>Fig 3: Sequence Diagram for Delete Task</sub></center>
+
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
+ instead of asking the `Storage` to save the updates to the hard disk.
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+being saved to the hard disk and the status bar of the `UI` being updated to reflect the 'Last Updated' time. <br>
+
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+
+<center><sub>Fig 3: Sequence Diagram for Event Handling for Delete Task</sub></center>
+
+> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
+  coupling between components.
+
+The sections below give more details of each component.
+
+### `UI` component
+
+<img src="images/UiClassDiagram.png" width="800">
+<center><sub>Fig 4: Class Diagram for UI component</sub></center>
+
+**API** : [`Ui.java`](../src/main/java/seedu/manager/ui/Ui.java)
+
+The `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+and they can be loaded using the `UiPartLoader`.
+
+The `UI` component uses JavaFx UI framework. The layout of these `UI` parts are defined in matching `.fxml` files
+ that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/manager/ui/MainWindow.java) is specified in
+ [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml).
+
+The `UI`,
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the `UI` can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the `UI` accordingly.
+
+### Logic component
+
+<img src="images/LogicClassDiagram.png" width="800">
+<center><sub>Fig 5: Class Diagram for Logic component</sub></center>
+
+**API** : [`Logic.java`](../src/main/java/seedu/manager/logic/Logic.java)
+
+The `Logic`,
+* Uses the `Parser` class to parse the user command. The `Parser` class employs an `ExtensionParser` class to parse extensions into Task Properties.
+* Executes the `Command` object returned by the `Parser` class.
+* Encapsulates the result of the command execution as a `CommandResult` object and passes it back to the `UI`.
+
+> The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+ API call.<br><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+
+<center><sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></center>
+
+### Model component
+
+<img src="images/ModelClassDiagram.png" width="800">
+<center><sub>Fig 7: Class Diagram for Model component</sub></center>
+
+**API** : [`Model.java`](../src/main/java/seedu/manager/model/Model.java)
+
+The `Model`,
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Task Manager data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the `UI` can be bound to this list so that the `UI` automatically updates when the data in the list change.
+* Does not depend on any of the other three components.
+
+### Storage component
+
+<img src="images/StorageClassDiagram.png" width="800">
+
+<center><sub>Fig 8: Class Diagram for Storage component</sub></center>
+
+**API** : [`Storage.java`](../src/main/java/seedu/manager/storage/Storage.java)
+
+The `Storage` component,
+* Saves `UserPref` objects in json format and reads it back.
+* Saves the Task Manager data in xml format and reads it back.
+
+### Common classes
+
+Classes used by multiple components are in the `seedu.manager.commons` package.
+
+
+## Implementation
+
+### Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file
+  (See [Configuration](#configuration))
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through `Console` and to a `.log` file.
+
+**Logging Levels**
+
+* `SEVERE` : Critical problem detected which may possibly cause termination of the application
+* `WARNING` : Application can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging
+  e.g. print the actual list instead of just its size
+
+### Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -74,7 +228,7 @@ We have two types of tests:
 
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-   
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.manager.commons.UrlUtilTest`
@@ -96,7 +250,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 #### Troubleshooting tests
 
  **Problem: Tests fail because NullPointException when AssertionError is expected**
- 
+
  * Reason: Assertions are not enabled for JUnit tests.
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
  * Solution: Enable assertions in JUnit tests as described
@@ -119,7 +273,7 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 
 Here are the steps to create a new release.
 
- 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file). 
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
  3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
@@ -197,7 +351,7 @@ Use case resumes at step 1
 
 **MSS**
 
-1. User supplies Task Manager with information about what kinds of tasks should be listed
+1. User supplies Task Manager with information about descriptions of tasks to be listed
 2. Task Manager shows the list of tasks <br>
 Use case ends.
 
