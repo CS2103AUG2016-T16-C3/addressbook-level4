@@ -1,5 +1,9 @@
 # Developer Guide
 
+
+## Table of Contents
+
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -10,6 +14,13 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
+
+
+## Introduction
+
+Task Ninja is a task manager with a command line interface. It is aimed towards those users who prefer to only use the keyboard and prefer to be able to add tasks with one line of information.<br>
+
+This guide describes how Task Ninja has been designed and implemented. It is directed towards developers new to this application aiming to understand the architecture of the application and towards more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix, to give you a better idea of the pain points this application is trying to solve.
 
 
 ## Setting up
