@@ -93,6 +93,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
+<br>
 
 <img src="images\SDforDeleteTask.png" width="800">
 
@@ -106,7 +107,7 @@ being saved to the hard disk and the status bar of the `UI` being updated to ref
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
-<center><sub>Fig 3: Sequence Diagram for Event Handling for Delete Task</sub></center>
+<center><sub>Fig 4: Sequence Diagram for Event Handling for Delete Task</sub></center>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -117,7 +118,7 @@ The sections below give more details of each component.
 ### `UI` component
 
 <img src="images/UiClassDiagram.png" width="800">
-<center><sub>Fig 4: Class Diagram for UI component</sub></center>
+<center><sub>Fig 5: Class Diagram for UI component</sub></center>
 
 **API** : [`Ui.java`](../src/main/java/seedu/manager/ui/Ui.java)
 
@@ -137,7 +138,7 @@ The `UI`,
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800">
-<center><sub>Fig 5: Class Diagram for Logic component</sub></center>
+<center><sub>Fig 6: Class Diagram for Logic component</sub></center>
 
 **API** : [`Logic.java`](../src/main/java/seedu/manager/logic/Logic.java)
 
@@ -152,12 +153,12 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br><br>
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
-<center><sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></center>
+<center><sub>Fig 7: Sequence Diagram for Delete command in Logic component</sub></center>
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800">
-<center><sub>Fig 7: Class Diagram for Model component</sub></center>
+<center><sub>Fig 8: Class Diagram for Model component</sub></center>
 
 **API** : [`Model.java`](../src/main/java/seedu/manager/model/Model.java)
 
@@ -171,7 +172,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800">
 
-<center><sub>Fig 8: Class Diagram for Storage component</sub></center>
+<center><sub>Fig 9: Class Diagram for Storage component</sub></center>
 
 **API** : [`Storage.java`](../src/main/java/seedu/manager/storage/Storage.java)
 
