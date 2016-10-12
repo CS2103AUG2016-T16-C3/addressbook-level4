@@ -461,9 +461,9 @@ _We did a research to find out similar products' special features to enhance our
 3. Mainly use a list to represent all the tasks rather than calendar
 4. Wunderline
 > the command line mode of Wunderlist <br>
-> 1. Use natural words as commands, put the content inside the single quotation market. <br>
-> 2. Export as JSON file
-> 3. Search by keywords without ''
+ Use natural words as commands, put the content inside the single quotation market. <br>
+ Export as JSON file. <br>
+ Search by keywords without ''.
 
 ##### Calendar Vim
 1. A calendar application for Vim
