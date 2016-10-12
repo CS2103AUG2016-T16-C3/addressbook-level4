@@ -276,7 +276,7 @@ Here are the steps to create a new release.
 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
 ### Managing Dependencies
@@ -438,34 +438,34 @@ Use case resumes at step 3
 
 ## Appendix E : Product Survey
 
-_We did a research to find out similar products' special features to enhance our design, here is the special features about four products that we searched on the market._
+We researched other task managers' special features to better understand the products available and thus enhance design of our own product. Here are the special features we found in four other products:
 
 ##### Todo.txt
-1. Use command line to input task
-2. Show a piece of message of the index of task added
-3. Use plain text as the normal text
-4. Sort the task by priority
-5. Enter multiple tasks in a single input box
+1. Uses command line to input task
+2. Shows a piece of message of the index of task added
+3. Uses plain text as the normal text
+4. Sorts the task by priority
+5. Allows user to enter multiple tasks in a single input box
 
 ##### Google Calendar
 1. Very detailed, but have to click many times to add a task
-2. Visibility, public and private
+2. User can change visibility between public and private
 3. Location, video call, can change the time zone
-4. Attachment
-5. Command line mode
+4. User can add attachments
+5. Also has a command line mode
 
 ##### Wunderlist
 1. Amazing GUI
-2. Reminding message, and the "Do not disturb" button
-3. Mainly use a list to represent all the tasks rather than calendar
+2. User can set reminders, additionally the "Do not disturb" button can be used to turn off reminders
+3. Mainly uses a list to represent all the tasks rather than a calendar
 
-##### Wunderline
-1. the command line mode of Wunderlist <br>
-2. Use natural words as commands, put the content inside the single quotation market. <br>
-3. Export as JSON file. <br>
-4.  Search by keywords without ''.
+###### Wunderline
+1. The command line mode of Wunderlist
+2. Uses natural words as commands, content is put inside single quotes
+3. Data can be exported as a JSON file
+4. Allows searching by keywords (doesn't need single quotes).
 
 ##### Calendar Vim
 1. A calendar application for Vim
 2. View events on Google Calendar
-3. Have different view modes, like Year view, Month view, Week view and Day view.
+3. Has different view modes, like Year view, Month view, Week view and Day view
