@@ -69,7 +69,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getDesc().getValue().equals(tasks[i].getDesc().getValue())){
+            if (!tasksInList.get(startPosition + i).getDesc().get().getValue().equals(tasks[i].getDesc().get().getValue())){
                 return false;
             }
         }
@@ -102,7 +102,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public TaskCardHandle navigateToTask(String desc) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getDesc().getValue().equals(desc)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getDesc().get().getValue().equals(desc)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Desc not found: " + desc);
         }
