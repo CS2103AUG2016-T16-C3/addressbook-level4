@@ -384,3 +384,35 @@ Use case resumes at step 1
 
 
 ## Appendix E : Product Survey
+
+_We did a research to find out similar products' special features to enhance our design, here is the special features about four products that we searched on the market._
+
+##### Todo.txt
+1. Use command line to input task
+2. Show a piece of message of the index of task added
+3. Use plain text as the normal text
+4. Sort the task by priority
+5. Enter multiple tasks in a single input box
+
+##### Google Calendar
+1. Very detailed, but have to click many times to add a task
+2. Visibility, public and private
+3. Location, video call, can change the time zone
+4. Attachment
+5. Command line mode
+> For the command line mode, it inputs the task between the [start] and [end], which is different from other products on the market.
+
+##### Wunderlist
+1. Amazing GUI
+2. Reminding message, and the "Do not disturb" button
+3. Mainly use a list to represent all the tasks rather than calendar
+4. Wunderline
+> the command line mode of Wunderlist <br>
+> 1. Use natural words as commands, put the content inside the single quotation market. <br>
+> 2. Export as JSON file
+> 3. Search by keywords without ''
+
+##### Calendar Vim
+1. A calendar application for Vim
+2. View events on Google Calendar
+3. Have different view modes, like Year view, Month view, Week view and Day view.
