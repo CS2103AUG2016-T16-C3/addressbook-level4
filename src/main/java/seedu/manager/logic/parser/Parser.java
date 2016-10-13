@@ -25,14 +25,11 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<desc>[^/]+)"
-                    + " (?<isVenuePrivate>p?)v/(?<venue>[^/]+)"
-                    + " (?<isStartTimePrivate>p?)st/(?<startTime>[^/]+)"
-                    + " (?<isEndTimePrivate>p?)et/(?<endTime>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern EDIT_KEYWORDS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)\\s(?<arguments>.+)");
+    
+    private static final ExtensionParser extParser = new ExtensionParser();
 
     public Parser() {}
 
@@ -48,8 +45,8 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String commandWord = matcher.group("commandWord").trim();
+        final String arguments = matcher.group("arguments").trim();
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -60,6 +57,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -87,39 +87,14 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+    private Command prepareAdd(String args){        
         try {
             return new AddCommand(
-                    matcher.group("desc"),
-                    matcher.group("venue"),
-                    //matcher.group("time"),
-                    matcher.group("priority"),
-                    matcher.group("startTime"),
-                    matcher.group("endTime"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    extParser.getTaskProperties(args)
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**
@@ -137,6 +112,26 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    private Command prepareEdit(String args) {
+        final Matcher matcher = EDIT_KEYWORDS_FORMAT.matcher(args);
+        if(!matcher.matches()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new EditCommand(index.get(), extParser.getTaskProperties(matcher.group("arguments")));
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        } 
     }
 
     /**

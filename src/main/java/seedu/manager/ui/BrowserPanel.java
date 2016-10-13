@@ -51,7 +51,7 @@ public class BrowserPanel extends UiPart{
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + task.getDesc().getValue().replaceAll(" ", "+"));
+        loadPage("https://www.google.com.sg/#safe=off&q=" + task.getDesc().get().getValue().replaceAll(" ", "+"));
     }
 
     public void loadPage(String url){

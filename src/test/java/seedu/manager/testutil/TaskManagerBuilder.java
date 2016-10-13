@@ -2,7 +2,6 @@ package seedu.manager.testutil;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.TaskManager;
-import seedu.manager.model.tag.Tag;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.UniqueTaskList;
 
@@ -21,11 +20,6 @@ public class TaskManagerBuilder {
 
     public TaskManagerBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        return this;
-    }
-
-    public TaskManagerBuilder withTag(String tagName) throws IllegalValueException {
-        taskManager.addTag(new Tag(tagName));
         return this;
     }
 
