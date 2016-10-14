@@ -19,17 +19,22 @@ public class Task implements ReadOnlyTask {
         DESC, PRIORITY, VENUE, STARTTIME, ENDTIME
     }
 
-    
-    public Task(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
+    /**
+     * Build task from properties represented as Strings
+     * @param properties
+     * @throws IllegalValueException
+     */
+    public Task(HashMap<TaskProperties, Optional<String>> properties) throws IllegalValueException {
         assert properties.get(TaskProperties.DESC).isPresent();
-        assert !properties.get(TaskProperties.DESC).get().getValue().equals("");
+        assert !properties.get(TaskProperties.DESC).get().equals("");
         
-        for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
-            this.properties.put(prop.getKey(), prop.getValue());
+        for (Entry<TaskProperties, Optional<String>> prop : properties.entrySet()) {
+        	Optional<TaskProperty> taskProperty = buildProperty(prop.getKey(), prop.getValue());
+            this.properties.put(prop.getKey(), taskProperty);
         }
     }
-    
-    /**
+
+	/**
      * Every field must be present and not null.
      */
     public Task(String desc, String venue, String priority, String startTime, String endTime) throws IllegalValueException {
@@ -47,9 +52,16 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getProperties());
+        HashMap<TaskProperties, Optional<TaskProperty>> properties = source.getProperties();
+        
+        for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
+            this.properties.put(prop.getKey(), prop.getValue());
+        }
     }
     
+    /**
+     * Get properties of task as TaskProperty objects
+     */
     @Override
     public HashMap<TaskProperties, Optional<TaskProperty>> getProperties() {
         HashMap<TaskProperties, Optional<TaskProperty>> clone = new HashMap<>();
@@ -58,6 +70,50 @@ public class Task implements ReadOnlyTask {
         }
         return clone;
     }
+    
+    /**
+     * Get properties of task as Strings
+     */
+    @Override
+    public HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings() {
+        HashMap<TaskProperties, Optional<String>> clone = new HashMap<>();
+        for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
+            clone.put(prop.getKey(),
+            		prop.getValue().isPresent() ? 
+            				Optional.of(prop.getValue().get().getValue()) : 
+            				Optional.empty());
+        }
+        return clone;
+    }
+    
+
+    /**
+     * Builds a TaskProperty object using a value from the TaskProperties enum and a value
+     * @param property that should be built
+     * @param value of the property
+     * @return
+     */
+    private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
+    	if (!value.isPresent()) {
+    		return Optional.empty();
+    	}
+    	String stringValue = value.get();
+    	
+		switch (property) {
+		case DESC:
+			return Optional.of(new Desc(stringValue));
+		case VENUE:
+			return Optional.of(new Venue(stringValue));
+		case STARTTIME:
+			return Optional.of(new StartTime(stringValue));
+		case ENDTIME:
+			return Optional.of(new EndTime(stringValue));
+		case PRIORITY:
+			return Optional.of(new Priority(stringValue));
+		default:
+			throw new IllegalValueException("Property not found");
+		}
+	}
 
     @Override
     public Optional<TaskProperty> getDesc() {

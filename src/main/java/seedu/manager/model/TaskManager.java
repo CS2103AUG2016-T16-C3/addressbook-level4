@@ -50,7 +50,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().setAll(tasks);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks)  {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
     }
 

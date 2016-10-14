@@ -1,6 +1,7 @@
 package seedu.manager.testutil;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import seedu.manager.model.task.*;
@@ -90,4 +91,17 @@ public class TestTask implements ReadOnlyTask {
     public HashMap<TaskProperties, Optional<TaskProperty>> getProperties() {
         return (HashMap<TaskProperties, Optional<TaskProperty>>) properties.clone();
     }
+
+	@Override
+	public HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings() {
+		HashMap<TaskProperties, Optional<String>> clone = new HashMap<>();
+        for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
+            clone.put(prop.getKey(),
+            		prop.getValue().isPresent() ? 
+            				Optional.of(prop.getValue().get().getValue()) : 
+            				Optional.empty());
+        }
+        return clone;
+			
+	}
 }

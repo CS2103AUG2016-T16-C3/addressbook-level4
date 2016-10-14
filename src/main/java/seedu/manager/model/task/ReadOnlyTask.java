@@ -17,6 +17,7 @@ public interface ReadOnlyTask {
     Optional<TaskProperty> getStartTime();
     Optional<TaskProperty> getEndTime();
     HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
+    HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

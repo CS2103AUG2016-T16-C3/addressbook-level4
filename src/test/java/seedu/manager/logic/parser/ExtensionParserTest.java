@@ -139,15 +139,15 @@ public class ExtensionParserTest {
                 );
     }
     
-    private HashMap<TaskProperties, Optional<TaskProperty>> constructProperties(
+    private HashMap<TaskProperties, Optional<String>> constructProperties(
             String desc, String venue, String priority, String startTime, String endTime
             ) throws IllegalValueException {
-        HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-        properties.put(TaskProperties.DESC, desc.equals("") ? Optional.empty() : Optional.of(new Desc(desc)));
-        properties.put(TaskProperties.VENUE, venue.equals("") ? Optional.empty() : Optional.of(new Venue(venue)));
-        properties.put(TaskProperties.PRIORITY, priority.equals("") ? Optional.empty() : Optional.of(new Priority(priority)));
-        properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(new StartTime(startTime)));
-        properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(new EndTime(endTime)));
+        HashMap<TaskProperties, Optional<String>> properties = new HashMap<>();
+        properties.put(TaskProperties.DESC, desc.equals("") ? Optional.empty() : Optional.of(desc));
+        properties.put(TaskProperties.VENUE, venue.equals("") ? Optional.empty() : Optional.of(venue));
+        properties.put(TaskProperties.PRIORITY, priority.equals("") ? Optional.empty() : Optional.of(priority));
+        properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(startTime));
+        properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(endTime));
         return properties;
     }
 }

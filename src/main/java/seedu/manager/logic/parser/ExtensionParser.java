@@ -69,8 +69,8 @@ public class ExtensionParser {
     /**
      * Build task from extensions
      */
-    public HashMap<Task.TaskProperties, Optional<TaskProperty>> getTaskProperties(String extensionsStr) throws IllegalValueException {
-        HashMap<Task.TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
+    public HashMap<Task.TaskProperties, Optional<String>> getTaskProperties(String extensionsStr) throws IllegalValueException {
+        HashMap<Task.TaskProperties, Optional<String>> properties = new HashMap<>();
         extensionsStr = extensionsStr.trim();
         
         for (Task.TaskProperties property : Task.TaskProperties.values()) {
@@ -81,7 +81,7 @@ public class ExtensionParser {
         if (descMatcher.find()) {
             String desc = descMatcher.group().trim();
             properties.put(TaskProperties.DESC, 
-                    desc.equals("") ? Optional.empty() : Optional.of(parseDesc(desc)));
+                    desc.equals("") ? Optional.empty() : Optional.of(desc));
         }
         
         Matcher extMatcher = EXTENSIONS_ARGS_FORMAT.matcher(extensionsStr);
@@ -96,11 +96,11 @@ public class ExtensionParser {
      * Parses a single extension
      * @throws IllegalValueException
      */
-    private void parseSingleExtension(String extension, HashMap<Task.TaskProperties, Optional<TaskProperty>> properties) 
+    private void parseSingleExtension(String extension, HashMap<Task.TaskProperties, Optional<String>> properties) 
             throws IllegalValueException{
         Matcher matcher = EXTENSION_ARGS_FORMAT.matcher(extension);
         if (matcher.matches()) {
-            String extensionCommand = matcher.group("commandWord");
+            String extensionCommand = matcher.group("commandWord").trim();
             String arguments = matcher.group("arguments").trim();
             ExtensionCmds matchedCommand = null;
             
@@ -118,17 +118,15 @@ public class ExtensionParser {
             switch (matchedCommand) {
             case VENUE:
                 throwExceptionIfDuplicate(properties, TaskProperties.VENUE, ExtensionCmds.VENUE);
-                addToProperties(properties, TaskProperties.VENUE, parseVenue(arguments), arguments);
+                addToProperties(properties, TaskProperties.VENUE, arguments);
                 break;
             case BEFORE:
                 throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.BEFORE);
-                addToProperties(properties, TaskProperties.ENDTIME, 
-                        parseTime(arguments, TaskProperties.ENDTIME), arguments);
+                addToProperties(properties, TaskProperties.ENDTIME, arguments);
                 break;
             case AFTER:
                 throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.AFTER);
-                addToProperties(properties, TaskProperties.STARTTIME, 
-                        parseTime(arguments, TaskProperties.STARTTIME), arguments);
+                addToProperties(properties, TaskProperties.STARTTIME, arguments);
                 break;
             case EVENT:
                 throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.EVENT);
@@ -137,8 +135,7 @@ public class ExtensionParser {
                 break;
             case PRIORITY:
                 throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, ExtensionCmds.PRIORITY);
-                addToProperties(properties, TaskProperties.PRIORITY, 
-                        parsePriority(arguments), arguments);
+                addToProperties(properties, TaskProperties.PRIORITY, arguments);
                 break;
             default:
                 throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
@@ -148,7 +145,7 @@ public class ExtensionParser {
         }
     }
     
-    private void throwExceptionIfDuplicate(HashMap<Task.TaskProperties, Optional<TaskProperty>> properties,
+    private void throwExceptionIfDuplicate(HashMap<Task.TaskProperties, Optional<String>> properties,
             TaskProperties taskProperty, ExtensionCmds extensionCmd) throws IllegalValueException {
         if (properties.get(taskProperty).isPresent()) {
             throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionCmd.getValue()));
@@ -167,7 +164,7 @@ public class ExtensionParser {
         return new Priority(priority);
     }
     
-    private void addEvent(HashMap<Task.TaskProperties, Optional<TaskProperty>> properties, String arguments)
+    private void addEvent(HashMap<Task.TaskProperties, Optional<String>> properties, String arguments)
     throws IllegalValueException {
         Matcher matcher = EVENT_ARGS_FORMAT.matcher(arguments);
         
@@ -175,21 +172,11 @@ public class ExtensionParser {
             throw new IllegalValueException(EXTENSION_FROM_TO_INVALID_FORMAT);
         }
         
-        TaskProperty startTime = parseTime(matcher.group("startTime").trim(), TaskProperties.STARTTIME);
-        TaskProperty endTime = parseTime(matcher.group("endTime").trim(), TaskProperties.ENDTIME);
+        String startTime = matcher.group("startTime").trim();
+        String endTime = matcher.group("endTime").trim();
         
-        addToProperties(properties, TaskProperties.STARTTIME, startTime, matcher.group("startTime").trim());
-        addToProperties(properties, TaskProperties.ENDTIME, endTime, matcher.group("endTime").trim());
-    }
-    
-    private TaskProperty parseTime(String time, TaskProperties timeType) throws IllegalValueException {
-        assert timeType == TaskProperties.STARTTIME || timeType == TaskProperties.ENDTIME;
-        
-        if (timeType == TaskProperties.STARTTIME) {
-            return parseStartTime(time);
-        } else {
-            return parseEndTime(time);
-        }
+        addToProperties(properties, TaskProperties.STARTTIME, startTime);
+        addToProperties(properties, TaskProperties.ENDTIME, endTime);
     }
     
     private TaskProperty parseStartTime(String time) throws IllegalValueException {
@@ -200,8 +187,8 @@ public class ExtensionParser {
         return new EndTime(time);
     }
     
-    private void addToProperties(HashMap<Task.TaskProperties, Optional<TaskProperty>> properties, 
-            TaskProperties taskProperty, TaskProperty value, String arguments) {
-        properties.put(taskProperty, arguments.equals("") ? Optional.empty() : Optional.of(value));
+    private void addToProperties(HashMap<Task.TaskProperties, Optional<String>> properties, 
+            TaskProperties taskProperty, String arguments) {
+        properties.put(taskProperty, arguments.equals("") ? Optional.empty() : Optional.of(arguments));
     }
 }

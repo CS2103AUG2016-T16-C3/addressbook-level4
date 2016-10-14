@@ -33,9 +33,9 @@ public class EditCommand extends Command {
 
     public final int targetIndex;
     
-    private final HashMap<TaskProperties, Optional<TaskProperty>> editedProperties;
+    private final HashMap<TaskProperties, Optional<String>> editedProperties;
 
-    public EditCommand(int targetIndex, HashMap<TaskProperties, Optional<TaskProperty>> editedProperties) 
+    public EditCommand(int targetIndex, HashMap<TaskProperties, Optional<String>> editedProperties) 
             throws IllegalValueException {
         this.targetIndex = targetIndex;
         this.editedProperties = editedProperties;
@@ -55,7 +55,7 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            Task newTask = new Task(buildNewPropsFromOldAndEdited(taskToEdit.getProperties(), editedProperties));
+            Task newTask = new Task(buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties));
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newTask));
@@ -63,14 +63,16 @@ public class EditCommand extends Command {
             return new CommandResult("The target task cannot be missing");
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PARAMS);
-        }
+        } catch (IllegalValueException e) {
+			return new CommandResult(e.getMessage());
+		}
     }
     
-    private HashMap<TaskProperties, Optional<TaskProperty>> buildNewPropsFromOldAndEdited(
-            HashMap<TaskProperties, Optional<TaskProperty>> oldProperties, 
-            HashMap<TaskProperties, Optional<TaskProperty>> editedProperties
+    private HashMap<TaskProperties, Optional<String>> buildNewPropsFromOldAndEdited(
+            HashMap<TaskProperties, Optional<String>> oldProperties, 
+            HashMap<TaskProperties, Optional<String>> editedProperties
             ) {
-        HashMap<TaskProperties, Optional<TaskProperty>> newProperties = new HashMap<>();
+        HashMap<TaskProperties, Optional<String>> newProperties = new HashMap<>();
         
         for (TaskProperties prop : TaskProperties.values()) {
             if (editedProperties.get(prop).isPresent()) {

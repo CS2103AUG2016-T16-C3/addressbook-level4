@@ -7,6 +7,7 @@ import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
 import seedu.manager.logic.commands.*;
@@ -240,9 +241,9 @@ public class LogicManagerTest {
         Task toBeAdded = helper.lancelot();
         model.addTask(toBeAdded);
         
-        HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
-                toBeAdded.getProperties();
-        newProps.put(TaskProperties.DESC, Optional.of(new Desc("Dinner with Guinevere")));
+        HashMap<TaskProperties, Optional<String>> newProps = 
+                toBeAdded.getPropertiesAsStrings();
+        newProps.put(TaskProperties.DESC, Optional.of("Dinner with Guinevere"));
         
         Task newTask = new Task(newProps);        
         
@@ -265,10 +266,10 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        HashMap<TaskProperties, Optional<TaskProperty>> newProps1 = 
-                newTask.getProperties();
-        newProps1.put(TaskProperties.DESC, Optional.of(new Desc("Dinner with Lancelot")));
-        newProps1.put(TaskProperties.VENUE, Optional.of(new Venue("Avalon")));
+        HashMap<TaskProperties, Optional<String>> newProps1 = 
+                newTask.getPropertiesAsStrings();
+        newProps1.put(TaskProperties.DESC, Optional.of("Dinner with Lancelot"));
+        newProps1.put(TaskProperties.VENUE, Optional.of("Avalon"));
         
         Task newTask1 = new Task(newProps1);
         
@@ -284,11 +285,11 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        HashMap<TaskProperties, Optional<TaskProperty>> newProps2 = 
-                newTask1.getProperties();
-        newProps2.put(TaskProperties.STARTTIME, Optional.of(new StartTime("7:30pm")));
-        newProps2.put(TaskProperties.ENDTIME, Optional.of(new EndTime("8:50pm")));
-        newProps2.put(TaskProperties.PRIORITY, Optional.of(new Priority("low")));
+        HashMap<TaskProperties, Optional<String>> newProps2 = 
+                newTask1.getPropertiesAsStrings();
+        newProps2.put(TaskProperties.STARTTIME, Optional.of("7:30pm"));
+        newProps2.put(TaskProperties.ENDTIME, Optional.of("8:50pm"));
+        newProps2.put(TaskProperties.PRIORITY, Optional.of("low"));
         
         Task newTask2 = new Task(newProps2);
         
@@ -532,23 +533,6 @@ public class LogicManagerTest {
             }
 
             return cmd.toString();
-        }
-        
-        /**
-         * Generates new and edited properties for edit command 
-         */
-        Task makeNewAndEditedProperties(HashMap<TaskProperties, Optional<TaskProperty>> editedProperties,
-                HashMap<TaskProperties, Optional<TaskProperty>> newProperties) {
-            for (TaskProperties prop : editedProperties.keySet()) {
-                newProperties.put(prop, editedProperties.get(prop));
-            }
-            for (TaskProperties prop : TaskProperties.values()) {
-                if (!editedProperties.containsKey(prop)) {
-                    editedProperties.put(prop, Optional.empty());
-                }
-            }
-            
-            return new Task(newProperties);
         }
 
         /**
