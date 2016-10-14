@@ -448,29 +448,49 @@ Use case resumes at step 3
 We researched other task managers' special features to better understand the products available and thus enhance design of our own product. Here are the special features we found in four other products:
 
 ##### Todo.txt
-1. Uses command lines to input task
-2. Uses plain text as the normal text
-3. Sorts the task by priority
-4. Allows user to enter multiple tasks in a single input box
+*Pros:*
+> 1. Uses command lines to input task. <br>
+2. Uses plain text as the normal text. <br>
+3. Sorts the task by priority. <br>
+4. Allows user to enter multiple tasks in a single input box. <br>
+
+ *Cons:*
+ > 1. The UI is very poor and not very user-friendly. <br>
+2. Beginners may not understand what to do next. <br>
 
 ##### Google Calendar
-1. Very detailed, but have to click many times to add a task
-2. User can change visibility between public and private
-3. User can make video calls and change the time zone
-4. User can also add attachments and locations
-5. Also has a command line mode
+*Pros:*
+>1. User can change visibility between public and private <br>
+2. User can make video calls and change the time zone <br>
+3. User can also add attachments and locations <br>
+4. Also has a command line mode <br>
+
+*Cons:*
+>
+1. Users have to click many times and type nuch text to add a task <br>
+2. It has to be operated online, which means that users cannot use Google calendar when they do not have Internet access. <br>
 
 ##### Wunderlist
-1. Amazing GUI
+*Pros:*
+>
+1. Amazing GUI<br>
 2. User can set reminders, additionally the "Do not disturb" button can be used to turn off reminders
 3. Mainly uses a list to represent all the tasks rather than a calendar
 4. Has a companion product called Wunderline
-    1. This is the command line mode of Wunderlist
-    2. Uses natural words as commands, content is put inside single quotes
-    3. Data can be exported as a JSON file
-    4. Allows searching by keywords
+    * This is the command line mode of Wunderlist
+    * Uses natural words as commands, content is put inside single quotes
+    * Data can be exported as a JSON file
+    * Allows searching by keywords
+
+*Cons:*
+> It only display tasks as a list while sometimes the calendar mode can tell user more information.
+
 
 ##### Calendar Vim
-1. A calendar application for Vim
+*Pros:*
+> 1. A calendar application for Vim
 2. View events on Google Calendar
 3. Has different view modes, like Year view, Month view, Week view and Day view
+
+*Cons:*
+> Poor Graphical User Interface.
