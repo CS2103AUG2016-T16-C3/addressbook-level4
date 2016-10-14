@@ -14,12 +14,12 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
 
-1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Task Manager.
+1. Download the latest `taskninja.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for Task Ninja.
 
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
-4. To communicate with your task manager, type a command in the command box and press <kbd>Enter</kbd>
+4. To communicate with Task Ninja, type a command in the command box and press <kbd>Enter</kbd>
 
 5. Some commands to get you started:
   * `help` : Bring up the help page.
@@ -32,7 +32,7 @@
 ## Features
 
 ### Overview
-This task manager uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. These commands can then be made more specific using [extensions](#extensions), such as `at`, `before`, `after`, `from-to` and `priority`. <br>
+Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. These commands can then be made more specific using [extensions](#extensions), such as `at`, `before`, `after`, `from-to` and `priority`. <br>
 
 This means that the primary commands are used in conjunction with extensions to give the manager more information about what you want to do. <br>
 
@@ -120,8 +120,8 @@ Examples:
 
 
 <a id="exit"></a>
-#### Exiting the task manager: `exit`
-_This command closes the task manager. Hope to see you back soon!_<br>
+#### Exiting Task Ninja: `exit`
+_This command closes Task Ninja. Hope to see you back soon!_<br>
 Format: `exit`
 
 Examples:
