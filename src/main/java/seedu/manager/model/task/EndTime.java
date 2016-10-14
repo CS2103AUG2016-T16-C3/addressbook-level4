@@ -4,7 +4,7 @@ package seedu.manager.model.task;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's venue number in the task manager.
+ * Represents a Task's end time number in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class EndTime extends TaskProperty {
