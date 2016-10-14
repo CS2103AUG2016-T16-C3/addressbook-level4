@@ -4,7 +4,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's venue number in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidVenue(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Venue extends TaskProperty {
 

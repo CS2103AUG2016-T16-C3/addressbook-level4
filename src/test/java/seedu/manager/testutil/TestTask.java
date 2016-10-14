@@ -12,10 +12,10 @@ import seedu.manager.model.task.Task.TaskProperties;
  */
 public class TestTask implements ReadOnlyTask {
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-    
+
     public TestTask() {
     }
-    
+
     public TestTask(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
         this.properties = properties;
     }
@@ -27,7 +27,7 @@ public class TestTask implements ReadOnlyTask {
     public void setPriority(Priority priority) {
         this.properties.put(TaskProperties.PRIORITY, Optional.of(priority));
     }
-    
+
     public void setVenue(Venue venue) {
         this.properties.put(TaskProperties.VENUE, Optional.of(venue));
     }
@@ -40,6 +40,10 @@ public class TestTask implements ReadOnlyTask {
         this.properties.put(TaskProperties.ENDTIME, Optional.of(endTime));
     }
 
+    public void setDone(Done done) {
+        this.properties.put(TaskProperties.DONE, Optional.of(done));
+    }
+
     @Override
     public Optional<TaskProperty> getDesc() {
         return properties.get(TaskProperties.DESC);
@@ -49,7 +53,7 @@ public class TestTask implements ReadOnlyTask {
     public Optional<TaskProperty> getVenue() {
         return properties.get(TaskProperties.VENUE);
     }
-    
+
     @Override
     public Optional<TaskProperty> getPriority() {
         return properties.get(TaskProperties.PRIORITY);
@@ -66,6 +70,11 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
+    public Optional<TaskProperty> getDone() {
+        return properties.get(TaskProperties.DONE);
+    }
+
+    @Override
     public String toString() {
         return getAsText();
     }
@@ -74,7 +83,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDesc().get().getValue() + " ");
         if (this.getVenue().isPresent()) {
-            sb.append("at " + this.getVenue().get().getValue() + " ");  
+            sb.append("at " + this.getVenue().get().getValue() + " ");
         }
         if (this.getPriority().isPresent()) {
             sb.append("priority " + this.getPriority().get().getValue() + " ");
@@ -82,7 +91,9 @@ public class TestTask implements ReadOnlyTask {
         if (this.getStartTime().isPresent()) {
             sb.append("after " + this.getStartTime().get().getValue() + " ");
         }
-        sb.append("before " + this.getEndTime().get().getValue() + " ");
+        if (this.getEndTime().isPresent()) {
+            sb.append("before " + this.getEndTime().get().getValue() + " ");
+        }
         return sb.toString();
     }
 

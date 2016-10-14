@@ -4,7 +4,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's desc in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidDesc(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Desc extends TaskProperty {
     public static final String MESSAGE_DESC_CONSTRAINTS = "Task descriptions can contain any characters";

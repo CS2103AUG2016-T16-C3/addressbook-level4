@@ -7,14 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.task.Desc;
-import seedu.manager.model.task.EndTime;
-import seedu.manager.model.task.Priority;
-import seedu.manager.model.task.StartTime;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
-import seedu.manager.model.task.TaskProperty;
-import seedu.manager.model.task.Venue;
 
 /**
  * Used to parse extensions in the user input
@@ -152,18 +146,6 @@ public class ExtensionParser {
         }
     }
     
-    private TaskProperty parseDesc(String desc) throws IllegalValueException {
-        return new Desc(desc);
-    }
-    
-    private TaskProperty parseVenue(String venue) throws IllegalValueException {
-        return new Venue(venue);
-    }
-    
-    private TaskProperty parsePriority(String priority) throws IllegalValueException {
-        return new Priority(priority);
-    }
-    
     private void addEvent(HashMap<Task.TaskProperties, Optional<String>> properties, String arguments)
     throws IllegalValueException {
         Matcher matcher = EVENT_ARGS_FORMAT.matcher(arguments);
@@ -177,14 +159,6 @@ public class ExtensionParser {
         
         addToProperties(properties, TaskProperties.STARTTIME, startTime);
         addToProperties(properties, TaskProperties.ENDTIME, endTime);
-    }
-    
-    private TaskProperty parseStartTime(String time) throws IllegalValueException {
-        return new StartTime(time);
-    }
-    
-    private TaskProperty parseEndTime(String time) throws IllegalValueException {
-        return new EndTime(time);
     }
     
     private void addToProperties(HashMap<Task.TaskProperties, Optional<String>> properties, 

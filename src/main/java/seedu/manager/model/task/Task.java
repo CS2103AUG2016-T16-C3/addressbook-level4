@@ -9,14 +9,14 @@ import seedu.manager.commons.util.CollectionUtil;
 
 /**
  * Represents a Task in the task manager.
- * Guarantees: description is present and not null, field values are validated.
+ * Guarantees: description is present and not null, done is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-    
+
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-    
+
     public static enum TaskProperties {
-        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME
+        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE
     }
 
     /**
@@ -35,17 +35,26 @@ public class Task implements ReadOnlyTask {
     }
 
 	/**
-     * Every field must be present and not null.
-     */
-    public Task(String desc, String venue, String priority, String startTime, String endTime) throws IllegalValueException {
-       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime);
+	 * Task Constructor from individual strings
+	 * @param desc
+	 * @param venue
+	 * @param priority
+	 * @param startTime
+	 * @param endTime
+	 * @param done
+	 * @throws IllegalValueException
+	 * Every field must be present and not null. Desc cannot be empty
+	 */
+    public Task(String desc, String venue, String priority, String startTime, String endTime, String done) throws IllegalValueException {
+       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, done);
        assert !desc.equals("");
-       
+
        properties.put(TaskProperties.DESC, Optional.of(new Desc(desc)));
        properties.put(TaskProperties.VENUE, venue == "" ? Optional.empty() : Optional.of(new Venue(venue)));
        properties.put(TaskProperties.PRIORITY, priority == "" ? Optional.empty() : Optional.of(new Priority(priority)));
        properties.put(TaskProperties.STARTTIME, startTime == "" ? Optional.empty() : Optional.of(new StartTime(startTime)));
        properties.put(TaskProperties.ENDTIME, endTime == "" ? Optional.empty() : Optional.of(new EndTime(endTime)));
+       properties.put(TaskProperties.DONE, done == "" ? Optional.of(new Done("No")) : Optional.of(new Done(done)));
     }
 
     /**
@@ -58,7 +67,7 @@ public class Task implements ReadOnlyTask {
             this.properties.put(prop.getKey(), prop.getValue());
         }
     }
-    
+
     /**
      * Get properties of task as TaskProperty objects
      */
@@ -95,7 +104,12 @@ public class Task implements ReadOnlyTask {
      */
     private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
     	if (!value.isPresent()) {
-    		return Optional.empty();
+    		if (property == TaskProperties.DONE) {
+				return Optional.of(new Done("No"));
+			}
+    		else {
+    			return Optional.empty();
+			}
     	}
     	String stringValue = value.get();
     	
@@ -110,6 +124,8 @@ public class Task implements ReadOnlyTask {
 			return Optional.of(new EndTime(stringValue));
 		case PRIORITY:
 			return Optional.of(new Priority(stringValue));
+		case DONE:
+			return Optional.of(new Done(stringValue));
 		default:
 			throw new IllegalValueException("Property not found");
 		}
@@ -138,6 +154,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Optional<TaskProperty> getEndTime() {
         return properties.get(TaskProperties.ENDTIME);
+    }
+
+    @Override
+    public Optional<TaskProperty> getDone() {
+    	return properties.get(TaskProperties.DONE);
     }
 
     @Override
