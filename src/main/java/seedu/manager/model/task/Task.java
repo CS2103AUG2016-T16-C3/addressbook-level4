@@ -12,35 +12,36 @@ import seedu.manager.commons.util.CollectionUtil;
  * Guarantees: description is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-    
+
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-    
+
     public static enum TaskProperties {
-        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME
+        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE
     }
 
-    
+
     public Task(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
         assert properties.get(TaskProperties.DESC).isPresent();
         assert !properties.get(TaskProperties.DESC).get().getValue().equals("");
-        
+
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
             this.properties.put(prop.getKey(), prop.getValue());
         }
     }
-    
+
     /**
      * Every field must be present and not null.
      */
-    public Task(String desc, String venue, String priority, String startTime, String endTime) throws IllegalValueException {
-       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime);
+    public Task(String desc, String venue, String priority, String startTime, String endTime, String done) throws IllegalValueException {
+       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, done);
        assert !desc.equals("");
-       
+
        properties.put(TaskProperties.DESC, Optional.of(new Desc(desc)));
        properties.put(TaskProperties.VENUE, venue == "" ? Optional.empty() : Optional.of(new Venue(venue)));
        properties.put(TaskProperties.PRIORITY, priority == "" ? Optional.empty() : Optional.of(new Priority(priority)));
        properties.put(TaskProperties.STARTTIME, startTime == "" ? Optional.empty() : Optional.of(new StartTime(startTime)));
        properties.put(TaskProperties.ENDTIME, endTime == "" ? Optional.empty() : Optional.of(new EndTime(endTime)));
+       properties.put(TaskProperties.DONE, done == "" ? Optional.empty() : Optional.of(new Done(done)));
     }
 
     /**
@@ -49,7 +50,7 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getProperties());
     }
-    
+
     @Override
     public HashMap<TaskProperties, Optional<TaskProperty>> getProperties() {
         HashMap<TaskProperties, Optional<TaskProperty>> clone = new HashMap<>();
@@ -82,6 +83,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Optional<TaskProperty> getEndTime() {
         return properties.get(TaskProperties.ENDTIME);
+    }
+
+    @Override
+    public Optional<TaskProperty> getDone() {
+    	return properties.get(TaskProperties.DONE);
     }
 
     @Override
