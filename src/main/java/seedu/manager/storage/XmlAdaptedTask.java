@@ -1,13 +1,9 @@
 package seedu.manager.storage;
 
-import java.util.HashMap;
-import java.util.Optional;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
-import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * JAXB-friendly version of the Task.

@@ -13,7 +13,6 @@ import seedu.manager.commons.core.GuiSettings;
 import seedu.manager.commons.events.ui.ExitAppRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;
-import seedu.manager.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing

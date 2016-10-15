@@ -10,13 +10,6 @@ import org.junit.Test;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.Task.TaskProperties;
-import seedu.manager.model.task.Desc;
-import seedu.manager.model.task.EndTime;
-import seedu.manager.model.task.Priority;
-import seedu.manager.model.task.StartTime;
-import seedu.manager.model.task.TaskProperty;
-import seedu.manager.model.task.Venue;
-import seedu.manager.testutil.TestTask;
 
 public class ExtensionParserTest {
     private ExtensionParser extensionParser;

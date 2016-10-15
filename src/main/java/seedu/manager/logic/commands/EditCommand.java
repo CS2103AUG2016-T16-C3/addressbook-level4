@@ -8,7 +8,6 @@ import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
-import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;

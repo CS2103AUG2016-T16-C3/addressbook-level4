@@ -10,7 +10,6 @@ import seedu.manager.model.task.Task;
 import seedu.manager.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
