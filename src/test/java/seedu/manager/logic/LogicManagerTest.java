@@ -5,7 +5,6 @@ import com.google.common.eventbus.Subscribe;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
@@ -60,11 +59,6 @@ public class LogicManagerTest {
     @Subscribe
     private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
         helpShown = true;
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
     }
 
     @Before
