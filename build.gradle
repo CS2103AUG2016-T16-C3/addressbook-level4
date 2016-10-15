@@ -74,7 +74,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "taskmanager.jar"
+        archiveName = "taskninja.jar"
 
         manifest {
             attributes "Main-Class": "seedu.manager.MainApp"
