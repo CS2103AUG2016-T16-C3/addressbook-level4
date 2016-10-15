@@ -19,7 +19,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  */
 public abstract class Time extends TaskProperty {
 	public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Task times are fairly flexible";
+            "Invalid Time. While times are quite flexible, don't forget that I'm just a computer :)";
     public static final String TIME_VALIDATION_REGEX = ".+"; // Time validation done by timeParser
     private static final Pattern DATE_STRING_FORMAT_REGEX = 
     		Pattern.compile("([A-Z][a-z]{2} ){2}\\d{2} \\d{2}:\\d{2}:\\d{2} [A-Z]{3} \\d{4}");
@@ -61,8 +61,8 @@ public abstract class Time extends TaskProperty {
     
     private Date parseTime(String time) throws IllegalValueException {
     	List<Date> groups = timeParser.parse(time);
-    	if (groups.size() > 1) {
-			throw new IllegalValueException("Invalid time");
+    	if (groups.size() != 1) {
+			throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
 		}
     	return groups.get(0);
     }
