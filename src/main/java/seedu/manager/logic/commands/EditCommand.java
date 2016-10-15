@@ -54,9 +54,13 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            Task newTask = new Task(buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties));
+        	HashMap<TaskProperties, Optional<String>> newProperties = 
+        		buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties);
+        	
+            Task newTask = new Task(newProperties);
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
+            
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
         } catch (TaskNotFoundException e) {
             return new CommandResult("The target task cannot be missing");
@@ -67,6 +71,13 @@ public class EditCommand extends Command {
 		}
     }
     
+    /**
+     * Builds a HashMap of new properties using old properties of task and new properties entered
+     * by user
+     * 
+     * @param oldProperties
+     * @param editedProperties
+     */
     private HashMap<TaskProperties, Optional<String>> buildNewPropsFromOldAndEdited(
             HashMap<TaskProperties, Optional<String>> oldProperties, 
             HashMap<TaskProperties, Optional<String>> editedProperties

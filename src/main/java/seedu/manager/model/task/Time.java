@@ -21,11 +21,12 @@ public abstract class Time extends TaskProperty {
 	public static final String MESSAGE_TIME_CONSTRAINTS =
             "Invalid Time. While times are quite flexible, don't forget that I'm just a computer :)";
     public static final String TIME_VALIDATION_REGEX = ".+"; // Time validation done by timeParser
+    
     private static final Pattern DATE_STRING_FORMAT_REGEX = 
     		Pattern.compile("([A-Z][a-z]{2} ){2}\\d{2} \\d{2}:\\d{2}:\\d{2} [A-Z]{3} \\d{4}");
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE MMM dd kk:mm:ss zzz yyyy");
-    
     private static final PrettyTimeParser timeParser = new PrettyTimeParser();
+    
     private Date value;
     
     static {
@@ -33,13 +34,15 @@ public abstract class Time extends TaskProperty {
     }
     
     /**
-     * Validates given time.
+     * Parses and validates given time. If valid, assigns value to the time
      *
-     * @throws IllegalValueException if given time address string is invalid.
+     * @throws IllegalValueException if given time string is invalid.
      */
     public Time(String time) throws IllegalValueException {
         super(time, TIME_VALIDATION_REGEX, MESSAGE_TIME_CONSTRAINTS);
-        Matcher matcher = DATE_STRING_FORMAT_REGEX.matcher(time); // To parse strings created by Date.toString
+        
+        // To parse strings created by Date.toString
+        Matcher matcher = DATE_STRING_FORMAT_REGEX.matcher(time);
         if (matcher.matches()) {
 			try {
 				value = DATE_FORMAT.parse(time);
@@ -63,6 +66,12 @@ public abstract class Time extends TaskProperty {
                 && this.value.equals(((Time) other).value)); // state check
     }
     
+    /**
+     * Parses the time string using PrettyTime
+     * 
+     * @param time
+     * @throws IllegalValueException
+     */
     private Date parseTime(String time) throws IllegalValueException {
     	List<Date> groups = timeParser.parse(time);
     	if (groups.size() != 1) {

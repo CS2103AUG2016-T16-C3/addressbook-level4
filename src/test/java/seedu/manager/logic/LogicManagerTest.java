@@ -239,7 +239,7 @@ public class LogicManagerTest {
         TaskManager expectedTM = new TaskManager();
         expectedTM.addTask(newTask);
 
-        String editCommand = "edit 1  Dinner with Guinevere";
+        String editCommand = "edit 1 Dinner with Guinevere";
 
         assertCommandBehavior(
                 editCommand,
@@ -255,6 +255,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
+        
         HashMap<TaskProperties, Optional<String>> newProps1 = 
                 newTask.getPropertiesAsStrings();
         newProps1.put(TaskProperties.DESC, Optional.of("Dinner with Lancelot"));
@@ -265,7 +266,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
 
-        String editCommand1 = "edit 1 Dinner with Lancelot  venue Avalon";
+        String editCommand1 = "edit 1 Dinner with Lancelot venue Avalon";
 
         assertCommandBehavior(
                 editCommand1,
@@ -285,7 +286,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask1);
         expectedTM.addTask(newTask2);
 
-        String editCommand2 = "edit  1 from 7:30pm to 8:50pm priority low";
+        String editCommand2 = "edit 1 from 7:30pm to 8:50pm priority low";
 
         assertCommandBehavior(
                 editCommand2,

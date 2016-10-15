@@ -12,12 +12,11 @@ import seedu.manager.commons.util.CollectionUtil;
  * Guarantees: description is present and not null, done is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-
-    private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-
     public static enum TaskProperties {
         DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE
     }
+    
+    private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 
     /**
      * Build task from properties represented as Strings

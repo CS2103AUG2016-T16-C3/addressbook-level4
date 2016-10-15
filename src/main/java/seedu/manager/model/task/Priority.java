@@ -20,7 +20,7 @@ public class Priority extends TaskProperty {
             this.value = value;
         }
     }
-    private VALUES defaultValue = VALUES.MED;
+    private static VALUES defaultValue = VALUES.MED;
     private VALUES value = null;
     
     /**

@@ -31,7 +31,6 @@ public class DoneCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
-
     @Override
     public CommandResult execute() {
         assert model != null;
