@@ -62,6 +62,8 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         HashMap<TaskProperties, Optional<TaskProperty>> properties = source.getProperties();
+        assert properties.containsKey(TaskProperties.DESC) && properties.get(TaskProperties.DESC).isPresent();
+        assert properties.containsKey(TaskProperties.DONE) && properties.get(TaskProperties.DONE).isPresent();
         
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
             this.properties.put(prop.getKey(), prop.getValue());
