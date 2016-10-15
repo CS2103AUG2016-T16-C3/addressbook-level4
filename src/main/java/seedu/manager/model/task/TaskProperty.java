@@ -3,7 +3,6 @@ package seedu.manager.model.task;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 public abstract class TaskProperty {
-    protected String value;
     private static String MESSAGE_CONSTRAINTS;
     private static String VALIDATION_REGEX;
     
@@ -14,7 +13,6 @@ public abstract class TaskProperty {
         if (!isValid(property, VALIDATION_REGEX)) {
             throw new IllegalValueException(this.getMessageConstraints());
         }
-        this.value = property;
     }
     
     public boolean isValid(String test, String validationRegex) {
@@ -26,7 +24,7 @@ public abstract class TaskProperty {
     }
     
     public int hashCode() {
-        return value.hashCode();
+        return this.toString().hashCode();
     };
     
     public String getMessageConstraints() {

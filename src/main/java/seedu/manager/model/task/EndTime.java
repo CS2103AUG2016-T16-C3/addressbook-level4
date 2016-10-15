@@ -12,7 +12,8 @@ public class EndTime extends TaskProperty {
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "Task times should be in the form <time> or <date>";
     public static final String TIME_VALIDATION_REGEX = ".+";
-    public static final String COMMAND_WORD = "before";
+    
+    private String value;
 
     /**
      * Validates given time.
@@ -21,6 +22,7 @@ public class EndTime extends TaskProperty {
      */
     public EndTime(String endTime) throws IllegalValueException {
         super(endTime, TIME_VALIDATION_REGEX, MESSAGE_TIME_CONSTRAINTS);
+        value = endTime;
     }
 
     @Override

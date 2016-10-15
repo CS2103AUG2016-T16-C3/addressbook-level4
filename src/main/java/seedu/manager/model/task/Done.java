@@ -11,8 +11,9 @@ public class Done extends TaskProperty {
 
     public static final String MESSAGE_DONE_CONSTRAINTS =
             "Task done indicator should be in the form \"Yes\" or \"No\"";
-    public static final String DONE_VALIDATION_REGEX = ".+";
+    public static final String DONE_VALIDATION_REGEX = "Yes|No";
     public static final String COMMAND_WORD = "done";
+    private boolean value;
 
     /**
      * Validates given done indicator.
@@ -21,17 +22,18 @@ public class Done extends TaskProperty {
      */
     public Done(String done) throws IllegalValueException {
         super(done, DONE_VALIDATION_REGEX, MESSAGE_DONE_CONSTRAINTS);
+        value = done.equals("Yes") ? true : false;
     }
 
     @Override
     public String toString() {
-        return value;
+        return value ? "Yes" : "No";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Done // instanceof handles nulls
-                && this.value.equals(((Done) other).value)); // state check
+                && this.value == ((Done) other).value); // state check
     }
 }
