@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.junit.Test;
 
@@ -43,7 +44,9 @@ public class TimeTest {
 		assertParsedTimeEquals(new StartTime("day after tomorrow evening"), addDaysToCal(setTime(7, 0, false), 2));
 		assertParsedTimeEquals(new StartTime("tonight"), setTime(8, 0, false));
 		assertParsedTimeEquals(new StartTime("today noon"), setTime(12, 0, true)); // calendar take 12am to be noon
-		assertParsedTimeEquals(new StartTime("Sat Oct 16 01:00:00 SGT 2100"), setAll(2100, Calendar.OCTOBER, 16, 1, 0, true));
+		
+		String timeZone = TimeZone.getDefault().getDisplayName(false, TimeZone.SHORT);
+		assertParsedTimeEquals(new StartTime("Sat Oct 16 01:00:00 " + timeZone + " 2100"), setAll(2100, Calendar.OCTOBER, 16, 1, 0, true));
 	}
 	
 	private void assertInvalidTime(String time) {
