@@ -63,6 +63,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+        
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -78,7 +81,7 @@ public class Parser {
         }
     }
 
-    /**
+	/**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
@@ -136,6 +139,21 @@ public class Parser {
             return new IncorrectCommand(e.getMessage());
         } 
     }
+    
+    /**
+     * Parses arguments in the context of the done task command
+     * @param args full commmand args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
+    	Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+	}
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.

@@ -7,7 +7,6 @@ import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
-import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
 import seedu.manager.logic.commands.*;
@@ -182,14 +181,14 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.lancelot();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
+                expectedTM,
+                expectedTM.getTaskList());
 
     }
 
@@ -215,14 +214,13 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_edit_invalidArgsFormat() throws Exception {
+    public void execute_edit_invalidArgsFormat_erroeMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
-        assertCommandBehavior("edit no index", expectedMessage);
-        assertCommandBehavior("edit 1", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("edit", expectedMessage);
     }
 
     @Test
-    public void execute_edit_indexInvalid() throws Exception {
+    public void execute_edit_indexInvalid_errorMessageShown() throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         assertCommandBehavior("edit 52 Dinner with Arthur", expectedMessage);
         assertCommandBehavior("edit 10 Dinner with Arthur", expectedMessage);
@@ -238,22 +236,22 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.lancelot();
-        model.addTask(toBeAdded);
+        Task toBeEdited = helper.lancelot();
+        model.addTask(toBeEdited);
         
         HashMap<TaskProperties, Optional<String>> newProps = 
-                toBeAdded.getPropertiesAsStrings();
+                toBeEdited.getPropertiesAsStrings();
         newProps.put(TaskProperties.DESC, Optional.of("Dinner with Guinevere"));
         
         Task newTask = new Task(newProps);        
         TaskManager expectedTM = new TaskManager();
         expectedTM.addTask(newTask);
 
-        String editCommand = "edit 1 Dinner with Guinevere";
+        String editCommand = "edit 1  Dinner with Guinevere";
 
         assertCommandBehavior(
                 editCommand,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, newTask),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask),
                 expectedTM,
                 expectedTM.getTaskList()
         );
@@ -275,11 +273,11 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
 
-        String editCommand1 = "edit 1 Dinner with Lancelot at Avalon";
+        String editCommand1 = "edit 1 Dinner with Lancelot  at Avalon";
 
         assertCommandBehavior(
                 editCommand1,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, newTask1),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask1),
                 expectedTM,
                 expectedTM.getTaskList()
         );
@@ -295,14 +293,52 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask1);
         expectedTM.addTask(newTask2);
 
-        String editCommand2 = "edit 1 from 7:30pm to 8:50pm priority low";
+        String editCommand2 = "edit  1 from 7:30pm to 8:50pm priority low";
 
         assertCommandBehavior(
                 editCommand2,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, newTask2),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask2),
                 expectedTM,
                 expectedTM.getTaskList()
         );
+    }
+    
+    
+    @Test
+    public void execute_done_invalidArgsFormat_errorMessageShown() throws Exception {
+    	String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+    	assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+    
+    @Test
+    public void execute_done_indexInvalid_errorMessageShown() throws Exception {
+    	String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        assertCommandBehavior("done 52", expectedMessage);
+        assertCommandBehavior("done 10", expectedMessage);
+    }
+    
+    @Test
+    public void execute_done_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	List<Task> threeTasks = helper.generateTaskList(3);
+    	helper.addToModel(model, threeTasks);
+        
+        HashMap<TaskProperties, Optional<String>> newProps = 
+                threeTasks.get(1).getPropertiesAsStrings();
+        newProps.put(TaskProperties.DONE, Optional.of("Yes"));
+        
+        Task doneTask = new Task(newProps);        
+        TaskManager expectedTM = helper.generateTaskManager(threeTasks);
+        expectedTM.removeTask(threeTasks.get(1));
+        expectedTM.addTask(doneTask);
+        
+        String doneCommand = "done  2 ";
+
+        // execute command and verify result
+        assertCommandBehavior(doneCommand,
+                String.format(DoneCommand.MESSAGE_SUCCESS, doneTask),
+                expectedTM,
+                expectedTM.getTaskList());
     }
 
 
@@ -383,7 +419,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }

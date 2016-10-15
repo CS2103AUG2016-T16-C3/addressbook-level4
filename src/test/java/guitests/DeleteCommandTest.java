@@ -2,11 +2,11 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.manager.logic.commands.DeleteCommand;
 import seedu.manager.testutil.TestTask;
 import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.manager.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -49,7 +49,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(DeleteCommand.MESSAGE_SUCCESS, taskToDelete));
     }
 
 }

@@ -35,7 +35,7 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the task as text, showing all properties except done.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
@@ -52,9 +52,6 @@ public interface ReadOnlyTask {
         }
         if (getEndTime().isPresent()) {
             builder.append(" End Time: ").append(getEndTime().get());
-        }
-        if (getDone().isPresent()) {
-        	builder.append(" Done: ").append(getDone().get());
         }
         return builder.toString();
     }

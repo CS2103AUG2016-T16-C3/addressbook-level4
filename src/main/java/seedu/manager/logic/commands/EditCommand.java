@@ -28,7 +28,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) [DESC] [<extensions>]\n"
             + "Example: " + COMMAND_WORD + " 1 Dinner with Guinevere venue Under the Stars priority high";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_PARAMS = "The new parameters are the same as before";
 
     public final int targetIndex;
@@ -58,7 +58,7 @@ public class EditCommand extends Command {
             Task newTask = new Task(buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties));
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newTask));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
         } catch (TaskNotFoundException e) {
             return new CommandResult("The target task cannot be missing");
         } catch (UniqueTaskList.DuplicateTaskException e) {
