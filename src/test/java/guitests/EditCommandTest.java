@@ -36,7 +36,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         currentList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, 2), editedTask);
         newProps.put(TaskProperties.VENUE, Optional.of(new Venue("Avalon")));
         
-        assertEditSuccess("edit %1$s at Avalon", 7, new TestTask(newProps), currentList);
+        assertEditSuccess("edit %1$s venue Avalon", 7, new TestTask(newProps), currentList);
         
         // invalid index
         commandBox.runCommand("edit " + (currentList.length + 1) + " Some Description");

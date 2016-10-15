@@ -147,9 +147,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add Dinner with Lancelot at Acceptable Venue priority wrong", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Dinner with Lancelot venue Acceptable Venue priority wrong", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add at No Description priority low", AddCommand.MESSAGE_USAGE);
+                "add venue No Description priority low", AddCommand.MESSAGE_USAGE);
     }
 
     @Test
@@ -265,7 +265,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
 
-        String editCommand1 = "edit 1 Dinner with Lancelot  at Avalon";
+        String editCommand1 = "edit 1 Dinner with Lancelot  venue Avalon";
 
         assertCommandBehavior(
                 editCommand1,
@@ -491,7 +491,7 @@ public class LogicManagerTest {
         }
 
         Task lancelot() throws Exception {
-            return new Task("Joust with Lancelot", "Avalon", "med", "", "", "");
+            return new Task("Joust with Lancelot", "Avalon", "med", "7:30", "8:30", "");
         }
 
         /**
@@ -520,13 +520,13 @@ public class LogicManagerTest {
 
             cmd.append(p.getDesc().get().toString());
             if (p.getVenue().isPresent()) {
-                cmd.append(" at ").append(p.getVenue().get().toString());
+                cmd.append(" venue ").append(p.getVenue().get().toString());
             }
             if (p.getStartTime().isPresent()) {
-                cmd.append(" after ").append(p.getStartTime().get().toString());
+                cmd.append(" at ").append(p.getStartTime().get().toString());
             }
             if (p.getEndTime().isPresent()) {
-                cmd.append(" before ").append(p.getEndTime().get().toString());
+                cmd.append(" by ").append(p.getEndTime().get().toString());
             }
             if (p.getPriority().isPresent()) {
                 cmd.append(" priority ").append(p.getPriority().get().toString());

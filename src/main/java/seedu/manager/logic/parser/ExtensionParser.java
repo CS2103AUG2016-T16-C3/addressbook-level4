@@ -18,7 +18,7 @@ import seedu.manager.model.task.Task.TaskProperties;
 public class ExtensionParser {
     
     public static enum ExtensionCmds {
-        VENUE("at"), BEFORE("before"), EVENT("from"), AFTER("after"), PRIORITY("priority");
+        VENUE("venue"), BY("by"), EVENT("from"), AT("at"), PRIORITY("priority");
         
         private String value;
         
@@ -114,12 +114,12 @@ public class ExtensionParser {
                 throwExceptionIfDuplicate(properties, TaskProperties.VENUE, ExtensionCmds.VENUE);
                 addToProperties(properties, TaskProperties.VENUE, arguments);
                 break;
-            case BEFORE:
-                throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.BEFORE);
+            case BY:
+                throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.BY);
                 addToProperties(properties, TaskProperties.ENDTIME, arguments);
                 break;
-            case AFTER:
-                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.AFTER);
+            case AT:
+                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.AT);
                 addToProperties(properties, TaskProperties.STARTTIME, arguments);
                 break;
             case EVENT:
