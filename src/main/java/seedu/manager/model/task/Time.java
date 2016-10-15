@@ -28,6 +28,10 @@ public abstract class Time extends TaskProperty {
     private static final PrettyTimeParser timeParser = new PrettyTimeParser();
     private Date value;
     
+    static {
+    	DATE_FORMAT.setLenient(false);
+    }
+    
     /**
      * Validates given time.
      *
@@ -35,7 +39,7 @@ public abstract class Time extends TaskProperty {
      */
     public Time(String time) throws IllegalValueException {
         super(time, TIME_VALIDATION_REGEX, MESSAGE_TIME_CONSTRAINTS);
-        Matcher matcher = DATE_STRING_FORMAT_REGEX.matcher(time);
+        Matcher matcher = DATE_STRING_FORMAT_REGEX.matcher(time); // To parse strings created by Date.toString
         if (matcher.matches()) {
 			try {
 				value = DATE_FORMAT.parse(time);

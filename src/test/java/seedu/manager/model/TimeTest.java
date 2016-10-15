@@ -18,6 +18,13 @@ public class TimeTest {
 		assertInvalidTime("123");
 		assertInvalidTime("tomorrow and day after tomorrow"); // multiple times
 		assertInvalidTime("5:95pm");
+		assertInvalidTime("Abc Oct 16 01:00:00 SGT 2100");
+		assertInvalidTime("Sat Abc 16 01:00:00 SGT 2100");
+		assertInvalidTime("Sat Oct 50 01:00:00 SGT 2100");
+		assertInvalidTime("Sat Oct 16 25:00:00 SGT 2100");
+		assertInvalidTime("Sat Oct 16 23:61:00 SGT 2100");
+		assertInvalidTime("Sat Oct 16 23:00:61 SGT 2100");
+		assertInvalidTime("Sat Oct 16 23:00:00 ABC 2100");
 		
 		// PrettyTime accepts these
 		// assertInvalidTime("tomorrow day after tomorrow"); only tomorrow
@@ -36,11 +43,13 @@ public class TimeTest {
 		assertParsedTimeEquals(new StartTime("day after tomorrow evening"), addDaysToCal(setTime(7, 0, false), 2));
 		assertParsedTimeEquals(new StartTime("tonight"), setTime(8, 0, false));
 		assertParsedTimeEquals(new StartTime("today noon"), setTime(12, 0, true)); // calendar take 12am to be noon
+		assertParsedTimeEquals(new StartTime("Sat Oct 16 01:00:00 SGT 2100"), setAll(2100, Calendar.OCTOBER, 16, 1, 0, true));
 	}
 	
 	private void assertInvalidTime(String time) {
 		try {
-			new StartTime(time);
+			StartTime startTime = new StartTime(time);
+			System.out.println(startTime);
 			fail("didn't throw exception");
 		} catch (IllegalValueException e) {
 			assertEquals(e.getMessage(), Time.MESSAGE_TIME_CONSTRAINTS);
@@ -69,6 +78,12 @@ public class TimeTest {
 	
 	private Calendar setDay(Calendar calendar, int day) {
 		calendar.set(Calendar.DAY_OF_WEEK, day);
+		return calendar;
+	}
+	
+	private Calendar setAll(int year, int month, int date, int hourOfDay, int minute, boolean isAM) {
+		Calendar calendar = setTime(hourOfDay, minute, isAM);
+		calendar.set(year, month, date);
 		return calendar;
 	}
 	
