@@ -506,9 +506,9 @@ public class LogicManagerTest {
                     "Task " + seed,
                     "" + Math.abs(seed),
                     new String[] {"low", "med", "high"}[seed % 3],
-                    Math.abs(seed) + "@startTime",
-                    Math.abs(seed) + "@endTime", 
-                    "No"
+                    (Math.abs(seed) % 12 + 1) + ":00",
+                    (Math.abs(seed) % 12 + 1) + ":00", 
+                    ""
             );
         }
 
@@ -608,11 +608,11 @@ public class LogicManagerTest {
         Task generateTaskWithDesc(String desc) throws Exception {
             return new Task(
                     desc,
-                    "1",
+                    "Some Venue",
                     "low",
-                    "1@startTime",
-                    "1@endTime",
-                    "No"
+                    "7:30pm",
+                    "8:30pm",
+                    ""
             );
         }
     }

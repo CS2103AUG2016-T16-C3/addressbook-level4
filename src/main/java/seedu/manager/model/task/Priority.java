@@ -1,6 +1,5 @@
 package seedu.manager.model.task;
 
-import java.util.Iterator;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 

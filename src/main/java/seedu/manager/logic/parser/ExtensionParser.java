@@ -36,12 +36,11 @@ public class ExtensionParser {
     private static final Pattern EXTENSIONS_ARGS_FORMAT;
     private static final Pattern EXTENSION_ARGS_FORMAT = 
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
-    
-    public static final String EXTENSION_FROM_TO_INVALID_FORMAT = "From-to times should be in the format from <startTime> to <endTime>";
     private static final Pattern EVENT_ARGS_FORMAT = 
             Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)");
     
+    private static final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
+    public static final String EXTENSION_FROM_TO_INVALID_FORMAT = "From-to times should be in the format from <startTime> to <endTime>";
     public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s"; 
     
     static {
