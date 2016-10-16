@@ -49,11 +49,11 @@ public class Task implements ReadOnlyTask {
        assert !desc.equals("");
 
        properties.put(TaskProperties.DESC, Optional.of(new Desc(desc)));
-       properties.put(TaskProperties.VENUE, venue == "" ? Optional.empty() : Optional.of(new Venue(venue)));
-       properties.put(TaskProperties.PRIORITY, priority == "" ? Optional.empty() : Optional.of(new Priority(priority)));
-       properties.put(TaskProperties.STARTTIME, startTime == "" ? Optional.empty() : Optional.of(new StartTime(startTime)));
-       properties.put(TaskProperties.ENDTIME, endTime == "" ? Optional.empty() : Optional.of(new EndTime(endTime)));
-       properties.put(TaskProperties.DONE, done == "" ? Optional.of(new Done("No")) : Optional.of(new Done(done)));
+       properties.put(TaskProperties.VENUE, venue.equals("") ? Optional.empty() : Optional.of(new Venue(venue)));
+       properties.put(TaskProperties.PRIORITY, priority.equals("") ? Optional.empty() : Optional.of(new Priority(priority)));
+       properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(new StartTime(startTime)));
+       properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(new EndTime(endTime)));
+       properties.put(TaskProperties.DONE, done.equals("") ? Optional.of(new Done("No")) : Optional.of(new Done(done)));
     }
 
     /**

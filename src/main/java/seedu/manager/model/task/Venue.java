@@ -8,7 +8,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  */
 public class Venue extends TaskProperty {
 
-    public static final String MESSAGE_VENUE_CONSTRAINTS = "Task venue numbers should only contain numbers";
+    public static final String MESSAGE_VENUE_CONSTRAINTS = "Task venue can contain any text";
     public static final String VENUE_VALIDATION_REGEX = ".+";
     private String value;
 

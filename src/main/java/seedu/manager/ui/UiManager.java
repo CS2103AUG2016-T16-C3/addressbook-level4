@@ -10,6 +10,7 @@ import seedu.manager.MainApp;
 import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.Config;
 import seedu.manager.commons.core.LogsCenter;
+import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.manager.commons.events.storage.DataSavingExceptionEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -113,5 +114,10 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
-
+    
+    @Subscribe
+    public void handleConfigFilePathChangedEvent(ConfigFilePathChangedEvent event) {
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, updating status bar"));
+    	mainWindow.rerenderStatusBarFooter();
+    }
 }
