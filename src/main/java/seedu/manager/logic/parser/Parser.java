@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.commons.exceptions.InvalidTimeException;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.logic.commands.*;
 
@@ -38,8 +39,9 @@ public class Parser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
+     * @throws InvalidTimeException 
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput) throws InvalidTimeException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -86,8 +88,9 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+	 * @throws InvalidTimeException 
      */
-    private Command prepareAdd(String args){        
+    private Command prepareAdd(String args) throws InvalidTimeException{        
         try {
             return new AddCommand(
                     extParser.getTaskProperties(args)
@@ -119,8 +122,9 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+     * @throws InvalidTimeException 
      */
-    private Command prepareEdit(String args) {
+    private Command prepareEdit(String args) throws InvalidTimeException {
         final Matcher matcher = EDIT_KEYWORDS_FORMAT.matcher(args);
         if(!matcher.matches()){
             return new IncorrectCommand(

@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.commons.exceptions.InvalidTimeException;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
 
@@ -43,6 +44,7 @@ public class ExtensionParser {
             Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)");
     
     public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s"; 
+    public static final String START_AFTER_END = "Start time should be before end time.";
     
     static {
         EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.getValue()).toArray(size -> new String[size]));
@@ -62,8 +64,9 @@ public class ExtensionParser {
     
     /**
      * Build task from extensions
+     * @throws InvalidTimeException 
      */
-    public HashMap<Task.TaskProperties, Optional<String>> getTaskProperties(String extensionsStr) throws IllegalValueException {
+    public HashMap<Task.TaskProperties, Optional<String>> getTaskProperties(String extensionsStr) throws IllegalValueException, InvalidTimeException {
         HashMap<Task.TaskProperties, Optional<String>> properties = new HashMap<>();
         extensionsStr = extensionsStr.trim();
         
@@ -89,9 +92,10 @@ public class ExtensionParser {
     /**
      * Parses a single extension
      * @throws IllegalValueException
+     * @throws InvalidTimeException 
      */
     private void parseSingleExtension(String extension, HashMap<Task.TaskProperties, Optional<String>> properties) 
-            throws IllegalValueException{
+            throws IllegalValueException, InvalidTimeException{
         Matcher matcher = EXTENSION_ARGS_FORMAT.matcher(extension);
         if (matcher.matches()) {
             String extensionCommand = matcher.group("commandWord").trim();
@@ -125,6 +129,7 @@ public class ExtensionParser {
             case EVENT:
                 throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.EVENT);
                 throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.EVENT);
+                throwExceptionIfTimeInvalid(properties, TaskProperties.STARTTIME, TaskProperties.ENDTIME);
                 addEvent(properties, arguments);
                 break;
             case PRIORITY:
@@ -143,6 +148,13 @@ public class ExtensionParser {
             TaskProperties taskProperty, ExtensionCmds extensionCmd) throws IllegalValueException {
         if (properties.get(taskProperty).isPresent()) {
             throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionCmd.getValue()));
+        }
+    }
+    
+    private void throwExceptionIfTimeInvalid(HashMap<Task.TaskProperties, Optional<String>> properties, 
+            TaskProperties taskPropertyStart, TaskProperties taskPropertyEnd) throws InvalidTimeException {
+        if (properties.get(taskPropertyStart).toString().compareTo(properties.get(taskPropertyEnd).toString()) > 0) {
+            throw new InvalidTimeException(START_AFTER_END);
         }
     }
     

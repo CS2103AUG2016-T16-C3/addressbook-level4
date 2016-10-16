@@ -12,6 +12,8 @@ import seedu.manager.storage.Storage;
 
 import java.util.logging.Logger;
 
+import seedu.manager.commons.exceptions.InvalidTimeException;
+
 /**
  * The main LogicManager of the app.
  */
@@ -27,7 +29,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) {
+    public CommandResult execute(String commandText) throws InvalidTimeException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
