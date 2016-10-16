@@ -34,6 +34,7 @@ public class ExtensionParser {
     
     public static final String EXTENSION_FROM_TO_INVALID_FORMAT = "From-to times should be in the format from <startTime> to <endTime>";
     public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s";
+    public static final String START_AFTER_END = "Start time should be before end time.";
     
     private static final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
     private static final String EXTENSION_REGEX_OPTIONS;
@@ -42,14 +43,7 @@ public class ExtensionParser {
     private static final Pattern EXTENSION_ARGS_FORMAT = 
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern EVENT_ARGS_FORMAT = 
-<<<<<<< HEAD
             Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)");
-    
-    public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s"; 
-    public static final String START_AFTER_END = "Start time should be before end time.";
-=======
-            Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)"); 
->>>>>>> 131bde92143f05b8593f1ddb94171a99ded0e605
     
     static {
         EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.getValue()).toArray(size -> new String[size]));
@@ -101,11 +95,7 @@ public class ExtensionParser {
      * @throws InvalidTimeException 
      */
     private void parseSingleExtension(String extension, HashMap<Task.TaskProperties, Optional<String>> properties) 
-<<<<<<< HEAD
             throws IllegalValueException, InvalidTimeException{
-=======
-                 throws IllegalValueException{
->>>>>>> 131bde92143f05b8593f1ddb94171a99ded0e605
         Matcher matcher = EXTENSION_ARGS_FORMAT.matcher(extension);
         if (matcher.matches()) {
             String extensionCommand = matcher.group("commandWord").trim();
@@ -179,6 +169,20 @@ public class ExtensionParser {
         }
     }
     
+    /**
+     * Parses events and puts the times into the properties
+     * 
+     * @param properties Properties to put in.
+     * @param arguments Arguments specifying the time.
+     * @throws IllegalValueException
+     */
+    private void throwExceptionIfTimeInvalid(HashMap<Task.TaskProperties, Optional<String>> properties, 
+            TaskProperties taskPropertyStart, TaskProperties taskPropertyEnd) throws InvalidTimeException {
+        if (properties.get(taskPropertyStart).toString().compareTo(properties.get(taskPropertyEnd).toString()) > 0) {
+            throw new InvalidTimeException(START_AFTER_END);
+        }
+    }
+
     private void addEvent(HashMap<Task.TaskProperties, Optional<String>> properties, String arguments)
     		     throws IllegalValueException {
         Matcher matcher = EVENT_ARGS_FORMAT.matcher(arguments);
