@@ -12,12 +12,11 @@ import seedu.manager.commons.util.CollectionUtil;
  * Guarantees: description is present and not null, done is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-
-    private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-
     public static enum TaskProperties {
         DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE
     }
+    
+    private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 
     /**
      * Build task from properties represented as Strings
@@ -62,6 +61,8 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         HashMap<TaskProperties, Optional<TaskProperty>> properties = source.getProperties();
+        assert properties.containsKey(TaskProperties.DESC) && properties.get(TaskProperties.DESC).isPresent();
+        assert properties.containsKey(TaskProperties.DONE) && properties.get(TaskProperties.DONE).isPresent();
         
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
             this.properties.put(prop.getKey(), prop.getValue());

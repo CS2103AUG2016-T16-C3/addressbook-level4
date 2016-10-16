@@ -239,7 +239,7 @@ public class LogicManagerTest {
         TaskManager expectedTM = new TaskManager();
         expectedTM.addTask(newTask);
 
-        String editCommand = "edit 1  Dinner with Guinevere";
+        String editCommand = "edit 1 Dinner with Guinevere";
 
         assertCommandBehavior(
                 editCommand,
@@ -255,6 +255,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
+        
         HashMap<TaskProperties, Optional<String>> newProps1 = 
                 newTask.getPropertiesAsStrings();
         newProps1.put(TaskProperties.DESC, Optional.of("Dinner with Lancelot"));
@@ -265,7 +266,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
 
-        String editCommand1 = "edit 1 Dinner with Lancelot  venue Avalon";
+        String editCommand1 = "edit 1 Dinner with Lancelot venue Avalon";
 
         assertCommandBehavior(
                 editCommand1,
@@ -285,7 +286,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask1);
         expectedTM.addTask(newTask2);
 
-        String editCommand2 = "edit  1 from 7:30pm to 8:50pm priority low";
+        String editCommand2 = "edit 1 from 7:30pm to 8:50pm priority low";
 
         assertCommandBehavior(
                 editCommand2,
@@ -506,9 +507,9 @@ public class LogicManagerTest {
                     "Task " + seed,
                     "" + Math.abs(seed),
                     new String[] {"low", "med", "high"}[seed % 3],
-                    Math.abs(seed) + "@startTime",
-                    Math.abs(seed) + "@endTime", 
-                    "No"
+                    (Math.abs(seed) % 12 + 1) + ":00",
+                    (Math.abs(seed) % 12 + 1) + ":00", 
+                    ""
             );
         }
 
@@ -608,11 +609,11 @@ public class LogicManagerTest {
         Task generateTaskWithDesc(String desc) throws Exception {
             return new Task(
                     desc,
-                    "1",
+                    "Some Venue",
                     "low",
-                    "1@startTime",
-                    "1@endTime",
-                    "No"
+                    "7:30pm",
+                    "8:30pm",
+                    ""
             );
         }
     }
