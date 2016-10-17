@@ -308,19 +308,20 @@ Likeliness | As a... | I want to... | So that I can...
 `L` | User | Add tasks with a description and a specific deadline | Set deadlines for tasks
 `L` | User | Add tasks with description, start time and end time | Create events in the calendar
 `L` | User | Add tasks with only a description | Set tasks that need to be completed at some point of time
+`L` | User | Add tasks that starts from a certain time | Set tasks that doesn't have an end time
 `L` | User | Modify a task | Update deadlines and descriptions
-`L` | User | Delete a task | Reflect my not having to do a task anymore in my to do list
-`L` | User | Tick off a task | Record that this task is complete
+`L` | User | Delete a task | Remove it from the Task Manager's to-do list
+`L` | User | Tick off a task | Record that this task is complete by marking it as done
 `L` | User | Search for (a) task(s) | Find (a) task(s) and maybe edit it
 `L` | User | See upcoming tasks | Decide what to do next
 `L` | User | Assign priority to tasks | Gauge which task should be done next
 `L` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
 `L` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
-`L` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
 `L` | User | Undo operation(s) | Remove a mistake
 `L` | Advanced User | Edit the storage file | Make changes without having to go through the manager
 `L` | Advanced User | Declare my own names for commands | Personalise the experience and make it faster
 `U` | New User | View the procedure of creating a task | Learn how to create a task first
+`U` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
 `U` | User | Redo operation(s) | Redo a change that had been undone
 `U` | User | Declare recurring tasks | Remove the need to enter these tasks multiple times
 `U` | User | Search for empty slots (within a given time frame) | Decide when to schedule a task
