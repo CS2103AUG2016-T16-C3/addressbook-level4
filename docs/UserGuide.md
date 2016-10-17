@@ -135,7 +135,7 @@ There is no need to save manually.
 <a id="next"></a>
 #### List upcoming tasks: `next`
 _Lists all upcoming tasks._<br>
-Format: `next'
+Format: `next [before <time>]`
 
 > * All tasks whose start times are after the current time are listed, by default. <br>
 > * Floating tasks are also listed; they are listed at the bottom of the list. <br>
@@ -230,9 +230,9 @@ Primary | [Find](#find) | `find <keyword> [<more keywords>]`
 Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
 Primary | [Delete](#delete) | `delete <task number>`
 Primary | [Exit](#exit) | `exit`
-Primary | [Next](#next) | `next`
+Primary | [Next](#next) | `next [before <time>]`
 Primary | [Undo](#undo) | `undo`
-Primary | [Storage](#storage) | `storage`
+Primary | [Storage](#storage) | `storage <FilePath\<FileName>.xml>`
 Extension | [Venue](#venue) | `at <description of venue>`
 Extension | [Event](#from-to) | `from <start time> to <end time>`
 Extension | [Before](#before) | `before <time>`
