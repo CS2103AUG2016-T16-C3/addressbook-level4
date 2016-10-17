@@ -32,7 +32,7 @@
 ## Features
 
 ### Overview
-Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. These commands can then be made more specific using [extensions](#extensions), such as `at`, `before`, `after`, `from-to` and `priority`. <br>
+Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. These commands can then be made more specific using [extensions](#extensions), such as `at`, `before`, `from-to` and `priority`. <br>
 
 This means that the primary commands are used in conjunction with extensions to give the manager more information about what you want to do. <br>
 
@@ -54,7 +54,7 @@ Format: `help`
 
 > * This shows help for all commands. <br>
 
-Examples:
+Example:
   * `help`
 
 
@@ -71,7 +71,6 @@ Examples:
   * `add Dinner with Arthur`
   * `add Dinner with Arthur at Avalon from 8:30pm to 9:30pm`
   * `add Finish 2103T Tutorial before 11:59pm`
-  * `add Pay bills after 11:59pm priority low`
 
 
 <a id="find"></a>
@@ -124,7 +123,7 @@ Examples:
 _This command closes Task Ninja. Hope to see you back soon!_<br>
 Format: `exit`
 
-Examples:
+Example:
   * `exit`
 
 
@@ -133,16 +132,52 @@ Tasks are saved in the hard disk automatically after any command that changes th
 There is no need to save manually.
 
 
+<a id="next"></a>
+#### List upcoming tasks: `next`
+_Lists all upcoming tasks._<br>
+Format: `next'
+
+> * All tasks whose start times are after the current time are listed, by default. <br>
+> * Floating tasks are also listed; they are listed at the bottom of the list. <br>
+> * Can also be used with `before` to see upcoming tasks until a specified time. <br>
+
+Example:
+  * `next`
+  * `next before 10pm`
+
+
+<a id="undo"></a>
+#### Undo previous action: `undo`
+_Made a mistake? Fret not! Just use this keyword to revert the last action that you did!_<br>
+Format: `undo'
+
+> * Can be used more than once. <br>
+
+Example:
+  * `undo`
+
+
+<a id="storage"></a>
+#### Specify a storage folder: `storage`
+_Allows you to edit the storage file._<br>
+Format: `storage <FilePath\<FileName>.xml>`
+
+> * The file's name must have a .xml extension. <br>
+
+Example:
+  * `storage .\src\test\data\sandbox\TaskNinja.xml`
+
+
 ### Extensions
 
 <a id="venue"></a>
-#### At a certain venue: `at`
+#### At a certain venue: `venue`
 _Going to university and ended up at the mall? Remember your destination with this extension._<br>
-Format: `at <description of venue>`
-
+Format: `venue <description of venue>`
+ 
 Examples:
-  * `add Lunch with Arthur at Avalon`
-  * `edit 1 at Round Table`
+  * `add Lunch with Arthur venue Avalon`
+  * `edit 1 venue Round Table`
 
 
 <a id="from-to"></a>
@@ -170,18 +205,6 @@ Examples:
   * `edit 3 before 12:30pm`
 
 
-<a id="after"></a>
-#### After a certain time: `after`
-_Mark a task that should be done after a certain time._<br>
-Format: `after <time>`
-
-> * Time is stored as plaintext.
-
-Examples:
-  * `add Pay bills after 11:50pm`
-  * `edit 2 after 11:59pm`
-
-
 <a id="priority"></a>
 #### Priority level for tasks: `priority`
 _Assign a priority level to tasks._<br>
@@ -194,6 +217,7 @@ Examples:
   * `add Lunch with Arthur priority high`
   * `edit 1 priority med`
 
+_The default priority level of a task is medium ("med")._
 
 
 ## Cheat Sheet
@@ -206,8 +230,10 @@ Primary | [Find](#find) | `find <keyword> [<more keywords>]`
 Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
 Primary | [Delete](#delete) | `delete <task number>`
 Primary | [Exit](#exit) | `exit`
+Primary | [Next](#next) | `next`
+Primary | [Undo](#undo) | `undo`
+Primary | [Storage](#storage) | `storage`
 Extension | [Venue](#venue) | `at <description of venue>`
 Extension | [Event](#from-to) | `from <start time> to <end time>`
 Extension | [Before](#before) | `before <time>`
-Extension | [After](#after) | `after <time>`
 Extension | [Priority](#priority) | `priority <low/med/high>`
