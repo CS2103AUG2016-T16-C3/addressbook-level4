@@ -19,7 +19,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  */
 public abstract class Time extends TaskProperty {
 	public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Invalid Time. While times are quite flexible, don't forget that I'm just a computer :)";
+            "Invalid Time. While times are quite flexible, don't forget that I'm just a computer. :)";
     public static final String TIME_VALIDATION_REGEX = ".+"; // Time validation done by timeParser
     
     private static final Pattern DATE_STRING_FORMAT_REGEX = 
