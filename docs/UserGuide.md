@@ -103,7 +103,7 @@ Format: `edit <task number> [<new task description>] [<extensions>]`
 Examples:
   * `edit 1 Dinner with Guinevere`
   * `edit 2 at 1am 3 Oct`
-  * `edit 1 Dinner with Guinevere at Under the stars`
+  * `edit 1 Dinner with Guinevere venue Under the stars`
 
 
 <a id="delete"></a>
