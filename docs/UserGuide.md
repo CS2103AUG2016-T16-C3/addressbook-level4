@@ -69,7 +69,7 @@ Format: `add <task description> [<extensions>]`
 
 Examples:
   * `add Dinner with Arthur`
-  * `add Dinner with Arthur at Avalon from 8:30pm to 9:30pm`
+  * `add Dinner with Arthur venue Avalon from 8:30pm to 9:30pm`
   * `add Finish 2103T Tutorial before 11:59pm`
 
 
