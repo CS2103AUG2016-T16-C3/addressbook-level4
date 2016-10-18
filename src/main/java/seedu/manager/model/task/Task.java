@@ -19,7 +19,10 @@ public class Task implements ReadOnlyTask {
     
     public static final String START_AFTER_END = "Start time should be before end time.";
     
+    private static int maxId = 0;
+    
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
+    private int id;
 
     /**
      * Build task from properties represented as Strings
@@ -34,6 +37,8 @@ public class Task implements ReadOnlyTask {
         	Optional<TaskProperty> taskProperty = buildProperty(prop.getKey(), prop.getValue());
             this.properties.put(prop.getKey(), taskProperty);
         }
+        
+        setMaxId();
     }
 
 	/**
@@ -57,6 +62,8 @@ public class Task implements ReadOnlyTask {
        properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(new StartTime(startTime)));
        properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(new EndTime(endTime)));
        properties.put(TaskProperties.DONE, done.equals("") ? Optional.of(new Done("No")) : Optional.of(new Done(done)));
+       
+       setMaxId();
     }
 
     /**
@@ -70,7 +77,14 @@ public class Task implements ReadOnlyTask {
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
             this.properties.put(prop.getKey(), prop.getValue());
         }
+        
+        setMaxId();
     }
+    
+    private void setMaxId() {
+		id = maxId;
+		maxId++;
+	}
 
     /**
      * Get properties of task as TaskProperty objects
@@ -98,42 +112,6 @@ public class Task implements ReadOnlyTask {
         }
         return clone;
     }
-    
-
-    /**
-     * Builds a TaskProperty object using a value from the TaskProperties enum and a value
-     * @param property that should be built
-     * @param value of the property
-     * @return
-     */
-    private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
-    	if (!value.isPresent()) {
-    		if (property == TaskProperties.DONE) {
-				return Optional.of(new Done("No"));
-			}
-    		else {
-    			return Optional.empty();
-			}
-    	}
-    	String stringValue = value.get();
-    	
-		switch (property) {
-		case DESC:
-			return Optional.of(new Desc(stringValue));
-		case VENUE:
-			return Optional.of(new Venue(stringValue));
-		case STARTTIME:
-			return Optional.of(new StartTime(stringValue));
-		case ENDTIME:
-			return Optional.of(new EndTime(stringValue));
-		case PRIORITY:
-			return Optional.of(new Priority(stringValue));
-		case DONE:
-			return Optional.of(new Done(stringValue));
-		default:
-			throw new IllegalValueException("Property not found");
-		}
-	}
 
     @Override
     public Optional<TaskProperty> getDesc() {
@@ -182,5 +160,41 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+    
+
+    /**
+     * Builds a TaskProperty object using a value from the TaskProperties enum and a value
+     * @param property that should be built
+     * @param value of the property
+     * @return
+     */
+    private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
+    	if (!value.isPresent()) {
+    		if (property == TaskProperties.DONE) {
+				return Optional.of(new Done("No"));
+			}
+    		else {
+    			return Optional.empty();
+			}
+    	}
+    	String stringValue = value.get();
+    	
+		switch (property) {
+		case DESC:
+			return Optional.of(new Desc(stringValue));
+		case VENUE:
+			return Optional.of(new Venue(stringValue));
+		case STARTTIME:
+			return Optional.of(new StartTime(stringValue));
+		case ENDTIME:
+			return Optional.of(new EndTime(stringValue));
+		case PRIORITY:
+			return Optional.of(new Priority(stringValue));
+		case DONE:
+			return Optional.of(new Done(stringValue));
+		default:
+			throw new IllegalValueException("Property not found");
+		}
+	}
 
 }
