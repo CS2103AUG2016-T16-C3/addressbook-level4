@@ -44,7 +44,13 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		assertResultMessage(String.format(StorageCommand.MESSAGE_ALREADY_EXISTS_SUCCESS, alreadyExistsFilePath));
 		
 		String newFilePath = TestUtil.getFilePathInSandboxFolder("newFile.xml");
+		File newFile = new File(newFilePath);
+		newFile.delete();
+		Thread.sleep(300);
 		commandBox.runCommand("storage " + newFilePath);
 		assertResultMessage(String.format(StorageCommand.MESSAGE_SUCCESS, newFilePath));
+		
+		String resetFilePath = "data/taskmanager.xml";
+		commandBox.runCommand("storage " + resetFilePath); // Reset storage location back to default
 	}
 }
