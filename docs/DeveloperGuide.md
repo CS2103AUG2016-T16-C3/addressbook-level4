@@ -17,7 +17,7 @@
 
 Task Ninja is a task manager with a command line interface. It is aimed at users who prefer to only use the keyboard and prefer to be able to add tasks with one line of information.<br>
 
-This guide describes how Task Ninja has been designed and implemented. It is directed at developers new to this application aiming to understand the architecture of the application and towards more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix, to give you a better idea of the pain points this application is trying to solve.
+This guide describes how Task Ninja has been designed and implemented. It is directed at developers new to this application aiming to understand the architecture of the application and at more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix to give you a better idea of the pain points that this application is trying to solve.
 
 
 ## Setting up
@@ -46,10 +46,9 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
 5. Click `Browse`, then locate the project's directory
 6. Click `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  > If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.<br><br>
+  > Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish. (This is because Gradle downloads library files from servers during the project set up process)<br><br>
+  > If Eclipse auto-changed any settings files during the import process, you can discard those changes.<br>
 
 #### Troubleshooting project setup
 
@@ -196,12 +195,11 @@ Classes used by multiple components are in the [`seedu.manager.commons`](#../src
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file
+* The logging level can be controlled using the `logLevel` setting in the configuration file.
   (See [Configuration](#configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
 * Currently log messages are output through `Console` and to a `.log` file.
 
 **Logging Levels**
@@ -214,7 +212,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g. App name, logging level) through the configuration file (default: `config.json`).
 
 
 ## Testing
@@ -249,21 +247,20 @@ We have two types of tests:
 
 **Headless GUI Testing** :
 
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode.
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+1. Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. <br>
+That means the developer can do other things on the Computer while the tests are running.<br>
+
+2. See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 #### Troubleshooting tests
 
- **Problem: Tests fail because NullPointException when AssertionError is expected**
+ **Problem: Tests fail because of NullPointerException when AssertionError is expected. **
 
  * Reason: Assertions are not enabled for JUnit tests.
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+   This can happen if you are not using a recent Eclipse version. (i.e. _Neon_ or later)
  * Solution: Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
-   Delete run configurations created when you ran tests earlier.
+   Delete run configurations created when you run tests earlier.
 
 
 ## Dev Ops
@@ -300,7 +297,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Likeliness: Likely - `L`, Unlikely - `U`
 
-Likeliness | As a... | I want to... | So that I can...
+Likeliness | As (a)... | I want to... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `L` | All Users | Interact with the manager using a CLI and keys | Get rid of the need for a mouse
 `L` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
@@ -334,13 +331,13 @@ Likeliness | As a... | I want to... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise)
+( For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise. )
 
 #### Use case: Add a task
 
 **MSS**
 
-1. Users supplies Task Manager with information for a new task
+1. User supplies Task Manager with information for a new task
 2. Task Manager adds new task to its data <br>
 Use case ends.
 
@@ -348,78 +345,78 @@ Use case ends.
 
 2a. The given information is invalid
 
-> 2a1. User is shown correct format for data <br>
-Use case resumes at step 1
+> 2a1. User is shown correct format for data. <br>
+Use case resumes at step 1.
 
 2b. Given information is identical to an already existing task
 
-> 2b1. User is notified that task already exists <br>
-Use case resumes at step 1
+> 2b1. User is notified that the task already exists. <br>
+Use case resumes at step 1.
 
 #### Use case: List specific tasks
 
 **MSS**
 
-1. User supplies Task Manager with information about descriptions of tasks to be listed
-2. Task Manager shows the list of tasks <br>
+1. User supplies Task Manager with information about descriptions of tasks to be listed.
+2. Task Manager shows the list of tasks. <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. The list is empty.
 
-> Use case ends
+> Use case ends.
 
-2b. The given information is invalid
+2b. The given information is invalid.
 
-> 2a1. User is shown correct format for data <br>
-Use case resumes at step 1
+> 2b1. User is shown correct format of data. <br>
+Use case resumes at step 1.
 
 #### Use case: Delete task
 
 **MSS**
 
-1. User requests to list tasks
-2. Task Manager shows a list of tasks
-3. User requests to delete a specific task in the list
-4. Task Manager deletes the task <br>
+1. User requests to list tasks.
+2. Task Manager shows a list of tasks.
+3. User requests to delete a specific task in the list.
+4. Task Manager deletes the task. <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. The list is empty.
 
-> Use case ends
+> Use case ends.
 
-4a. The given index is invalid
+4a. The given index is invalid.
 
-> 4a1. User is notified that index is invalid <br>
-Use case resumes at step 3
+> 4a1. User is notified that index is invalid. <br>
+Use case resumes at step 3.
 
 #### Use case: Edit task
 
 **MSS**
 
-1. User requests to list tasks
-2. Task Manager shows a list of tasks
-3. Users supplies Task Manager with new information for a specific task
-4. Task Manager modifies the corresponding task
+1. User requests to list tasks.
+2. Task Manager shows a list of tasks.
+3. Users supplies Task Manager with new information for a specific task.
+4. Task Manager modifies the corresponding task.
 
 **Extensions**
 
-2a. The list is empty
+2a. The list is empty.
 
-> Use case ends
+> Use case ends.
 
-4a. The given index is invalid
+4a. The given index is invalid.
 
-> 4a1. User is notified that index is invalid <br>
-Use case resumes at step 3
+> 4a1. User is notified that index is invalid. <br>
+Use case resumes at step 3.
 
-4b. The given information is invalid
+4b. The given information is invalid.
 
-> 4b1. User is shown correct format for data <br>
-Use case resumes at step 3
+> 4b1. User is shown correct format for data. <br>
+Use case resumes at step 3.
 
 
 ## Appendix C : Non Functional Requirements
