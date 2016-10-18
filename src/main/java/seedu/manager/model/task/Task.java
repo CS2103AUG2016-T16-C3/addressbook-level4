@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.CollectionUtil;
-import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * Represents a Task in the task manager.
