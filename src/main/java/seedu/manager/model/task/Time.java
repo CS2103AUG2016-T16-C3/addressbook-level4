@@ -79,4 +79,8 @@ public abstract class Time extends TaskProperty {
 		}
     	return groups.get(0);
     }
+    
+    public Date getTime() {
+        return value;
+    }
 }

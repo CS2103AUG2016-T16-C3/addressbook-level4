@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.CollectionUtil;
+import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * Represents a Task in the task manager.
@@ -15,6 +16,8 @@ public class Task implements ReadOnlyTask {
     public static enum TaskProperties {
         DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE
     }
+    
+    public static final String START_AFTER_END = "Start time should be before end time.";
     
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 

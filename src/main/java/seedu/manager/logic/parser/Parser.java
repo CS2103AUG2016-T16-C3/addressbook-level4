@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.commons.exceptions.InvalidTimeException;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.logic.commands.*;
 
@@ -38,10 +37,9 @@ public class Parser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
-     * @return the command based on the user input
-     * @throws InvalidTimeException 
+     * @return the command based on the user input 
      */
-    public Command parseCommand(String userInput) throws InvalidTimeException {
+    public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -90,10 +88,9 @@ public class Parser {
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
-     * @return the prepared command
-	 * @throws InvalidTimeException 
+     * @return the prepared command 
      */
-    private Command prepareAdd(String args) throws InvalidTimeException{        
+    private Command prepareAdd(String args) {        
         try {
             return new AddCommand(
                     extParser.getTaskProperties(args)
@@ -124,10 +121,9 @@ public class Parser {
      * Parses arguments in the context of the edit task command.
      *
      * @param args full command args string
-     * @return the prepared command
-     * @throws InvalidTimeException 
+     * @return the prepared command 
      */
-    private Command prepareEdit(String args) throws InvalidTimeException {
+    private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_KEYWORDS_FORMAT.matcher(args);
         if(!matcher.matches()){
             return new IncorrectCommand(

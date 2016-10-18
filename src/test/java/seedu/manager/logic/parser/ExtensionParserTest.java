@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.commons.exceptions.InvalidTimeException;
 import seedu.manager.model.task.Task.TaskProperties;
 
 public class ExtensionParserTest {
@@ -20,7 +19,7 @@ public class ExtensionParserTest {
     }
     
     @Test
-    public void parse_invalid_duplicate_error() throws InvalidTimeException {
+    public void parse_invalid_duplicate_error() {
         try {
             extensionParser.getTaskProperties("Dinner with Lancelot venue Avalon venue Round Table");
             fail("Didn't throw exception");
@@ -44,7 +43,7 @@ public class ExtensionParserTest {
     }
     
     @Test
-    public void parse_invalid_from_to_format_error() throws InvalidTimeException {
+    public void parse_invalid_from_to_format_error() {
         try {
             extensionParser.getTaskProperties("Dinner with Lancelot from 8:30");
             fail("Didn't throw exception");
@@ -66,7 +65,7 @@ public class ExtensionParserTest {
     }
     
     @Test
-    public void parse_all_ext_successful() throws IllegalValueException, InvalidTimeException {
+    public void parse_all_ext_successful() throws IllegalValueException {
         assertEquals(
                 constructProperties("Dinner with Lancelot", "Avalon", "high", "7:30", "8:30"),
                 extensionParser.getTaskProperties("Dinner with Lancelot venue Avalon priority high from 7:30 to 8:30")
@@ -74,7 +73,7 @@ public class ExtensionParserTest {
     }
     
     @Test 
-    public void parse_ext_successful() throws IllegalValueException, InvalidTimeException {
+    public void parse_ext_successful() throws IllegalValueException {
         assertEquals(
                 constructProperties("Dinner with Arthur", "Round Table", "high", "", ""),
                 extensionParser.getTaskProperties("Dinner with Arthur venue Round Table priority high")
@@ -98,7 +97,7 @@ public class ExtensionParserTest {
     }
     
     @Test
-    public void parse_only_desc_successful() throws IllegalValueException, InvalidTimeException {
+    public void parse_only_desc_successful() throws IllegalValueException {
         assertEquals(
                 constructProperties("Dinner with Lancelot", "", "", "", ""),
                 extensionParser.getTaskProperties("Dinner with Lancelot")
@@ -106,7 +105,7 @@ public class ExtensionParserTest {
     }
     
     @Test
-    public void parse_no_desc_successful() throws IllegalValueException, InvalidTimeException {
+    public void parse_no_desc_successful() throws IllegalValueException {
         assertEquals(
                 constructProperties("", "Avalon", "high", "7:30", "8:30"),
                 extensionParser.getTaskProperties("venue Avalon priority high from 7:30 to 8:30")
@@ -114,7 +113,7 @@ public class ExtensionParserTest {
     }
     
     @Test
-    public void parse_extra_spacing_successful() throws IllegalValueException, InvalidTimeException {
+    public void parse_extra_spacing_successful() throws IllegalValueException {
         assertEquals(
                 constructProperties("Dinner with Lancelot", "Avalon", "high", "7:30", "8:30"),
                 extensionParser.getTaskProperties("  Dinner with Lancelot venue Avalon priority high from 7:30 to 8:30")

@@ -15,8 +15,6 @@ import seedu.manager.logic.commands.*;
 
 import java.util.logging.Logger;
 
-import seedu.manager.commons.exceptions.InvalidTimeException;
-
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -70,7 +68,7 @@ public class CommandBox extends UiPart {
 
 
     @FXML
-    private void handleCommandInputChanged() throws InvalidTimeException{
+    private void handleCommandInputChanged(){
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 

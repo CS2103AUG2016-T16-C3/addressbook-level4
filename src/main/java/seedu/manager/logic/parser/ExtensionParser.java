@@ -7,9 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.commons.exceptions.InvalidTimeException;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
+
+import seedu.manager.model.task.StartTime;
+import seedu.manager.model.task.EndTime;
 
 /**
  * Used to parse extensions in the user input
@@ -63,9 +65,8 @@ public class ExtensionParser {
     
     /**
      * Build task from extensions
-     * @throws InvalidTimeException 
      */
-    public HashMap<Task.TaskProperties, Optional<String>> getTaskProperties(String extensionsStr) throws IllegalValueException, InvalidTimeException {
+    public HashMap<Task.TaskProperties, Optional<String>> getTaskProperties(String extensionsStr) throws IllegalValueException {
         HashMap<Task.TaskProperties, Optional<String>> properties = new HashMap<>();
         extensionsStr = extensionsStr.trim();
         
@@ -92,10 +93,9 @@ public class ExtensionParser {
      * Parses a single extension
      * 
      * @throws IllegalValueException
-     * @throws InvalidTimeException 
      */
     private void parseSingleExtension(String extension, HashMap<Task.TaskProperties, Optional<String>> properties) 
-            throws IllegalValueException, InvalidTimeException{
+            throws IllegalValueException{
         Matcher matcher = EXTENSION_ARGS_FORMAT.matcher(extension);
         if (matcher.matches()) {
             String extensionCommand = matcher.group("commandWord").trim();
@@ -123,8 +123,8 @@ public class ExtensionParser {
             case EVENT:
                 throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.EVENT);
                 throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.EVENT);
-                throwExceptionIfTimeInvalid(properties, TaskProperties.STARTTIME, TaskProperties.ENDTIME);
                 addEvent(properties, arguments);
+                //throwExceptionIfTimeInvalid(properties, TaskProperties.STARTTIME, TaskProperties.ENDTIME);
                 break;
             case PRIORITY:
                 throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, ExtensionCmds.PRIORITY);
@@ -168,20 +168,6 @@ public class ExtensionParser {
             throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionCmd.getValue()));
         }
     }
-    
-    /**
-     * Parses events and puts the times into the properties
-     * 
-     * @param properties Properties to put in.
-     * @param arguments Arguments specifying the time.
-     * @throws IllegalValueException
-     */
-    private void throwExceptionIfTimeInvalid(HashMap<Task.TaskProperties, Optional<String>> properties, 
-            TaskProperties taskPropertyStart, TaskProperties taskPropertyEnd) throws InvalidTimeException {
-        if (properties.get(taskPropertyStart).toString().compareTo(properties.get(taskPropertyEnd).toString()) > 0) {
-            throw new InvalidTimeException(START_AFTER_END);
-        }
-    }
 
     private void addEvent(HashMap<Task.TaskProperties, Optional<String>> properties, String arguments)
     		     throws IllegalValueException {
@@ -196,6 +182,25 @@ public class ExtensionParser {
         
         addToProperties(properties, TaskProperties.STARTTIME, startTime);
         addToProperties(properties, TaskProperties.ENDTIME, endTime);
+        
+        throwExceptionIfTimeInvalid(startTime, endTime);
+    }
+    
+    /**
+     * Parses events and puts the times into the properties
+     * Throw an exception if start time is behind end time
+     * 
+     * @param properties Properties to put in.
+     * @param arguments Arguments specifying the time.
+     * @throws IllegalValueException
+     */
+    private void throwExceptionIfTimeInvalid(String startTime, String endTime) throws IllegalValueException {
+        StartTime start = new StartTime(startTime);
+        EndTime end = new EndTime(endTime);
+        
+        if (start.getTime().after(end.getTime())) {
+            throw new IllegalValueException(START_AFTER_END);
+        }
     }
     
     /**
