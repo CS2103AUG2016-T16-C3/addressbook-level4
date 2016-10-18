@@ -15,9 +15,9 @@
 
 ## Introduction
 
-Task Ninja is a task manager with a command line interface. It is aimed towards those users who prefer to only use the keyboard and prefer to be able to add tasks with one line of information.<br>
+Task Ninja is a task manager with a command line interface. It is aimed at users who prefer to only use the keyboard and prefer to be able to add tasks with one line of information.<br>
 
-This guide describes how Task Ninja has been designed and implemented. It is directed towards developers new to this application aiming to understand the architecture of the application and towards more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix, to give you a better idea of the pain points this application is trying to solve.
+This guide describes how Task Ninja has been designed and implemented. It is directed at developers new to this application aiming to understand the architecture of the application and towards more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix, to give you a better idea of the pain points this application is trying to solve.
 
 
 ## Setting up
@@ -62,7 +62,7 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
 **Problem: Eclipse reports some required libraries missing**
 
 * Reason: Required libraries may not have been downloaded during the project import.
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
 
 
 ## Design
@@ -76,9 +76,9 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/manager/MainApp.java). It is responsible for,
-* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
-* At shut down: Shutting down the components and invokes cleanup method where necessary.
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/manager/MainApp.java). It is responsible for:
+* At app launch: Initializing the components in the correct sequence, and connecting them up with each other, and
+* At shut down: Shutting down the components and invoking cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
@@ -237,13 +237,13 @@ We have two types of tests:
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
 
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+2. **Non-GUI Tests** - These are tests that do not involving the GUI. They include,
+   1. _Unit tests_ targets the lowest level methods/classes. <br>
       e.g. `seedu.manager.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units
+   2. _Integration tests_ that check the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.manager.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
+   3. Hybrids of unit and integration tests. These tests check multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.manager.logic.LogicManagerTest`
 
@@ -484,8 +484,7 @@ We researched other task managers' special features to better understand the pro
     * Allows searching by keywords
 
 *Cons:*
-> It only display tasks as a list while sometimes the calendar mode can tell user more information.
-
+> It only display tasks as a list while sometimes the calendar mode can tell users more information.
 
 ##### Calendar Vim
 *Pros:*
