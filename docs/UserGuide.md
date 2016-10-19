@@ -249,9 +249,9 @@ _As we are using PrettyTime parser to read in dates and times, we strongly recom
 _You may also refer to the examples in [Event](#from-to) and [Before](#before) sections for an overview of how to input your dates and times when adding/editing your task._<br>
 
 > * The current time (in HH:MM:SS) will be timestamped to your tasks should you decide not to enter a time.
-> * The following examples use 19 Oct 12:00:00 2016 as the current time and date, unless otherwise specified
+> * The following examples use Wed 19 Oct 12:00:00 2016 as the current time and date, unless otherwise specified
 
-Input | Parsed As | Comments
+Input | Read in as | Comments
 ----- | :--------: | ------- |
 `2am` | Wed Oct 19 02:00:00 | 12-hour format
 `2AM` | Wed Oct 19 02:00:00 | Not case-sensitive
@@ -275,30 +275,26 @@ Input | Parsed As | Comments
 `tomorrow` | Thu Oct 20 12:00:00 | Uses current time by default
 `next week` | Wed Oct 26 12:00:00 |
 `Thu/Thu/Thur/Thurs/Thursday` | Thu Oct 20 12:00:00 | Not case sensitive, sets to upcoming Thursday
-`next Mon` | Date (relative) | Mon Oct 24 16:33:46 GMT+08:00 2016
-`wed/wednesday/Wed/Wednesday` | Date (relative; automatically set on the day of the upcoming week if the day today is the same or past the day entered) | Wed Oct 26 16:34:21 GMT+08:00 2016
-`next fri/friday/Fri/Friday` | Date (relative) | Fri Oct 28 16:35:17 GMT+08:00 2016
-`last sat/saturday/Sat/Saturday` | Date (relative) | Sat Oct 15 16:35:59 GMT+08:00 2016
-`next sun/sunday/Sun/Sunday` | Date (relative) | Sun Oct 23 16:36:28 GMT+08:00 2016
-`next month` | Date (relative) | Sat Nov 19 16:36:42 GMT+08:00 2016
-`next year` | Date (relative) | Thu Oct 19 16:37:23 GMT+08:00 2017
-`1` | Time (incorrect) | Wed Oct 19 01:00:00 GMT+08:00 2016
-`00` | Time (incorrect) | Wed Oct 19 00:00:00 GMT+08:00 2016
-`19/10` | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
-`19/10/16` | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
-`19/10/2016` | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
-`the day after` | Date (incorrect) | N/A | N/A
-`the following day` | Date (incorrect) | N/A | N/A
-`the week after` | Date (incorrect) | N/A | N/A
-`next next week` | Date (incorrect; 1st "next" is ignored) | Wed Oct 26 16:38:09 GMT+08:00 2016
-`next next month` | Date (incorrect; 1st "next" is ignored) | Sat Nov 19 16:38:44 GMT+08:00 2016
-`next next year` | Date (incorrect; 1st "next" is ignored) | Thu Oct 19 16:39:23 GMT+08:00 2017
-`19 Oct 1am`/`19 October 1AM` | Date (without year) and Time (relaxed) | Wed Oct 19 01:00:00 GMT+08:00 2016
-`20 Nov 1:00pm`/`20 November 1:00PM` | Date (without year) and Time (12-hr format) | Sun Nov 20 13:00:00 GMT+08:00 2016
-`21 Dec 14:00`/`Dec 21 14:00` | Date (without year) and Time (24-hr format) | Wed Dec 21 14:00:00 GMT+08:00 2016
-`22 Jan '16 02:00am`/`22 January '16 02:00AM` | Date (with year) and Time (12-hr format) | Sun Jan 22 02:00:00 GMT+08:00 2016
-`Jan 22 '16 02:00am`/`January 22 '16 02:00AM` | Date (with year) and Time (12-hr format) | Sun Jan 22 02:00:00 GMT+08:00 2016
-`23 Feb 2016 14:00`/`23 February 2017 1400` | Date (with year) and Time (24-hr format) | Tue Feb 23 14:00:00 GMT+08:00 2017
-`Feb 23 2016 14:00`/`February 23 2017 1400` | Date (with year) and Time (24-hr format) | Tue Feb 23 14:00:00 GMT+08:00 2017
-`23 Feb 16`/`23 February 16` | Date (without year) and Time (incorrect; "16" will be parsed as time) | Tue Feb 23 16:00:00 GMT+08:00 2016
-`23 Feb 1400`/`23 February 1400` | Date and Time (incorrect; "1400" will be parsed as year) | Mon Feb 23 10:08:27 GMT+08:00 1400
+`next Mon` | Mon Oct 24 12:00:00 | Sets to upcoming Monday
+`Tue` | Tue Oct 25 12:00:00 | Sets to upcoming Tuesday
+`next Fri` | Fri Oct 28 12:00:00 | Sets to the Friday after the upcoming one
+`next month` | Sat Nov 19 12:00:00 | Uses current day and time by default
+`next year` | Thu Oct 19 12:00:00 2017 |
+`19 Oct 1am` | Thu Oct 20 01:00:00 | Specify date and time
+`21 Dec 14:00`/`Dec 21 14:00` | Wed Dec 21 14:00:00 | Specify date and time (24-hour format)
+
+_The following are some formats that are incorrect and may not be read in correctly, or show an error._
+
+Input | Read in as | Comments
+----- | :--------: | ------- |
+`1` | Wed Oct 19 01:00:00 | Just a single number is ambiguous and should be avoided
+`00` | Wed Oct 19 00:00:00 | Similarly, just `00` is also ambiguous
+`19/10` | Wed Oct 19 19:00:00 | Read not as a date, but as 1900 hours - remember to use MM/DD
+`19/10/16` | Wed Oct 19 19:00:00 | Same as above
+`19/10/2016` | Wed Oct 19 19:00:00 | Same as above
+`23 Feb 17` | Tue Feb 23 16:00:00 2016 | Without the apostrophe before `16`, it's read incorrectly
+`23 Feb 1400` | Mon Feb 23 12:00:00 1400 | `1400` is read in as an year instead of time
+`the day after` | Cannot be read | Add in a tomorrow, and we can read it :)
+`the following day` | Cannot be read |
+`the week after` | Cannot be read |
+`next next week` | Wed Oct 26 12:00:00 | The second `next` is ignored
