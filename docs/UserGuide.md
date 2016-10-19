@@ -294,7 +294,7 @@ Input | Read in as | Comments
 `19/10/2016` | Wed Oct 19 19:00:00 | Same as above
 `23 Feb 17` | Tue Feb 23 16:00:00 2016 | Without the apostrophe before `16`, it's read incorrectly
 `23 Feb 1400` | Mon Feb 23 12:00:00 1400 | `1400` is read in as an year instead of time
+`next next week` | Wed Oct 26 12:00:00 | The second `next` is ignored
 `the day after` | Cannot be read | Add in a tomorrow, and we can read it :)
 `the following day` | Cannot be read |
 `the week after` | Cannot be read |
-`next next week` | Wed Oct 26 12:00:00 | The second `next` is ignored
