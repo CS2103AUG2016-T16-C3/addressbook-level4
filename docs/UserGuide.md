@@ -5,6 +5,7 @@
   * [Primary Commands](#primary-commands)
   * [Extensions](#extensions)
 * [Cheat Sheet](#cheat-sheet)
+* [Appendix A](#appendix-a)
 
 
 
@@ -139,7 +140,7 @@ Format: `next [before <time>]`
 
 > * All tasks whose start times are after the current time are listed, by default. <br>
 > * Floating tasks are also listed; they are listed at the bottom of the list. <br>
-> * Can also be used with `before` to see upcoming tasks until a specified time. <br>
+> * Can also be used with `before` to see upcoming tasks until a specified time/date. <br>
 
 Example:
   * `_next_`
@@ -186,7 +187,7 @@ _Mark tasks/events that will be done in a certain period of time/date._<br>
 Format: `from <start time/date> to <end time/date>`
 
 > * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
-> * A list of supported time and date inputs are listed in Appendix A. You may also refer to the examples for a brief guide too. <br>
+> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
 
 Examples:
   * `add Meeting with Boss _from_ 11am _to_ 1pm`
@@ -200,7 +201,7 @@ Examples:
 _Specify a deadline for a task._<br>
 Format: `before <time/date>`
 
-> * A list of supported time and date inputs are listed in Appendix A. You may also refer to the examples for a brief guide too. <br>
+> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
 
 Examples:
   * `add Finish 2103T Tutorial _before_ 13:00`
@@ -241,3 +242,69 @@ Extension | [Venue](#venue) | `at <description of venue>`
 Extension | [Event](#from-to) | `from <start time> to <end time>`
 Extension | [Before](#before) | `before <time>`
 Extension | [Priority](#priority) | `priority <low/med/high>`
+
+
+# Appendix A
+_This appendix lists down all the inputs of dates and times that are accepted when adding/editing a task._
+_As we are using PrettyTime parser to read in dates and times, we strongly recommend you to follow this table in order to let you have the best experience when using Task Ninja!_
+_You may also refer to the examples in [Event](#from-to) and [Storage](#storage) sections for an overview of how to input your dates and times when adding/editing your task._
+
+> * The format of dates and times are as follows: `<*Day of week* (Mon/Tue/Wed, etc)> <*Month* (Jan/Feb/Mar, etc)> <*Day* (DD)> <*Time* (HH:MM:SS)> <*Timezone (fixed)* (GMT+08:00)> <*Year* (YYYY)>` <br>
+> * The current time (in HH:MM:SS GMT+08:00) will be timestamped to your tasks should you decide not to enter a time.
+
+Input | Type | Parsed As (Example (Using 19 Oct 2016 as the date, unless otherwise specified)):
+:--------: | ----- | :--------:
+`2am` | Time (relaxed) | Wed Oct 19 02:00:00 GMT+08:00 2016
+`2PM` | Time (relaxed) | Wed Oct 19 14:00:00 GMT+08:00 2016
+`3:30am` | Time (12-hr format) | Wed Oct 19 03:30:00 GMT+08:00 2016
+`4:45PM` | Time (12-hr format) | Wed Oct 19 16:45:00 GMT+08:00 2016
+`0515` | Time (24-hr format) | Wed Oct 19 05:15:00 GMT+08:00 2016
+`1700` | Time (24-hr format) | Wed Oct 19 17:00:00 GMT+08:00 2016
+`6:00` | Time (24-hr format) | Wed Oct 19 06:00:00 GMT+08:00 2016
+`07:55` | Time (24-hr format) | Wed Oct 19 07:55:00 GMT+08:00 2016
+`19:59` | Time (24-hr format) | Wed Oct 19 19:59:00 GMT+08:00 2016
+`1` | Time (incorrect) | Wed Oct 19 01:00:00 GMT+08:00 2016
+`00` | Time (incorrect) | Wed Oct 19 00:00:00 GMT+08:00 2016
+`19 Oct` | Date (relaxed; uses current year) | Wed Oct 19 16:10:04 GMT+08:00 2016
+`20 November` | Date (relaxed; uses current year) | Sun Nov 20 16:10:26 GMT+08:00 2016
+`21 Dec '16` | Date (relaxed) | Wed Dec 21 16:10:26 GMT+08:00 2016
+`22 January '17` | Date (relaxed) | Sun Jan 22 16:14:49 GMT+08:00 2017
+`23 Feb 2016` | Date (relaxed) | Tue Feb 23 16:16:32 GMT+08:00 2017
+`24 March 2017` | Date (relaxed) | Fri Mar 24 16:17:02 GMT+08:00 2017
+`Oct 19`/`October 19` | Date (relaxed) | Wed Oct 19 16:10:48 GMT+08:00 2016
+`Dec 21 '16`/`December 21 '16` | Date (relaxed) | Wed Dec 21 16:11:03 GMT+08:00 2016
+`Feb 23 2016`/`Febuary 23 2016` | Date (relaxed) | Tue Feb 23 16:12:22 GMT+08:00 2017
+`10/19` | Date (formal; uses current year) | Wed Oct 19 16:11:19 GMT+08:00 2016
+`10/19/16` | Date (formal) | Wed Oct 19 16:13:25 GMT+08:00 2016
+`10/19/2016` | Date (formal) | Wed Oct 19 16:14:42 GMT+08:00 2016
+`today` | Date (relative) | Wed Oct 19 16:24:23 GMT+08:00 2016
+`tomorrow` | Date (relative) | Thu Oct 20 16:24:41 GMT+08:00 2016
+`next week` | Date (relative) | Wed Oct 26 16:26:56 GMT+08:00 2016
+`last week` | Date (relative) | Wed Oct 12 16:27:33 GMT+08:00 2016
+`next mon/monday/Mon/Monday` | Date (relative) | Mon Oct 24 16:33:46 GMT+08:00 2016
+`last tue/tues/tuesday/Tue/Tues/Tuesday` | Date (relative) | Tue Oct 11 16:34:10 GMT+08:00 2016
+`wed/wednesday/Wed/Wednesday` | Date (relative; automatically set on the day of the upcoming week if the day today is the same or past the day entered) | Wed Oct 26 16:34:21 GMT+08:00 2016
+`thu/thu/thur/thurs/thursday/Thu/Thu/Thur/Thurs/Thursday` | Date (relative; automatically set on the day of the same week if the day today is less than the day entered) | Thu Oct 20 16:34:57 GMT+08:00 2016
+`next fri/friday/Fri/Friday` | Date (relative) | Fri Oct 28 16:35:17 GMT+08:00 2016
+`last sat/saturday/Sat/Saturday` | Date (relative) | Sat Oct 15 16:35:59 GMT+08:00 2016
+'next sun/sunday/Sun/Sunday` | Date (relative) | Sun Oct 23 16:36:28 GMT+08:00 2016
+`next month` | Date (relative) | Sat Nov 19 16:36:42 GMT+08:00 2016
+`next year` | Date (relative) | Thu Oct 19 16:37:23 GMT+08:00 2017
+`19/10` | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
+'19/10/16' | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
+'19/10/2016' | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
+'the day after' | Date (incorrect) | N/A | N/A
+'the following day' | Date (incorrect) | N/A | N/A
+'the week after' | Date (incorrect) | N/A | N/A
+'next next week' | Date (incorrect; 1st "next" is ignored) | Wed Oct 26 16:38:09 GMT+08:00 2016
+`next next month` | Date (incorrect; 1st "next" is ignored) | Sat Nov 19 16:38:44 GMT+08:00 2016
+`next next year` | Date (incorrect; 1st "next" is ignored) | Thu Oct 19 16:39:23 GMT+08:00 2017
+`19 Oct 1am`/`19 October 1AM` | Date (without year) and Time (relaxed) | Wed Oct 19 01:00:00 GMT+08:00 2016
+`20 Nov 1:00pm`/`20 November 1:00PM` | Date (without year) and Time (12-hr format) | Sun Nov 20 13:00:00 GMT+08:00 2016
+`21 Dec 14:00`/`Dec 21 14:00` | Date (without year) and Time (24-hr format) | Wed Dec 21 14:00:00 GMT+08:00 2016
+`22 Jan '16 02:00am`/`22 January '16 02:00AM` | Date (with year) and Time (12-hr format) | Sun Jan 22 02:00:00 GMT+08:00 2016
+`Jan 22 '16 02:00am`/`January 22 '16 02:00AM` | Date (with year) and Time (12-hr format) | Sun Jan 22 02:00:00 GMT+08:00 2016
+`23 Feb 2016 14:00`/`23 February 2017 1400` | Date (with year) and Time (24-hr format) | Tue Feb 23 14:00:00 GMT+08:00 2017
+`Feb 23 2016 14:00`/`February 23 2017 1400` | Date (with year) and Time (24-hr format) | Tue Feb 23 14:00:00 GMT+08:00 2017
+`23 Feb 16`/`23 February 16` | Date (without year) and Time (incorrect; "16" will be parsed as time) | Tue Feb 23 16:00:00 GMT+08:00 2016
+`23 Feb 1400`/`23 February 1400` | Date and Time (incorrect; "1400" will be parsed as year) | Mon Feb 23 10:08:27 GMT+08:00 1400
