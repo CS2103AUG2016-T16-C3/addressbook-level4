@@ -98,7 +98,7 @@ Each of the four components
 For example, the `Logic` component defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Figure 2_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 <br>
 
