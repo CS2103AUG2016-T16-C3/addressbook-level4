@@ -253,7 +253,7 @@ _You may also refer to the examples in [Event](#from-to) and [Storage](#storage)
 > * The current time (in HH:MM:SS GMT+08:00) will be timestamped to your tasks should you decide not to enter a time.
 
 Input | Type | Parsed As (Example (Using 19 Oct 2016 as the date, unless otherwise specified)):
-:--------: | ----- | :--------:
+----- | :--------: | :--------:
 `2am` | Time (relaxed) | Wed Oct 19 02:00:00 GMT+08:00 2016
 `2PM` | Time (relaxed) | Wed Oct 19 14:00:00 GMT+08:00 2016
 `3:30am` | Time (12-hr format) | Wed Oct 19 03:30:00 GMT+08:00 2016
