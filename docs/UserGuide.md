@@ -187,7 +187,7 @@ _Mark tasks/events that will be done in a certain period of time/date._<br>
 Format: `from <start time/date> to <end time/date>`
 
 > * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
-> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
+> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide. <br>
 
 Examples:
   * `add Meeting with Boss from 11am to 1pm`
