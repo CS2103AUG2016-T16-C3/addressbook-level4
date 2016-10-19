@@ -458,36 +458,34 @@ We researched other task managers' special features to better understand the pro
 
 ##### Google Calendar
 *Pros:*
->1. User can change visibility between public and private <br>
-2. User can make video calls and change the time zone <br>
-3. User can also add attachments and locations <br>
-4. Also has a command line mode <br>
+> 1. User can change visibility between public and private. <br>
+2. User can make video calls and change the time zone. <br>
+3. User can also add attachments and locations. <br>
+4. User also has a command line mode. <br>
 
 *Cons:*
->
-1. Users have to click many times and type nuch text to add a task <br>
-2. It has to be operated online, which means that users cannot use Google calendar when they do not have Internet access. <br>
+> 1. User has to click many times and type nuch text to add a task. <br>
+2. This application has to be operated online, which means that user cannot use Google calendar when they do not have Internet access. <br>
 
 ##### Wunderlist
 *Pros:*
->
-1. Amazing GUI<br>
-2. User can set reminders, additionally the "Do not disturb" button can be used to turn off reminders
-3. Mainly uses a list to represent all the tasks rather than a calendar
-4. Has a companion product called Wunderline
-    * This is the command line mode of Wunderlist
-    * Uses natural words as commands, content is put inside single quotes
-    * Data can be exported as a JSON file
-    * Allows searching by keywords
+> 1. This application has a very colorful and beautiful GUI. <br>
+2. User can set reminders, additionally the "Do not disturb" button can be used to turn off reminders.
+3. This application mainly uses a list to represent all the tasks rather than a calendar.
+4. It has a companion product called Wunderline
+    * This is the command line mode of Wunderlist.
+    * Uses natural words as commands, content is put inside single quotes.
+    * Data can be exported as a JSON file.
+    * Allows searching by keywords.
 
 *Cons:*
-> It only display tasks as a list while sometimes the calendar mode can tell users more information.
+> It only displays tasks as a list while sometimes the calendar mode can tell users more information.
 
 ##### Calendar Vim
 *Pros:*
-> 1. A calendar application for Vim
-2. View events on Google Calendar
-3. Has different view modes, like Year view, Month view, Week view and Day view
+> 1. This application is a calendar application for Vim.
+2. It can view events on Google Calendar.
+3. It has different view modes, like Year view, Month view, Week view and Day view.
 
 *Cons:*
-> Poor Graphical User Interface.
+> The Graphical User Interface of this application is simple and not user-friendly.
