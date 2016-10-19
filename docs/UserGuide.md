@@ -43,20 +43,20 @@ For example, you could edit the venue of the 1st task displayed by typing `edit 
 
 ### Notation used:
 `[]`: These square brackets represent optional argument(s)<br>
-`<>`: These chevrons are to be replaced with what you wish to enter, eg. an actual time if it shows `<time>` <br>
+`<>`: These angular should be replaced with what you wish to enter, eg. an actual time if it says `<time>` <br>
 
 ### Primary Commands
 
 <a id="help"></a>
 #### Viewing help: `help`
-_Overwhelmed by the amazingness of Task Ninja? Help is here to help you discover more._<br>
+_Overwhelmed by the amazingness of Task Ninja? `help` is here to help you discover more._<br>
 
 Format: `help`
 
-> * This shows help for all commands. <br>
+> This shows help for all commands. <br>
 
 Example:
-  * `_help_`
+  * `help`
 
 
 <a id="add"></a>
@@ -66,17 +66,17 @@ Format: `add <task description> [<extensions>]`
 
 > * Task description outlines the task to be added. <br>
 > * Extensions allow specifying more details about the task, such as deadlines and venues. <br>
-> * Without any timing information, the task will be added as a task without a time (a floating task). <br>
+> * Without any time information, the task will be added as a task without a time (a floating task). <br>
 
 Examples:
-  * `_add_ Dinner with Arthur`
-  * `_add_ Dinner with Arthur venue Avalon from 8:30pm to 9:30pm`
-  * `_add_ Finish 2103T Tutorial before 11:59pm`
+  * `add Dinner with Arthur`
+  * `add Dinner with Arthur venue Avalon from 8:30pm to 9:30pm`
+  * `add Finish 2103T Tutorial before 11:59pm`
 
 
 <a id="find"></a>
 #### Searching for tasks: `find`
-_Forgotten when you arranged that date? Use find!_<br>
+_Forgotten when you arranged that date? Use `find`!_<br>
 Format: `find <keywords> [<more keywords>]`
 
 > * The search is case sensitive. e.g `dinner` will not match `Dinner`.
@@ -86,15 +86,15 @@ Format: `find <keywords> [<more keywords>]`
 > * Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Dinner` will match `Dinner with Mum`.
 
 Examples:
-  * `_find_ Tutorial`<br>
+  * `find Tutorial`<br>
     Shows all tasks containing `Tutorial` in the description
-  * `_find_ Dinner Tutorial`<br>
+  * `find Dinner Tutorial`<br>
     Shows all tasks containing `Dinner` or `Tutorial` in their descriptions
 
 
 <a id="edit"></a>
 #### Editing tasks: `edit`
-_Decide to postpone your homework? We let you do that too ;)_<br>
+_Decided to postpone your homework? We let you do that too ;)_<br>
 Format: `edit <task number> [<new task description>] [<extensions>]`
 
 > * Task number specifies which out of the tasks on the screen you wish to modify. <br>
@@ -102,9 +102,9 @@ Format: `edit <task number> [<new task description>] [<extensions>]`
 > * Fields for the specified extensions will be changed. <br>
 
 Examples:
-  * `_edit_ 1 Dinner with Guinevere`
-  * `_edit_ 2 at 1am 3 Oct`
-  * `_edit_ 1 Dinner with Guinevere venue Under the stars`
+  * `edit 1 Dinner with Guinevere`
+  * `edit 2 at 1am 3 Oct`
+  * `edit 1 Dinner with Guinevere venue Under the stars`
 
 
 <a id="delete"></a>
@@ -112,11 +112,11 @@ Examples:
 _Added a task you don't need? Fear not, for delete is here._<br>
 Format: `delete <task number>`
 
-> * Task number specifies which out of the tasks on the screen you wish to delete. <br>
+> Task number specifies which out of the tasks on the screen you wish to delete. <br>
 
 Examples:
-  * `_delete_ 1`
-  * `_delete_ 3`
+  * `delete 1`
+  * `delete 3`
 
 
 <a id="exit"></a>
@@ -125,7 +125,7 @@ _This command closes Task Ninja. Hope to see you back soon!_<br>
 Format: `exit`
 
 Example:
-  * `_exit_`
+  * `exit`
 
 
 #### Saving the data
@@ -143,30 +143,30 @@ Format: `next [before <time>]`
 > * Can also be used with `before` to see upcoming tasks until a specified time/date. <br>
 
 Example:
-  * `_next_`
-  * `_next_ before 10pm`
+  * `next`
+  * `next before 10pm`
 
 
 <a id="undo"></a>
 #### Undo previous action: `undo`
 _Made a mistake? Fret not! Just use this keyword to revert the last action that you did!_<br>
-Format: `undo'
+Format: `undo`
 
-> * Can be used more than once. <br>
+> Can be used more than once. <br>
 
 Example:
-  * `_undo_`
+  * `undo`
 
 
 <a id="storage"></a>
 #### Specify a storage folder: `storage`
 _Allows you to edit the storage file._<br>
-Format: `storage <FilePath\<FileName>.xml>`
+Format: `storage <path/to/file/fileName.xml>`
 
-> * The file's name must have a .xml extension. <br>
+> The file's name must have a .xml extension. <br>
 
 Example:
-  * `storage .\src\test\data\sandbox\TaskNinja.xml`
+  * `storage data/TaskNinja.xml`
 
 
 ### Extensions
@@ -177,8 +177,8 @@ _Going to university and ended up at the mall? Remember your destination with th
 Format: `venue <description of venue>`
  
 Examples:
-  * `_add_ Lunch with Arthur venue Avalon`
-  * `_edit_ 1 venue Round Table`
+  * `add Lunch with Arthur venue Avalon`
+  * `edit 1 venue Round Table`
 
 
 <a id="from-to"></a>
@@ -190,10 +190,10 @@ Format: `from <start time/date> to <end time/date>`
 > * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
 
 Examples:
-  * `add Meeting with Boss _from_ 11am _to_ 1pm`
-  * `edit 1 _from_ 10/20/16 _to_ 10/25/16`
-  * `add Collect computer from repairs _from_ 2:30pm _to_ 3:00pm_
-  * `edit 4 _from_ 15 Oct _to_ 17 Oct`
+  * `add Meeting with Boss from 11am to 1pm`
+  * `edit 1 from 10/20/16 to 10/25/16`
+  * `add Collect computer from store from 2:30pm to 3:00pm`
+  * `edit 4 from 15 Oct to 17 Oct`
 
 
 <a id="before"></a>
@@ -201,13 +201,13 @@ Examples:
 _Specify a deadline for a task._<br>
 Format: `before <time/date>`
 
-> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
+> A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
 
 Examples:
-  * `add Finish 2103T Tutorial _before_ 13:00`
-  * `edit 3 _before_ 6 Feb '17`
-  * `add Complete assignment _before_ Nov 2 2016 2359`
-  * `edit 5 _before_ 1st May`
+  * `add Finish 2103T Tutorial before 13:00`
+  * `edit 3 before 6 Feb '17`
+  * `add Complete assignment before Nov 2 2016 2359`
+  * `edit 5 before 1st May`
 
 
 <a id="priority"></a>
@@ -217,12 +217,11 @@ Format: `priority <low/med/high>`
 
 > * Helps give levels of importance to tasks. <br>
 > * Priority level can be low, medium or high. <br>
+> * The default priority level of a task is medium ("med"). <br>
 
 Examples:
   * `add Lunch with Arthur priority high`
   * `edit 1 priority med`
-
-_The default priority level of a task is medium ("med")._
 
 
 ## Cheat Sheet
@@ -237,7 +236,7 @@ Primary | [Delete](#delete) | `delete <task number>`
 Primary | [Exit](#exit) | `exit`
 Primary | [Next](#next) | `next [before <time>]`
 Primary | [Undo](#undo) | `undo`
-Primary | [Storage](#storage) | `storage <FilePath\<FileName>.xml>`
+Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>`
 Extension | [Venue](#venue) | `at <description of venue>`
 Extension | [Event](#from-to) | `from <start time> to <end time>`
 Extension | [Before](#before) | `before <time>`
@@ -245,58 +244,53 @@ Extension | [Priority](#priority) | `priority <low/med/high>`
 
 
 # Appendix A
-_This appendix lists down all the inputs of dates and times that are accepted when adding/editing a task._
-_As we are using PrettyTime parser to read in dates and times, we strongly recommend you to follow this table in order to let you have the best experience when using Task Ninja!_
-_You may also refer to the examples in [Event](#from-to) and [Storage](#storage) sections for an overview of how to input your dates and times when adding/editing your task._
+_This appendix lists down all the inputs of dates and times that are accepted when adding/editing a task._<br>
+_As we are using PrettyTime parser to read in dates and times, we strongly recommend you to follow this table in order to let you have the best experience when using Task Ninja!_<br>
+_You may also refer to the examples in [Event](#from-to) and [Before](#before) sections for an overview of how to input your dates and times when adding/editing your task._<br>
 
-> * The format of dates and times are as follows: `<*Day of week* (Mon/Tue/Wed, etc)> <*Month* (Jan/Feb/Mar, etc)> <*Day* (DD)> <*Time* (HH:MM:SS)> <*Timezone (fixed)* (GMT+08:00)> <*Year* (YYYY)>` <br>
-> * The current time (in HH:MM:SS GMT+08:00) will be timestamped to your tasks should you decide not to enter a time.
+> * The current time (in HH:MM:SS) will be timestamped to your tasks should you decide not to enter a time.
+> * The following examples use 19 Oct 12:00:00 2016 as the current time and date, unless otherwise specified
 
-Input | Type | Parsed As (Example (Using 19 Oct 2016 as the date, unless otherwise specified)):
------ | :--------: | :--------:
-`2am` | Time (relaxed) | Wed Oct 19 02:00:00 GMT+08:00 2016
-`2PM` | Time (relaxed) | Wed Oct 19 14:00:00 GMT+08:00 2016
-`3:30am` | Time (12-hr format) | Wed Oct 19 03:30:00 GMT+08:00 2016
-`4:45PM` | Time (12-hr format) | Wed Oct 19 16:45:00 GMT+08:00 2016
-`0515` | Time (24-hr format) | Wed Oct 19 05:15:00 GMT+08:00 2016
-`1700` | Time (24-hr format) | Wed Oct 19 17:00:00 GMT+08:00 2016
-`6:00` | Time (24-hr format) | Wed Oct 19 06:00:00 GMT+08:00 2016
-`07:55` | Time (24-hr format) | Wed Oct 19 07:55:00 GMT+08:00 2016
-`19:59` | Time (24-hr format) | Wed Oct 19 19:59:00 GMT+08:00 2016
-`1` | Time (incorrect) | Wed Oct 19 01:00:00 GMT+08:00 2016
-`00` | Time (incorrect) | Wed Oct 19 00:00:00 GMT+08:00 2016
-`19 Oct` | Date (relaxed; uses current year) | Wed Oct 19 16:10:04 GMT+08:00 2016
-`20 November` | Date (relaxed; uses current year) | Sun Nov 20 16:10:26 GMT+08:00 2016
-`21 Dec '16` | Date (relaxed) | Wed Dec 21 16:10:26 GMT+08:00 2016
-`22 January '17` | Date (relaxed) | Sun Jan 22 16:14:49 GMT+08:00 2017
-`23 Feb 2016` | Date (relaxed) | Tue Feb 23 16:16:32 GMT+08:00 2017
-`24 March 2017` | Date (relaxed) | Fri Mar 24 16:17:02 GMT+08:00 2017
-`Oct 19`/`October 19` | Date (relaxed) | Wed Oct 19 16:10:48 GMT+08:00 2016
-`Dec 21 '16`/`December 21 '16` | Date (relaxed) | Wed Dec 21 16:11:03 GMT+08:00 2016
-`Feb 23 2016`/`Febuary 23 2016` | Date (relaxed) | Tue Feb 23 16:12:22 GMT+08:00 2017
-`10/19` | Date (formal; uses current year) | Wed Oct 19 16:11:19 GMT+08:00 2016
-`10/19/16` | Date (formal) | Wed Oct 19 16:13:25 GMT+08:00 2016
-`10/19/2016` | Date (formal) | Wed Oct 19 16:14:42 GMT+08:00 2016
-`today` | Date (relative) | Wed Oct 19 16:24:23 GMT+08:00 2016
-`tomorrow` | Date (relative) | Thu Oct 20 16:24:41 GMT+08:00 2016
-`next week` | Date (relative) | Wed Oct 26 16:26:56 GMT+08:00 2016
-`last week` | Date (relative) | Wed Oct 12 16:27:33 GMT+08:00 2016
-`next mon/monday/Mon/Monday` | Date (relative) | Mon Oct 24 16:33:46 GMT+08:00 2016
-`last tue/tues/tuesday/Tue/Tues/Tuesday` | Date (relative) | Tue Oct 11 16:34:10 GMT+08:00 2016
+Input | Parsed As | Comments
+----- | :--------: | ------- |
+`2am` | Wed Oct 19 02:00:00 | 12-hour format
+`2AM` | Wed Oct 19 02:00:00 | Not case-sensitive
+`2pm` | Wed Oct 19 14:00:00 | 
+`3:30am` | Wed Oct 19 03:30:00 | 
+`4:45pm` |  Wed Oct 19 16:45:00 |
+`0515` | Wed Oct 19 05:15:00 | 24-hour format
+`1700` | Wed Oct 19 17:00:00 |
+`6:00` | Wed Oct 19 06:00:00 |
+`07:55` | Wed Oct 19 07:55:00 |
+`19:59` | Wed Oct 19 19:59:00 | 
+`20 November` | Sun Nov 20 12:00:00 | Uses current time by default
+`22 January '17` | Sun Jan 22 12:00:00 2017 | Uses an apostrophe in shortened year
+`23 February 2017` | Tue Feb 23 12:00:00 2017 |
+`20 Oct` | Thu Oct 20 12:00:00 | Shortened months are accepted
+`October 20` | Thu Oct 20 12:00:00 | Month and day can be reversed
+`10/20` | Thu Oct 20 12:00:00 | Format is MM/DD - DD/MM is not accepted
+`10/20/16` | Thu Oct 20 12:00:00 | Format is MM/DD/YY
+`10/20/2016` | Thu Oct 20 12:00:00 | Format is MM/DD/YYYY
+`today` | Wed Oct 19 12:00:00 | Uses current time by default
+`tomorrow` | Thu Oct 20 12:00:00 | Uses current time by default
+`next week` | Wed Oct 26 12:00:00 |
+`Thu/Thu/Thur/Thurs/Thursday` | Thu Oct 20 12:00:00 | Not case sensitive, sets to upcoming Thursday
+`next Mon` | Date (relative) | Mon Oct 24 16:33:46 GMT+08:00 2016
 `wed/wednesday/Wed/Wednesday` | Date (relative; automatically set on the day of the upcoming week if the day today is the same or past the day entered) | Wed Oct 26 16:34:21 GMT+08:00 2016
-`thu/thu/thur/thurs/thursday/Thu/Thu/Thur/Thurs/Thursday` | Date (relative; automatically set on the day of the same week if the day today is less than the day entered) | Thu Oct 20 16:34:57 GMT+08:00 2016
 `next fri/friday/Fri/Friday` | Date (relative) | Fri Oct 28 16:35:17 GMT+08:00 2016
 `last sat/saturday/Sat/Saturday` | Date (relative) | Sat Oct 15 16:35:59 GMT+08:00 2016
-'next sun/sunday/Sun/Sunday` | Date (relative) | Sun Oct 23 16:36:28 GMT+08:00 2016
+`next sun/sunday/Sun/Sunday` | Date (relative) | Sun Oct 23 16:36:28 GMT+08:00 2016
 `next month` | Date (relative) | Sat Nov 19 16:36:42 GMT+08:00 2016
 `next year` | Date (relative) | Thu Oct 19 16:37:23 GMT+08:00 2017
+`1` | Time (incorrect) | Wed Oct 19 01:00:00 GMT+08:00 2016
+`00` | Time (incorrect) | Wed Oct 19 00:00:00 GMT+08:00 2016
 `19/10` | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
-'19/10/16' | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
-'19/10/2016' | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
-'the day after' | Date (incorrect) | N/A | N/A
-'the following day' | Date (incorrect) | N/A | N/A
-'the week after' | Date (incorrect) | N/A | N/A
-'next next week' | Date (incorrect; 1st "next" is ignored) | Wed Oct 26 16:38:09 GMT+08:00 2016
+`19/10/16` | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
+`19/10/2016` | Date (incorrect; parsed as time instead) | Wed Oct 19 10:00:00 GMT+08:00 2016
+`the day after` | Date (incorrect) | N/A | N/A
+`the following day` | Date (incorrect) | N/A | N/A
+`the week after` | Date (incorrect) | N/A | N/A
+`next next week` | Date (incorrect; 1st "next" is ignored) | Wed Oct 26 16:38:09 GMT+08:00 2016
 `next next month` | Date (incorrect; 1st "next" is ignored) | Sat Nov 19 16:38:44 GMT+08:00 2016
 `next next year` | Date (incorrect; 1st "next" is ignored) | Thu Oct 19 16:39:23 GMT+08:00 2017
 `19 Oct 1am`/`19 October 1AM` | Date (without year) and Time (relaxed) | Wed Oct 19 01:00:00 GMT+08:00 2016
