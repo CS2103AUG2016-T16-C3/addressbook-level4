@@ -41,8 +41,8 @@ For example, you could edit the venue of the 1st task displayed by typing `edit 
 > The order of extensions is not fixed.
 
 ### Notation used:
-`[date]`: Date is an optional argument<br>
-`<hour>`: Replace with the actual hour
+`[]`: These square brackets represent optional argument(s)<br>
+`<>`: These chevrons are to be replaced with what you wish to enter, eg. an actual time if it shows `<time>` <br>
 
 ### Primary Commands
 
@@ -55,7 +55,7 @@ Format: `help`
 > * This shows help for all commands. <br>
 
 Example:
-  * `help`
+  * `_help_`
 
 
 <a id="add"></a>
@@ -68,9 +68,9 @@ Format: `add <task description> [<extensions>]`
 > * Without any timing information, the task will be added as a task without a time (a floating task). <br>
 
 Examples:
-  * `add Dinner with Arthur`
-  * `add Dinner with Arthur venue Avalon from 8:30pm to 9:30pm`
-  * `add Finish 2103T Tutorial before 11:59pm`
+  * `_add_ Dinner with Arthur`
+  * `_add_ Dinner with Arthur venue Avalon from 8:30pm to 9:30pm`
+  * `_add_ Finish 2103T Tutorial before 11:59pm`
 
 
 <a id="find"></a>
@@ -85,9 +85,9 @@ Format: `find <keywords> [<more keywords>]`
 > * Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Dinner` will match `Dinner with Mum`.
 
 Examples:
-  * `find Tutorial`<br>
+  * `_find_ Tutorial`<br>
     Shows all tasks containing `Tutorial` in the description
-  * `find Dinner Tutorial`<br>
+  * `_find_ Dinner Tutorial`<br>
     Shows all tasks containing `Dinner` or `Tutorial` in their descriptions
 
 
@@ -101,9 +101,9 @@ Format: `edit <task number> [<new task description>] [<extensions>]`
 > * Fields for the specified extensions will be changed. <br>
 
 Examples:
-  * `edit 1 Dinner with Guinevere`
-  * `edit 2 at 1am 3 Oct`
-  * `edit 1 Dinner with Guinevere venue Under the stars`
+  * `_edit_ 1 Dinner with Guinevere`
+  * `_edit_ 2 at 1am 3 Oct`
+  * `_edit_ 1 Dinner with Guinevere venue Under the stars`
 
 
 <a id="delete"></a>
@@ -114,8 +114,8 @@ Format: `delete <task number>`
 > * Task number specifies which out of the tasks on the screen you wish to delete. <br>
 
 Examples:
-  * `delete 1`
-  * `delete 3`
+  * `_delete_ 1`
+  * `_delete_ 3`
 
 
 <a id="exit"></a>
@@ -124,7 +124,7 @@ _This command closes Task Ninja. Hope to see you back soon!_<br>
 Format: `exit`
 
 Example:
-  * `exit`
+  * `_exit_`
 
 
 #### Saving the data
@@ -142,8 +142,8 @@ Format: `next [before <time>]`
 > * Can also be used with `before` to see upcoming tasks until a specified time. <br>
 
 Example:
-  * `next`
-  * `next before 10pm`
+  * `_next_`
+  * `_next_ before 10pm`
 
 
 <a id="undo"></a>
@@ -154,7 +154,7 @@ Format: `undo'
 > * Can be used more than once. <br>
 
 Example:
-  * `undo`
+  * `_undo_`
 
 
 <a id="storage"></a>
@@ -176,33 +176,37 @@ _Going to university and ended up at the mall? Remember your destination with th
 Format: `venue <description of venue>`
  
 Examples:
-  * `add Lunch with Arthur venue Avalon`
-  * `edit 1 venue Round Table`
+  * `_add_ Lunch with Arthur venue Avalon`
+  * `_edit_ 1 venue Round Table`
 
 
 <a id="from-to"></a>
-#### Events that last from a certain period of time: `from to`
-_Mark tasks/events that will be done in a certain period of time._<br>
-Format: `from <start time> to <end time>`
+#### Events that last from a certain period of time/date: `from-to`
+_Mark tasks/events that will be done in a certain period of time/date._<br>
+Format: `from <start time/date> to <end time/date>`
 
-> * Start time indicates when the event begins, end time indicates when the event finishes. <br>
-> * Times are stored as plaintext, i.e. exactly how they were entered. <br>
+> * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
+> * A list of supported time and date inputs are listed in Appendix A. You may also refer to the examples for a brief guide too. <br>
 
 Examples:
-  * `add Meeting with Boss from 11am to 1pm`
-  * `edit 1 from 12pm to 1pm`
+  * `add Meeting with Boss _from_ 11am _to_ 1pm`
+  * `edit 1 _from_ 10/20/16 _to_ 10/25/16`
+  * `add Collect computer from repairs _from_ 2:30pm _to_ 3:00pm_
+  * `edit 4 _from_ 15 Oct _to_ 17 Oct`
 
 
 <a id="before"></a>
-#### Before a certain time: `before`
+#### Before a certain time/date: `before`
 _Specify a deadline for a task._<br>
-Format: `before <time>`
+Format: `before <time/date>`
 
-> * Time is stored as plaintext.
+> * A list of supported time and date inputs are listed in Appendix A. You may also refer to the examples for a brief guide too. <br>
 
 Examples:
-  * `add Finish 2103T Tutorial before 1pm`
-  * `edit 3 before 12:30pm`
+  * `add Finish 2103T Tutorial _before_ 13:00`
+  * `edit 3 _before_ 6 Feb '17`
+  * `add Complete assignment _before_ Nov 2 2016 2359`
+  * `edit 5 _before_ 1st May`
 
 
 <a id="priority"></a>
