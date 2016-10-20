@@ -42,7 +42,7 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
     > * Copy this URL http://download.eclipse.org/buildship/updates/e46/releases/1.0/1.0.21.v20161010-1640/ into the "Work with..." field
     > * Click `Add...`, then type in the name of the software you are installing (which is "Buildship Gradle Integration")
     > * Click `OK`
-    > * After Eclipse finishes fetching the required information (you cannot do anything while waiting), select all items to install by ticking all the checkboxes in the list before the "Details" section, then click `Next`.
+    > * After Eclipse finishes fetching the required information, select all items to install by ticking all the checkboxes in the list before the "Details" section, then click `Next`.
     > * Installation will proceed after you review the license agreement and accept it. You will be prompted to restart Eclipse during this process; click `Yes` to allow installation of Gradle to be completed.
 
 #### Importing the project into Eclipse
