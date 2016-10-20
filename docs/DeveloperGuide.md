@@ -31,10 +31,19 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
 
 2. **Eclipse** IDE
 
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))  
+3. **e(fx)clipse** plugin for Eclipse
+
+    > Install this plugin from [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious).
 
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+
+    > How to install:
+    > * In Eclipse, click `Help` > `Install New Software...`
+    > * Copy this URL http://download.eclipse.org/buildship/updates/e46/releases/1.0/1.0.21.v20161010-1640/ into the "Work with..." field
+    > * Click `Add...`, then type in the name of the software you are installing (which is "Buildship Gradle Integration")
+    > * Click `OK`
+    > * After Eclipse finishes fetching the required information (you cannot do anything while waiting), select all items to install by ticking all the checkboxes in the list before the "Details" section, then click `Next`.
+    > * Installation will proceed after you review the license agreement and accept it. You will be prompted to restart Eclipse during this process; click `Yes` to allow installation of Gradle to be completed.
 
 #### Importing the project into Eclipse
 
