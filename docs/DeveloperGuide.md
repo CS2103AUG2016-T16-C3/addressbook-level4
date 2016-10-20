@@ -26,8 +26,8 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
 
 1. **JDK `1.8.0_60`**  or later<br>
 
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    > * Having any Java 8 version is not enough.
+    > * This app will not work with earlier versions of Java 8.
 
 2. **Eclipse** IDE
 
@@ -82,7 +82,7 @@ Given below is a quick overview of each component.
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used by components to communicate with other components using events (i.e. a form of Event Driven design)
 * `LogsCenter` : This class is used by various other classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
@@ -92,13 +92,13 @@ The rest of the App consists four components.
 * [**`Storage`**](#storage-component) : The interface between the App and the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its API in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
-The _Figure 2_ below shows how the components interact for the scenario where the user issues the
+_Figure 2_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 <br>
 
@@ -195,10 +195,10 @@ Classes used by multiple components are in the [`seedu.manager.commons`](#../src
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations:
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file.
-  (See [Configuration](#configuration))
+* The logging level can be controlled using the `logLevel` setting in the configuration file
+  (See [Configuration](#configuration)).
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
 * Currently log messages are output through `Console` and to a `.log` file.
 
@@ -223,7 +223,7 @@ Tests can be found in the `./src/test/java` folder.
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+* To run a subset of tests, right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
@@ -242,22 +242,22 @@ We have two types of tests:
      (those code units are assumed to be working).<br>
       e.g. `seedu.manager.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These tests check multiple code units as well as
-      how the are connected together.<br>
+      how they are connected together.<br>
       e.g. `seedu.manager.logic.LogicManagerTest`
 
-**Headless GUI Testing** :
+**Headless GUI Testing**:
 
-1. Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. <br>
+* Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the headless mode. In the headless mode, GUI tests do not show up on the screen. <br>
 That means the developer can do other things on the Computer while the tests are running.<br>
 
-2. See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+* See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 #### Troubleshooting tests
 
  **Problem: Tests fail because of NullPointerException when AssertionError is expected. **
 
  * Reason: Assertions are not enabled for JUnit tests.
-   This can happen if you are not using a recent Eclipse version. (i.e. _Neon_ or later)
+   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later).
  * Solution: Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you run tests earlier.
@@ -447,45 +447,45 @@ We researched other task managers' special features to better understand the pro
 
 ##### Todo.txt
 *Pros:*
-> 1. Uses command lines to input task. <br>
+1. Uses command lines to input task. <br>
 2. Uses plain text as the normal text. <br>
 3. Sorts the task by priority. <br>
 4. Allows user to enter multiple tasks in a single input box. <br>
 
- *Cons:*
- > 1. The UI is very poor and not very user-friendly. <br>
+*Cons:*
+1. The UI is very poor and not very user-friendly. <br>
 2. Beginners may not understand what to do next. <br>
 
 ##### Google Calendar
 *Pros:*
-> 1. User can change visibility between public and private. <br>
+1. User can change visibility between public and private. <br>
 2. User can make video calls and change the time zone. <br>
 3. User can also add attachments and locations. <br>
-4. User also has a command line mode. <br>
+4. User can also use a command line mode. <br>
 
 *Cons:*
-> 1. User has to click many times and type nuch text to add a task. <br>
+1. User has to click many times and type a lot of text to add a task. <br>
 2. This application has to be operated online, which means that user cannot use Google calendar when they do not have Internet access. <br>
 
 ##### Wunderlist
 *Pros:*
-> 1. This application has a very colorful and beautiful GUI. <br>
-2. User can set reminders, additionally the "Do not disturb" button can be used to turn off reminders.
-3. This application mainly uses a list to represent all the tasks rather than a calendar.
+1. This application has a very colorful and beautiful GUI. <br>
+2. It allows user to set reminders, and turn them off using the "Do not disturb" button.
+3. It mainly uses lists to represent all the tasks rather than a calendar.
 4. It has a companion product called Wunderline
     * This is the command line mode of Wunderlist.
     * Uses natural words as commands, content is put inside single quotes.
-    * Data can be exported as a JSON file.
+    * Allows exporting data as a JSON file.
     * Allows searching by keywords.
 
 *Cons:*
-> It only displays tasks as a list while sometimes the calendar mode can tell users more information.
+It only displays tasks as a list while sometimes the calendar mode can tell users more information.
 
 ##### Calendar Vim
 *Pros:*
-> 1. This application is a calendar application for Vim.
+1. This application is a calendar application for Vim.
 2. It can view events on Google Calendar.
 3. It has different view modes, like Year view, Month view, Week view and Day view.
 
 *Cons:*
-> The Graphical User Interface of this application is simple and not user-friendly.
+The Graphical User Interface of this application is simple and not user-friendly.
