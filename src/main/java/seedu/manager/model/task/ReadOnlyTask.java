@@ -17,6 +17,7 @@ public interface ReadOnlyTask {
     Optional<TaskProperty> getStartTime();
     Optional<TaskProperty> getEndTime();
     Optional<TaskProperty> getDone();
+    Optional<TaskProperty> getTag();
     HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
     HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
 
@@ -31,7 +32,8 @@ public interface ReadOnlyTask {
                 && other.getPriority().equals(this.getPriority())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
-        		&& other.getDone().equals(this.getDone()));
+        		&& other.getDone().equals(this.getDone()))
+                && other.getTag().equals(this.getTag());
     }
 
     /**
@@ -52,6 +54,9 @@ public interface ReadOnlyTask {
         }
         if (getEndTime().isPresent()) {
             builder.append(" End Time: ").append(getEndTime().get());
+        }
+        if (getTag().isPresent()) {
+            builder.append(" Tag: ").append(getTag().get());
         }
         return builder.toString();
     }

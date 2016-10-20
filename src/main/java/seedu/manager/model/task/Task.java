@@ -7,13 +7,14 @@ import java.util.Optional;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.CollectionUtil;
 
+
 /**
  * Represents a Task in the task manager.
  * Guarantees: description is present and not null, done is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
     public static enum TaskProperties {
-        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE
+        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE, TAG
     }
     
     public static final String START_AFTER_END = "Start time should be before end time.";
@@ -43,11 +44,12 @@ public class Task implements ReadOnlyTask {
 	 * @param startTime
 	 * @param endTime
 	 * @param done
+	 * @param tag
 	 * @throws IllegalValueException
 	 * Every field must be present and not null. Desc cannot be empty
 	 */
-    public Task(String desc, String venue, String priority, String startTime, String endTime, String done) throws IllegalValueException {
-       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, done);
+    public Task(String desc, String venue, String priority, String startTime, String endTime, String done, String tag) throws IllegalValueException {
+       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, done, tag);
        assert !desc.equals("");
 
        properties.put(TaskProperties.DESC, Optional.of(new Desc(desc)));
@@ -56,6 +58,7 @@ public class Task implements ReadOnlyTask {
        properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(new StartTime(startTime)));
        properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(new EndTime(endTime)));
        properties.put(TaskProperties.DONE, done.equals("") ? Optional.of(new Done("No")) : Optional.of(new Done(done)));
+       properties.put(TaskProperties.TAG, tag.equals("") ? Optional.empty() : Optional.of(new Tag(tag)));
     }
 
     /**
@@ -129,6 +132,8 @@ public class Task implements ReadOnlyTask {
 			return Optional.of(new Priority(stringValue));
 		case DONE:
 			return Optional.of(new Done(stringValue));
+		case TAG:
+		    return Optional.of(new Tag(stringValue));
 		default:
 			throw new IllegalValueException("Property not found");
 		}
@@ -162,6 +167,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Optional<TaskProperty> getDone() {
     	return properties.get(TaskProperties.DONE);
+    }
+    
+    @Override
+    public Optional<TaskProperty> getTag() {
+        return properties.get(TaskProperties.TAG);
     }
 
     @Override
