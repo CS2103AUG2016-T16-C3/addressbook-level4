@@ -43,7 +43,7 @@ For example, you could edit the venue of the 1st task displayed by typing `edit 
 
 ### Notation used:
 `[]`: These square brackets represent optional argument(s)<br>
-`<>`: These angular should be replaced with what you wish to enter, eg. an actual time if it says `<time>` <br>
+`<>`: These angular brackets should be replaced with what you wish to enter, eg. an actual time if it says `<time>` <br>
 
 ### Primary Commands
 
@@ -173,7 +173,7 @@ Example:
 
 <a id="venue"></a>
 #### At a certain venue: `venue`
-_Going to university and ended up at the mall? Remember your destination with this extension._<br>
+_Going to university but somehow ended up wandering at the mall aimlessly? Remember your destination with this extension._<br>
 Format: `venue <description of venue>`
  
 Examples:
@@ -274,7 +274,7 @@ Input | Read in as | Comments
 `today` | Wed Oct 19 12:00:00 | Uses current time by default
 `tomorrow` | Thu Oct 20 12:00:00 | Uses current time by default
 `next week` | Wed Oct 26 12:00:00 |
-`Thu/Thu/Thur/Thurs/Thursday` | Thu Oct 20 12:00:00 | Not case sensitive, sets to upcoming Thursday
+`thu/Thu/Thur/Thurs/Thursday` | Thu Oct 20 12:00:00 | Not case sensitive, sets to upcoming Thursday
 `next Mon` | Mon Oct 24 12:00:00 | Sets to upcoming Monday
 `Tue` | Tue Oct 25 12:00:00 | Sets to upcoming Tuesday
 `next Fri` | Fri Oct 28 12:00:00 | Sets to the Friday after the upcoming one
@@ -282,8 +282,9 @@ Input | Read in as | Comments
 `next year` | Thu Oct 19 12:00:00 2017 |
 `19 Oct 1am` | Thu Oct 20 01:00:00 | Specify date and time
 `21 Dec 14:00`/`Dec 21 14:00` | Wed Dec 21 14:00:00 | Specify date and time (24-hour format)
+`Nov 2 2016 2359` | Wed Nov 02 23:59:00 2016 | The second 4-digit number will be set as time (24-hour format)
 
-_The following are some formats that are incorrect and may not be read in correctly, or show an error._
+_The following are some formats that are incorrect and may not be read in correctly. An error may be shown for some cases._
 
 Input | Read in as | Comments
 ----- | :--------: | ------- |
