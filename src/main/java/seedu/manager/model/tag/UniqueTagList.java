@@ -3,6 +3,7 @@ package seedu.manager.model.tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.manager.commons.util.CollectionUtil;
+import seedu.manager.model.task.Tag;
 import seedu.manager.commons.exceptions.DuplicateDataException;
 
 import java.util.*;

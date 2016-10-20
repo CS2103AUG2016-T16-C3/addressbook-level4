@@ -21,7 +21,7 @@ import seedu.manager.model.task.EndTime;
 public class ExtensionParser {
     
     public static enum ExtensionCmds {
-        VENUE("venue"), BY("by"), EVENT("from"), AT("at"), PRIORITY("priority");
+        VENUE("venue"), BY("by"), EVENT("from"), AT("at"), PRIORITY("priority"), TAG("tag");
         
         private String value;
         
@@ -130,6 +130,9 @@ public class ExtensionParser {
                 throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, ExtensionCmds.PRIORITY);
                 addToProperties(properties, TaskProperties.PRIORITY, arguments);
                 break;
+            case TAG:
+                throwExceptionIfDuplicate(properties, TaskProperties.TAG, ExtensionCmds.TAG);
+                addToProperties(properties, TaskProperties.TAG, arguments);
             default:
                 throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
             }

@@ -22,6 +22,8 @@ public class XmlAdaptedTask {
     private String endTime;
     @XmlElement(required = true)
     private String done;
+    @XmlElement(required = true)
+    private String tag;
 
     /**
      * No-arg constructor for JAXB use.
@@ -41,6 +43,7 @@ public class XmlAdaptedTask {
         startTime = source.getStartTime().isPresent() ? source.getStartTime().get().getValue() : "";
         endTime = source.getEndTime().isPresent() ? source.getEndTime().get().getValue() : "";
         done = source.getDone().isPresent() ? source.getDone().get().getValue() : "";
+        tag = source.getTag().isPresent() ? source.getTag().get().getValue() : "";
     }
 
     /**
@@ -49,6 +52,6 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        return new Task(desc, venue, priority, startTime, endTime, done);
+        return new Task(desc, venue, priority, startTime, endTime, done, tag);
     }
 }
