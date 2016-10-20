@@ -8,7 +8,6 @@ import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
-import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
@@ -28,14 +27,14 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) [DESC] [<extensions>]\n"
             + "Example: " + COMMAND_WORD + " 1 Dinner with Guinevere venue Under the Stars priority high";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_PARAMS = "The new parameters are the same as before";
 
     public final int targetIndex;
     
-    private final HashMap<TaskProperties, Optional<TaskProperty>> editedProperties;
+    private final HashMap<TaskProperties, Optional<String>> editedProperties;
 
-    public EditCommand(int targetIndex, HashMap<TaskProperties, Optional<TaskProperty>> editedProperties) 
+    public EditCommand(int targetIndex, HashMap<TaskProperties, Optional<String>> editedProperties) 
             throws IllegalValueException {
         this.targetIndex = targetIndex;
         this.editedProperties = editedProperties;
@@ -55,22 +54,35 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            Task newTask = new Task(buildNewPropsFromOldAndEdited(taskToEdit.getProperties(), editedProperties));
+        	HashMap<TaskProperties, Optional<String>> newProperties = 
+        		buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties);
+        	
+            Task newTask = new Task(newProperties);
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newTask));
+            
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
         } catch (TaskNotFoundException e) {
             return new CommandResult("The target task cannot be missing");
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PARAMS);
-        }
+        } catch (IllegalValueException e) {
+			return new CommandResult(e.getMessage());
+		}
     }
     
-    private HashMap<TaskProperties, Optional<TaskProperty>> buildNewPropsFromOldAndEdited(
-            HashMap<TaskProperties, Optional<TaskProperty>> oldProperties, 
-            HashMap<TaskProperties, Optional<TaskProperty>> editedProperties
+    /**
+     * Builds a HashMap of new properties using old properties of task and new properties entered
+     * by user
+     * 
+     * @param oldProperties
+     * @param editedProperties
+     */
+    private HashMap<TaskProperties, Optional<String>> buildNewPropsFromOldAndEdited(
+            HashMap<TaskProperties, Optional<String>> oldProperties, 
+            HashMap<TaskProperties, Optional<String>> editedProperties
             ) {
-        HashMap<TaskProperties, Optional<TaskProperty>> newProperties = new HashMap<>();
+        HashMap<TaskProperties, Optional<String>> newProperties = new HashMap<>();
         
         for (TaskProperties prop : TaskProperties.values()) {
             if (editedProperties.get(prop).isPresent()) {

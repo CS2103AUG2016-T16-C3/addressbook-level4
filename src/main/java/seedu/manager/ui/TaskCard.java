@@ -24,6 +24,8 @@ public class TaskCard extends UiPart{
     private Label startTime;
     @FXML
     private Label endTime;
+    @FXML
+    private Label done;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -47,6 +49,7 @@ public class TaskCard extends UiPart{
         priority.setText(task.getPriority().isPresent() ? task.getPriority().get().getValue() : "");
         startTime.setText(task.getStartTime().isPresent() ? task.getStartTime().get().getValue() : "");
         endTime.setText(task.getEndTime().isPresent() ? task.getEndTime().get().getValue() : "");
+        done.setText(task.getDone().isPresent() ? task.getDone().get().getValue() : "");
     }
 
     public HBox getLayout() {

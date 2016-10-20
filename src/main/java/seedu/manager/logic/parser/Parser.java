@@ -37,7 +37,7 @@ public class Parser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
-     * @return the command based on the user input
+     * @return the command based on the user input 
      */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -52,9 +52,6 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
             
@@ -66,6 +63,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
+        
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -75,19 +75,22 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+        
+        case StorageCommand.COMMAND_WORD:
+            return new StorageCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
-    /**
+	/**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
-     * @return the prepared command
+     * @return the prepared command 
      */
-    private Command prepareAdd(String args){        
+    private Command prepareAdd(String args) {        
         try {
             return new AddCommand(
                     extParser.getTaskProperties(args)
@@ -114,6 +117,12 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command 
+     */
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_KEYWORDS_FORMAT.matcher(args);
         if(!matcher.matches()){
@@ -133,22 +142,21 @@ public class Parser {
             return new IncorrectCommand(e.getMessage());
         } 
     }
-
+    
     /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
+     * Parses arguments in the context of the done task command
+     * @param args full commmand args string
      * @return the prepared command
      */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
+    private Command prepareDone(String args) {
+    	Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
 
-        return new SelectCommand(index.get());
-    }
+        return new DoneCommand(index.get());
+	}
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.

@@ -6,6 +6,7 @@ import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.events.storage.DataSavingExceptionEvent;
+import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
 import seedu.manager.commons.exceptions.DataConversionException;
 import seedu.manager.model.ReadOnlyTaskManager;
 import seedu.manager.model.UserPrefs;
@@ -33,7 +34,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public StorageManager(String taskManagerFilePath, String userPrefsFilePath) {
         this(new XmlTaskManagerStorage(taskManagerFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
-
+    
     // ================ UserPrefs methods ==============================
 
     @Override
@@ -75,7 +76,17 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         taskManagerStorage.saveTaskManager(taskManager, filePath);
     }
-
+    
+    public void setFilePath(String filePath) {
+    	taskManagerStorage.setFilePath(filePath);
+    };
+    
+    
+    @Subscribe
+    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, altering filepaths"));
+    	setFilePath(event.filePath);
+    }
 
     @Override
     @Subscribe
@@ -87,5 +98,4 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
 }

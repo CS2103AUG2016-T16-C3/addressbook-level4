@@ -1,6 +1,5 @@
 package seedu.manager.testutil;
 
-import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.TaskManager;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.UniqueTaskList;

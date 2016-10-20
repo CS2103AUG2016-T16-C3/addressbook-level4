@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.manager.logic.commands.CommandResult;
 import seedu.manager.model.task.ReadOnlyTask;
 
+
 /**
  * API of the Logic component
  */

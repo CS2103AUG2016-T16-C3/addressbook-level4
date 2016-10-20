@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="seedu/manager/model/task/Time.java|seedu/manager/model/tag/Tag.java|seedu/manager/model/tag/UniqueTagList.java|seedu/manager/storage/XmlAdaptedTag.java" kind="src" path="src/main/java">
+	<classpathentry kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="FROM_GRADLE_MODEL" value="true"/>
 		</attributes>

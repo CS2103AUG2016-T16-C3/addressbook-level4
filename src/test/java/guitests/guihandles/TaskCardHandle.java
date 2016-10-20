@@ -72,7 +72,10 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullDesc().equals(handle.getFullDesc())
-                    && getPriority().equals(handle.getPriority()); //TODO: compare the rest
+                    && getPriority().equals(handle.getPriority())
+                    && getVenue().equals(handle.getVenue()) 
+                    && getStartTime().equals(handle.getStartTime())
+                    && getEndTime().equals(handle.getEndTime());
         }
         return super.equals(obj);
     }

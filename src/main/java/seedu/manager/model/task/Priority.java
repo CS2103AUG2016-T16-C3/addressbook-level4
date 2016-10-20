@@ -1,5 +1,6 @@
 package seedu.manager.model.task;
 
+
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
@@ -9,7 +10,18 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 public class Priority extends TaskProperty {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priorities should be either low, med or high";
     public static final String PRIORITY_VALIDATION_REGEX = "low|med|high";
-    public static final String COMMAND_WORD = "priority";
+    
+    private static enum VALUES {
+    	LOW("low"), MED("med"), HIGH("high");
+    	
+    	private String value;
+        
+        private VALUES(String value) {
+            this.value = value;
+        }
+    }
+    private static VALUES defaultValue = VALUES.MED;
+    private VALUES value = null;
     
     /**
      * Validates given priority.
@@ -18,11 +30,19 @@ public class Priority extends TaskProperty {
      */
     public Priority(String priority) throws IllegalValueException {
         super(priority, PRIORITY_VALIDATION_REGEX, MESSAGE_PRIORITY_CONSTRAINTS);
+        for (VALUES val : VALUES.values()) {
+			if (priority.equals(val.value)) {
+				value = val;
+			}
+		}
+        if (value == null) {
+			value = defaultValue;
+		}
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.value;
     }
 
     @Override

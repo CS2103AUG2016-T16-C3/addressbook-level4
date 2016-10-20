@@ -4,12 +4,13 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's venue number in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidVenue(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Venue extends TaskProperty {
 
-    public static final String MESSAGE_VENUE_CONSTRAINTS = "Task venue numbers should only contain numbers";
+    public static final String MESSAGE_VENUE_CONSTRAINTS = "Task venue can contain any text";
     public static final String VENUE_VALIDATION_REGEX = ".+";
+    private String value;
 
     /**
      * Validates given venue.
@@ -18,6 +19,7 @@ public class Venue extends TaskProperty {
      */
     public Venue(String venue) throws IllegalValueException {
         super(venue, VENUE_VALIDATION_REGEX, MESSAGE_VENUE_CONSTRAINTS);
+        value = venue;
     }
 
     @Override

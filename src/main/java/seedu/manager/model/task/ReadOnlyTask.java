@@ -16,7 +16,9 @@ public interface ReadOnlyTask {
     Optional<TaskProperty> getPriority();
     Optional<TaskProperty> getStartTime();
     Optional<TaskProperty> getEndTime();
+    Optional<TaskProperty> getDone();
     HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
+    HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -28,17 +30,17 @@ public interface ReadOnlyTask {
                 && other.getVenue().equals(this.getVenue())
                 && other.getPriority().equals(this.getPriority())
                 && other.getStartTime().equals(this.getStartTime())
-                && other.getEndTime().equals(this.getEndTime()));
+                && other.getEndTime().equals(this.getEndTime())
+        		&& other.getDone().equals(this.getDone()));
     }
 
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the task as text, showing all properties except done.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        // TODO: Change string rep
         builder.append(getDesc().get());
-        
+
         if (getVenue().isPresent()) {
             builder.append(" Venue: ").append(getVenue().get());
         }

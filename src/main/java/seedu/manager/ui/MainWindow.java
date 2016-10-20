@@ -1,5 +1,7 @@
 package seedu.manager.ui;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,10 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.manager.commons.core.Config;
 import seedu.manager.commons.core.GuiSettings;
+import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
+import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
 import seedu.manager.commons.events.ui.ExitAppRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;
-import seedu.manager.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,7 +32,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -108,7 +110,6 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
@@ -185,12 +186,11 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
+    
+    /**
+     * Render Status Bar Footer again, used when storage location in config changes
+     */
+    public void rerenderStatusBarFooter() {
+    	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
     }
 }

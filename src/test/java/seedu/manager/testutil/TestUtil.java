@@ -64,16 +64,16 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task("Do CS2101 UG", "School of Computing", "high", "8:00pm", "9:30pm"),
-                    new Task("Do CS2101 DG", "School of Computing", "high", "9:30pm", "11:00pm"),
-                    new Task("Do EE2021 Tutorial 4", "Faculty of Engineering", "high", "10:00am", "12:00pm"),
-                    new Task("EE2020 project", "E4 Lab", "med", "2:00pm", "5:00pm"),
-                    new Task("Continue doing CS2103", "Home", "low","8:30pm", "10:00pm"),
-                    new Task("CS2103 group meetup", "PGP R5", "high", "8:00pm", "10:00pm"),
-                    new Task("Buy stuff for mum", "Popular @ Junction 8", "med", "6:00pm", "6:10pm"),
-                    new Task("Help dad fix his phone", "Home", "high", "6:30pm", "7:00pm"),
-                    new Task("Help mum set up the computer properly", "Home", "med", "7:30pm", "7:40pm"),
-                    new Task("Help Varun with debugging", "School of Computing", "high", "3:00pm", "5:30pm")
+                    new Task("Do CS2101 UG", "School of Computing", "high", "8:00pm", "9:30pm", "No"),
+                    new Task("Do CS2101 DG", "School of Computing", "high", "9:30pm", "11:00pm", "No"),
+                    new Task("Do EE2021 Tutorial 4", "Faculty of Engineering", "high", "10:00am", "12:00pm", "Yes"),
+                    new Task("EE2020 project", "E4 Lab", "med", "2:00pm", "5:00pm", "No"),
+                    new Task("Continue doing CS2103", "Home", "low","8:30pm", "10:00pm", "No"),
+                    new Task("CS2103 group meetup", "PGP R5", "high", "8:00pm", "10:00pm", "No"),
+                    new Task("Buy stuff for mum", "Popular @ Junction 8", "med", "6:00pm", "6:10pm", "Yes"),
+                    new Task("Help dad fix his phone", "Home", "high", "6:30pm", "7:00pm", "Yes"),
+                    new Task("Help mum set up the computer properly", "Home", "med", "7:30pm", "7:40pm", "Yes"),
+                    new Task("Help Varun with debugging", "School of Computing", "high", "3:00pm", "5:30pm", "No")
             };
         } catch (IllegalValueException e) {
             assert false;

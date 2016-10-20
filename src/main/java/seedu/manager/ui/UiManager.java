@@ -10,8 +10,8 @@ import seedu.manager.MainApp;
 import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.Config;
 import seedu.manager.commons.core.LogsCenter;
+import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.manager.commons.events.storage.DataSavingExceptionEvent;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.manager.commons.util.StringUtil;
@@ -62,7 +62,6 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -112,15 +111,13 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
-    }
-
-    @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadTaskPage(event.getNewSelection());
     }
-
+    
+    @Subscribe
+    public void handleConfigFilePathChangedEvent(ConfigFilePathChangedEvent event) {
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, updating status bar"));
+    	mainWindow.rerenderStatusBarFooter();
+    }
 }

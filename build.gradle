@@ -52,6 +52,7 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
+        compile "org.ocpsoft.prettytime:prettytime-nlp:4.0.0.Final"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
@@ -74,7 +75,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "taskmanager.jar"
+        archiveName = "taskninja.jar"
 
         manifest {
             attributes "Main-Class": "seedu.manager.MainApp"

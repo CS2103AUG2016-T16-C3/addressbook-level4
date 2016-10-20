@@ -1,12 +1,19 @@
 package seedu.manager.commons.core;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Level;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
+import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
+import seedu.manager.commons.util.ConfigUtil;
 
 /**
  * Config values used by the app
  */
-public class Config {
+public class Config extends ComponentManager {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
@@ -15,10 +22,11 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
-    private String taskManagerName = "MyTaskManager";
+    private String taskManagerName = "Task Ninja";
 
 
     public Config() {
+    	super();
     }
 
     public String getAppTitle() {
@@ -95,5 +103,16 @@ public class Config {
         sb.append("\nTaskManager name : " + taskManagerName);
         return sb.toString();
     }
-
+    
+    
+    @Subscribe
+    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
+    	setTaskManagerFilePath(event.filePath);
+    	try {
+			ConfigUtil.saveConfig(this, DEFAULT_CONFIG_FILE);
+			raise(new ConfigFilePathChangedEvent(event.filePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }

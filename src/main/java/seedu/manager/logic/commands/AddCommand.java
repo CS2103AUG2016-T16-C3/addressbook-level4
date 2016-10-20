@@ -29,7 +29,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(HashMap<TaskProperties, Optional<TaskProperty>> properties)
+    public AddCommand(HashMap<TaskProperties, Optional<String>> properties)
             throws IllegalValueException {
         if (!properties.get(TaskProperties.DESC).isPresent()) {
             throw new IllegalValueException(MESSAGE_USAGE);

@@ -2,65 +2,74 @@
 <taskmanager>
     <tasks>
         <desc>Do CS2101 UG</desc>
-        <venue isPrivate="false">School of Computing</venue>
-        <startTime isPrivate="false">2:30pm</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">med</priority>
+        <venue>School of Computing</venue>
+        <startTime>2:30pm</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>med</priority>
+        <done>No</done>
     </tasks>
     <tasks>
         <desc>Do CS2101 DG</desc>
-        <venue isPrivate="false">School of Computing</venue>
-        <startTime isPrivate="false">3:30pm</startTime>
-        <endTime isPrivate="false">4:00pm</endTime>
-        <priority isPrivate="false">high</priority>
+        <venue>School of Computing</venue>
+        <startTime>3:30pm</startTime>
+        <endTime>4:00pm</endTime>
+        <priority>high</priority>
+        <done>Yes</done>
     </tasks>
     <tasks>
         <desc>Do EE2021 Tutorial 4</desc>
-        <venue isPrivate="false">FoE</venue>
-        <startTime isPrivate="false">10:00am</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">low</priority>
+        <venue>FoE</venue>
+        <startTime>10:00am</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>low</priority>
+        <done>No</done>
     </tasks>
     <tasks>
         <desc>EE2020 project</desc>
-        <venue isPrivate="false">FoE</venue>
-        <startTime isPrivate="false">2:30pm</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">low</priority>
+        <venue>FoE</venue>
+        <startTime>2:30pm</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>low</priority>
+        <done>No</done>
     </tasks>
     <tasks>
         <desc>Continue doing CS2103</desc>
-        <venue isPrivate="false">Home</venue>
-        <startTime isPrivate="false">2:30pm</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">med</priority>
+        <venue>Home</venue>
+        <startTime>2:30pm</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>med</priority>
+        <done>No</done>
     </tasks>
     <tasks>
         <desc>CS2103 group meetup</desc>
-        <venue isPrivate="false">PGP R5</venue>
-        <startTime isPrivate="false">2:30pm</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">low</priority>
+        <venue>PGP R5</venue>
+        <startTime>2:30pm</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>low</priority>
+        <done>Yes</done>
     </tasks>
     <tasks>
         <desc>Buy stuff for mum</desc>
-        <venue isPrivate="false">Popular</venue>
-        <startTime isPrivate="false">2:30pm</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">high</priority>
+        <venue>Popular</venue>
+        <startTime>2:30pm</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>high</priority>
+        <done>Yes</done>
     </tasks>
     <tasks>
         <desc>Help dad fix his phone</desc>
-        <venue isPrivate="false">Home</venue>
-        <startTime isPrivate="false">2:30pm</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">high</priority>
+        <venue>Home</venue>
+        <startTime>2:30pm</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>high</priority>
+        <done>No</done>
     </tasks>
     <tasks>
         <desc>Help mum set up the computer properly</desc>
-        <venue isPrivate="false">Home</venue>
-        <startTime isPrivate="false">2:30pm</startTime>
-        <endTime isPrivate="false">2:45pm</endTime>
-        <priority isPrivate="false">high</priority>
+        <venue>Home</venue>
+        <startTime>2:30pm</startTime>
+        <endTime>2:45pm</endTime>
+        <priority>high</priority>
+        <done>Yes</done>
     </tasks>
 </taskmanager>

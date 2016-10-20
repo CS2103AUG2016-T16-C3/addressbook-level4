@@ -3,10 +3,17 @@ package seedu.manager.model.task;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 public abstract class TaskProperty {
-    protected String value;
     private static String MESSAGE_CONSTRAINTS;
     private static String VALIDATION_REGEX;
     
+    /**
+     * Create a TaskProperty given a string representing its value, a validation regex and a constraints message
+     * 
+     * @param property Value of the property. 
+     * @param validationRegex
+     * @param messageConstraints
+     * @throws IllegalValueException
+     */
     public TaskProperty(String property, String validationRegex, String messageConstraints) throws IllegalValueException {
         assert property != null;
         MESSAGE_CONSTRAINTS = messageConstraints;
@@ -14,19 +21,27 @@ public abstract class TaskProperty {
         if (!isValid(property, VALIDATION_REGEX)) {
             throw new IllegalValueException(this.getMessageConstraints());
         }
-        this.value = property;
     }
     
+    /**
+     * Tests a string against the given regex
+     * 
+     * @param test
+     * @param validationRegex
+     */
     public boolean isValid(String test, String validationRegex) {
         return test.matches(validationRegex);
     }
     
+    /**
+     * Gets value of property as a string
+     */
     public String getValue() {
         return this.toString();
     }
     
     public int hashCode() {
-        return value.hashCode();
+        return this.toString().hashCode();
     };
     
     public String getMessageConstraints() {
