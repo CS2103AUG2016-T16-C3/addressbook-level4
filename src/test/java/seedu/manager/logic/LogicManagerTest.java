@@ -157,15 +157,28 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.guinevere();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_desc_contains_keyword_successful() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.morgana();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
     }
 
     @Test
@@ -493,6 +506,10 @@ public class LogicManagerTest {
 
         Task lancelot() throws Exception {
             return new Task("Joust with Lancelot", "Avalon", "med", "7:30", "8:30", "");
+        }
+        
+        Task morgana() throws Exception {
+        	return new Task("Flatten Morgana", "Camelot", "high", "", "", "");
         }
 
         /**
