@@ -191,7 +191,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
 
@@ -256,7 +256,7 @@ public class LogicManagerTest {
 
         assertCommandBehavior(
                 editCommand,
-                String.format(EditCommand.MESSAGE_SUCCESS, newTask),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList()
         );
@@ -283,7 +283,7 @@ public class LogicManagerTest {
 
         assertCommandBehavior(
                 editCommand1,
-                String.format(EditCommand.MESSAGE_SUCCESS, newTask1),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask1.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList()
         );
@@ -303,7 +303,7 @@ public class LogicManagerTest {
 
         assertCommandBehavior(
                 editCommand2,
-                String.format(EditCommand.MESSAGE_SUCCESS, newTask2),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask2.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList()
         );
@@ -425,7 +425,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_SUCCESS, threeTasks.get(1).getAsPrettyText()),
                 expectedAB,
                 expectedAB.getTaskList());
     }

@@ -52,6 +52,6 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestTask[] expectedList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, index), editedTask);
         assertTrue(taskListPanel.isListMatching(expectedList));
         
-        assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, editedTask));
+        assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, editedTask.getAsPrettyText()));
     }
 }

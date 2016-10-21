@@ -43,13 +43,13 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getValue() : "");
+        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
         id.setText(displayedIndex + ". ");
-        venue.setText(task.getVenue().isPresent() ? task.getVenue().get().getValue() : "");
-        priority.setText(task.getPriority().isPresent() ? task.getPriority().get().getValue() : "");
-        startTime.setText(task.getStartTime().isPresent() ? task.getStartTime().get().getValue() : "");
-        endTime.setText(task.getEndTime().isPresent() ? task.getEndTime().get().getValue() : "");
-        done.setText(task.getDone().isPresent() ? task.getDone().get().getValue() : "");
+        venue.setText(task.getVenue().isPresent() ? task.getVenue().get().getPrettyValue() : "");
+        priority.setText(task.getPriority().isPresent() ? task.getPriority().get().getPrettyValue() : "");
+        startTime.setText(task.getStartTime().isPresent() ? task.getStartTime().get().getPrettyValue() : "");
+        endTime.setText(task.getEndTime().isPresent() ? task.getEndTime().get().getPrettyValue() : "");
+        done.setText(task.getDone().isPresent() ? task.getDone().get().getPrettyValue() : "");
     }
 
     public HBox getLayout() {
