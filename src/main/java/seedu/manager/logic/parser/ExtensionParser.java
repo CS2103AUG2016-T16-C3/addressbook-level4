@@ -50,11 +50,11 @@ public class ExtensionParser {
     static {
         EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.getValue()).toArray(size -> new String[size]));
         EXTENSIONS_DESC_FORMAT = 
-                Pattern.compile("(^.*?(?=(?:(?:(\\s|^)(?:"
+                Pattern.compile("(^.*?(?=(?:(?:(?:\\s|^)(?:"
                         + EXTENSION_REGEX_OPTIONS
                         + ")\\s)|$)))");
         EXTENSIONS_ARGS_FORMAT =
-                Pattern.compile("((?:"
+                Pattern.compile("((?:^|\\s)(?:"
                         + EXTENSION_REGEX_OPTIONS
                         + ").+?(?=(?:(?:\\s(?:"
                         + EXTENSION_REGEX_OPTIONS
@@ -83,7 +83,7 @@ public class ExtensionParser {
         
         Matcher extMatcher = EXTENSIONS_ARGS_FORMAT.matcher(extensionsStr);
         while (extMatcher.find()) {
-            parseSingleExtension(extMatcher.group(), properties);
+            parseSingleExtension(extMatcher.group().trim(), properties);
         }
         
         return properties;
