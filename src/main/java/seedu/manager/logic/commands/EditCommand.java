@@ -3,8 +3,10 @@ package seedu.manager.logic.commands;
 import java.util.HashMap;
 import java.util.Optional;
 
+import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -60,6 +62,8 @@ public class EditCommand extends Command {
             Task newTask = new Task(newProperties);
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
+            
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
         } catch (TaskNotFoundException e) {
