@@ -9,6 +9,7 @@ import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -81,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    //=========== Sorted Task List Accessors ===============================================================
+    //=========== Sorted and Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
@@ -96,6 +97,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateSortedFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
+    }
+    
+    @Override
+    public void sortSortedFilteredTaskListByPriority() {
+    	sortedTasks.setComparator((Task t1, Task t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+    }
+    
+    @Override
+    public void unSortSortedFilteredTaskList() {
+    	sortedTasks.setComparator(null);
     }
 
     //=========== Filtered Task List Accessors ===============================================================

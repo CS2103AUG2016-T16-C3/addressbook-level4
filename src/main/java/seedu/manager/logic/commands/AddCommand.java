@@ -44,6 +44,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
+            model.unSortSortedFilteredTaskList();
             
             int targetIndex = model.getSortedFilteredTaskList().size();
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));

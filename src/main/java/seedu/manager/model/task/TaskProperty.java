@@ -2,7 +2,7 @@ package seedu.manager.model.task;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 
-public abstract class TaskProperty {
+public abstract class TaskProperty implements Comparable<TaskProperty> {
     private static String MESSAGE_CONSTRAINTS;
     private static String VALIDATION_REGEX;
     
@@ -62,4 +62,8 @@ public abstract class TaskProperty {
     }
     
     public abstract boolean equals(Object other);
+    
+    public int compareTo(TaskProperty other) {
+    	return -1;
+    }
 }
