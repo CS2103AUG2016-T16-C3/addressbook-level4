@@ -23,13 +23,12 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
-    /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
-
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
-
+    /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
+    
+    /** Updates the filter of the sorted and filtered task list to show all tasks */
+    void updateSortedFilteredListToShowAll();
+    
+    /** Updates the filter of the sorted and filtered task list to filter by the given keywords*/
+    void updateSortedFilteredTaskList(Set<String> keywords);
 }

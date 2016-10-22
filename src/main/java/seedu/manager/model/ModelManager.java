@@ -1,6 +1,7 @@
 package seedu.manager.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.core.UnmodifiableObservableList;
@@ -23,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final SortedList<Task> sortedTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -37,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     public ModelManager() {
@@ -46,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     @Override
@@ -76,20 +80,34 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    //=========== Sorted Task List Accessors ===============================================================
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
+        return new UnmodifiableObservableList<>(sortedTasks);
+    }
+    
+    @Override
+    public void updateSortedFilteredListToShowAll() {
+        updateFilteredListToShowAll();
+    }
+    
+    @Override
+    public void updateSortedFilteredTaskList(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
-    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
-    @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
 
-    @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
     }

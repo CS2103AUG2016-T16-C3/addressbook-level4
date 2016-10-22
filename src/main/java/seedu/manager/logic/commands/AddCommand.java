@@ -45,7 +45,7 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             
-            int targetIndex = model.getFilteredTaskList().size();
+            int targetIndex = model.getSortedFilteredTaskList().size();
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
