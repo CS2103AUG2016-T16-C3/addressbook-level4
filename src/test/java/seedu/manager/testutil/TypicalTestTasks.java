@@ -13,7 +13,7 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withPriority("high")
+            alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withPriority("med")
                     .withStartTime("8:00pm").withEndTime("9:30pm").withVenue("School of Computing").withDone("No")
                     .build();
             beta = new TaskBuilder().withDesc("Do CS2101 DG").withPriority("high")

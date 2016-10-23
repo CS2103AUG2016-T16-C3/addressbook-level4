@@ -77,4 +77,6 @@ public interface ReadOnlyTask {
         }
         return builder.toString();
     }
+    
+    public int compareProperty(ReadOnlyTask other, TaskProperties property);
 }
