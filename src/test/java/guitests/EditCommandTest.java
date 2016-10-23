@@ -46,8 +46,8 @@ public class EditCommandTest extends TaskManagerGuiTest {
     private void assertEditSuccess(String editCommand, int index, TestTask editedTask, TestTask... currentList) {
         commandBox.runCommand(String.format(editCommand, index));
         
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(editedTask.getDesc().get().getValue());
-        assertMatching(editedTask, addedCard);
+        TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getDesc().get().getValue());
+        assertMatching(editedTask, editedCard);
         
         TestTask[] expectedList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, index), editedTask);
         assertTrue(taskListPanel.isListMatching(expectedList));
