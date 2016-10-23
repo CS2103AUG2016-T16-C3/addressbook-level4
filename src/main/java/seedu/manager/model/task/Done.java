@@ -34,7 +34,7 @@ public class Done extends TaskProperty {
      * Checks if the task property matches with that of the search function's input
      */
     @Override
-    public boolean matches(String done) {
+    public boolean matches(Done done) {
     	if (done.equals("Yes")) {
     		return true;
     	}
