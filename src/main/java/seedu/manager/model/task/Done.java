@@ -29,6 +29,17 @@ public class Done extends TaskProperty {
     public String toString() {
         return value ? "Yes" : "No";
     }
+    
+    /**
+     * Checks if the task property matches with that of the search function's input
+     */
+    @Override
+    public boolean matches() {
+    	if (value == true) {
+    		return true;
+    	}
+		return false;
+    }
 
     @Override
     public boolean equals(Object other) {
