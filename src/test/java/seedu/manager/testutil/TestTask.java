@@ -43,6 +43,10 @@ public class TestTask implements ReadOnlyTask {
     public void setDone(Done done) {
         this.properties.put(TaskProperties.DONE, Optional.of(done));
     }
+    
+    public void setTag(Tag tag) {
+        this.properties.put(TaskProperties.TAG, Optional.of(tag));
+    }
 
     @Override
     public Optional<TaskProperty> getDesc() {
@@ -73,7 +77,12 @@ public class TestTask implements ReadOnlyTask {
     public Optional<TaskProperty> getDone() {
         return properties.get(TaskProperties.DONE);
     }
-
+    
+    @Override
+    public Optional<TaskProperty> getTag() {
+        return properties.get(TaskProperties.TAG);
+    }
+    
     @Override
     public String toString() {
         return getAsText();
@@ -93,6 +102,9 @@ public class TestTask implements ReadOnlyTask {
         }
         if (this.getEndTime().isPresent()) {
             sb.append("by " + this.getEndTime().get().getValue() + " ");
+        }
+        if (this.getTag().isPresent()) {
+            sb.append("tag " + this.getTag().get().getValue() + " ");
         }
         return sb.toString();
     }

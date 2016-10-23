@@ -488,11 +488,11 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task guinevere() throws Exception {
-            return new Task("Picnic with Guinevere", "", "", "", "", "");
+            return new Task("Picnic with Guinevere", "", "", "", "", "", "");
         }
 
         Task lancelot() throws Exception {
-            return new Task("Joust with Lancelot", "Avalon", "med", "7:30", "8:30", "");
+            return new Task("Joust with Lancelot", "Avalon", "med", "7:30", "8:30", "", "");
         }
 
         /**
@@ -509,6 +509,7 @@ public class LogicManagerTest {
                     new String[] {"low", "med", "high"}[seed % 3],
                     (Math.abs(seed) % 12 + 1) + ":00",
                     (Math.abs(seed) % 12 + 1) + ":00", 
+                    "",
                     ""
             );
         }
@@ -613,6 +614,7 @@ public class LogicManagerTest {
                     "low",
                     "7:30pm",
                     "8:30pm",
+                    "",
                     ""
             );
         }

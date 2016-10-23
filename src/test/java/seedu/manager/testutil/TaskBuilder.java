@@ -43,6 +43,11 @@ public class TaskBuilder {
 		this.task.setDone(new Done(done));
 		return this;
 	}
+    
+    public TaskBuilder withTag(String tag) throws IllegalValueException {
+        this.task.setTag(new Tag(tag));
+        return this;
+    }
 
     public TestTask build() {
         return this.task;

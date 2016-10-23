@@ -14,10 +14,10 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withPriority("high")
-                    .withStartTime("8:00pm").withEndTime("9:30pm").withVenue("School of Computing").withDone("No")
+                    .withStartTime("8:00pm").withEndTime("9:30pm").withVenue("School of Computing").withDone("No").withTag("study")
                     .build();
             beta = new TaskBuilder().withDesc("Do CS2101 DG").withPriority("high")
-                    .withStartTime("9.30pm").withEndTime("11:00pm").withVenue("School of Computing").withDone("No")
+                    .withStartTime("9.30pm").withEndTime("11:00pm").withVenue("School of Computing").withDone("No").withTag("study")
                     .build();
             charlie = new TaskBuilder().withDesc("Do EE2021 Tutorial 4").withVenue("Faculty of Engineering").withStartTime("10:00am").withEndTime("12:00pm").withPriority("high").withDone("No").build();
             delta = new TaskBuilder().withDesc("EE2020 project").withVenue("E4 lab").withStartTime("2:00pm").withEndTime("5:00pm").withPriority("med").withDone("No").build();
