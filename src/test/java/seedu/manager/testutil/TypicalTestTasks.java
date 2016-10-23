@@ -14,7 +14,7 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withVenue("School of Computing")
-                    .withStartTime("8:00pm").withEndTime("9:30pm").withPriority("high").withDone("No").withTag("study")
+                    .withStartTime("8:00pm").withEndTime("9:30pm").withPriority("med").withDone("No").withTag("study")
                     .build();
             beta = new TaskBuilder().withDesc("Do CS2101 DG").withVenue("School of Computing")
                     .withStartTime("9.30pm").withEndTime("11:00pm").withPriority("high").withDone("No").withTag("study")
@@ -36,9 +36,9 @@ public class TypicalTestTasks {
                     .build();
 
             //Manually added
-            hotel = new TaskBuilder().withDesc("Help dad fix his phone").withVenue("Home").withStartTime("6:30pm").withEndTime("7:00pm").withPriority("high").withDone("No").withTag("study").build();
-            india = new TaskBuilder().withDesc("Help mum set up the computer properly").withVenue("Home").withStartTime("7:30pm").withEndTime("7:40pm").withPriority("med").withDone("No").withTag("study").build();
-            juliet = new TaskBuilder().withDesc("Help Varun with debugging").withVenue("School of Computing").withStartTime("3:00pm").withEndTime("5:30pm").withPriority("high").withDone("No").withTag("study").build();
+            hotel = new TaskBuilder().withDesc("Help dad fix his phone").withVenue("Home").withStartTime("6:30pm").withEndTime("7:00pm").withPriority("high").withDone("No").withTag("family").build();
+            india = new TaskBuilder().withDesc("Help mum set up the computer properly").withVenue("Home").withStartTime("7:30pm").withEndTime("7:40pm").withPriority("med").withDone("No").withTag("family").build();
+            juliet = new TaskBuilder().withDesc("Help Varun with debugging").withVenue("School of Computing").withStartTime("3:00pm").withEndTime("5:30pm").withPriority("high").withDone("No").withTag("family").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

@@ -127,4 +127,19 @@ public class TestTask implements ReadOnlyTask {
         return clone;
 			
 	}
+	
+	@Override
+    public int compareProperty(ReadOnlyTask other, TaskProperties property) {
+    	assert other != null;
+    	if (!this.properties.get(property).isPresent()) {
+			return -1;
+		} else {
+			HashMap<TaskProperties, Optional<TaskProperty>> otherProps = other.getProperties();
+			if (!otherProps.get(property).isPresent()) {
+				return -1;
+			} else {
+				return this.properties.get(property).get().compareTo(otherProps.get(property).get());
+			}
+		}
+    }
 }

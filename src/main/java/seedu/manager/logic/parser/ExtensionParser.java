@@ -133,6 +133,7 @@ public class ExtensionParser {
             case TAG:
                 throwExceptionIfDuplicate(properties, TaskProperties.TAG, ExtensionCmds.TAG);
                 addToProperties(properties, TaskProperties.TAG, arguments);
+                break;
             default:
                 throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
             }

@@ -51,4 +51,17 @@ public class Priority extends TaskProperty {
                 || (other instanceof Priority // instanceof handles nulls
                 && this.value.equals(((Priority) other).value)); // state check
     }
+    
+    @Override
+    public int compareTo(TaskProperty other) {
+    	assert other instanceof Priority;
+    	
+    	if (this.value.equals(((Priority) other).value)) {
+			return 0;
+		} else if (this.value.equals(VALUES.LOW) || ((Priority) other).value.equals(VALUES.HIGH)) {
+			return 1;
+		} else {
+			return -1;
+		}
+    }
 }
