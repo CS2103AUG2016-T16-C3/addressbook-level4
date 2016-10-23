@@ -80,6 +80,9 @@ public interface ReadOnlyTask {
         if (getEndTime().isPresent()) {
             builder.append(" End Time: ").append(getEndTime().get().toPrettyString());
         }
+        if (getTag().isPresent()) {
+            builder.append(" Tag: ").append(getTag().get());
+        }
         return builder.toString();
     }
 }

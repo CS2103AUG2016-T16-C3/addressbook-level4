@@ -23,11 +23,6 @@ public class Tag extends TaskProperty {
      * @throws IllegalValueException if the given tag name string is invalid.
      */
     public Tag(String name) throws IllegalValueException {
-//        assert name != null;
-//        name = name.trim();
-//        if (!isValidTagName(name)) {
-//            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
-//    }
         super(name, TAG_VALIDATION_REGEX, MESSAGE_TAG_CONSTRAINTS);
         this.tagName = name;
     }

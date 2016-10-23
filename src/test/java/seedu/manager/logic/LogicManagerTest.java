@@ -534,7 +534,7 @@ public class LogicManagerTest {
         }
         
         Task morgana() throws Exception {
-        	return new Task("Flatten Morgana", "Camelot", "high", "", "", "");
+        	return new Task("Flatten Morgana", "Camelot", "high", "", "", "", "");
         }
 
         /**
