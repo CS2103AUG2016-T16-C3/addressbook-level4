@@ -44,6 +44,19 @@ public class Priority extends TaskProperty {
     public String toString() {
         return value.value;
     }
+    
+    /**
+     * Checks if the task property matches with that of the search function's input
+     */
+    @Override
+    public boolean matches(Priority priority) {
+        for (VALUES val : VALUES.values()) {
+			if (priority.equals(val.value)) {
+				return true;
+			}
+		}
+		return false;
+    }
 
     @Override
     public boolean equals(Object other) {
