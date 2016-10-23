@@ -113,7 +113,7 @@ public class LogicManagerTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-
+        
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getSortedFilteredTaskList());
@@ -131,18 +131,18 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_help() throws Exception {
+    public void execute_help_successful() throws Exception {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
 
     @Test
-    public void execute_exit() throws Exception {
+    public void execute_exit_successful() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     @Test
-    public void execute_clear() throws Exception {
+    public void execute_clear_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         model.addTask(helper.generateTask(1));
         model.addTask(helper.generateTask(2));
@@ -150,6 +150,25 @@ public class LogicManagerTest {
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
+    
+    @Test
+    public void execute_sort_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	model.addTask(helper.generateTask(1));
+    	model.addTask(helper.generateTask(2));
+    	model.addTask(helper.generateTask(3));
+    	
+    	TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(helper.generateTask(1));
+        expectedTM.addTask(helper.generateTask(2));
+        expectedTM.addTask(helper.generateTask(3));
+        
+        List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
+        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        
+        assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
+    }
+    
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -234,7 +253,34 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
+    
+    @Test
+    public void execute_addAfterSorting_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+    	Task toBeAdded = helper.guinevere();
+    	model.addTask(helper.generateTask(1));
+    	model.addTask(helper.generateTask(2));
+    	model.addTask(helper.generateTask(3));
+    	
+    	logic.execute("sort");
+    	
+    	TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(helper.generateTask(1));
+        expectedTM.addTask(helper.generateTask(2));
+        expectedTM.addTask(helper.generateTask(3));
+        expectedTM.addTask(toBeAdded);
+        
+        List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
+        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
+                expectedTM,
+                expectedList);
+        
+        assertEquals(expectedList.indexOf(toBeAdded), targetedJumpIndex);
+    }
 
     @Test
     public void execute_edit_invalidArgsFormat_erroeMessageShown() throws Exception {
@@ -332,6 +378,42 @@ public class LogicManagerTest {
         );
         
         assertEquals(0, targetedJumpIndex);
+    }
+    
+    @Test
+    public void execute_editAfterSorting_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.lancelot();
+    	model.addTask(helper.generateTask(2));
+    	model.addTask(helper.generateTask(3));
+    	model.addTask(toBeEdited);
+    	
+    	logic.execute("sort");
+    	
+    	TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(helper.generateTask(2));
+        expectedTM.addTask(helper.generateTask(3));
+        
+        HashMap<TaskProperties, Optional<String>> newProps = 
+                toBeEdited.getPropertiesAsStrings();
+        newProps.put(TaskProperties.DESC, Optional.of("Dinner with Guinevere"));
+        
+        Task newTask = new Task(newProps);
+        expectedTM.addTask(newTask);
+
+        String editCommand = "edit 2 Dinner with Guinevere";
+        
+        List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
+        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+
+        assertCommandBehavior(
+                editCommand,
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask.getAsPrettyText()),
+                expectedTM,
+                expectedList
+        );
+        
+        assertEquals(expectedList.indexOf(newTask), targetedJumpIndex);
     }
     
     
@@ -517,6 +599,31 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+    }
+    
+    @Test
+    public void execute_findThenSort_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithDesc("bla bla bla bla");
+        Task p2 = helper.generateTaskWithDesc("bla KEY bla bceofeia");
+        Task p3 = helper.generateTaskWithDesc("key key");
+        Task p4 = helper.generateTaskWithDesc("KEy sduauo");
+
+        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        TaskManager expectedTM = helper.generateTaskManager(fourTasks);
+        helper.addToModel(model, fourTasks);
+        
+        
+        List<Task> expectedList = helper.generateTaskList(p3, p4, p2);
+
+        assertCommandBehavior("find KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedTM,
+                expectedList);
+        
+        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        
+        assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }
 
 
