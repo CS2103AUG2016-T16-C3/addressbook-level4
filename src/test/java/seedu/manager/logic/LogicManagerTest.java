@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
+import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
@@ -49,6 +50,7 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
+    private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -58,6 +60,11 @@ public class LogicManagerTest {
     @Subscribe
     private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
         helpShown = true;
+    }
+    
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
+    	targetedJumpIndex = je.targetIndex;
     }
 
     @Before
@@ -157,15 +164,29 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.guinevere();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_desc_contains_keyword_successful() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.morgana();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(0, targetedJumpIndex);
     }
 
     @Test
@@ -178,10 +199,20 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
-
+        assertEquals(0, targetedJumpIndex);
+        
+        
+        toBeAdded = helper.guinevere();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(1, targetedJumpIndex);
     }
 
     @Test
@@ -243,10 +274,12 @@ public class LogicManagerTest {
 
         assertCommandBehavior(
                 editCommand,
-                String.format(EditCommand.MESSAGE_SUCCESS, newTask),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList()
         );
+        
+        assertEquals(0, targetedJumpIndex);
 
         assertCommandBehavior(
                 editCommand,
@@ -270,10 +303,13 @@ public class LogicManagerTest {
 
         assertCommandBehavior(
                 editCommand1,
-                String.format(EditCommand.MESSAGE_SUCCESS, newTask1),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask1.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList()
         );
+        
+        assertEquals(0, targetedJumpIndex);
+        
         
         HashMap<TaskProperties, Optional<String>> newProps2 = 
                 newTask1.getPropertiesAsStrings();
@@ -290,10 +326,12 @@ public class LogicManagerTest {
 
         assertCommandBehavior(
                 editCommand2,
-                String.format(EditCommand.MESSAGE_SUCCESS, newTask2),
+                String.format(EditCommand.MESSAGE_SUCCESS, newTask2.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList()
         );
+        
+        assertEquals(0, targetedJumpIndex);
     }
     
     
@@ -412,7 +450,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_SUCCESS, threeTasks.get(1).getAsPrettyText()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -493,6 +531,10 @@ public class LogicManagerTest {
 
         Task lancelot() throws Exception {
             return new Task("Joust with Lancelot", "Avalon", "med", "7:30", "8:30", "", "");
+        }
+        
+        Task morgana() throws Exception {
+        	return new Task("Flatten Morgana", "Camelot", "high", "", "", "");
         }
 
         /**

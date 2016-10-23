@@ -40,6 +40,13 @@ public abstract class TaskProperty {
         return this.toString();
     }
     
+    /**
+     * Gets value of property as a pretty string, for displaying on the UI
+     */
+    public String getPrettyValue() {
+        return this.toPrettyString();
+    }
+    
     public int hashCode() {
         return this.toString().hashCode();
     };
@@ -49,6 +56,10 @@ public abstract class TaskProperty {
     };
     
     public abstract String toString();
+    
+    public String toPrettyString() {
+    	return this.toString();
+    }
     
     public abstract boolean equals(Object other);
 }

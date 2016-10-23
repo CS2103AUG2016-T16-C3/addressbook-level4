@@ -63,7 +63,7 @@ public class TaskCardHandle extends GuiHandle {
         } else if (string == "" || !optional.isPresent()) {
             return false;
         } else {
-            return string.equals(optional.get().getValue());
+            return string.equals(optional.get().getPrettyValue());
         }
     }
 
