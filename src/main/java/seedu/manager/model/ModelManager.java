@@ -108,6 +108,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void unSortSortedFilteredTaskList() {
     	sortedTasks.setComparator(null);
     }
+    
+    @Override
+    public int getIndexOfTask(ReadOnlyTask task) {
+    	return sortedTasks.indexOf(task);
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 

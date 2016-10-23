@@ -37,4 +37,7 @@ public interface Model {
     
     /** Unsort the sorted and filtered task list */
     void unSortSortedFilteredTaskList();
+    
+    /** Returns index of task in sorted and filtered list */
+    int getIndexOfTask(ReadOnlyTask task);
 }

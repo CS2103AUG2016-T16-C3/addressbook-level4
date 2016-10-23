@@ -44,10 +44,11 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            model.unSortSortedFilteredTaskList();
             
-            int targetIndex = model.getSortedFilteredTaskList().size();
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            int addedIndex = model.getIndexOfTask(toAdd);
+            assert addedIndex != -1;
+            
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(addedIndex));
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
