@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CommandWord {
 	
-//	@JsonFormat(shape= JsonFormat.Shape.OBJECT)
 	public enum Commands {
-		ADD("ADD"), EDIT("EDIT"), DELETE("DELETE");
+		ADD("ADD"), EDIT("EDIT"), DELETE("DELETE"), UNDO("UNDO"), 
+		FIND("FIND"), STORAGE("STORAGE"), CLEAR("CLEAR"), DONE("DONE"), 
+		EXIT("EXIT"), HELP("HELP"), LIST("LIST"), SORT("SORT");
 		
 		private String commandRep;
 		
@@ -28,16 +29,9 @@ public class CommandWord {
 	private String commandWord = null;
 	
 	@JsonCreator
-	public CommandWord(@JsonProperty("command") String command, @JsonProperty("commandWord") String commandWord) {
-		for (Commands commandVar : Commands.values()) {
-			if (commandVar.commandRep.equals(command)) {
-				this.command = commandVar;
-				break;
-			}
-		}
-		
-		assert this.command != null;
-		
+	public CommandWord(@JsonProperty("command") Commands command, 
+			           @JsonProperty("commandWord") String commandWord) {
+		this.command = command;
 		this.commandWord = commandWord;
 	}
 	

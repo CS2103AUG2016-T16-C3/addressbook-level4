@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.manager.commons.core.CommandWord;
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.core.GuiSettings;
 
 /**
@@ -27,11 +28,15 @@ public class UserPrefs {
     public UserPrefs(){
         this.setGuiSettings(500, 500, 0, 0);
         this.setCommandWords(
-        		new String[]{
-        				"ADD", "EDIT", "DELETE"
+        		new Commands[]{
+        				Commands.ADD, Commands.EDIT, Commands.DELETE, Commands.UNDO, 
+        				Commands.FIND, Commands.STORAGE, Commands.CLEAR, Commands.DONE, 
+        				Commands.EXIT, Commands.HELP, Commands.LIST, Commands.SORT
     				},
         		new String[]{
-        				"add", "edit", "delete"
+        				"add", "edit", "delete", "undo", 
+        				"find", "storage", "clear", "done", 
+        				"exit", "help", "list", "sort"
         			}
         		);
     }
@@ -48,7 +53,7 @@ public class UserPrefs {
 		this.commandWords = commandWords;
 	}
     
-    public void setCommandWords(String[] commands, String[] commandStrings) {
+    public void setCommandWords(Commands[] commands, String[] commandStrings) {
     	assert commands.length == commandStrings.length;
     	
 		this.commandWords = new ArrayList<>();
@@ -56,6 +61,24 @@ public class UserPrefs {
 			commandWords.add(new CommandWord(commands[i], commandStrings[i]));
 		}
 	}
+    
+//    public void setSingleCommandWord(String command, String commandString) {
+//    	boolean matched = false;
+//    	
+//    	for (int i = 0; i < commandWords.size(); i++) {
+//    		if (commandWords.get(i).getCommand().getCommandRep().equals(command)) {
+//				commandWords.set(i, new CommandWord(command, commandString));
+//			}
+//		}
+//    }
+    
+//    public void getMatchingCommand(String commandString) {
+//    	for (CommandWord commandWord : commandWords) {
+//			if (commandWord.) {
+//				
+//			}
+//		}
+//    }
 
     @Override
     public boolean equals(Object other) {
