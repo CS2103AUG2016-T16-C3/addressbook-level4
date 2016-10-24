@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.logic.commands.*;
@@ -30,8 +31,14 @@ public class Parser {
             Pattern.compile("(?<targetIndex>\\d+)\\s(?<arguments>.+)");
     
     private static final ExtensionParser extParser = new ExtensionParser();
+    
+    private HashMap<Commands, String> commandWords = null;
 
     public Parser() {}
+    
+    public void setCommandWords(HashMap<Commands, String> commandWordsIn) {
+    	commandWords = commandWordsIn;
+    }
 
     /**
      * Parses user input into command for execution.
@@ -40,6 +47,8 @@ public class Parser {
      * @return the command based on the user input 
      */
     public Command parseCommand(String userInput) {
+    	assert commandWords != null;
+    	
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -47,39 +56,52 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord").trim();
         final String arguments = matcher.group("arguments").trim();
-        switch (commandWord) {
+        Commands matchedCommand = null;
+        
+        for (Commands command : Commands.values()) {
+			if (commandWords.get(command).equals(commandWord)) {
+				matchedCommand = command;
+				break;
+			}
+		}
+        
+        if (matchedCommand == null) {
+			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+		}
+        
+        switch (matchedCommand) {
 
-        case AddCommand.COMMAND_WORD:
+        case ADD:
             return prepareAdd(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DELETE:
             return prepareDelete(arguments);
             
-        case EditCommand.COMMAND_WORD:
+        case EDIT:
             return prepareEdit(arguments);
 
-        case ClearCommand.COMMAND_WORD:
+        case CLEAR:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case FIND:
             return prepareFind(arguments);
         
-        case DoneCommand.COMMAND_WORD:
+        case DONE:
             return prepareDone(arguments);
 
-        case ListCommand.COMMAND_WORD:
+        case LIST:
             return new ListCommand();
 
-        case ExitCommand.COMMAND_WORD:
+        case EXIT:
             return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
+        case HELP:
             return new HelpCommand();
         
-        case StorageCommand.COMMAND_WORD:
+        case STORAGE:
             return new StorageCommand(arguments);
         
-        case SortCommand.COMMAND_WORD:
+        case SORT:
         	return new SortCommand();
 
         default:

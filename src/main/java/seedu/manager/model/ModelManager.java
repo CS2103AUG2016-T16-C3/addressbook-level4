@@ -5,6 +5,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
@@ -13,6 +14,7 @@ import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -65,6 +67,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
+    }
+    
+    @Override
+    public HashMap<Commands, String> getCommandWords() {
+    	return userPrefs.commandWords;
     }
 
     /** Raises an event to indicate the model has changed */

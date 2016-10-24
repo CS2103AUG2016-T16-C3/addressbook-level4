@@ -1,11 +1,8 @@
 package seedu.manager.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Objects;
 
-import seedu.manager.commons.core.CommandWord;
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.core.GuiSettings;
 
@@ -15,7 +12,7 @@ import seedu.manager.commons.core.GuiSettings;
 public class UserPrefs {
 
     public GuiSettings guiSettings;
-    public List<CommandWord> commandWords;
+    public HashMap<Commands, String> commandWords;
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -45,20 +42,20 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
     
-    public List<CommandWord> getCommandWords() {
-    	return commandWords == null ? new ArrayList<>() : commandWords;
+    public HashMap<Commands, String> getCommandWords() {
+    	return commandWords == null ? new HashMap<>() : commandWords;
     }
     
-    public void updateLastUsedCommandWords(List<CommandWord> commandWords) {
+    public void updateLastUsedCommandWords(HashMap<Commands, String> commandWords) {
 		this.commandWords = commandWords;
 	}
     
     public void setCommandWords(Commands[] commands, String[] commandStrings) {
     	assert commands.length == commandStrings.length;
     	
-		this.commandWords = new ArrayList<>();
+		this.commandWords = new HashMap<>();
 		for (int i = 0; i < commands.length; i++) {
-			commandWords.add(new CommandWord(commands[i], commandStrings[i]));
+			commandWords.put(commands[i], commandStrings[i]);
 		}
 	}
     
@@ -101,7 +98,7 @@ public class UserPrefs {
 
     @Override
     public String toString(){
-        return guiSettings.toString() + "\n" + Arrays.toString(commandWords.toArray());
+        return guiSettings.toString() + "\n" + commandWords;
     }
 
 }

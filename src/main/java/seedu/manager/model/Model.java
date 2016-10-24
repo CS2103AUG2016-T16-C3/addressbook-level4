@@ -1,8 +1,10 @@
 package seedu.manager.model;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.UniqueTaskList;
@@ -16,6 +18,9 @@ public interface Model {
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
+    
+    /** Returns the Command words */
+    HashMap<Commands, String> getCommandWords();
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

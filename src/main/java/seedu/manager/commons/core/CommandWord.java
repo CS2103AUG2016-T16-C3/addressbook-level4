@@ -1,8 +1,5 @@
 package seedu.manager.commons.core;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class CommandWord {
 	
 	public enum Commands {
@@ -23,20 +20,5 @@ public class CommandWord {
 		public String toString() {
 			return commandRep;
 		}
-	}
-	
-	private Commands command = null;
-	private String commandWord = null;
-	
-	@JsonCreator
-	public CommandWord(@JsonProperty("command") Commands command, 
-			           @JsonProperty("commandWord") String commandWord) {
-		this.command = command;
-		this.commandWord = commandWord;
-	}
-	
-	@Override
-	public String toString() {
-		return command.commandRep + " " + commandWord;
 	}
 }
