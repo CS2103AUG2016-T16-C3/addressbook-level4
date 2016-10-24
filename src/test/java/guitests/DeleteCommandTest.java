@@ -49,7 +49,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(DeleteCommand.MESSAGE_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(DeleteCommand.MESSAGE_SUCCESS, taskToDelete.getAsPrettyText()));
     }
 
 }
