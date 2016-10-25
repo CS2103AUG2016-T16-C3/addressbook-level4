@@ -12,7 +12,7 @@ import seedu.manager.model.Model;
  */
 public abstract class Command {
     protected Model model;
-    protected static LinkedList<Command> undoList = new LinkedList<Command>();
+    protected static LinkedList<UndoableCommand> undoList = new LinkedList<UndoableCommand>();
     /**
      * Constructs a feedback message to summarize an operation that displayed a listing of tasks.
      *
@@ -29,8 +29,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
-    
-    public abstract CommandResult undoIt();
 
     /**
      * Provides any needed dependencies to the command.
@@ -48,12 +46,7 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
-    /**
-     * To return 1 if the command is undoable or 0 if it is not undoable.
-     */
-    public abstract int undoability();
-    
-    public void addUndo(Command newCommand) {
+    public void addUndo(UndoableCommand newCommand) {
     	if (newCommand != null)
     	undoList.add(newCommand);
     }

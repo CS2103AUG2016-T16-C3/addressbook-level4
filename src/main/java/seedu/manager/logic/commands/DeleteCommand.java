@@ -10,7 +10,7 @@ import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -50,13 +50,8 @@ public class DeleteCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
+        this.addUndo(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToDelete.getAsPrettyText()));
-    }
-    
-    @Override
-    public int undoability() {
-    	return 1;
     }
     
     @Override

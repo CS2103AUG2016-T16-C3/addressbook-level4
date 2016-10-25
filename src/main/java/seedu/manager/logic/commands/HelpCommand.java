@@ -23,16 +23,4 @@ public class HelpCommand extends Command {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
-    
-    @Override
-    public int undoability() {
-    	return 0;
-    }
-
-	@Override
-	public CommandResult undoIt() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

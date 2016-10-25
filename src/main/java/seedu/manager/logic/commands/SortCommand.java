@@ -18,5 +18,4 @@ public class SortCommand extends Command {
 		model.sortSortedFilteredTaskListByPriority();
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
-
 }

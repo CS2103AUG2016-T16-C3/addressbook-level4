@@ -57,17 +57,4 @@ public class DoneCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
     }
-    
-    @Override
-    public int undoability() {
-    	return 0;
-    }
-
-	@Override
-	public CommandResult undoIt() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 }

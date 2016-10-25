@@ -13,7 +13,7 @@ import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Adds a task to the task manager.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -39,6 +39,7 @@ public class AddCommand extends Command {
             throw new IllegalValueException(MESSAGE_USAGE);
         }
         this.toAdd = new Task(properties);
+        
     }
 
     @Override
@@ -52,16 +53,12 @@ public class AddCommand extends Command {
             
             EventsCenter.getInstance().post(new JumpToListRequestEvent(addedIndex));
             
+            this.addUndo(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 
-    }
-    
-    @Override
-    public int undoability() {
-        return 1;
     }
     
     @Override

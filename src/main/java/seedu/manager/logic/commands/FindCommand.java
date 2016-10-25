@@ -27,16 +27,4 @@ public class FindCommand extends Command {
         model.unSortSortedFilteredTaskList();
         return new CommandResult(getMessageForTaskListShownSummary(model.getSortedFilteredTaskList().size()));
     }
-    
-    @Override
-    public int undoability() {
-    	return 0;
-    }
-
-	@Override
-	public CommandResult undoIt() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

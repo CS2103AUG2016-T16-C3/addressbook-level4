@@ -20,7 +20,7 @@ import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
  * @author varungupta
  *
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements UndoableCommand {
     
     public static final String COMMAND_WORD = "edit";
 
@@ -70,7 +70,7 @@ public class EditCommand extends Command {
             model.deleteTask(taskToEdit);
             
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-            
+            this.addUndo(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
         } catch (TaskNotFoundException e) {
             return new CommandResult("The target task cannot be missing");
@@ -103,11 +103,6 @@ public class EditCommand extends Command {
         }
         
         return newProperties;
-    }
-    
-    @Override
-    public int undoability() {
-    	return 0;
     }
     
     @Override
