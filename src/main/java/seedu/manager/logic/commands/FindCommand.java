@@ -2,24 +2,17 @@ package seedu.manager.logic.commands;
 
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Set;
 import java.util.Map.Entry;
 
-import seedu.manager.commons.core.Messages;
-import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.Desc;
 import seedu.manager.model.task.Done;
 import seedu.manager.model.task.EndTime;
 import seedu.manager.model.task.Priority;
-import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.StartTime;
-import seedu.manager.model.task.Task;
 import seedu.manager.model.task.TaskProperty;
-import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.Venue;
 import seedu.manager.model.task.Task.TaskProperties;
-import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Finds and lists all tasks in task manager whose desc contains any of the argument keywords.
@@ -29,10 +22,10 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose descs contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose properties contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: [DESC] [<extensions>]\n"
+            + "Example: " + COMMAND_WORD + " alice bob charlie venue home priority med";
 
     public static final String MESSAGE_SUCCESS = "Found Task(s): %1$s";
     public static final String MESSAGE_DUPLICATE_KEYWORDS = "There are 2 or more of the same keywords you have entered.";
