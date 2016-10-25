@@ -3,7 +3,9 @@ package seedu.manager.model;
 import javafx.collections.ObservableList;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
+import seedu.manager.model.tag.UniqueTagList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,9 +17,11 @@ import java.util.stream.Collectors;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
+    private final UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
+        tags = new UniqueTagList();
     }
 
     public TaskManager() {}
@@ -44,6 +48,10 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
+    }
+    
+    public ObservableList<Tag> getTags() {
+        return tags.getInternalList();
     }
 
     public void setTasks(List<Task> tasks) {

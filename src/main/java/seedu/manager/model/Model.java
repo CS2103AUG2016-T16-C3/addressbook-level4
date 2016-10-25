@@ -5,6 +5,7 @@ import java.util.Set;
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 
 /**
@@ -25,6 +26,9 @@ public interface Model {
 
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
+    
+    /** Returns the sorted and filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
+    UnmodifiableObservableList<Tag> getSortedFilteredTagList();
     
     /** Updates the filter of the sorted and filtered task list to show all tasks */
     void updateSortedFilteredListToShowAll();

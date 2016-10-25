@@ -10,6 +10,7 @@ import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -25,7 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Tag> filteredTags;
     private final SortedList<Task> sortedTasks;
+    private final SortedList<Tag> sortedTags;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -40,7 +43,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTags = new FilteredList<>(taskManager.getTags());
         sortedTasks = new SortedList<>(filteredTasks);
+        sortedTags = new SortedList<>(filteredTags);
     }
 
     public ModelManager() {
@@ -50,7 +55,9 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTags = new FilteredList<>(taskManager.getTags());
         sortedTasks = new SortedList<>(filteredTasks);
+        sortedTags = new SortedList<>(filteredTags);
     }
 
     @Override
@@ -87,6 +94,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
         return new UnmodifiableObservableList<>(sortedTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<Tag> getSortedFilteredTagList() {
+        return new UnmodifiableObservableList<>(sortedTags);
     }
     
     @Override
