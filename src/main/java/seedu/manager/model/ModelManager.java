@@ -10,9 +10,12 @@ import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
+import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -124,10 +127,14 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(null);
     }
 
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
     }
 
+    public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
+        updateFilteredTaskList(new PredicateExpression(new EnhancedSearchQualifier(propertiesToMatch)));
+    }
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -181,6 +188,19 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "desc=" + String.join(", ", descKeyWords);
+        }
+    }
+    
+    private class EnhancedSearchQualifier implements Qualifier {
+        private HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch;
+        
+        public EnhancedSearchQualifier(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
+            this.propertiesToMatch = propertiesToMatch;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.matches(propertiesToMatch);
         }
     }
 

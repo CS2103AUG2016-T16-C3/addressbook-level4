@@ -29,6 +29,9 @@ public class Parser {
     private static final Pattern EDIT_KEYWORDS_FORMAT =
             Pattern.compile("(?<targetIndex>\\d+)\\s(?<arguments>.+)");
     
+    private static final Pattern FIND_KEYWORDS_FORMAT =
+            Pattern.compile("(?<arguments>.+)");
+    
     private static final ExtensionParser extParser = new ExtensionParser();
 
     public Parser() {}
@@ -186,16 +189,17 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+        final Matcher matcher = FIND_KEYWORDS_FORMAT.matcher(args);
+        if(!matcher.matches()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        
+        try {
+            return new FindCommand(extParser.getTaskProperties(matcher.group("arguments")));
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
     }
 
 }

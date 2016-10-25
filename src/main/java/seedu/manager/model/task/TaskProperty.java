@@ -66,4 +66,6 @@ public abstract class TaskProperty implements Comparable<TaskProperty> {
     public int compareTo(TaskProperty other) {
     	return -1;
     }
+    
+	public abstract boolean matches(TaskProperty property);
 }

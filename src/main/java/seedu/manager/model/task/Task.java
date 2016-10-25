@@ -172,6 +172,20 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
+        for (TaskProperties property : TaskProperties.values()) {
+            if (other.get(property).isPresent()) {
+                if (!this.properties.get(property).isPresent()) {
+                    return false;
+                } else if (!this.properties.get(property).get().matches(other.get(property).get())){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    @Override
     public int compareProperty(ReadOnlyTask other, TaskProperties property) {
     	assert other != null;
     	HashMap<TaskProperties, Optional<TaskProperty>> otherProps = other.getProperties();
