@@ -5,13 +5,13 @@ import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.logic.commands.Command;
 import seedu.manager.logic.commands.CommandResult;
+
 import seedu.manager.logic.parser.Parser;
 import seedu.manager.model.Model;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.storage.Storage;
 
 import java.util.logging.Logger;
-
 
 /**
  * The main LogicManager of the app.
@@ -32,6 +32,10 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
+        
+        if (command != null && command.undoability() != 0)
+            command.addUndo(command);
+        
         return command.execute();
     }
 
@@ -39,4 +43,5 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
+    
 }
