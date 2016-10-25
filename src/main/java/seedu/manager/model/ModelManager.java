@@ -5,7 +5,9 @@ import javafx.collections.transformation.SortedList;
 import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -13,6 +15,7 @@ import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -26,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
     private final SortedList<Task> sortedTasks;
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -41,6 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         sortedTasks = new SortedList<>(filteredTasks);
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -51,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         sortedTasks = new SortedList<>(filteredTasks);
+        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -62,6 +68,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
+    }
+    
+    @Override
+    public HashMap<Commands, String> getCommandWords() {
+    	return userPrefs.commandWords;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -81,6 +92,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+	@Override
+	public void setSingleCommandWord(String commandToChange, String alias,
+			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
+		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
+		
+	}
     
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 
@@ -183,5 +201,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "desc=" + String.join(", ", descKeyWords);
         }
     }
-
 }
