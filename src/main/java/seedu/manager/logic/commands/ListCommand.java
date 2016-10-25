@@ -14,7 +14,8 @@ public class ListCommand extends Command{
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
+        model.updateSortedFilteredListToShowAll();
+        model.unSortSortedFilteredTaskList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
     

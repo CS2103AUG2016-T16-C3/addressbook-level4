@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.CollectionUtil;
-import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * Represents a Task in the task manager.
@@ -148,6 +147,22 @@ public class Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
+    }
+    
+    @Override
+    public int compareProperty(ReadOnlyTask other, TaskProperties property) {
+    	assert other != null;
+    	HashMap<TaskProperties, Optional<TaskProperty>> otherProps = other.getProperties();
+    	
+    	if (!this.properties.get(property).isPresent() && !otherProps.get(property).isPresent()) {
+			return 0;
+		} else if (!this.properties.get(property).isPresent()) {
+			return 1;
+		} else if (!otherProps.get(property).isPresent()) {
+			return -1;
+		} else {
+			return this.properties.get(property).get().compareTo(otherProps.get(property).get());
+		}
     }
 
     @Override

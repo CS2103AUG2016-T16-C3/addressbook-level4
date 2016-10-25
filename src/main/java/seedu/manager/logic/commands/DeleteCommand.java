@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
         assert model != null;
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -51,7 +51,7 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToDelete.getAsPrettyText()));
     }
     
     @Override

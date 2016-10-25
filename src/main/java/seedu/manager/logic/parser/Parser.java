@@ -78,6 +78,9 @@ public class Parser {
         
         case StorageCommand.COMMAND_WORD:
             return new StorageCommand(arguments);
+        
+        case SortCommand.COMMAND_WORD:
+        	return new SortCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

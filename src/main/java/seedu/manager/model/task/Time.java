@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
@@ -26,6 +27,7 @@ public abstract class Time extends TaskProperty {
     		Pattern.compile("([A-Z][a-z]{2} ){2}\\d{2} \\d{2}:\\d{2}:\\d{2} [A-Z]{3} \\d{4}");
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE MMM dd kk:mm:ss zzz yyyy");
     private static final PrettyTimeParser timeParser = new PrettyTimeParser();
+    private static final PrettyTime timePrettify = new PrettyTime();
     
     private Date value;
     
@@ -57,6 +59,11 @@ public abstract class Time extends TaskProperty {
     @Override
     public String toString() {
         return value.toString();
+    }
+    
+    @Override
+    public String toPrettyString() {
+    	return timePrettify.format(value);
     }
 
     @Override

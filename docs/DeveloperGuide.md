@@ -17,7 +17,7 @@
 
 Task Ninja is a task manager with a command line interface. It is aimed at users who prefer to only use the keyboard and prefer to be able to add tasks with one line of information.<br>
 
-This guide describes how Task Ninja has been designed and implemented. It is directed at developers new to this application aiming to understand the architecture of the application and towards more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix, to give you a better idea of the pain points this application is trying to solve.
+This guide describes how Task Ninja has been designed and implemented. It is directed at developers new to this application aiming to understand the architecture of the application and at more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix to give you a better idea of the pain points that this application is trying to solve.
 
 
 ## Setting up
@@ -26,15 +26,24 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
 
 1. **JDK `1.8.0_60`**  or later<br>
 
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    > * Having any Java 8 version is not enough.
+    > * This app will not work with earlier versions of Java 8.
 
 2. **Eclipse** IDE
 
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))  
+3. **e(fx)clipse** plugin for Eclipse
+
+    > Install this plugin from [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious).
 
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+
+    > How to install:
+    > * In Eclipse, click `Help` > `Install New Software...`
+    > * Copy this URL http://download.eclipse.org/buildship/updates/e46/releases/1.0/1.0.21.v20161010-1640/ into the "Work with..." field
+    > * Click `Add...`, then type in the name of the software you are installing (which is "Buildship Gradle Integration")
+    > * Click `OK`
+    > * After Eclipse finishes fetching the required information, select all items to install by ticking all the checkboxes in the list before the "Details" section, then click `Next`.
+    > * Installation will proceed after you review the license agreement and accept it. You will be prompted to restart Eclipse during this process; click `Yes` to allow installation of Gradle to be completed.
 
 #### Importing the project into Eclipse
 
@@ -46,10 +55,9 @@ This guide describes how Task Ninja has been designed and implemented. It is dir
 5. Click `Browse`, then locate the project's directory
 6. Click `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  > If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.<br><br>
+  > Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish. (This is because Gradle downloads library files from servers during the project set up process)<br><br>
+  > If Eclipse auto-changed any settings files during the import process, you can discard those changes.<br>
 
 #### Troubleshooting project setup
 
@@ -83,7 +91,7 @@ Given below is a quick overview of each component.
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used by components to communicate with other components using events (i.e. a form of Event Driven design)
 * `LogsCenter` : This class is used by various other classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
@@ -93,13 +101,13 @@ The rest of the App consists four components.
 * [**`Storage`**](#storage-component) : The interface between the App and the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its API in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+_Figure 2_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 <br>
 
@@ -196,12 +204,11 @@ Classes used by multiple components are in the [`seedu.manager.commons`](#../src
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations:
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+  (See [Configuration](#configuration)).
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
 * Currently log messages are output through `Console` and to a `.log` file.
 
 **Logging Levels**
@@ -214,7 +221,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g. App name, logging level) through the configuration file (default: `config.json`).
 
 
 ## Testing
@@ -225,7 +232,7 @@ Tests can be found in the `./src/test/java` folder.
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+* To run a subset of tests, right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
@@ -244,26 +251,25 @@ We have two types of tests:
      (those code units are assumed to be working).<br>
       e.g. `seedu.manager.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These tests check multiple code units as well as
-      how the are connected together.<br>
+      how they are connected together.<br>
       e.g. `seedu.manager.logic.LogicManagerTest`
 
-**Headless GUI Testing** :
+**Headless GUI Testing**:
 
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode.
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+* Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the headless mode. In the headless mode, GUI tests do not show up on the screen. <br>
+That means the developer can do other things on the Computer while the tests are running.<br>
+
+* See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 #### Troubleshooting tests
 
- **Problem: Tests fail because NullPointException when AssertionError is expected**
+ **Problem: Tests fail because of NullPointerException when AssertionError is expected. **
 
  * Reason: Assertions are not enabled for JUnit tests.
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later).
  * Solution: Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
-   Delete run configurations created when you ran tests earlier.
+   Delete run configurations created when you run tests earlier.
 
 
 ## Dev Ops
@@ -300,7 +306,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Likeliness: Likely - `L`, Unlikely - `U`
 
-Likeliness | As a... | I want to... | So that I can...
+Likeliness | As (a)... | I want to... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `L` | All Users | Interact with the manager using a CLI and keys | Get rid of the need for a mouse
 `L` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
@@ -334,13 +340,13 @@ Likeliness | As a... | I want to... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise)
+( For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise. )
 
 #### Use case: Add a task
 
 **MSS**
 
-1. Users supplies Task Manager with information for a new task
+1. User supplies Task Manager with information for a new task
 2. Task Manager adds new task to its data <br>
 Use case ends.
 
@@ -348,78 +354,78 @@ Use case ends.
 
 2a. The given information is invalid
 
-> 2a1. User is shown correct format for data <br>
-Use case resumes at step 1
+> 2a1. User is shown correct format for data. <br>
+Use case resumes at step 1.
 
 2b. Given information is identical to an already existing task
 
-> 2b1. User is notified that task already exists <br>
-Use case resumes at step 1
+> 2b1. User is notified that the task already exists. <br>
+Use case resumes at step 1.
 
 #### Use case: List specific tasks
 
 **MSS**
 
-1. User supplies Task Manager with information about descriptions of tasks to be listed
-2. Task Manager shows the list of tasks <br>
+1. User supplies Task Manager with information about descriptions of tasks to be listed.
+2. Task Manager shows the list of tasks. <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. The list is empty.
 
-> Use case ends
+> Use case ends.
 
-2b. The given information is invalid
+2b. The given information is invalid.
 
-> 2a1. User is shown correct format for data <br>
-Use case resumes at step 1
+> 2b1. User is shown correct format of data. <br>
+Use case resumes at step 1.
 
 #### Use case: Delete task
 
 **MSS**
 
-1. User requests to list tasks
-2. Task Manager shows a list of tasks
-3. User requests to delete a specific task in the list
-4. Task Manager deletes the task <br>
+1. User requests to list tasks.
+2. Task Manager shows a list of tasks.
+3. User requests to delete a specific task in the list.
+4. Task Manager deletes the task. <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. The list is empty.
 
-> Use case ends
+> Use case ends.
 
-4a. The given index is invalid
+4a. The given index is invalid.
 
-> 4a1. User is notified that index is invalid <br>
-Use case resumes at step 3
+> 4a1. User is notified that index is invalid. <br>
+Use case resumes at step 3.
 
 #### Use case: Edit task
 
 **MSS**
 
-1. User requests to list tasks
-2. Task Manager shows a list of tasks
-3. Users supplies Task Manager with new information for a specific task
-4. Task Manager modifies the corresponding task
+1. User requests to list tasks.
+2. Task Manager shows a list of tasks.
+3. Users supplies Task Manager with new information for a specific task.
+4. Task Manager modifies the corresponding task.
 
 **Extensions**
 
-2a. The list is empty
+2a. The list is empty.
 
-> Use case ends
+> Use case ends.
 
-4a. The given index is invalid
+4a. The given index is invalid.
 
-> 4a1. User is notified that index is invalid <br>
-Use case resumes at step 3
+> 4a1. User is notified that index is invalid. <br>
+Use case resumes at step 3.
 
-4b. The given information is invalid
+4b. The given information is invalid.
 
-> 4b1. User is shown correct format for data <br>
-Use case resumes at step 3
+> 4b1. User is shown correct format for data. <br>
+Use case resumes at step 3.
 
 
 ## Appendix C : Non Functional Requirements
@@ -450,47 +456,45 @@ We researched other task managers' special features to better understand the pro
 
 ##### Todo.txt
 *Pros:*
-> 1. Uses command lines to input task. <br>
+1. Uses command lines to input task. <br>
 2. Uses plain text as the normal text. <br>
 3. Sorts the task by priority. <br>
 4. Allows user to enter multiple tasks in a single input box. <br>
 
- *Cons:*
- > 1. The UI is very poor and not very user-friendly. <br>
+*Cons:*
+1. The UI is very poor and not very user-friendly. <br>
 2. Beginners may not understand what to do next. <br>
 
 ##### Google Calendar
 *Pros:*
->1. User can change visibility between public and private <br>
-2. User can make video calls and change the time zone <br>
-3. User can also add attachments and locations <br>
-4. Also has a command line mode <br>
+1. User can change visibility between public and private. <br>
+2. User can make video calls and change the time zone. <br>
+3. User can also add attachments and locations. <br>
+4. User can also use a command line mode. <br>
 
 *Cons:*
->
-1. Users have to click many times and type nuch text to add a task <br>
-2. It has to be operated online, which means that users cannot use Google calendar when they do not have Internet access. <br>
+1. User has to click many times and type a lot of text to add a task. <br>
+2. This application has to be operated online, which means that user cannot use Google calendar when they do not have Internet access. <br>
 
 ##### Wunderlist
 *Pros:*
->
-1. Amazing GUI<br>
-2. User can set reminders, additionally the "Do not disturb" button can be used to turn off reminders
-3. Mainly uses a list to represent all the tasks rather than a calendar
-4. Has a companion product called Wunderline
-    * This is the command line mode of Wunderlist
-    * Uses natural words as commands, content is put inside single quotes
-    * Data can be exported as a JSON file
-    * Allows searching by keywords
+1. This application has a very colorful and beautiful GUI. <br>
+2. It allows user to set reminders, and turn them off using the "Do not disturb" button.
+3. It mainly uses lists to represent all the tasks rather than a calendar.
+4. It has a companion product called Wunderline
+    * This is the command line mode of Wunderlist.
+    * Uses natural words as commands, content is put inside single quotes.
+    * Allows exporting data as a JSON file.
+    * Allows searching by keywords.
 
 *Cons:*
-> It only display tasks as a list while sometimes the calendar mode can tell users more information.
+It only displays tasks as a list while sometimes the calendar mode can tell users more information.
 
 ##### Calendar Vim
 *Pros:*
-> 1. A calendar application for Vim
-2. View events on Google Calendar
-3. Has different view modes, like Year view, Month view, Week view and Day view
+1. This application is a calendar application for Vim.
+2. It can view events on Google Calendar.
+3. It has different view modes, like Year view, Month view, Week view and Day view.
 
 *Cons:*
-> Poor Graphical User Interface.
+The Graphical User Interface of this application is simple and not user-friendly.
