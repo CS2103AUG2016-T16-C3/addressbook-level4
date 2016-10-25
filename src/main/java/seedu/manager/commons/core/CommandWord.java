@@ -5,7 +5,7 @@ public class CommandWord {
 	public enum Commands {
 		ADD("ADD"), EDIT("EDIT"), DELETE("DELETE"), UNDO("UNDO"), 
 		FIND("FIND"), STORAGE("STORAGE"), CLEAR("CLEAR"), DONE("DONE"), 
-		EXIT("EXIT"), HELP("HELP"), LIST("LIST"), SORT("SORT");
+		EXIT("EXIT"), HELP("HELP"), LIST("LIST"), SORT("SORT"), ALIAS("ALIAS");
 		
 		private String commandRep;
 		

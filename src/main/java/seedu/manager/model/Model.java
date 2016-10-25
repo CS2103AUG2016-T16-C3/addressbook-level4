@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.UniqueTaskList;
@@ -27,6 +28,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Change alias for a certain command */
+    public void setSingleCommandWord(String commandToChange, String alias) throws IllegalValueException;
 
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();

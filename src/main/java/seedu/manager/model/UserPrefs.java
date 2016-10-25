@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import seedu.manager.commons.core.CommandWord.Commands;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.core.GuiSettings;
 
 /**
@@ -28,12 +29,14 @@ public class UserPrefs {
         		new Commands[]{
         				Commands.ADD, Commands.EDIT, Commands.DELETE, Commands.UNDO, 
         				Commands.FIND, Commands.STORAGE, Commands.CLEAR, Commands.DONE, 
-        				Commands.EXIT, Commands.HELP, Commands.LIST, Commands.SORT
+        				Commands.EXIT, Commands.HELP, Commands.LIST, Commands.SORT,
+        				Commands.ALIAS
     				},
         		new String[]{
         				"add", "edit", "delete", "undo", 
         				"find", "storage", "clear", "done", 
-        				"exit", "help", "list", "sort"
+        				"exit", "help", "list", "sort",
+        				"alias"
         			}
         		);
     }
@@ -46,10 +49,6 @@ public class UserPrefs {
     	return commandWords == null ? new HashMap<>() : commandWords;
     }
     
-    public void updateLastUsedCommandWords(HashMap<Commands, String> commandWords) {
-		this.commandWords = commandWords;
-	}
-    
     public void setCommandWords(Commands[] commands, String[] commandStrings) {
     	assert commands.length == commandStrings.length;
     	
@@ -59,23 +58,35 @@ public class UserPrefs {
 		}
 	}
     
-//    public void setSingleCommandWord(String command, String commandString) {
-//    	boolean matched = false;
-//    	
-//    	for (int i = 0; i < commandWords.size(); i++) {
-//    		if (commandWords.get(i).getCommand().getCommandRep().equals(command)) {
-//				commandWords.set(i, new CommandWord(command, commandString));
-//			}
-//		}
-//    }
+    public void setSingleCommandWord(String commandToChange, String alias) throws IllegalValueException {
+    	Commands matchedCommand = getMatchingCommand(commandToChange);
+    	
+    	if (aliasAlreadyExists(matchedCommand, alias)) {
+    		throw new IllegalValueException("Given alias matches an older alias");
+		}
+    	
+    	commandWords.put(matchedCommand, alias);
+    }
     
-//    public void getMatchingCommand(String commandString) {
-//    	for (CommandWord commandWord : commandWords) {
-//			if (commandWord.) {
-//				
-//			}
-//		}
-//    }
+    private Commands getMatchingCommand(String commandToChange) throws IllegalValueException {
+    	for (Commands command : Commands.values()) {
+			if (commandWords.get(command).equals(commandToChange)) {
+				return command;
+			}
+		}
+    	
+    	throw new IllegalValueException("No matched command");
+    }
+    
+    private boolean aliasAlreadyExists(Commands matchedCommand, String alias) {
+    	for (Commands command : Commands.values()) {
+			if (!command.equals(matchedCommand) && commandWords.get(command).equals(alias)) {
+				return true;
+			}
+		}
+    	
+    	return false;
+    }
 
     @Override
     public boolean equals(Object other) {

@@ -7,6 +7,7 @@ import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -91,6 +92,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+	@Override
+	public void setSingleCommandWord(String commandToChange, String alias) throws IllegalValueException {
+		userPrefs.setSingleCommandWord(commandToChange, alias);
+		
+	}
     
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 
@@ -193,5 +200,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "desc=" + String.join(", ", descKeyWords);
         }
     }
-
 }

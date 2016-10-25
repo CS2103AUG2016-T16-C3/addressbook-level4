@@ -70,4 +70,10 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
 
         FileUtil.serializeObjectToJsonFile(new File(prefsFilePath), userPrefs);
     }
+    
+    public static void main(String[] args) throws IOException {
+		JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage("preferences.json");
+		UserPrefs userPrefs = new UserPrefs();
+		jsonUserPrefsStorage.saveUserPrefs(userPrefs);
+	}
 }

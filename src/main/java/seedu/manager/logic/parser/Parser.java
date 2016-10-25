@@ -56,17 +56,13 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord").trim();
         final String arguments = matcher.group("arguments").trim();
-        Commands matchedCommand = null;
         
-        for (Commands command : Commands.values()) {
-			if (commandWords.get(command).equals(commandWord)) {
-				matchedCommand = command;
-				break;
-			}
-		}
+        Commands matchedCommand;
         
-        if (matchedCommand == null) {
-			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        try {
+			matchedCommand = getMatchedCommand(commandWord);
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
         
         switch (matchedCommand) {
@@ -103,10 +99,23 @@ public class Parser {
         
         case SORT:
         	return new SortCommand();
+        
+        case ALIAS:
+        	return prepareAlias(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+    
+    private Commands getMatchedCommand(String commandWord) throws IllegalValueException {
+    	for (Commands command : Commands.values()) {
+			if (commandWords.get(command).equals(commandWord)) {
+				return command;
+			}
+		}
+    	
+    	throw new IllegalValueException(MESSAGE_UNKNOWN_COMMAND);
     }
 
 	/**
@@ -219,5 +228,18 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-
+    
+    /**
+     * Parses arguments in the context of the alias command
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAlias(String args) {
+    	String[] splitArgs = args.split(" ");
+    	if (splitArgs.length != 2) {
+			return new IncorrectCommand("Alias command should have exactly 2 parameters");
+		}
+    	
+    	return new AliasCommand(splitArgs[0], splitArgs[1]);
+    }
 }
