@@ -2,6 +2,7 @@ package seedu.manager.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
@@ -625,6 +626,52 @@ public class LogicManagerTest {
         
         assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }
+    
+    @Test
+    public void execute_alias_wrongNumberOfCommands() throws Exception {
+    	assertCommandBehavior("alias", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
+    	assertCommandBehavior("alias add", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
+    	assertCommandBehavior("alias add + -", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
+    }
+    
+    @Test
+    public void execute_alias_doesNotExist() throws Exception {
+    	assertCommandBehavior("alias - +", AliasCommand.MESSAGE_NO_MATCH);
+    }
+    
+    @Test
+    public void execute_alias_alreadyTaken() throws Exception {
+    	assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
+    	assertCommandBehavior("alias edit +", String.format(AliasCommand.MESSAGE_ALIAS_TAKEN, Commands.ADD));
+    }
+    
+    @Test
+    public void execute_alias_successful() throws Exception {
+    	assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
+    	
+    	TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.lancelot();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandWithAlias(toBeAdded, "+"),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(0, targetedJumpIndex);
+        
+        assertCommandBehavior("alias delete -",
+        		String.format(AliasCommand.MESSAGE_SUCCESS, "delete", "-"),
+        		expectedTM,
+        		expectedTM.getTaskList());
+        expectedTM.removeTask(toBeAdded);
+        
+        assertCommandBehavior("- 1",
+                String.format(DeleteCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
 
 
     /**
@@ -661,12 +708,12 @@ public class LogicManagerTest {
                     ""
             );
         }
+        
+        /** Generates the correct add command  */
+        String generateAddCommandWithAlias(Task p, String alias) {
+        	StringBuffer cmd = new StringBuffer();
 
-        /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
-            StringBuffer cmd = new StringBuffer();
-
-            cmd.append("add ");
+            cmd.append(alias + " ");
 
             cmd.append(p.getDesc().get().toString());
             if (p.getVenue().isPresent()) {
@@ -683,6 +730,11 @@ public class LogicManagerTest {
             }
 
             return cmd.toString();
+        }
+
+        /** Generates the correct add command based on the task given */
+        String generateAddCommand(Task p) {
+        	return generateAddCommandWithAlias(p, "add");
         }
 
         /**

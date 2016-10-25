@@ -58,34 +58,32 @@ public class UserPrefs {
 		}
 	}
     
-    public void setSingleCommandWord(String commandToChange, String alias) throws IllegalValueException {
-    	Commands matchedCommand = getMatchingCommand(commandToChange);
+    public void setSingleCommandWord(String commandToChange, String alias,
+    		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
     	
-    	if (aliasAlreadyExists(matchedCommand, alias)) {
-    		throw new IllegalValueException("Given alias matches an older alias");
-		}
+    	Commands matchedCommand = getMatchingCommand(commandToChange, messageNoMatch);
+    	throwExceptionIfAliasAlreadyExists(matchedCommand, alias, messageAliasAlreadyTaken);
     	
     	commandWords.put(matchedCommand, alias);
     }
     
-    private Commands getMatchingCommand(String commandToChange) throws IllegalValueException {
+    private Commands getMatchingCommand(String commandToChange, String messageNoMatch) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
 			if (commandWords.get(command).equals(commandToChange)) {
 				return command;
 			}
 		}
     	
-    	throw new IllegalValueException("No matched command");
+    	throw new IllegalValueException(messageNoMatch);
     }
     
-    private boolean aliasAlreadyExists(Commands matchedCommand, String alias) {
+    private void throwExceptionIfAliasAlreadyExists(Commands matchedCommand, String alias, String messageAliasAlreadyTaken) 
+    		throws IllegalValueException {
     	for (Commands command : Commands.values()) {
 			if (!command.equals(matchedCommand) && commandWords.get(command).equals(alias)) {
-				return true;
+				throw new IllegalValueException(String.format(messageAliasAlreadyTaken, command));
 			}
 		}
-    	
-    	return false;
     }
 
     @Override

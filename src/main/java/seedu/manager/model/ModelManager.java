@@ -94,8 +94,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
 	@Override
-	public void setSingleCommandWord(String commandToChange, String alias) throws IllegalValueException {
-		userPrefs.setSingleCommandWord(commandToChange, alias);
+	public void setSingleCommandWord(String commandToChange, String alias,
+			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
+		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
 		
 	}
     

@@ -3,9 +3,9 @@ package seedu.manager.commons.core;
 public class CommandWord {
 	
 	public enum Commands {
-		ADD("ADD"), EDIT("EDIT"), DELETE("DELETE"), UNDO("UNDO"), 
-		FIND("FIND"), STORAGE("STORAGE"), CLEAR("CLEAR"), DONE("DONE"), 
-		EXIT("EXIT"), HELP("HELP"), LIST("LIST"), SORT("SORT"), ALIAS("ALIAS");
+		ADD("add"), EDIT("edit"), DELETE("delete"), UNDO("undo"), 
+		FIND("find"), STORAGE("storage"), CLEAR("clear"), DONE("done"), 
+		EXIT("exit"), HELP("help"), LIST("list"), SORT("sort"), ALIAS("alias");
 		
 		private String commandRep;
 		

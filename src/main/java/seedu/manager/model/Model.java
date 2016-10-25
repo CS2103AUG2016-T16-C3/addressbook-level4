@@ -30,7 +30,8 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Change alias for a certain command */
-    public void setSingleCommandWord(String commandToChange, String alias) throws IllegalValueException;
+    public void setSingleCommandWord(String commandToChange, String alias,
+    		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
 
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();

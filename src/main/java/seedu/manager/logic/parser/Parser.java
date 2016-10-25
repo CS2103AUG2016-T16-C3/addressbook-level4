@@ -16,7 +16,6 @@ import seedu.manager.logic.commands.*;
  * Parses user input.
  */
 public class Parser {
-
     /**
      * Used for initial separation of command word and args.
      */
@@ -237,7 +236,7 @@ public class Parser {
     private Command prepareAlias(String args) {
     	String[] splitArgs = args.split(" ");
     	if (splitArgs.length != 2) {
-			return new IncorrectCommand("Alias command should have exactly 2 parameters");
+			return new IncorrectCommand(AliasCommand.MESSAGE_WRONG_NUM_ARGS);
 		}
     	
     	return new AliasCommand(splitArgs[0], splitArgs[1]);
