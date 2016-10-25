@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import seedu.manager.commons.core.CommandWord.Commands;
+import seedu.manager.commons.events.storage.UserPrefsChangedEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.GuiSettings;
 
 /**
@@ -65,6 +67,7 @@ public class UserPrefs {
     	throwExceptionIfAliasAlreadyExists(matchedCommand, alias, messageAliasAlreadyTaken);
     	
     	commandWords.put(matchedCommand, alias);
+    	EventsCenter.getInstance().post(new UserPrefsChangedEvent(this));
     }
     
     private Commands getMatchingCommand(String commandToChange, String messageNoMatch) throws IllegalValueException {
