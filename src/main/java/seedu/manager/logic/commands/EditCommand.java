@@ -29,6 +29,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_PARAMS = "The new parameters are the same as before";
+    public static final String UNDO_SUCCESS = "Undone the previous edit: %1$s";
 
     public final int targetIndex;
     
@@ -39,6 +40,9 @@ public class EditCommand extends Command {
         this.targetIndex = targetIndex;
         this.editedProperties = editedProperties;
     }
+    
+    public Task newTask;
+    public Task oldTask;
 
     @Override
     public CommandResult execute() {
@@ -57,7 +61,9 @@ public class EditCommand extends Command {
         	HashMap<TaskProperties, Optional<String>> newProperties = 
         		buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties);
         	
-            Task newTask = new Task(newProperties);
+            newTask = new Task(newProperties);
+            oldTask = new Task(taskToEdit);
+            
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             
@@ -94,4 +100,27 @@ public class EditCommand extends Command {
         
         return newProperties;
     }
+    
+    @Override
+    public int undoability() {
+    	return 0;
+    }
+    
+    @Override
+    public CommandResult undoIt() {
+    	assert model != null;
+    	
+    	try {
+    		model.addTask(oldTask);
+    		model.deleteTask(newTask);
+    		
+            return new CommandResult(String.format(UNDO_SUCCESS, oldTask));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult("The target task cannot be missing");
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_PARAMS);
+        }
+    	
+    }
+    
 }

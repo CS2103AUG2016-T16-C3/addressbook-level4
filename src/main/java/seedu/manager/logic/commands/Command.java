@@ -1,5 +1,7 @@
 package seedu.manager.logic.commands;
 
+import java.util.LinkedList;
+
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -10,9 +12,9 @@ import seedu.manager.model.Model;
  */
 public abstract class Command {
     protected Model model;
-
+    protected static LinkedList<Command> undoList = new LinkedList<Command>();
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
+     * Constructs a feedback message to summarize an operation that displayed a listing of tasks.
      *
      * @param displaySize used to generate summary
      * @return summary message for tasks displayed
@@ -27,6 +29,8 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
+    
+    public abstract CommandResult undoIt();
 
     /**
      * Provides any needed dependencies to the command.
@@ -42,5 +46,27 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    /**
+     * To return 1 if the command is undoable or 0 if it is not undoable.
+     */
+    public abstract int undoability();
+    
+    public void addUndo(Command newCommand) {
+    	if (newCommand != null)
+    	undoList.add(newCommand);
+    }
+    
+    public void removeUndone(){
+    	undoList.removeLast();
+    }
+    
+    public boolean isEmpty() {
+    	return undoList == null;
+    	}
+    
+    public Model getModel() {
+    	return model;
     }
 }

@@ -70,4 +70,15 @@ public class StorageCommand extends Command {
 		File file = new File(filePath).getParentFile();
 		return file.canWrite();
 	}
+	
+	@Override
+	public int undoability() {
+	    return 0;
+	    }
+
+	@Override
+	public CommandResult undoIt() {
+		return null;
+	}
+
 }

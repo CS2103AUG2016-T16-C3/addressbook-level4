@@ -26,5 +26,16 @@ public class FindCommand extends Command {
         model.updateFilteredTaskList(keywords);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
+    
+    @Override
+    public int undoability() {
+    	return 0;
+    }
+
+	@Override
+	public CommandResult undoIt() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

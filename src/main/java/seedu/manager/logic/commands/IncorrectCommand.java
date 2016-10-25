@@ -17,6 +17,17 @@ public class IncorrectCommand extends Command {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }
+    
+    @Override
+    public int undoability() {
+    	return 0;
+    }
+
+	@Override
+	public CommandResult undoIt() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
 

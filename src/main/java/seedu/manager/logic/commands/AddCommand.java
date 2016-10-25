@@ -6,6 +6,7 @@ import java.util.Optional;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
+import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to the task manager.
@@ -20,6 +21,7 @@ public class AddCommand extends Command {
             + " Dinner with Lancelot venue Avalon after 8:30pm before 9:00pm priority med";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String UNDO_SUCCESS = "Previous added task deleted: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
 
     private final Task toAdd;
@@ -48,5 +50,21 @@ public class AddCommand extends Command {
         }
 
     }
+    
+    @Override
+    public int undoability() {
+        return 1;
+    }
+    
+    @Override
+	public CommandResult undoIt() {
+		 assert model != null;
+	        try {
+	            model.deleteTask(toAdd);
+	        } catch (TaskNotFoundException pnfe) {
+	            assert false : "The target task cannot be missing";
+	        }
 
+	        return new CommandResult(String.format(UNDO_SUCCESS, toAdd));
+	    }
 }
