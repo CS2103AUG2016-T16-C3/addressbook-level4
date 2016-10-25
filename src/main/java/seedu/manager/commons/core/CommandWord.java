@@ -13,10 +13,6 @@ public class CommandWord {
 			this.commandRep = commandRep;
 		}
 		
-		public String getCommandRep() {
-			return commandRep;
-		}
-		
 		public String toString() {
 			return commandRep;
 		}

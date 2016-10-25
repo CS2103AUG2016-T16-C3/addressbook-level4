@@ -46,7 +46,7 @@ public class UserPrefs {
     }
     
     public HashMap<Commands, String> getCommandWords() {
-    	return commandWords == null ? new HashMap<>() : commandWords;
+    	return commandWords;
     }
     
     public void setCommandWords(Commands[] commands, String[] commandStrings) {
