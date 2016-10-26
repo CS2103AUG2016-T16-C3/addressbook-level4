@@ -431,7 +431,7 @@ Use case resumes at step 3.
 > 4b1. User is shown correct format for data. <br>
 Use case resumes at step 3.
 
-
+<!-- @@author A0148042M -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -452,7 +452,6 @@ Use case resumes at step 3.
 ##### Floating Task
 
 > A task which has no specified date or time
-
 
 ## Appendix E : Product Survey
 
