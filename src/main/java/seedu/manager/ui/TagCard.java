@@ -12,7 +12,7 @@ public class TagCard extends UiPart{
     private static final String FXML = "TagListCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private HBox tagCardPane;
     @FXML
     private Label id;
     @FXML 
@@ -48,12 +48,12 @@ public class TagCard extends UiPart{
     }
 
     public HBox getLayout() {
-        return cardPane;
+        return tagCardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        tagCardPane = (HBox)node;
     }
 
     @Override
