@@ -248,7 +248,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -673,14 +673,17 @@ public class LogicManagerTest {
             if (p.getVenue().isPresent()) {
                 cmd.append(" venue ").append(p.getVenue().get().toString());
             }
-            if (p.getStartTime().isPresent()) {
-                cmd.append(" at ").append(p.getStartTime().get().toString());
-            }
-            if (p.getEndTime().isPresent()) {
-                cmd.append(" by ").append(p.getEndTime().get().toString());
-            }
             if (p.getPriority().isPresent()) {
                 cmd.append(" priority ").append(p.getPriority().get().toString());
+            }
+            if (p.getStartTime().isPresent()) {
+                cmd.append(" from ").append(p.getStartTime().get().toString());
+            }
+            if (p.getEndTime().isPresent()) {
+                cmd.append(" to ").append(p.getEndTime().get().toString());
+            }
+            if (p.getTag().isPresent()) {
+                cmd.append(" tag ").append(p.getTag().get().toString());
             }
 
             return cmd.toString();
