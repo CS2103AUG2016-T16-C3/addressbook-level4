@@ -12,10 +12,12 @@ import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
+import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -113,11 +115,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateSortedFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
-    }
-    
-    @Override
     public void sortSortedFilteredTaskListByPriority() {
     	sortedTasks.setComparator((Task t1, Task t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
     }
@@ -134,18 +131,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Task List Accessors ===============================================================
 
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
 
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
+    public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
+        updateFilteredTaskList(new PredicateExpression(new EnhancedSearchQualifier(propertiesToMatch)));
     }
-
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -181,24 +174,16 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    private class DescQualifier implements Qualifier {
-        private Set<String> descKeyWords;
-
-        DescQualifier(Set<String> descKeyWords) {
-            this.descKeyWords = descKeyWords;
+    private class EnhancedSearchQualifier implements Qualifier {
+        private HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch;
+        
+        public EnhancedSearchQualifier(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
+            this.propertiesToMatch = propertiesToMatch;
         }
-
+        
         @Override
         public boolean run(ReadOnlyTask task) {
-            return descKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDesc().get().getValue(), keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "desc=" + String.join(", ", descKeyWords);
+            return task.matches(propertiesToMatch);
         }
     }
 }

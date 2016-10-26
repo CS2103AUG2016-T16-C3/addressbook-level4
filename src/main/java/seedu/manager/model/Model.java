@@ -1,6 +1,7 @@
 package seedu.manager.model;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.manager.commons.core.UnmodifiableObservableList;
@@ -8,7 +9,9 @@ import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
+import seedu.manager.model.task.Task.TaskProperties;
 
 /**
  * The API of the Model component.
@@ -39,8 +42,8 @@ public interface Model {
     /** Updates the filter of the sorted and filtered task list to show all tasks */
     void updateSortedFilteredListToShowAll();
     
-    /** Updates the filter of the sorted and filtered task list to filter by the given keywords */
-    void updateSortedFilteredTaskList(Set<String> keywords);
+    /** Updates the filter of the sorted and filtered task list to filter by the given properties from the find function*/
+    void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
     /** Sorts the sorted and filtered task list by priority */
     void sortSortedFilteredTaskListByPriority();

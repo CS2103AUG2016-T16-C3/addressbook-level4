@@ -29,6 +29,16 @@ public class Done extends TaskProperty {
     public String toString() {
         return value ? "Yes" : "No";
     }
+    
+    /**
+     * Checks if the task property matches with that of the search function's input
+     */
+    @Override
+    public boolean matches(TaskProperty done) {
+        assert done instanceof Done;
+        
+        return ((Done) done).equals(this);
+    }
 
     @Override
     public boolean equals(Object other) {
