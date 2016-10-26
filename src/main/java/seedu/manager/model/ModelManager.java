@@ -12,11 +12,8 @@ import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
-<<<<<<< HEAD
 import seedu.manager.model.task.Tag;
-=======
 import seedu.manager.model.task.TaskProperty;
->>>>>>> 870cbfb5015db62f33970ab58231ef9f35e8b7e0
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
@@ -38,11 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Tag> filteredTags;
     private final SortedList<Task> sortedTasks;
-<<<<<<< HEAD
     private final SortedList<Tag> sortedTags;
-=======
     private final UserPrefs userPrefs;
->>>>>>> 870cbfb5015db62f33970ab58231ef9f35e8b7e0
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -110,26 +104,23 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-<<<<<<< HEAD
     @Override
     public synchronized void addTag(Tag tag) {
         try {
             taskManager.addTag(tag);
         } catch (DuplicateTagException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         updateFilteredTagListToShowAll();
 //        indicateTaskManagerChanged();
     }
-=======
+    
 	@Override
 	public void setSingleCommandWord(String commandToChange, String alias,
 			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
 		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
 		
 	}
->>>>>>> 870cbfb5015db62f33970ab58231ef9f35e8b7e0
     
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 

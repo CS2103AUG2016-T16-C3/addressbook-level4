@@ -34,14 +34,12 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-<<<<<<< HEAD
     /** Adds the given tag */
     void addTag(Tag tag);
-=======
+
     /** Change alias for a certain command */
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
->>>>>>> 870cbfb5015db62f33970ab58231ef9f35e8b7e0
 
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();

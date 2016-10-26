@@ -50,4 +50,11 @@ public class Tag extends TaskProperty {
         return " [" + tagName + "]";
     }
 
+    @Override
+    public boolean matches(TaskProperty tag) {
+        assert tag instanceof Tag;
+        
+        return tag.getValue().equals(this.getValue());
+    }
+
 }

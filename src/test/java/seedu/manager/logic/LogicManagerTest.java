@@ -1007,6 +1007,7 @@ public class LogicManagerTest {
                     "med",
                     "10pm",
                     "11pm",
+                    "",
                     ""
             );
         }
@@ -1021,6 +1022,7 @@ public class LogicManagerTest {
                     priority,
                     "10am",
                     "12pm",
+                    "",
                     ""
             );
         }
@@ -1035,6 +1037,7 @@ public class LogicManagerTest {
                     "high",
                     startTime,
                     "3pm",
+                    "",
                     ""
             );
         }
@@ -1049,6 +1052,7 @@ public class LogicManagerTest {
                     "low",
                     "9am",
                     endTime,
+                    "",
                     ""
             );
         }
@@ -1063,6 +1067,7 @@ public class LogicManagerTest {
                     "high",
                     startTime,
                     endTime,
+                    "",
                     ""
             );
         }
@@ -1077,6 +1082,7 @@ public class LogicManagerTest {
                     "med",
                     "4.30am",
                     "7am",
+                    "",
                     ""
             );
         }
