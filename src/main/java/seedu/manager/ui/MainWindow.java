@@ -1,7 +1,5 @@
 package seedu.manager.ui;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -12,8 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.manager.commons.core.Config;
 import seedu.manager.commons.core.GuiSettings;
-import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
-import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
 import seedu.manager.commons.events.ui.ExitAppRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;

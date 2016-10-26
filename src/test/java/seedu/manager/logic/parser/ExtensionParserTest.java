@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.Task.TaskProperties;
 
+// @@author A0147924X
 public class ExtensionParserTest {
     private ExtensionParser extensionParser;
     @Before

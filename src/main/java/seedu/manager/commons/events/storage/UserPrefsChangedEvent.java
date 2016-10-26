@@ -3,6 +3,11 @@ package seedu.manager.commons.events.storage;
 import seedu.manager.commons.events.BaseEvent;
 import seedu.manager.model.UserPrefs;
 
+/**
+ * @@author A0147924X
+ * Indicates that User Preferences have changed
+ *
+ */
 public class UserPrefsChangedEvent extends BaseEvent {
 	
 	public UserPrefs userPrefs;

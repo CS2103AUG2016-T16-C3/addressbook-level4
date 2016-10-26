@@ -2,6 +2,11 @@ package seedu.manager.logic.commands;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 
+/**
+ * @@author A0147924X
+ * Allows user to alias commands
+ *
+ */
 public class AliasCommand extends Command {
 	
 	public static final String MESSAGE_SUCCESS = "Old command %1$s changed to %2$s";

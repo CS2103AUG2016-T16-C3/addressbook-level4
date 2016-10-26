@@ -5,6 +5,11 @@ import java.io.File;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
 
+/**
+ * @@author A0147924X
+ * Allows user to change the storage location
+ *
+ */
 public class StorageCommand extends Command {
 	
 	public static final String COMMAND_WORD = "storage";

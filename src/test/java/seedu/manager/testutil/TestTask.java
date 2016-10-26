@@ -87,7 +87,8 @@ public class TestTask implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
+    
+    // @@author A0147924X
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDesc().get().getValue() + " ");
@@ -142,7 +143,8 @@ public class TestTask implements ReadOnlyTask {
 			}
 		}
     }
-
+	
+	// @@author
     @Override
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
         for (TaskProperties property : TaskProperties.values()) {

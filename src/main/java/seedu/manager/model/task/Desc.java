@@ -30,6 +30,7 @@ public class Desc extends TaskProperty {
         return value;
     }
     
+    // @@author A0147924X
     @Override
     public String getPrettyValue() {
     	if (value.length() > PRETTY_MAX_LENGTH) {
@@ -40,6 +41,7 @@ public class Desc extends TaskProperty {
     }
     
     /**
+     * @@author
      * Checks if any words from the task's venue matches that with the search function's input words
      */
     @Override

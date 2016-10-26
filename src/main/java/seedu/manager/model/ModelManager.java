@@ -8,20 +8,17 @@ import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -81,11 +78,13 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
+    // @@author A0147924X
     @Override
     public HashMap<Commands, String> getCommandWords() {
     	return userPrefs.commandWords;
     }
-
+    
+    // @@author
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
@@ -115,6 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
 //        indicateTaskManagerChanged();
     }
     
+    // @@author A0147924X
 	@Override
 	public void setSingleCommandWord(String commandToChange, String alias,
 			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
@@ -155,7 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Filtered Task List Accessors ===============================================================
-
+    
+    // @@author
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }

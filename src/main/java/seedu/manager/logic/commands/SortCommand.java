@@ -1,5 +1,10 @@
 package seedu.manager.logic.commands;
 
+/**
+ * @@author A0147924X
+ * Allows user to sort the displayed tasks by priority
+ *
+ */
 public class SortCommand extends Command {
 	
 	public static final String COMMAND_WORD = "sort";

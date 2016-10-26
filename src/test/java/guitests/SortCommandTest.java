@@ -2,20 +2,17 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
 import javafx.collections.ObservableList;
 import seedu.manager.logic.commands.SortCommand;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.testutil.TestTask;
 
+// @@author A0147924X
 public class SortCommandTest extends TaskManagerGuiTest {
 	
 	@Test

@@ -62,6 +62,7 @@ public class Priority extends TaskProperty {
                 && this.value.equals(((Priority) other).value)); // state check
     }
     
+    // @@author A0147924X
     @Override
     public int compareTo(TaskProperty other) {
     	assert other instanceof Priority;

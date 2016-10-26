@@ -22,6 +22,7 @@ public class Task implements ReadOnlyTask {
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 
     /**
+     * @@author A0147924X
      * Build task from properties represented as Strings
      * @param properties
      * @throws IllegalValueException
@@ -173,7 +174,8 @@ public class Task implements ReadOnlyTask {
     public Optional<TaskProperty> getTag() {
         return properties.get(TaskProperties.TAG);
     }
-
+    
+    // @@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -195,6 +197,7 @@ public class Task implements ReadOnlyTask {
         return true;
     }
     
+    // @@author A0147924X
     @Override
     public int compareProperty(ReadOnlyTask other, TaskProperties property) {
     	assert other != null;
@@ -210,7 +213,8 @@ public class Task implements ReadOnlyTask {
 			return this.properties.get(property).get().compareTo(otherProps.get(property).get());
 		}
     }
-
+    
+    // @@author
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

@@ -152,6 +152,7 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
     
+    // @@author A0147924X
     @Test
     public void execute_sort_successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
@@ -170,7 +171,7 @@ public class LogicManagerTest {
         assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }
     
-
+    
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
@@ -208,7 +209,8 @@ public class LogicManagerTest {
                 expectedTM.getTaskList());
         assertEquals(0, targetedJumpIndex);
     }
-
+    
+    // @@author
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -256,6 +258,7 @@ public class LogicManagerTest {
 
     }
     
+    // @@author A0147924X
     @Test
     public void execute_addAfterSorting_successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
@@ -283,13 +286,15 @@ public class LogicManagerTest {
         
         assertEquals(expectedList.indexOf(toBeAdded), targetedJumpIndex);
     }
-
+    
+    // @@author
     @Test
     public void execute_edit_invalidArgsFormat_erroeMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("edit", expectedMessage);
     }
 
+    // @@author A0147924X
     @Test
     public void execute_edit_indexInvalid_errorMessageShown() throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
@@ -456,7 +461,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList());
     }
 
-
+    // @@author
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -603,6 +608,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    // @@author A0147924X
     @Test
     public void execute_findThenSort_successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
@@ -628,6 +634,7 @@ public class LogicManagerTest {
         assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }
     
+    // @@author
     @Test
     public void execute_findVenue_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -801,6 +808,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    // @@author A0147924X
     @Test
     public void execute_alias_wrongNumberOfCommands() throws Exception {
         assertCommandBehavior("alias", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
@@ -866,6 +874,7 @@ public class LogicManagerTest {
         }
 
         /**
+         * @@author A0147924X
          * Generates a valid task using the given seed.
          * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Task object.

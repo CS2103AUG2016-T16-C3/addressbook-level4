@@ -12,6 +12,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.StartTime;
 import seedu.manager.model.task.Time;
 
+// @@author A0147924X
 public class TimeTest {
 	@Test
 	public void parseTime_invalid_throwsError() {

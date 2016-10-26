@@ -6,7 +6,6 @@ import java.util.Optional;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
 
@@ -57,12 +56,7 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return new CommandResult(MESSAGE_INVALID_TAG);
-        } 
-
+        }
     }
 
 }

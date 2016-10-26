@@ -24,11 +24,12 @@ public class Config {
     private String taskManagerFilePath = "data/taskmanager.xml";
     private String taskManagerName = "Task Ninja";
 
-
+    // @@author A0147924X
     public Config() {
     	EventsCenter.getInstance().registerHandler(this);
     }
-
+    
+    // @@author
     public String getAppTitle() {
         return appTitle;
     }
@@ -104,7 +105,7 @@ public class Config {
         return sb.toString();
     }
     
-    
+    // @@author A0147924X
     @Subscribe
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
     	setTaskManagerFilePath(event.filePath);

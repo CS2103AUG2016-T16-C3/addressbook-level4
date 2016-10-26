@@ -24,7 +24,8 @@ public class UserPrefs {
     public void updateLastUsedGuiSetting(GuiSettings guiSettings) {
         this.guiSettings = guiSettings;
     }
-
+    
+    // @@author A0147924X
     public UserPrefs(){
         this.setGuiSettings(500, 500, 0, 0);
         this.setCommandWords(
@@ -42,11 +43,13 @@ public class UserPrefs {
         			}
         		);
     }
-
+    
+    // @@author
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
     }
     
+    // @@author A0147924X
     public HashMap<Commands, String> getCommandWords() {
     	return commandWords;
     }
@@ -88,7 +91,8 @@ public class UserPrefs {
 			}
 		}
     }
-
+    
+    // @@author
     @Override
     public boolean equals(Object other) {
         if (other == this){

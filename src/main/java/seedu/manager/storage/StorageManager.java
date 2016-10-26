@@ -48,6 +48,7 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
     
+    // @@author A0147924X
     @Subscribe
     public void handleUserPrefsChangedEvent(UserPrefsChangedEvent event) throws IOException {
     	saveUserPrefs(event.userPrefs);
@@ -55,7 +56,8 @@ public class StorageManager extends ComponentManager implements Storage {
 
 
     // ================ TaskManager methods ==============================
-
+    
+    // @@author
     @Override
     public String getTaskManagerFilePath() {
         return taskManagerStorage.getTaskManagerFilePath();
@@ -88,12 +90,14 @@ public class StorageManager extends ComponentManager implements Storage {
     };
     
     
+    // @@author A0147924X
     @Subscribe
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, altering filepaths"));
     	setFilePath(event.filePath);
     }
-
+    
+    // @@author
     @Override
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {

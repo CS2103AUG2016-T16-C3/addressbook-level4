@@ -107,6 +107,12 @@ public class Parser {
         }
     }
     
+    /**
+     * @@author A0147924X
+     * Get the command which matches with the command word entered by the user
+     * @param commandWord
+     * @throws IllegalValueException
+     */
     private Commands getMatchedCommand(String commandWord) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
 			if (commandWords.get(command).equals(commandWord)) {
@@ -118,6 +124,7 @@ public class Parser {
     }
 
 	/**
+	 * @@author
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
@@ -177,6 +184,7 @@ public class Parser {
     }
     
     /**
+     * @@author A0147924X
      * Parses arguments in the context of the done task command
      * @param args full commmand args string
      * @return the prepared command
@@ -192,6 +200,7 @@ public class Parser {
 	}
 
     /**
+     * @@author
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
@@ -230,6 +239,7 @@ public class Parser {
     }
     
     /**
+     * @@author A0147924X
      * Parses arguments in the context of the alias command
      * @param args full command args string
      * @return the prepared command

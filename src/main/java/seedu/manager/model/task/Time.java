@@ -14,8 +14,8 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
+ * @@author A0147924X
  * Represents a tasks time 
- * @author varungupta
  *
  */
 public abstract class Time extends TaskProperty {

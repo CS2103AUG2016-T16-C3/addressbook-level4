@@ -16,8 +16,8 @@ import seedu.manager.model.task.EndTime;
 import seedu.manager.model.task.Tag;
 
 /**
+ * @@author A0147924X
  * Used to parse extensions in the user input
- * @author varungupta
  *
  */
 public class ExtensionParser {

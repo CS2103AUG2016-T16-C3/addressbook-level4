@@ -2,7 +2,6 @@ package seedu.manager.model;
 
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
@@ -11,7 +10,6 @@ import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
-import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.Task.TaskProperties;
 
@@ -36,11 +34,13 @@ public interface Model {
     
     /** Adds the given tag */
     void addTag(Tag tag);
-
+    
+    // @@author A0147924X
     /** Change alias for a certain command */
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
-
+    
+    // @@author
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
     
@@ -53,12 +53,14 @@ public interface Model {
     /** Updates the filter of the sorted and filtered task list to filter by the given properties from the find function*/
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
+    // @@author A0147924X
     /** Sorts the sorted and filtered task list by priority */
     void sortSortedFilteredTaskListByPriority();
     
     /** Unsort the sorted and filtered task list */
     void unSortSortedFilteredTaskList();
     
+    // @@author
     /** Returns index of task in sorted and filtered list */
     int getIndexOfTask(ReadOnlyTask task);
 }
