@@ -1,5 +1,10 @@
 package seedu.manager.commons.core;
 
+/**
+ * Represents a command in the task manager
+ * @@author A0147924X
+ *
+ */
 public class CommandWord {
 	
 	public enum Commands {
