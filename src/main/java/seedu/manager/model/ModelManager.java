@@ -12,6 +12,8 @@ import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
+import seedu.manager.model.tag.UniqueTagList;
+import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -89,6 +91,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    @Override
+    public synchronized void addTag(Tag tag) {
+        try {
+            taskManager.addTag(tag);
+        } catch (DuplicateTagException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        updateFilteredTagListToShowAll();
+//        indicateTaskManagerChanged();
+    }
+    
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 
     @Override
@@ -134,6 +148,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    public void updateFilteredTagListToShowAll() {
+        filteredTags.setPredicate(null);
     }
 
     public void updateFilteredTaskList(Set<String> keywords){

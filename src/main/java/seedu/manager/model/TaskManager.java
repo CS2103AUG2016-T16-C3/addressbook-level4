@@ -76,6 +76,15 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         tasks.add(p);
     }
+    
+    /**
+     * Add a tag to the task manager.
+     *
+     * @throws UniqueTagList.DuplicateTagException if an equivalent tag already exists.
+     */
+    public void addTag(Tag tag) throws UniqueTagList.DuplicateTagException {
+        tags.add(tag);
+    }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
