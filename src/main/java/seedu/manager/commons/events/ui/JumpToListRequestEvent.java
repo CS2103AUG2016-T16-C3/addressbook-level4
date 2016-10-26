@@ -3,6 +3,7 @@ package seedu.manager.commons.events.ui;
 import seedu.manager.commons.events.BaseEvent;
 
 /**
+ * @@author A0148042M
  * Indicates a request to jump to the list of tasks
  */
 public class JumpToListRequestEvent extends BaseEvent {

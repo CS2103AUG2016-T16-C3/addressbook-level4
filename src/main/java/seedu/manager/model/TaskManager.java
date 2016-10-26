@@ -50,10 +50,12 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tasks.getInternalList();
     }
     
+    // @@author A0148042M
     public ObservableList<Tag> getTags() {
         return tags.getInternalList();
     }
 
+    // @@author
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
@@ -78,6 +80,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     /**
+     * @@author A0148042M
      * Add a tag to the task manager.
      *
      * @throws UniqueTagList.DuplicateTagException if an equivalent tag already exists.
@@ -85,7 +88,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTag(Tag tag) throws UniqueTagList.DuplicateTagException {
         tags.add(tag);
     }
-
+    
+    // @@author
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;

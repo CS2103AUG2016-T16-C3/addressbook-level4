@@ -36,6 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final UserPrefs userPrefs;
 
     /**
+     * @@author A0148042M
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
@@ -53,11 +54,13 @@ public class ModelManager extends ComponentManager implements Model {
         sortedTags = new SortedList<>(filteredTags);
         this.userPrefs = userPrefs;
     }
-
+    
+    // @author
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
     }
-
+    
+    // @@author A0148042M
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
@@ -66,7 +69,8 @@ public class ModelManager extends ComponentManager implements Model {
         sortedTags = new SortedList<>(filteredTags);
         this.userPrefs = userPrefs;
     }
-
+    
+    // @@author
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -103,6 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    // @@author A0148042M
     @Override
     public synchronized void addTag(Tag tag) {
         try {
@@ -129,11 +134,13 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(sortedTasks);
     }
     
+    // @@author A0148042M
     @Override
     public UnmodifiableObservableList<Tag> getSortedFilteredTagList() {
         return new UnmodifiableObservableList<>(sortedTags);
     }
     
+    // @author
     @Override
     public void updateSortedFilteredListToShowAll() {
         updateFilteredListToShowAll();
@@ -156,7 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Task List Accessors ===============================================================
     
-    // @@author
+    // @@author A0148042M
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
@@ -164,7 +171,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTagListToShowAll() {
         filteredTags.setPredicate(null);
     }
-
+    
+    // @author
     public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
         updateFilteredTaskList(new PredicateExpression(new EnhancedSearchQualifier(propertiesToMatch)));
     }

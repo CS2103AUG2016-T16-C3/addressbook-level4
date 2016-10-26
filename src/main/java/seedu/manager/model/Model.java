@@ -32,6 +32,7 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    // @@author A0148042M
     /** Adds the given tag */
     void addTag(Tag tag);
     
@@ -40,7 +41,7 @@ public interface Model {
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
     
-    // @@author
+    // @@author A0148042M
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
     

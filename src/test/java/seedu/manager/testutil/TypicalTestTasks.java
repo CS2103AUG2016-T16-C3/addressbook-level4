@@ -10,7 +10,8 @@ import seedu.manager.model.task.*;
 public class TypicalTestTasks {
 
     public static TestTask alpha, beta, charlie, delta, echo, foxtrot, golf, hotel, india, juliet;
-
+    
+    // @@author A0148042M-reused
     public TypicalTestTasks() {
         try {
             alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withVenue("School of Computing")
@@ -44,7 +45,8 @@ public class TypicalTestTasks {
             assert false : "not possible";
         }
     }
-
+    
+    // @@author
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
         try {

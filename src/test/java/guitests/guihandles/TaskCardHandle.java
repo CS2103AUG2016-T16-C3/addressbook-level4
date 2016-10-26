@@ -9,6 +9,7 @@ import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.TaskProperty;
 
 /**
+ * @@author A0148042M
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {

@@ -4,7 +4,8 @@ import seedu.manager.commons.events.BaseEvent;
 import seedu.manager.model.task.Tag;
 
 /**
- * Represents a selection change in the Task List Panel
+ * @@author A0148042M
+ * Represents a selection change in the Tag List Panel
  */
 public class TagPanelSelectionChangedEvent extends BaseEvent {
 
