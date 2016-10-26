@@ -5,7 +5,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Tag in the task manager.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValid(String, String)}
  */
 public class Tag extends TaskProperty {
 
@@ -25,13 +25,6 @@ public class Tag extends TaskProperty {
     public Tag(String name) throws IllegalValueException {
         super(name, TAG_VALIDATION_REGEX, MESSAGE_TAG_CONSTRAINTS);
         this.tagName = name;
-    }
-
-    /**
-     * Returns true if a given string is a valid tag name.
-     */
-    public static boolean isValidTagName(String test) {
-        return test.matches(TAG_VALIDATION_REGEX);
     }
 
     @Override
