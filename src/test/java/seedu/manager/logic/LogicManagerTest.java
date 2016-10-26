@@ -633,7 +633,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithVenue("Arts");
         Task p2 = helper.generateTaskWithVenue("Biz");
         Task p3 = helper.generateTaskWithVenue("Com");
-        Task p4 = helper.generateTaskWithVenue("Sci");
+        Task p4 = helper.generateTaskWithVenue("");
         
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         TaskManager expectedTM = helper.generateTaskManager(fourTasks);
@@ -670,6 +670,11 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_find_invalidExtension() throws Exception {
+        assertCommandBehavior("find priority abc", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+    }
+    
+    @Test
     public void execute_findStartTime_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithStartTime("2.30pm");
@@ -688,52 +693,6 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTM,
                 expectedList);
-    }
-    
-    @Test
-    public void execute_alias_wrongNumberOfCommands() throws Exception {
-    	assertCommandBehavior("alias", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
-    	assertCommandBehavior("alias add", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
-    	assertCommandBehavior("alias add + -", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
-    }
-    
-    @Test
-    public void execute_alias_doesNotExist() throws Exception {
-    	assertCommandBehavior("alias - +", AliasCommand.MESSAGE_NO_MATCH);
-    }
-    
-    @Test
-    public void execute_alias_alreadyTaken() throws Exception {
-    	assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
-    	assertCommandBehavior("alias edit +", String.format(AliasCommand.MESSAGE_ALIAS_TAKEN, Commands.ADD));
-    }
-    
-    @Test
-    public void execute_alias_successful() throws Exception {
-    	assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
-    	
-    	TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.lancelot();
-        TaskManager expectedTM = new TaskManager();
-        expectedTM.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommandWithAlias(toBeAdded, "+"),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
-                expectedTM,
-                expectedTM.getTaskList());
-        assertEquals(0, targetedJumpIndex);
-        
-        assertCommandBehavior("alias delete -",
-        		String.format(AliasCommand.MESSAGE_SUCCESS, "delete", "-"),
-        		expectedTM,
-        		expectedTM.getTaskList());
-        expectedTM.removeTask(toBeAdded);
-        
-        assertCommandBehavior("- 1",
-                String.format(DeleteCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
-                expectedTM,
-                expectedTM.getTaskList());
     }
 
     @Test
@@ -818,6 +777,73 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTM,
                 expectedList);
+    }
+    
+    @Test
+    public void execute_findPriority_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithPriority("low");
+        Task p2 = helper.generateTaskWithPriority("med");
+        Task p3 = helper.generateTaskWithPriority("high");
+        Task p4 = helper.generateTaskWithPriority("");
+        
+        List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
+        TaskManager expectedTM = helper.generateTaskManager(fourTasks);
+        helper.addToModel(model, fourTasks);
+        
+        
+        List<Task> expectedList = helper.generateTaskList(p3);
+        
+        assertCommandBehavior("find priority high",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedTM,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_alias_wrongNumberOfCommands() throws Exception {
+        assertCommandBehavior("alias", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
+        assertCommandBehavior("alias add", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
+        assertCommandBehavior("alias add + -", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
+    }
+    
+    @Test
+    public void execute_alias_doesNotExist() throws Exception {
+        assertCommandBehavior("alias - +", AliasCommand.MESSAGE_NO_MATCH);
+    }
+    
+    @Test
+    public void execute_alias_alreadyTaken() throws Exception {
+        assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
+        assertCommandBehavior("alias edit +", String.format(AliasCommand.MESSAGE_ALIAS_TAKEN, Commands.ADD));
+    }
+    
+    @Test
+    public void execute_alias_successful() throws Exception {
+        assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
+        
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.lancelot();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandWithAlias(toBeAdded, "+"),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(0, targetedJumpIndex);
+        
+        assertCommandBehavior("alias delete -",
+                String.format(AliasCommand.MESSAGE_SUCCESS, "delete", "-"),
+                expectedTM,
+                expectedTM.getTaskList());
+        expectedTM.removeTask(toBeAdded);
+        
+        assertCommandBehavior("- 1",
+                String.format(DeleteCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
+                expectedTM,
+                expectedTM.getTaskList());
     }
     
     /**

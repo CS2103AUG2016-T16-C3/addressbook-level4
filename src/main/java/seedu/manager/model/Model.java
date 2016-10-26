@@ -42,9 +42,6 @@ public interface Model {
     /** Updates the filter of the sorted and filtered task list to show all tasks */
     void updateSortedFilteredListToShowAll();
     
-    /** Updates the filter of the sorted and filtered task list to filter by the given keywords */
-    void updateSortedFilteredTaskList(Set<String> keywords);
-    
     /** Updates the filter of the sorted and filtered task list to filter by the given properties from the find function*/
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     

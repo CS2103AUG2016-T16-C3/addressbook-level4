@@ -115,11 +115,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateSortedFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
-    }
-    
-    @Override
     public void sortSortedFilteredTaskListByPriority() {
     	sortedTasks.setComparator((Task t1, Task t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
     }
@@ -136,16 +131,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Task List Accessors ===============================================================
 
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
-    }
-
-    public void updateFilteredTaskList(Set<String> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
     }
 
     public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
@@ -185,27 +172,6 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         String toString();
-    }
-
-    private class DescQualifier implements Qualifier {
-        private Set<String> descKeyWords;
-
-        DescQualifier(Set<String> descKeyWords) {
-            this.descKeyWords = descKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return descKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDesc().get().getValue(), keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "desc=" + String.join(", ", descKeyWords);
-        }
     }
 
     private class EnhancedSearchQualifier implements Qualifier {
