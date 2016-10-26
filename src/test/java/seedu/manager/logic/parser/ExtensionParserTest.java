@@ -146,6 +146,7 @@ public class ExtensionParserTest {
         properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(startTime));
         properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(endTime));
         properties.put(TaskProperties.DONE, Optional.empty());
+        properties.put(TaskProperties.TAG, Optional.empty());
         return properties;
     }
 }

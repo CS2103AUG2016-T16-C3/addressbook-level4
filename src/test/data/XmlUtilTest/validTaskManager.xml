@@ -7,6 +7,7 @@
         <endTime>2:45pm</endTime>
         <priority>med</priority>
         <done>No</done>
+        <tag>study</tag>
     </tasks>
     <tasks>
         <desc>Do CS2101 DG</desc>
@@ -15,6 +16,7 @@
         <endTime>4:00pm</endTime>
         <priority>high</priority>
         <done>Yes</done>
+        <tag>study</tag>
     </tasks>
     <tasks>
         <desc>Do EE2021 Tutorial 4</desc>
@@ -23,6 +25,7 @@
         <endTime>2:45pm</endTime>
         <priority>low</priority>
         <done>No</done>
+        <tag>study</tag>
     </tasks>
     <tasks>
         <desc>EE2020 project</desc>
@@ -31,6 +34,7 @@
         <endTime>2:45pm</endTime>
         <priority>low</priority>
         <done>No</done>
+        <tag>study</tag>
     </tasks>
     <tasks>
         <desc>Continue doing CS2103</desc>
@@ -39,6 +43,7 @@
         <endTime>2:45pm</endTime>
         <priority>med</priority>
         <done>No</done>
+        <tag>study</tag>
     </tasks>
     <tasks>
         <desc>CS2103 group meetup</desc>
@@ -47,6 +52,7 @@
         <endTime>2:45pm</endTime>
         <priority>low</priority>
         <done>Yes</done>
+        <tag>study</tag>
     </tasks>
     <tasks>
         <desc>Buy stuff for mum</desc>
@@ -55,6 +61,7 @@
         <endTime>2:45pm</endTime>
         <priority>high</priority>
         <done>Yes</done>
+        <tag>family</tag>
     </tasks>
     <tasks>
         <desc>Help dad fix his phone</desc>
@@ -63,6 +70,7 @@
         <endTime>2:45pm</endTime>
         <priority>high</priority>
         <done>No</done>
+        <tag>family</tag>
     </tasks>
     <tasks>
         <desc>Help mum set up the computer properly</desc>
@@ -71,5 +79,6 @@
         <endTime>2:45pm</endTime>
         <priority>high</priority>
         <done>Yes</done>
+        <tag>family</tag>
     </tasks>
 </taskmanager>

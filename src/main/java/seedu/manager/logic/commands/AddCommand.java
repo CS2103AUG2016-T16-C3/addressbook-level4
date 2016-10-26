@@ -6,6 +6,7 @@ import java.util.Optional;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
 
@@ -22,7 +23,8 @@ public class AddCommand extends Command {
             + " Dinner with Lancelot venue Avalon after 8:30pm before 9:00pm priority med";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    public static final String MESSAGE_INVALID_TAG = "This is an invalid tag";
 
     private final Task toAdd;
 
@@ -44,7 +46,9 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            
+            if (toAdd.getTag().isPresent()) {
+                model.addTag((Tag)toAdd.getTag().get());
+            }
             int addedIndex = model.getIndexOfTask(toAdd);
             assert addedIndex != -1;
             
@@ -52,8 +56,12 @@ public class AddCommand extends Command {
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
-        }
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new CommandResult(MESSAGE_INVALID_TAG);
+        } 
 
     }
 

@@ -249,7 +249,8 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedTM,
                 expectedTM.getTaskList());
 
@@ -852,16 +853,16 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task guinevere() throws Exception {
-            return new Task("Picnic with Guinevere", "", "", "", "", "");
+            return new Task("Picnic with Guinevere", "", "", "", "", "", "");
         }
 
 
         Task lancelot() throws Exception {
-            return new Task("Joust with Lancelot", "Avalon", "med", "7:30", "8:30", "");
+            return new Task("Joust with Lancelot", "Avalon", "med", "7:30", "8:30", "", "");
         }
         
         Task morgana() throws Exception {
-        	return new Task("Flatten Morgana", "Camelot", "high", "", "", "");
+        	return new Task("Flatten Morgana", "Camelot", "high", "", "", "", "");
         }
 
         /**
@@ -878,6 +879,7 @@ public class LogicManagerTest {
                     new String[] {"low", "med", "high"}[seed % 3],
                     (Math.abs(seed) % 12 + 1) + ":00",
                     (Math.abs(seed) % 12 + 1) + ":00", 
+                    "",
                     ""
             );
         }
@@ -892,14 +894,17 @@ public class LogicManagerTest {
             if (p.getVenue().isPresent()) {
                 cmd.append(" venue ").append(p.getVenue().get().toString());
             }
-            if (p.getStartTime().isPresent()) {
-                cmd.append(" at ").append(p.getStartTime().get().toString());
-            }
-            if (p.getEndTime().isPresent()) {
-                cmd.append(" by ").append(p.getEndTime().get().toString());
-            }
             if (p.getPriority().isPresent()) {
                 cmd.append(" priority ").append(p.getPriority().get().toString());
+            }
+            if (p.getStartTime().isPresent()) {
+                cmd.append(" from ").append(p.getStartTime().get().toString());
+            }
+            if (p.getEndTime().isPresent()) {
+                cmd.append(" to ").append(p.getEndTime().get().toString());
+            }
+            if (p.getTag().isPresent()) {
+                cmd.append(" tag ").append(p.getTag().get().toString());
             }
 
             return cmd.toString();
@@ -987,6 +992,7 @@ public class LogicManagerTest {
                     "low",
                     "7:30pm",
                     "8:30pm",
+                    "",
                     ""
             );
         }
@@ -1001,6 +1007,7 @@ public class LogicManagerTest {
                     "med",
                     "10pm",
                     "11pm",
+                    "",
                     ""
             );
         }
@@ -1015,6 +1022,7 @@ public class LogicManagerTest {
                     priority,
                     "10am",
                     "12pm",
+                    "",
                     ""
             );
         }
@@ -1029,6 +1037,7 @@ public class LogicManagerTest {
                     "high",
                     startTime,
                     "3pm",
+                    "",
                     ""
             );
         }
@@ -1043,6 +1052,7 @@ public class LogicManagerTest {
                     "low",
                     "9am",
                     endTime,
+                    "",
                     ""
             );
         }
@@ -1057,6 +1067,7 @@ public class LogicManagerTest {
                     "high",
                     startTime,
                     endTime,
+                    "",
                     ""
             );
         }
@@ -1071,6 +1082,7 @@ public class LogicManagerTest {
                     "med",
                     "4.30am",
                     "7am",
+                    "",
                     ""
             );
         }

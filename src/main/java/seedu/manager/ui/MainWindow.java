@@ -33,6 +33,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
+    private TagListPanel tagListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -56,6 +57,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane tagListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -111,6 +115,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getSortedFilteredTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getSortedFilteredTagList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -130,6 +135,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getTagListPlaceholder() {
+        return tagListPanelPlaceholder;
     }
 
     public void hide() {

@@ -12,8 +12,11 @@ import seedu.manager.commons.util.StringUtil;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
+import seedu.manager.model.tag.UniqueTagList;
+import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashMap;
@@ -30,7 +33,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Tag> filteredTags;
     private final SortedList<Task> sortedTasks;
+    private final SortedList<Tag> sortedTags;
     private final UserPrefs userPrefs;
 
     /**
@@ -46,7 +51,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTags = new FilteredList<>(taskManager.getTags());
         sortedTasks = new SortedList<>(filteredTasks);
+        sortedTags = new SortedList<>(filteredTags);
         this.userPrefs = userPrefs;
     }
 
@@ -57,7 +64,9 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTags = new FilteredList<>(taskManager.getTags());
         sortedTasks = new SortedList<>(filteredTasks);
+        sortedTags = new SortedList<>(filteredTags);
         this.userPrefs = userPrefs;
     }
 
@@ -95,6 +104,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    @Override
+    public synchronized void addTag(Tag tag) {
+        try {
+            taskManager.addTag(tag);
+        } catch (DuplicateTagException e) {
+            e.printStackTrace();
+        }
+        updateFilteredTagListToShowAll();
+//        indicateTaskManagerChanged();
+    }
+    
 	@Override
 	public void setSingleCommandWord(String commandToChange, String alias,
 			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
@@ -107,6 +127,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
         return new UnmodifiableObservableList<>(sortedTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<Tag> getSortedFilteredTagList() {
+        return new UnmodifiableObservableList<>(sortedTags);
     }
     
     @Override
@@ -133,6 +158,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    public void updateFilteredTagListToShowAll() {
+        filteredTags.setPredicate(null);
     }
 
     public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {

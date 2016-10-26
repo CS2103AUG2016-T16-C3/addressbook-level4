@@ -9,8 +9,10 @@ import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
-import seedu.manager.model.task.TaskProperty;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
+import seedu.manager.model.tag.UniqueTagList;
+import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.Task.TaskProperties;
 
 /**
@@ -32,12 +34,18 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    /** Adds the given tag */
+    void addTag(Tag tag);
+
     /** Change alias for a certain command */
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
 
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
+    
+    /** Returns the sorted and filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
+    UnmodifiableObservableList<Tag> getSortedFilteredTagList();
     
     /** Updates the filter of the sorted and filtered task list to show all tasks */
     void updateSortedFilteredListToShowAll();
