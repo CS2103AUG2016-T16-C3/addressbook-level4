@@ -1,4 +1,3 @@
-<!-- @@author A0148042M -->
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
@@ -10,6 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- @@author A0148042M -->
 <HBox id="tagCardPane" fx:id="tagCardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">

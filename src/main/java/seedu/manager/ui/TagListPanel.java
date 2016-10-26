@@ -17,6 +17,7 @@ import seedu.manager.model.task.Tag;
 import java.util.logging.Logger;
 
 /**
+ * @@author A0148042M
  * Panel containing the list of tasks.
  */
 public class TagListPanel extends UiPart {

@@ -4,6 +4,7 @@ package seedu.manager.model.task;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
+ * @@author A0148042M
  * Represents a Tag in the task manager.
  * Guarantees: immutable; name is valid as declared in {@link #isValid(String, String)}
  */
