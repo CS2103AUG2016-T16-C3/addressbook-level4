@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.core.CommandWord.Commands;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.TaskProperty;
@@ -20,12 +22,19 @@ public interface Model {
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
+    
+    /** Returns the Command words */
+    HashMap<Commands, String> getCommandWords();
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Change alias for a certain command */
+    public void setSingleCommandWord(String commandToChange, String alias,
+    		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
 
     /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
