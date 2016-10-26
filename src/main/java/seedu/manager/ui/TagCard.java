@@ -7,7 +7,11 @@ import javafx.scene.layout.HBox;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Tag;
 
-// @@author A0148042M
+/**
+ * @@author A0148042M
+ * @author zhaodingfan
+ *
+ */
 public class TagCard extends UiPart{
 
     private static final String FXML = "TagListCard.fxml";
