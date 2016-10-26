@@ -1,6 +1,7 @@
 package seedu.manager.model.task;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.commons.util.StringUtil;
 
 /**
  * Represents a Task's desc in the task manager.
@@ -36,6 +37,22 @@ public class Desc extends TaskProperty {
     	} else {
 			return value;
 		}
+    }
+    
+    /**
+     * Checks if any words from the task's venue matches that with the search function's input words
+     */
+    @Override
+    public boolean matches(TaskProperty desc) {
+        assert desc instanceof Desc;
+
+        String[] arr = ((Desc) desc).value.split(" ");
+        for (String string : arr) {
+            if (StringUtil.containsIgnoreCase(this.value, string)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

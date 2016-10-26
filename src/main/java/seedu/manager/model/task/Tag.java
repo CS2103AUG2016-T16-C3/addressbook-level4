@@ -45,5 +45,9 @@ public class Tag extends TaskProperty {
     public String toString() {
         return tagName;
     }
+    
+    public String toUiString() {
+        return " [" + tagName + "]";
+    }
 
 }

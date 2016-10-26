@@ -7,6 +7,7 @@ import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.events.storage.DataSavingExceptionEvent;
 import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
+import seedu.manager.commons.events.storage.UserPrefsChangedEvent;
 import seedu.manager.commons.exceptions.DataConversionException;
 import seedu.manager.model.ReadOnlyTaskManager;
 import seedu.manager.model.UserPrefs;
@@ -45,6 +46,11 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
+    }
+    
+    @Subscribe
+    public void handleUserPrefsChangedEvent(UserPrefsChangedEvent event) throws IOException {
+    	saveUserPrefs(event.userPrefs);
     }
 
 

@@ -87,4 +87,6 @@ public interface ReadOnlyTask {
     }
     
     public int compareProperty(ReadOnlyTask other, TaskProperties property);
+    
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
 }

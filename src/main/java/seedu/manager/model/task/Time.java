@@ -29,7 +29,7 @@ public abstract class Time extends TaskProperty {
     private static final PrettyTimeParser timeParser = new PrettyTimeParser();
     private static final PrettyTime timePrettify = new PrettyTime();
     
-    private Date value;
+    protected Date value;
     
     static {
     	DATE_FORMAT.setLenient(false);
@@ -80,7 +80,13 @@ public abstract class Time extends TaskProperty {
      * @throws IllegalValueException
      */
     private Date parseTime(String time) throws IllegalValueException {
-    	List<Date> groups = timeParser.parse(time);
+        List<Date> groups;
+    	try {
+    	    groups = timeParser.parse(time);
+        } catch (Exception e) {
+            throw new IllegalValueException("Invalid Time!");
+        }
+    	
     	if (groups.size() != 1) {
 			throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
 		}
@@ -90,4 +96,5 @@ public abstract class Time extends TaskProperty {
     public Date getTime() {
         return value;
     }
+    
 }
