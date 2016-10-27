@@ -54,8 +54,6 @@ public class FindCommand extends Command {
             properties.put(prop.getKey(), taskProperty);
         }
         
-        System.out.println(properties);
-        
         return properties;
     }
     
