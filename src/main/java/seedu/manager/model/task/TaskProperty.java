@@ -72,5 +72,6 @@ public abstract class TaskProperty implements Comparable<TaskProperty> {
     	return -1;
     }
     
+    //@@author A0139621H
 	public abstract boolean matches(TaskProperty property);
 }
