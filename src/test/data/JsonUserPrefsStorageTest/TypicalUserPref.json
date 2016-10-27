@@ -1,25 +1,10 @@
 {
   "guiSettings" : {
-    "windowWidth" : 500.0,
+    "windowWidth" : 1000.0,
     "windowHeight" : 500.0,
     "windowCoordinates" : {
-      "x" : 0,
-      "y" : 0
+      "x" : 300,
+      "y" : 100
     }
-  },
-  "commandWords" : {
-    "UNDO" : "undo",
-    "HELP" : "help",
-    "STORAGE" : "storage",
-    "SORT" : "sort",
-    "EXIT" : "exit",
-    "CLEAR" : "clear",
-    "EDIT" : "edit",
-    "DONE" : "done",
-    "ALIAS" : "alias",
-    "DELETE" : "delete",
-    "FIND" : "find",
-    "ADD" : "add",
-    "LIST" : "list"
   }
 }
