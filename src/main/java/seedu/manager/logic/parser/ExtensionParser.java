@@ -202,8 +202,9 @@ public class ExtensionParser {
     }
     
     /**
+     * @@author A0148042M
      * Parses events and puts the times into the properties
-     * Throw an exception if start time is behind end time
+     * Throw an exception if start time is after end time
      * 
      * @param properties Properties to put in.
      * @param arguments Arguments specifying the time.
@@ -219,6 +220,7 @@ public class ExtensionParser {
     }
     
     /**
+     * @@author A0147924X
      * Adds a property to the properties HashMap
      * 
      * @param properties HashMap to put the new property into.
