@@ -8,6 +8,7 @@ import seedu.manager.logic.commands.CommandResult;
 import seedu.manager.logic.parser.Parser;
 import seedu.manager.model.Model;
 import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.Tag;
 import seedu.manager.storage.Storage;
 
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();
+        this.parser.setCommandWords(model.getCommandWords());
     }
 
     @Override
@@ -36,7 +38,13 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return model.getFilteredTaskList();
+    public ObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
+        return model.getSortedFilteredTaskList();
+    }
+    
+    // @@author A0148042M
+    @Override
+    public ObservableList<Tag> getSortedFilteredTagList() {
+        return model.getSortedFilteredTagList();        
     }
 }

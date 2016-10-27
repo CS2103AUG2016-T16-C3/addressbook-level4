@@ -17,6 +17,7 @@ public interface ReadOnlyTask {
     Optional<TaskProperty> getStartTime();
     Optional<TaskProperty> getEndTime();
     Optional<TaskProperty> getDone();
+    Optional<TaskProperty> getTag();
     HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
     HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
 
@@ -31,10 +32,12 @@ public interface ReadOnlyTask {
                 && other.getPriority().equals(this.getPriority())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
-        		&& other.getDone().equals(this.getDone()));
+        		&& other.getDone().equals(this.getDone()))
+                && other.getTag().equals(this.getTag());
     }
 
     /**
+     * @@author A0148042M-reused
      * Formats the task as text, showing all properties except done.
      */
     default String getAsText() {
@@ -53,7 +56,38 @@ public interface ReadOnlyTask {
         if (getEndTime().isPresent()) {
             builder.append(" End Time: ").append(getEndTime().get());
         }
+        if (getTag().isPresent()) {
+            builder.append(" Tag: ").append(getTag().get());
+        }
         return builder.toString();
     }
+    
+    /**
+     * Formats the task as pretty text, meant to be displayed on the UI and in messages
+     */
+    default String getAsPrettyText() {
+    	final StringBuilder builder = new StringBuilder();
+        builder.append(getDesc().get().toPrettyString());
 
+        if (getVenue().isPresent()) {
+            builder.append(" Venue: ").append(getVenue().get().toPrettyString());
+        }
+        if (getPriority().isPresent()) {
+            builder.append(" Priority: ").append(getPriority().get().toPrettyString());
+        }
+        if (getStartTime().isPresent()) {
+            builder.append(" Start Time: ").append(getStartTime().get().toPrettyString());
+        }
+        if (getEndTime().isPresent()) {
+            builder.append(" End Time: ").append(getEndTime().get().toPrettyString());
+        }
+        if (getTag().isPresent()) {
+            builder.append(" Tag: ").append(getTag().get());
+        }
+        return builder.toString();
+    }
+    
+    public int compareProperty(ReadOnlyTask other, TaskProperties property);
+    
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
 }

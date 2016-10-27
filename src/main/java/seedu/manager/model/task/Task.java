@@ -7,13 +7,14 @@ import java.util.Optional;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.CollectionUtil;
 
+
 /**
  * Represents a Task in the task manager.
  * Guarantees: description is present and not null, done is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
     public static enum TaskProperties {
-        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE
+        DESC, PRIORITY, VENUE, STARTTIME, ENDTIME, DONE, TAG
     }
     
     public static final String START_AFTER_END = "Start time should be before end time.";
@@ -21,6 +22,7 @@ public class Task implements ReadOnlyTask {
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 
     /**
+     * @@author A0147924X
      * Build task from properties represented as Strings
      * @param properties
      * @throws IllegalValueException
@@ -43,11 +45,12 @@ public class Task implements ReadOnlyTask {
 	 * @param startTime
 	 * @param endTime
 	 * @param done
+	 * @param tag
 	 * @throws IllegalValueException
 	 * Every field must be present and not null. Desc cannot be empty
 	 */
-    public Task(String desc, String venue, String priority, String startTime, String endTime, String done) throws IllegalValueException {
-       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, done);
+    public Task(String desc, String venue, String priority, String startTime, String endTime, String done, String tag) throws IllegalValueException {
+       assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, done, tag);
        assert !desc.equals("");
 
        properties.put(TaskProperties.DESC, Optional.of(new Desc(desc)));
@@ -56,6 +59,7 @@ public class Task implements ReadOnlyTask {
        properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(new StartTime(startTime)));
        properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(new EndTime(endTime)));
        properties.put(TaskProperties.DONE, done.equals("") ? Optional.of(new Done("No")) : Optional.of(new Done(done)));
+       properties.put(TaskProperties.TAG, tag.equals("") ? Optional.empty() : Optional.of(new Tag(tag)));
     }
 
     /**
@@ -129,6 +133,8 @@ public class Task implements ReadOnlyTask {
 			return Optional.of(new Priority(stringValue));
 		case DONE:
 			return Optional.of(new Done(stringValue));
+		case TAG:
+		    return Optional.of(new Tag(stringValue));
 		default:
 			throw new IllegalValueException("Property not found");
 		}
@@ -163,14 +169,64 @@ public class Task implements ReadOnlyTask {
     public Optional<TaskProperty> getDone() {
     	return properties.get(TaskProperties.DONE);
     }
-
+    
+    @Override
+    public Optional<TaskProperty> getTag() {
+        return properties.get(TaskProperties.TAG);
+    }
+    
+    // @@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
-
+    
+    @Override
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
+        for (TaskProperties property : TaskProperties.values()) {
+            if (other.get(property).isPresent()) {
+                if (!this.properties.get(property).isPresent()) {
+                	if (property.equals(TaskProperties.STARTTIME)) {
+    					if (!(this.properties.get(TaskProperties.ENDTIME).isPresent() &&
+     						this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
+							return false;
+						}
+    				} else if (property.equals(TaskProperties.ENDTIME)) {
+    					if (!(this.properties.get(TaskProperties.STARTTIME).isPresent() &&
+      						this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
+							return false;
+						}
+     				} else {
+     					return false;
+					}
+                } else if (!this.properties.get(property).get().matches(other.get(property).get())){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    // @@author A0147924X
+    @Override
+    public int compareProperty(ReadOnlyTask other, TaskProperties property) {
+    	assert other != null;
+    	HashMap<TaskProperties, Optional<TaskProperty>> otherProps = other.getProperties();
+    	
+    	if (!this.properties.get(property).isPresent() && !otherProps.get(property).isPresent()) {
+			return 0;
+		} else if (!this.properties.get(property).isPresent()) {
+			return 1;
+		} else if (!otherProps.get(property).isPresent()) {
+			return -1;
+		} else {
+			return this.properties.get(property).get().compareTo(otherProps.get(property).get());
+		}
+    }
+    
+    // @@author
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

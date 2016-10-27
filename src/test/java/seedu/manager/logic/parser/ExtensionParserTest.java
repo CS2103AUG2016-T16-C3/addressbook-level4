@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.Task.TaskProperties;
 
+// @@author A0147924X
 public class ExtensionParserTest {
     private ExtensionParser extensionParser;
     @Before
@@ -146,6 +147,7 @@ public class ExtensionParserTest {
         properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(startTime));
         properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(endTime));
         properties.put(TaskProperties.DONE, Optional.empty());
+        properties.put(TaskProperties.TAG, Optional.empty());
         return properties;
     }
 }

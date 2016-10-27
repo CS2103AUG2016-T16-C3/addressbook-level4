@@ -3,8 +3,8 @@ package seedu.manager.commons.events.storage;
 import seedu.manager.commons.events.BaseEvent;
 
 /**
+ * @@author A0147924X
  * Indicates that the storage location has changed
- * @author varungupta
  *
  */
 public class StorageLocationChangedEvent extends BaseEvent {

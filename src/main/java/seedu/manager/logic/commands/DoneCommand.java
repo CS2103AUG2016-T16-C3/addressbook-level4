@@ -12,6 +12,7 @@ import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
+ * @@author A0147924X
  * Marks a task identified using it's last displayed index as done.
  */
 public class DoneCommand extends Command {
@@ -35,7 +36,7 @@ public class DoneCommand extends Command {
     public CommandResult execute() {
         assert model != null;
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

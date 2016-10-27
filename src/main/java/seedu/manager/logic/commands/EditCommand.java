@@ -3,8 +3,10 @@ package seedu.manager.logic.commands;
 import java.util.HashMap;
 import java.util.Optional;
 
+import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -44,7 +46,7 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -61,7 +63,9 @@ public class EditCommand extends Command {
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             
-            return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
         } catch (TaskNotFoundException e) {
             return new CommandResult("The target task cannot be missing");
         } catch (UniqueTaskList.DuplicateTaskException e) {

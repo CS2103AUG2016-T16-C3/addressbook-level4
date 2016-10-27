@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
+ * @@author A0147924X
  * Represents a tasks time 
- * @author varungupta
  *
  */
 public abstract class Time extends TaskProperty {
@@ -26,8 +27,9 @@ public abstract class Time extends TaskProperty {
     		Pattern.compile("([A-Z][a-z]{2} ){2}\\d{2} \\d{2}:\\d{2}:\\d{2} [A-Z]{3} \\d{4}");
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE MMM dd kk:mm:ss zzz yyyy");
     private static final PrettyTimeParser timeParser = new PrettyTimeParser();
+    private static final PrettyTime timePrettify = new PrettyTime();
     
-    private Date value;
+    protected Date value;
     
     static {
     	DATE_FORMAT.setLenient(false);
@@ -58,6 +60,11 @@ public abstract class Time extends TaskProperty {
     public String toString() {
         return value.toString();
     }
+    
+    @Override
+    public String toPrettyString() {
+    	return timePrettify.format(value);
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -73,7 +80,13 @@ public abstract class Time extends TaskProperty {
      * @throws IllegalValueException
      */
     private Date parseTime(String time) throws IllegalValueException {
-    	List<Date> groups = timeParser.parse(time);
+        List<Date> groups;
+    	try {
+    	    groups = timeParser.parse(time);
+        } catch (Exception e) {
+            throw new IllegalValueException("Invalid Time!");
+        }
+    	
     	if (groups.size() != 1) {
 			throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
 		}
@@ -82,5 +95,19 @@ public abstract class Time extends TaskProperty {
     
     public Date getTime() {
         return value;
+    }
+    
+    /**
+     * Checks if the start time of a task is equal to or later than that of the search function's input
+     */
+	@Override
+    public boolean matches(TaskProperty time) {
+	    if (time instanceof StartTime) {
+	    	return (!((StartTime) time).value.after(this.value));
+		} else if (time instanceof EndTime) {
+			return (!((EndTime) time).value.before(this.value));
+		} else {
+			return false;
+		}
     }
 }

@@ -7,6 +7,7 @@
         <startTime></startTime>
         <endTime></endTime>
         <done>No</done>
+        <tag></tag>
     </tasks>
     <tasks>
         <desc>Hello</desc>
@@ -15,6 +16,7 @@
         <startTime></startTime>
         <endTime></endTime>
         <done>No</done>
+        <tag></tag>
     </tasks>
     <tasks>
         <desc>Bye</desc>
@@ -23,5 +25,6 @@
         <startTime></startTime>
         <endTime></endTime>
         <done>No</done>
+        <tag></tag>
     </tasks>
 </taskmanager>

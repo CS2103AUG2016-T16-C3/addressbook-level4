@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.Tag;
 
 public class TaskCard extends UiPart{
 
@@ -26,6 +27,8 @@ public class TaskCard extends UiPart{
     private Label endTime;
     @FXML
     private Label done;
+    @FXML 
+    private Label tag;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -43,13 +46,14 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getValue() : "");
+        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
         id.setText(displayedIndex + ". ");
-        venue.setText(task.getVenue().isPresent() ? task.getVenue().get().getValue() : "");
-        priority.setText(task.getPriority().isPresent() ? task.getPriority().get().getValue() : "");
-        startTime.setText(task.getStartTime().isPresent() ? task.getStartTime().get().getValue() : "");
-        endTime.setText(task.getEndTime().isPresent() ? task.getEndTime().get().getValue() : "");
-        done.setText(task.getDone().isPresent() ? task.getDone().get().getValue() : "");
+        venue.setText(task.getVenue().isPresent() ? task.getVenue().get().getPrettyValue() : "");
+        priority.setText(task.getPriority().isPresent() ? task.getPriority().get().getPrettyValue() : "");
+        startTime.setText(task.getStartTime().isPresent() ? task.getStartTime().get().getPrettyValue() : "");
+        endTime.setText(task.getEndTime().isPresent() ? task.getEndTime().get().getPrettyValue() : "");
+        done.setText(task.getDone().isPresent() ? task.getDone().get().getPrettyValue() : "");
+        tag.setText(task.getTag().isPresent() ? task.getTag().get().getPrettyValue() : "");
     }
 
     public HBox getLayout() {

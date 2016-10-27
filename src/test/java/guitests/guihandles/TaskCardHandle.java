@@ -9,6 +9,7 @@ import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.TaskProperty;
 
 /**
+ * @@author A0148042M
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
@@ -17,6 +18,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String VENUE_FIELD_ID = "#venue";
 	private static final String STARTTIME_FIELD_ID = "#startTime";
 	private static final String ENDTIME_FIELD_ID = "#endTime";
+	private static final String TAG_FIELD_ID = "#tag";
 
     private Node node;
 
@@ -48,13 +50,19 @@ public class TaskCardHandle extends GuiHandle {
     public String getEndTime() {
     	return getTextFromLabel(ENDTIME_FIELD_ID);
     }
+    
+    public String getTag() {
+        return getTextFromLabel(TAG_FIELD_ID);
+    }
 
     public boolean isSameTask(ReadOnlyTask task){
         return compareStringandOptional(getFullDesc(), task.getDesc()) &&
                 compareStringandOptional(getVenue(), task.getVenue()) &&
                 compareStringandOptional(getPriority(), task.getPriority()) &&
                 compareStringandOptional(getStartTime(), task.getStartTime()) &&
-                compareStringandOptional(getEndTime(), task.getEndTime());
+                compareStringandOptional(getEndTime(), task.getEndTime()) &&
+                compareStringandOptional(getTag(), task.getTag());
+        // They may also have to compare tag, but the same task cannot be in different tags
     }
     
     private boolean compareStringandOptional(String string, Optional<TaskProperty> optional) {
@@ -63,7 +71,7 @@ public class TaskCardHandle extends GuiHandle {
         } else if (string == "" || !optional.isPresent()) {
             return false;
         } else {
-            return string.equals(optional.get().getValue());
+            return string.equals(optional.get().getPrettyValue());
         }
     }
 
@@ -75,7 +83,8 @@ public class TaskCardHandle extends GuiHandle {
                     && getPriority().equals(handle.getPriority())
                     && getVenue().equals(handle.getVenue()) 
                     && getStartTime().equals(handle.getStartTime())
-                    && getEndTime().equals(handle.getEndTime());
+                    && getEndTime().equals(handle.getEndTime())
+                    && getTag().equals(handle.getTag());
         }
         return super.equals(obj);
     }

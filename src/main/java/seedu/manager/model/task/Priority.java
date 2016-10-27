@@ -44,11 +44,35 @@ public class Priority extends TaskProperty {
     public String toString() {
         return value.value;
     }
+    
+    /**
+     * Checks if the task property matches with that of the search function's input
+     */
+    @Override
+    public boolean matches(TaskProperty priority) {
+        assert priority instanceof Priority;
+        
+        return ((Priority) priority).equals(this);
+    }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Priority // instanceof handles nulls
                 && this.value.equals(((Priority) other).value)); // state check
+    }
+    
+    // @@author A0147924X
+    @Override
+    public int compareTo(TaskProperty other) {
+    	assert other instanceof Priority;
+    	
+    	if (this.value.equals(((Priority) other).value)) {
+			return 0;
+		} else if (this.value.equals(VALUES.LOW) || ((Priority) other).value.equals(VALUES.HIGH)) {
+			return 1;
+		} else {
+			return -1;
+		}
     }
 }

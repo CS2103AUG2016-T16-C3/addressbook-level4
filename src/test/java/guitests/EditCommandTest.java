@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class EditCommandTest extends TaskManagerGuiTest {
+	// @@author A0147924X
     @Test
     public void edit() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
@@ -43,15 +44,16 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertResultMessage("The task index provided is invalid");
     }
     
+    // @@author
     private void assertEditSuccess(String editCommand, int index, TestTask editedTask, TestTask... currentList) {
         commandBox.runCommand(String.format(editCommand, index));
         
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(editedTask.getDesc().get().getValue());
-        assertMatching(editedTask, addedCard);
+        TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getDesc().get().getValue());
+        assertMatching(editedTask, editedCard);
         
         TestTask[] expectedList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, index), editedTask);
         assertTrue(taskListPanel.isListMatching(expectedList));
         
-        assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, editedTask));
+        assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, editedTask.getAsPrettyText()));
     }
 }

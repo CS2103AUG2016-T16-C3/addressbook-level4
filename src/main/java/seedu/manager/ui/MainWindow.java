@@ -1,7 +1,5 @@
 package seedu.manager.ui;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -12,13 +10,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.manager.commons.core.Config;
 import seedu.manager.commons.core.GuiSettings;
-import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
-import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
 import seedu.manager.commons.events.ui.ExitAppRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;
 
 /**
+ * @@author A0148042M
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
@@ -33,6 +30,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
+    private TagListPanel tagListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -56,6 +54,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane tagListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -110,7 +111,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getSortedFilteredTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getSortedFilteredTagList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -130,6 +132,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getTagListPlaceholder() {
+        return tagListPanelPlaceholder;
     }
 
     public void hide() {

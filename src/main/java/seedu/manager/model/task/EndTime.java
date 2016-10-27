@@ -1,6 +1,5 @@
 package seedu.manager.model.task;
 
-
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**

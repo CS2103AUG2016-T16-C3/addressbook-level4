@@ -1,5 +1,6 @@
 package seedu.manager.logic.parser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
@@ -12,16 +13,17 @@ import seedu.manager.model.task.Task.TaskProperties;
 
 import seedu.manager.model.task.StartTime;
 import seedu.manager.model.task.EndTime;
+import seedu.manager.model.task.Tag;
 
 /**
+ * @@author A0147924X
  * Used to parse extensions in the user input
- * @author varungupta
  *
  */
 public class ExtensionParser {
     
     public static enum ExtensionCmds {
-        VENUE("venue"), BY("by"), EVENT("from"), AT("at"), PRIORITY("priority");
+        VENUE("venue"), BY("by"), EVENT("from"), AT("at"), PRIORITY("priority"), TAG("tag");
         
         private String value;
         
@@ -47,21 +49,29 @@ public class ExtensionParser {
     private static final Pattern EVENT_ARGS_FORMAT = 
             Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)");
     
+    private ArrayList<Tag> tagList;
+    
     static {
         EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.getValue()).toArray(size -> new String[size]));
         EXTENSIONS_DESC_FORMAT = 
-                Pattern.compile("(^.*?(?=(?:(?:(\\s|^)(?:"
+                Pattern.compile("(^.*?(?=(?:(?:(?:\\s|^)(?:"
                         + EXTENSION_REGEX_OPTIONS
                         + ")\\s)|$)))");
         EXTENSIONS_ARGS_FORMAT =
-                Pattern.compile("((?:"
+                Pattern.compile("((?:^|\\s)(?:"
                         + EXTENSION_REGEX_OPTIONS
                         + ").+?(?=(?:(?:\\s(?:"
                         + EXTENSION_REGEX_OPTIONS
                         + ")\\s)|$)))");
     }
     
-    public ExtensionParser() {}
+    public ExtensionParser() {
+        tagList = new ArrayList<Tag>();
+    }
+    
+    public ArrayList<Tag> getTagList() {
+        return tagList;
+    }
     
     /**
      * Build task from extensions
@@ -83,7 +93,7 @@ public class ExtensionParser {
         
         Matcher extMatcher = EXTENSIONS_ARGS_FORMAT.matcher(extensionsStr);
         while (extMatcher.find()) {
-            parseSingleExtension(extMatcher.group(), properties);
+            parseSingleExtension(extMatcher.group().trim(), properties);
         }
         
         return properties;
@@ -129,6 +139,11 @@ public class ExtensionParser {
             case PRIORITY:
                 throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, ExtensionCmds.PRIORITY);
                 addToProperties(properties, TaskProperties.PRIORITY, arguments);
+                break;
+            case TAG:
+                throwExceptionIfDuplicate(properties, TaskProperties.TAG, ExtensionCmds.TAG);
+                addToTagList(arguments);
+                addToProperties(properties, TaskProperties.TAG, arguments);
                 break;
             default:
                 throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
@@ -187,8 +202,9 @@ public class ExtensionParser {
     }
     
     /**
+     * @@author A0148042M
      * Parses events and puts the times into the properties
-     * Throw an exception if start time is behind end time
+     * Throw an exception if start time is after end time
      * 
      * @param properties Properties to put in.
      * @param arguments Arguments specifying the time.
@@ -204,6 +220,7 @@ public class ExtensionParser {
     }
     
     /**
+     * @@author A0147924X
      * Adds a property to the properties HashMap
      * 
      * @param properties HashMap to put the new property into.
@@ -213,5 +230,12 @@ public class ExtensionParser {
     private void addToProperties(HashMap<Task.TaskProperties, Optional<String>> properties, 
             					 TaskProperties taskProperty, String arguments) {
         properties.put(taskProperty, arguments.equals("") ? Optional.empty() : Optional.of(arguments));
+    }
+    
+    private void addToTagList(String arguments) throws IllegalValueException {
+        boolean isContained = tagList.contains(new Tag(arguments));
+        if(!isContained) {
+            tagList.add(new Tag(arguments));
+        }
     }
 }

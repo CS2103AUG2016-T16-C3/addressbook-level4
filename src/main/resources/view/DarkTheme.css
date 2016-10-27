@@ -1,3 +1,4 @@
+/* @@author A0148042M */
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -77,13 +78,13 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-background-color: transparent, derive(#157cc7, 10%);
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#157cc7, 20%);
 }
 
 .list-cell {
@@ -111,13 +112,13 @@
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#157cc7, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#157cc7, 20%); 
     -fx-text-fill: black;
 }
 
@@ -162,7 +163,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#157cc7, 20%);
 }
 
 .menu-bar .label {
@@ -251,7 +252,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#157cc7, 50%);
     -fx-background-insets: 3;
 }
 

@@ -13,7 +13,7 @@ import seedu.manager.commons.util.ConfigUtil;
 /**
  * Config values used by the app
  */
-public class Config extends ComponentManager {
+public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
@@ -24,11 +24,12 @@ public class Config extends ComponentManager {
     private String taskManagerFilePath = "data/taskmanager.xml";
     private String taskManagerName = "Task Ninja";
 
-
+    // @@author A0147924X
     public Config() {
-    	super();
+    	EventsCenter.getInstance().registerHandler(this);
     }
-
+    
+    // @@author
     public String getAppTitle() {
         return appTitle;
     }
@@ -104,13 +105,13 @@ public class Config extends ComponentManager {
         return sb.toString();
     }
     
-    
+    // @@author A0147924X
     @Subscribe
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
     	setTaskManagerFilePath(event.filePath);
     	try {
 			ConfigUtil.saveConfig(this, DEFAULT_CONFIG_FILE);
-			raise(new ConfigFilePathChangedEvent(event.filePath));
+			EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(event.filePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

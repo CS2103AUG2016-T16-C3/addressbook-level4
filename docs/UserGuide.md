@@ -1,3 +1,4 @@
+<!-- @@author A0147924X -->
 # User Guide
 
 * [Quick Start](#quick-start)
@@ -257,7 +258,7 @@ Extension | [At](#at) | `at <time>`
 Extension | [Before](#before) | `before <time>`
 Extension | [Priority](#priority) | `priority <low/med/high>`
 
-
+<!-- @@author -->
 # Appendix A
 _This appendix lists down all the inputs of dates and times that are accepted when adding/editing a task._<br>
 _As we are using PrettyTime parser to read in dates and times, we strongly recommend you to follow this table in order to let you have the best experience when using Task Ninja!_<br>

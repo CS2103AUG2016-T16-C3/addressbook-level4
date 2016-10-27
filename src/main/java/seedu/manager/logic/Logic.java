@@ -3,6 +3,7 @@ package seedu.manager.logic;
 import javafx.collections.ObservableList;
 import seedu.manager.logic.commands.CommandResult;
 import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.Tag;
 
 
 /**
@@ -17,6 +18,10 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of tasks */
-    ObservableList<ReadOnlyTask> getFilteredTaskList();
-
+    ObservableList<ReadOnlyTask> getSortedFilteredTaskList();
+    
+    // @@author A0148042M
+    /** Returns the filtered list of tags */
+    ObservableList<Tag> getSortedFilteredTagList();
+    
 }
