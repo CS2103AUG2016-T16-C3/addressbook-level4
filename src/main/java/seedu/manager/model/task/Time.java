@@ -97,4 +97,17 @@ public abstract class Time extends TaskProperty {
         return value;
     }
     
+    /**
+     * Checks if the start time of a task is equal to or later than that of the search function's input
+     */
+	@Override
+    public boolean matches(TaskProperty time) {
+	    if (time instanceof StartTime) {
+	    	return (!((StartTime) time).value.after(this.value));
+		} else if (time instanceof EndTime) {
+			return (!((EndTime) time).value.before(this.value));
+		} else {
+			return false;
+		}
+    }
 }

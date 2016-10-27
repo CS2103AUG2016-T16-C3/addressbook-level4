@@ -188,7 +188,19 @@ public class Task implements ReadOnlyTask {
         for (TaskProperties property : TaskProperties.values()) {
             if (other.get(property).isPresent()) {
                 if (!this.properties.get(property).isPresent()) {
-                    return false;
+                	if (property.equals(TaskProperties.STARTTIME)) {
+    					if (!(this.properties.get(TaskProperties.ENDTIME).isPresent() &&
+     						this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
+							return false;
+						}
+    				} else if (property.equals(TaskProperties.ENDTIME)) {
+    					if (!(this.properties.get(TaskProperties.STARTTIME).isPresent() &&
+      						this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
+							return false;
+						}
+     				} else {
+     					return false;
+					}
                 } else if (!this.properties.get(property).get().matches(other.get(property).get())){
                     return false;
                 }
