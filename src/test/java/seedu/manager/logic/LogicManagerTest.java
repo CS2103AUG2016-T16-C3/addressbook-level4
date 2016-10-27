@@ -2,6 +2,7 @@ package seedu.manager.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.scene.control.ComboBox;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
@@ -535,6 +536,17 @@ public class LogicManagerTest {
                 String.format(DeleteCommand.MESSAGE_SUCCESS, threeTasks.get(1).getAsPrettyText()),
                 expectedAB,
                 expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_undo_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeUndone = helper.lancelot();
+        
+        // execute command and verify result
+        logic.execute(helper.generateAddCommand(toBeUndone));
+        assertCommandBehavior("undo",String.format(AddCommand.UNDO_SUCCESS, toBeUndone));
     }
 
 
