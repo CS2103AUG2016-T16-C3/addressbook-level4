@@ -9,13 +9,14 @@ import seedu.manager.commons.exceptions.DuplicateDataException;
 import java.util.*;
 
 /**
- * @@author A0148042M
  * A list of tags that enforces no nulls and uniqueness between its elements.
  *
  * Supports minimal set of list operations for the app's features.
  *
  * @see Tag#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
+ * 
+ * @@author A0148042M
  */
 public class UniqueTagList implements Iterable<Tag> {
 

@@ -9,8 +9,6 @@ import seedu.manager.model.task.Tag;
 
 /**
  * @@author A0148042M
- * @author zhaodingfan
- *
  */
 public class TagCard extends UiPart{
 
