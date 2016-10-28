@@ -22,8 +22,11 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		File unWriteableFolder = new File(unWriteableFilePath).getParentFile();
 		unWriteableFolder.setWritable(false);
 		Thread.sleep(300);
-		commandBox.runCommand("storage " + unWriteableFilePath);
-		assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
+		if (!System.getProperty("os.name").startsWith("Windows")) {
+			// Test fails on windows, cannot restrict access to folders
+			commandBox.runCommand("storage " + unWriteableFilePath);
+			assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
+		}
 		
 		
 		unWriteableFolder.setWritable(true);
@@ -32,8 +35,11 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		Thread.sleep(300);
 		unWriteableFolder.setWritable(false);
 		Thread.sleep(300);
-		commandBox.runCommand("storage " + unWriteableFilePath);
-		assertResultMessage(StorageCommand.MESSAGE_ALREADY_EXISTS_NO_OVERWRITE);
+		if (!System.getProperty("os.name").startsWith("Windows")) {
+			// Test fails on windows, cannot restrict access to folders
+			commandBox.runCommand("storage " + unWriteableFilePath);
+			assertResultMessage(StorageCommand.MESSAGE_ALREADY_EXISTS_NO_OVERWRITE);
+		}
 		
 		unWriteableFolder.setWritable(true);
 		Thread.sleep(300);

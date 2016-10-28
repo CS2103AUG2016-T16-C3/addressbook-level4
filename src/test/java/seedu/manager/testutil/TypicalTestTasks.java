@@ -11,7 +11,7 @@ public class TypicalTestTasks {
 
     public static TestTask alpha, beta, charlie, delta, echo, foxtrot, golf, hotel, india, juliet;
     
-    //@@author A0139621H-reused
+    // @@author A0139621H-reused
     public TypicalTestTasks() {
         try {
             alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withVenue("School of Computing")
@@ -46,7 +46,6 @@ public class TypicalTestTasks {
         }
     }
     
-    //@@author A0139621H-reused
     public static void loadTaskManagerWithSampleData(TaskManager tm) {
 
         try {
@@ -62,12 +61,10 @@ public class TypicalTestTasks {
         }
     }
 
-    //@@author A0139621H-reused
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{alpha, beta, charlie, delta, echo, foxtrot, golf};
     }
 
-    //@@author A0139621H-reused
     public TaskManager getTypicalTaskManager(){
         TaskManager tm = new TaskManager();
         loadTaskManagerWithSampleData(tm);
