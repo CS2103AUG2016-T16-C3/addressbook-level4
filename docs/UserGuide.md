@@ -197,6 +197,20 @@ Examples:
   * `edit 4 from 15 Oct to 17 Oct`
 
 
+<a id="at"></a>
+#### At a certain time/date: `at`
+_Specify a start time for a task._<br>
+Format: `at <time/date>`
+
+> A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
+
+Examples:
+  * `add Commence update at 23:00`
+  * `edit 2 at 31 Oct '16`
+  * `add Start writing essay at Nov 2 2016 2000`
+  * `edit 5 at 1st May`
+
+
 <a id="before"></a>
 #### Before a certain time/date: `before`
 _Specify a deadline for a task._<br>
@@ -238,8 +252,9 @@ Primary | [Exit](#exit) | `exit`
 Primary | [Next](#next) | `next [before <time>]`
 Primary | [Undo](#undo) | `undo`
 Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>`
-Extension | [Venue](#venue) | `at <description of venue>`
+Extension | [Venue](#venue) | `venue <description of venue>`
 Extension | [Event](#from-to) | `from <start time> to <end time>`
+Extension | [At](#at) | `at <time>`
 Extension | [Before](#before) | `before <time>`
 Extension | [Priority](#priority) | `priority <low/med/high>`
 
@@ -266,7 +281,7 @@ Input | Read in as | Comments
 `19:59` | Wed Oct 19 19:59:00 | 
 `20 November` | Sun Nov 20 12:00:00 | Uses current time by default
 `22 January '17` | Sun Jan 22 12:00:00 2017 | Uses an apostrophe in shortened year
-`23 February 2017` | Tue Feb 23 12:00:00 2017 |
+`23rd February 2017` | Tue Feb 23 12:00:00 2017 | Numerals (st, nd, rd, th) are accepted
 `20 Oct` | Thu Oct 20 12:00:00 | Shortened months are accepted
 `October 20` | Thu Oct 20 12:00:00 | Month and day can be reversed
 `10/20` | Thu Oct 20 12:00:00 | Format is MM/DD - DD/MM is not accepted
