@@ -6,7 +6,8 @@ import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTagListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
@@ -51,7 +52,8 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
-    private int targetedJumpIndex;
+    private int targetedTaskJumpIndex;
+    private int targetedTagJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -64,8 +66,13 @@ public class LogicManagerTest {
     }
     
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-    	targetedJumpIndex = je.targetIndex;
+    private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent je) {
+    	targetedTaskJumpIndex = je.targetIndex;
+    }
+    
+    @Subscribe
+    private void handleJumpToTagListRequestEvent(JumpToTagListRequestEvent je) {
+    	targetedTagJumpIndex = je.targetIndex;
     }
 
     @Before
@@ -207,7 +214,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(0, targetedTaskJumpIndex);
     }
     
     // @@author
@@ -224,7 +231,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(0, targetedTaskJumpIndex);
         
         
         toBeAdded = helper.guinevere();
@@ -234,7 +241,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(1, targetedJumpIndex);
+        assertEquals(1, targetedTaskJumpIndex);
     }
 
     @Test
@@ -284,7 +291,7 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedList);
         
-        assertEquals(expectedList.indexOf(toBeAdded), targetedJumpIndex);
+        assertEquals(expectedList.indexOf(toBeAdded), targetedTaskJumpIndex);
     }
     
     // @@author
@@ -334,7 +341,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(1, targetedJumpIndex);
+        assertEquals(1, targetedTaskJumpIndex);
         
         
         HashMap<TaskProperties, Optional<String>> newProps1 = 
@@ -356,7 +363,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(1, targetedJumpIndex);
+        assertEquals(1, targetedTaskJumpIndex);
 
         assertCommandBehavior(
                 editCommand1,
@@ -386,7 +393,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(1, targetedJumpIndex);
+        assertEquals(1, targetedTaskJumpIndex);
     }
     
     @Test
@@ -422,7 +429,7 @@ public class LogicManagerTest {
                 expectedList
         );
         
-        assertEquals(expectedList.indexOf(newTask), targetedJumpIndex);
+        assertEquals(expectedList.indexOf(newTask), targetedTaskJumpIndex);
     }
     
     
@@ -685,6 +692,30 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_findTag_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithTagAndDesc("Kill Mordred", "Violent");
+        Task p2 = helper.guinevere();
+        Task p3 = helper.lancelot();
+        Task p4 = helper.morgana();
+        Task p5 = helper.generateTaskWithTagAndDesc("Elope with Guinevere", "Home-wrecking");
+        
+        List<Task> fiveTasks = helper.generateTaskList(p5, p3, p1, p4, p2);
+        TaskManager expectedTM = helper.generateTaskManager(fiveTasks);
+        helper.addToModel(model, fiveTasks);
+        model.addTag(new Tag("Home-wrecking"));
+        model.addTag(new Tag("Violent"));
+        
+        List<Task> expectedList = helper.generateTaskList(p1);
+        
+        assertCommandBehavior("find tag Violent",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedTM,
+                expectedList);
+        assertEquals(1, targetedTagJumpIndex);
+    }
+    
+    @Test
     public void execute_findStartTime_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithStartTime("2.30pm");
@@ -843,7 +874,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(0, targetedTaskJumpIndex);
         
         assertCommandBehavior("alias delete -",
                 String.format(AliasCommand.MESSAGE_SUCCESS, "delete", "-"),
@@ -1095,6 +1126,21 @@ public class LogicManagerTest {
                     "7am",
                     "",
                     ""
+            );
+        }
+        
+        /**
+         * Generates a Task object with given tag. Other fields will have some dummy values.
+         */
+        Task generateTaskWithTagAndDesc(String desc, String tag) throws Exception {
+            return new Task(
+                    desc,
+                    "Camelot",
+                    "med",
+                    "4.30am",
+                    "7am",
+                    "",
+                    tag
             );
         }
     }
