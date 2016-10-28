@@ -18,10 +18,7 @@ public class Task implements ReadOnlyTask {
     
     public static final String START_AFTER_END = "Start time should be before end time.";
     
-    private static int maxId = 0;
-    
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
-    private int id;
 
     /**
      * Build task from properties represented as Strings
@@ -36,8 +33,6 @@ public class Task implements ReadOnlyTask {
         	Optional<TaskProperty> taskProperty = buildProperty(prop.getKey(), prop.getValue());
             this.properties.put(prop.getKey(), taskProperty);
         }
-        
-        setMaxId();
     }
 
 	/**
@@ -61,8 +56,6 @@ public class Task implements ReadOnlyTask {
        properties.put(TaskProperties.STARTTIME, startTime.equals("") ? Optional.empty() : Optional.of(new StartTime(startTime)));
        properties.put(TaskProperties.ENDTIME, endTime.equals("") ? Optional.empty() : Optional.of(new EndTime(endTime)));
        properties.put(TaskProperties.DONE, done.equals("") ? Optional.of(new Done("No")) : Optional.of(new Done(done)));
-       
-       setMaxId();
     }
 
     /**
@@ -76,14 +69,7 @@ public class Task implements ReadOnlyTask {
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
             this.properties.put(prop.getKey(), prop.getValue());
         }
-        
-        setMaxId();
     }
-    
-    private void setMaxId() {
-		id = maxId;
-		maxId++;
-	}
 
     /**
      * Get properties of task as TaskProperty objects
@@ -145,7 +131,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                || (other instanceof ReadOnlyTask // instance of handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
     
