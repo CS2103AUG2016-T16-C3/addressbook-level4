@@ -5,13 +5,13 @@ import seedu.manager.model.TaskManager;
 import seedu.manager.model.task.*;
 
 /**
- *
+ * A list of custom tasks for testing
  */
 public class TypicalTestTasks {
 
     public static TestTask alpha, beta, charlie, delta, echo, foxtrot, golf, hotel, india, juliet;
     
-    // @@author A0148042M-reused
+    //@@author A0139621H-reused
     public TypicalTestTasks() {
         try {
             alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withVenue("School of Computing")
@@ -46,29 +46,31 @@ public class TypicalTestTasks {
         }
     }
     
-    // @@author
-    public static void loadTaskManagerWithSampleData(TaskManager ab) {
+    //@@author A0139621H-reused
+    public static void loadTaskManagerWithSampleData(TaskManager tm) {
 
         try {
-            ab.addTask(new Task(alpha));
-            ab.addTask(new Task(beta));
-            ab.addTask(new Task(charlie));
-            ab.addTask(new Task(delta));
-            ab.addTask(new Task(echo));
-            ab.addTask(new Task(foxtrot));
-            ab.addTask(new Task(golf));
+            tm.addTask(new Task(alpha));
+            tm.addTask(new Task(beta));
+            tm.addTask(new Task(charlie));
+            tm.addTask(new Task(delta));
+            tm.addTask(new Task(echo));
+            tm.addTask(new Task(foxtrot));
+            tm.addTask(new Task(golf));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
+    //@@author A0139621H-reused
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{alpha, beta, charlie, delta, echo, foxtrot, golf};
     }
 
+    //@@author A0139621H-reused
     public TaskManager getTypicalTaskManager(){
-        TaskManager ab = new TaskManager();
-        loadTaskManagerWithSampleData(ab);
-        return ab;
+        TaskManager tm = new TaskManager();
+        loadTaskManagerWithSampleData(tm);
+        return tm;
     }
 }

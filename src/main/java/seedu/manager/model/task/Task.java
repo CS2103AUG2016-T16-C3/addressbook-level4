@@ -150,6 +150,7 @@ public class Task implements ReadOnlyTask {
         return properties.get(TaskProperties.VENUE);
     }
 
+    //@@author A0139621H
     @Override
     public Optional<TaskProperty> getPriority() {
         return properties.get(TaskProperties.PRIORITY);
@@ -170,12 +171,13 @@ public class Task implements ReadOnlyTask {
     	return properties.get(TaskProperties.DONE);
     }
     
+    //@@author A0148042M
     @Override
     public Optional<TaskProperty> getTag() {
         return properties.get(TaskProperties.TAG);
     }
     
-    // @@author
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -183,6 +185,7 @@ public class Task implements ReadOnlyTask {
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
     
+    // @@author A0147924X
     @Override
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
         for (TaskProperties property : TaskProperties.values()) {
@@ -209,7 +212,6 @@ public class Task implements ReadOnlyTask {
         return true;
     }
     
-    // @@author A0147924X
     @Override
     public int compareProperty(ReadOnlyTask other, TaskProperties property) {
     	assert other != null;

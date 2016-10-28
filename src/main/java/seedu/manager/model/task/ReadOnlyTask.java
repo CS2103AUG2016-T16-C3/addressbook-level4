@@ -22,6 +22,7 @@ public interface ReadOnlyTask {
     HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
 
     /**
+     * @@author A0147924X
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
@@ -87,7 +88,9 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
     
+    //@@author A0147924X
     public int compareProperty(ReadOnlyTask other, TaskProperties property);
     
+    //@author A0139621H
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
 }
