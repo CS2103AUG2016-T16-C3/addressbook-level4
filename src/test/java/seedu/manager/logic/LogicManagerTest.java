@@ -314,6 +314,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.lancelot();
         model.addTask(toBeEdited);
+        model.addTask(helper.morgana());
         
         HashMap<TaskProperties, Optional<String>> newProps = 
                 toBeEdited.getPropertiesAsStrings();
@@ -321,6 +322,7 @@ public class LogicManagerTest {
         
         Task newTask = new Task(newProps);        
         TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(helper.morgana());
         expectedTM.addTask(newTask);
 
         String editCommand = "edit 1 Dinner with Guinevere";
@@ -332,14 +334,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(0, targetedJumpIndex);
-
-        assertCommandBehavior(
-                editCommand,
-                String.format(EditCommand.MESSAGE_DUPLICATE_PARAMS, newTask),
-                expectedTM,
-                expectedTM.getTaskList()
-        );
+        assertEquals(1, targetedJumpIndex);
         
         
         HashMap<TaskProperties, Optional<String>> newProps1 = 
@@ -352,7 +347,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
 
-        String editCommand1 = "edit 1 Dinner with Lancelot venue Avalon";
+        String editCommand1 = "edit 2 Dinner with Lancelot venue Avalon";
 
         assertCommandBehavior(
                 editCommand1,
@@ -361,7 +356,14 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(1, targetedJumpIndex);
+
+        assertCommandBehavior(
+                editCommand1,
+                String.format(EditCommand.MESSAGE_DUPLICATE_PARAMS, newTask1),
+                expectedTM,
+                expectedTM.getTaskList()
+        );
         
         
         HashMap<TaskProperties, Optional<String>> newProps2 = 
@@ -375,7 +377,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask1);
         expectedTM.addTask(newTask2);
 
-        String editCommand2 = "edit 1 from 7:30pm to 8:50pm priority low";
+        String editCommand2 = "edit 2 from 7:30pm to 8:50pm priority low";
 
         assertCommandBehavior(
                 editCommand2,
@@ -384,7 +386,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(1, targetedJumpIndex);
     }
     
     @Test
