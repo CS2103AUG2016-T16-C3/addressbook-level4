@@ -126,6 +126,13 @@ public class ModelManager extends ComponentManager implements Model {
 		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
 		
 	}
+	
+	//=========== Sorted and Filtered Tag List Accessors ===============================================================
+	
+	@Override
+    public int getIndexOfTag(Tag tag) {
+    	return sortedTags.indexOf(tag);
+    }
     
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 

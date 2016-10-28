@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import seedu.manager.commons.core.EventsCenter;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
             int addedIndex = model.getIndexOfTask(toAdd);
             assert addedIndex != -1;
             
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(addedIndex));
+            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(addedIndex));
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {

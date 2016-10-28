@@ -6,7 +6,7 @@ import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
@@ -64,7 +64,7 @@ public class LogicManagerTest {
     }
     
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
+    private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent je) {
     	targetedJumpIndex = je.targetIndex;
     }
 

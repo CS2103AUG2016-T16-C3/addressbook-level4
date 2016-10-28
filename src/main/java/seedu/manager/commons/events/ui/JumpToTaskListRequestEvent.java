@@ -6,11 +6,11 @@ import seedu.manager.commons.events.BaseEvent;
  * @@author A0148042M
  * Indicates a request to jump to the list of tasks
  */
-public class JumpToListRequestEvent extends BaseEvent {
+public class JumpToTaskListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
 
-    public JumpToListRequestEvent(int targetIndex) {
+    public JumpToTaskListRequestEvent(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 

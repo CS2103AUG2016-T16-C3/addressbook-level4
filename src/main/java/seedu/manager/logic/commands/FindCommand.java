@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.Map.Entry;
 
+import seedu.manager.commons.core.EventsCenter;
+import seedu.manager.commons.events.ui.JumpToTagListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.Desc;
 import seedu.manager.model.task.Done;
@@ -41,11 +43,13 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            model.updateFilteredTaskList(buildProperties(foundProperties));
+        	HashMap<TaskProperties, Optional<TaskProperty>> builtProperties = buildProperties(foundProperties); 
+            model.updateFilteredTaskList(builtProperties);
+            jumpToTagIfPresent(builtProperties);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getSortedFilteredTaskList().size()));
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
         }
-        return new CommandResult(getMessageForTaskListShownSummary(model.getSortedFilteredTaskList().size()));
     }
     
     private HashMap<TaskProperties, Optional<TaskProperty>> buildProperties(HashMap<TaskProperties, Optional<String>> propertiesStrings) throws IllegalValueException {
@@ -88,5 +92,15 @@ public class FindCommand extends Command {
         default:
             throw new IllegalValueException("Property not found");
         }
+    }
+    
+    // @@author A0147924X
+    private void jumpToTagIfPresent(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
+    	if (properties.get(TaskProperties.TAG).isPresent()) {
+			int targetIndex = model.getIndexOfTag((Tag) properties.get(TaskProperties.TAG).get());
+			if (targetIndex != -1) {
+				EventsCenter.getInstance().post(new JumpToTagListRequestEvent(targetIndex));
+			}
+		}
     }
 }
