@@ -47,7 +47,7 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             if (toAdd.getTag().isPresent()) {
-                model.addTag((Tag)toAdd.getTag().get());
+                model.addTag((Tag) toAdd.getTag().get());
             }
             int addedIndex = model.getIndexOfTask(toAdd);
             assert addedIndex != -1;
