@@ -63,7 +63,10 @@ public class EditCommand extends Command {
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            int newIndex = model.getIndexOfTask(newTask);
+            assert newIndex != -1;
+            
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(newIndex));
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
         } catch (TaskNotFoundException e) {
