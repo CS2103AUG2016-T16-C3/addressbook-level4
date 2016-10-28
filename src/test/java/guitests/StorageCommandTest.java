@@ -57,6 +57,19 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		commandBox.runCommand("storage " + newFilePath);
 		assertResultMessage(String.format(StorageCommand.MESSAGE_SUCCESS, newFilePath));
 		
+		String throwsNullExceptionPath = "taskmanager.xml";
+		commandBox.runCommand("storage " + throwsNullExceptionPath);
+		assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
+
+		String throwsNullExceptionOverwritePath = "taskninja.xml";
+		File throwsNullExceptionOverwriteFile = new File(throwsNullExceptionOverwritePath);
+		throwsNullExceptionOverwriteFile.createNewFile();
+		Thread.sleep(300);
+		commandBox.runCommand("storage " + throwsNullExceptionOverwritePath);
+		assertResultMessage(StorageCommand.MESSAGE_ALREADY_EXISTS_NO_OVERWRITE);
+		throwsNullExceptionOverwriteFile.delete();
+		Thread.sleep(300);
+		
 		String resetFilePath = "data/taskmanager.xml";
 		commandBox.runCommand("storage " + resetFilePath); // Reset storage location back to default
 	}

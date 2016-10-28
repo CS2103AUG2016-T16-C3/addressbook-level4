@@ -61,18 +61,21 @@ public class StorageCommand extends Command {
 	
 	private boolean fileAlreadyExists(String filePath) {
 		File file = new File(filePath);
-		System.out.println(file.exists());
 		return file.exists();
 	}
 	
 	private boolean canOverWriteExisting(String filePath) {
-		File file = new File(filePath).getParentFile();
-		return file.canWrite();
+		try {
+			File file = new File(filePath).getParentFile();
+			return file.canWrite();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 	private boolean canWriteToFile(String filePath) {
-		File file = new File(filePath).getParentFile();
 		try {
+			File file = new File(filePath).getParentFile();
 			return file.canWrite();
 		} catch (Exception e) {
 			return false;
