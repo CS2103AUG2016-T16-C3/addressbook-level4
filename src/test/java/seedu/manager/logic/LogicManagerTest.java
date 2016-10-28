@@ -685,6 +685,27 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_findTag_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithTag("Violent");
+        Task p2 = helper.guinevere();
+        Task p3 = helper.lancelot();
+        Task p4 = helper.morgana();
+        
+        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        TaskManager expectedTM = helper.generateTaskManager(fourTasks);
+        helper.addToModel(model, fourTasks);
+        
+        
+        List<Task> expectedList = helper.generateTaskList(p1);
+        
+        assertCommandBehavior("find tag Violent",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedTM,
+                expectedList);
+    }
+    
+    @Test
     public void execute_findStartTime_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithStartTime("2.30pm");
@@ -1095,6 +1116,21 @@ public class LogicManagerTest {
                     "7am",
                     "",
                     ""
+            );
+        }
+        
+        /**
+         * Generates a Task object with given tag. Other fields will have some dummy values.
+         */
+        Task generateTaskWithTag(String tag) throws Exception {
+            return new Task(
+                    "Kill Mordred",
+                    "Camelot",
+                    "med",
+                    "4.30am",
+                    "7am",
+                    "",
+                    tag
             );
         }
     }

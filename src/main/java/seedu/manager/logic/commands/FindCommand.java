@@ -10,6 +10,7 @@ import seedu.manager.model.task.Done;
 import seedu.manager.model.task.EndTime;
 import seedu.manager.model.task.Priority;
 import seedu.manager.model.task.StartTime;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.Venue;
 import seedu.manager.model.task.Task.TaskProperties;
@@ -82,6 +83,8 @@ public class FindCommand extends Command {
             return Optional.of(new Priority(stringValue));
         case DONE:
             return Optional.of(new Done(stringValue));
+        case TAG:
+            return Optional.of(new Tag(stringValue));
         default:
             throw new IllegalValueException("Property not found");
         }
