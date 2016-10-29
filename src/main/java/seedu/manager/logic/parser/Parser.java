@@ -29,20 +29,20 @@ public class Parser {
     private static final Pattern FIND_KEYWORDS_FORMAT =
             Pattern.compile("(?<arguments>.+)");
     
-    private static final ExtensionParser extParser = new ExtensionParser();
+    private final ExtensionParser extParser = new ExtensionParser();
     
     private HashMap<Commands, String> commandWords = null;
 
     public Parser() {}
     
-    public void setCommandWords(HashMap<Commands, String> commandWordsIn) {
+    public void setCommandWords(HashMap<Commands, String> commandWordsIn, HashMap<Commands, String> extensionWordsIn) {
     	commandWords = commandWordsIn;
+    	extParser.setExtensionWords(extensionWordsIn);
     }
     
-    public static void main(String[] args) {
-		Scanner inp = new Scanner(System.in);
-		System.out.println(inp.nextLine().replaceAll("'at'", "at"));
-	}
+    public void compileRegexes() {
+    	extParser.compileRegexes();
+    }
 
     /**
      * Parses user input into command for execution.
@@ -120,7 +120,7 @@ public class Parser {
      */
     private Commands getMatchedCommand(String commandWord) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
-			if (commandWords.get(command).equals(commandWord)) {
+			if (commandWords.containsKey(command) && commandWords.get(command).equals(commandWord)) {
 				return command;
 			}
 		}

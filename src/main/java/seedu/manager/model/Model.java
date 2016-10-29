@@ -25,6 +25,9 @@ public interface Model {
     
     /** Returns the Command words */
     HashMap<Commands, String> getCommandWords();
+    
+    /** Returns the Extension words */
+    HashMap<Commands, String> getExtensionWords();
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

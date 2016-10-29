@@ -1,5 +1,7 @@
 package seedu.manager.logic.commands;
 
+import seedu.manager.commons.core.EventsCenter;
+import seedu.manager.commons.events.logic.CommandWordsChangedEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
 /**
@@ -26,6 +28,8 @@ public class AliasCommand extends Command {
 	public CommandResult execute() {
 		try {
 			model.setSingleCommandWord(oldCommand, alias, MESSAGE_NO_MATCH, MESSAGE_ALIAS_TAKEN);
+			
+			EventsCenter.getInstance().post(new CommandWordsChangedEvent());
 			
 			return new CommandResult(String.format(MESSAGE_SUCCESS, oldCommand, alias));
 		} catch (IllegalValueException e) {
