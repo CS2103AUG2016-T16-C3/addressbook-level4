@@ -5,15 +5,20 @@ import javafx.collections.transformation.SortedList;
 import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
-import seedu.manager.commons.util.StringUtil;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
+import seedu.manager.model.task.Tag;
+import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
+import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -25,9 +30,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Tag> filteredTags;
     private final SortedList<Task> sortedTasks;
+    private final SortedList<Tag> sortedTags;
+    private final UserPrefs userPrefs;
 
     /**
+     * @@author A0148042M
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
@@ -40,19 +49,28 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTags = new FilteredList<>(taskManager.getTags());
         sortedTasks = new SortedList<>(filteredTasks);
+        sortedTags = new SortedList<>(filteredTags);
+        this.userPrefs = userPrefs;
     }
-
+    
+    // @author
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
     }
-
+    
+    // @@author A0148042M
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTags = new FilteredList<>(taskManager.getTags());
         sortedTasks = new SortedList<>(filteredTasks);
+        sortedTags = new SortedList<>(filteredTags);
+        this.userPrefs = userPrefs;
     }
-
+    
+    // @@author
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -63,7 +81,19 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
-
+    
+    // @@author A0147924X
+    @Override
+    public HashMap<Commands, String> getCommandWords() {
+    	return userPrefs.commandWords;
+    }
+    
+    @Override
+    public HashMap<Commands, String> getExtensionWords() {
+    	return userPrefs.extensionWords;
+    }
+    
+    // @@author
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
@@ -82,6 +112,33 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    // @@author A0148042M
+    @Override
+    public synchronized void addTag(Tag tag) {
+        try {
+            taskManager.addTag(tag);
+        } catch (DuplicateTagException e) {
+            e.printStackTrace();
+        }
+        updateFilteredTagListToShowAll();
+//        indicateTaskManagerChanged();
+    }
+    
+    // @@author A0147924X
+	@Override
+	public void setSingleCommandWord(String commandToChange, String alias,
+			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
+		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
+		
+	}
+	
+	//=========== Sorted and Filtered Tag List Accessors ===============================================================
+	
+	@Override
+    public int getIndexOfTag(Tag tag) {
+    	return sortedTags.indexOf(tag);
+    }
+    
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 
     @Override
@@ -89,14 +146,16 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(sortedTasks);
     }
     
+    // @@author A0148042M
+    @Override
+    public UnmodifiableObservableList<Tag> getSortedFilteredTagList() {
+        return new UnmodifiableObservableList<>(sortedTags);
+    }
+    
+    // @author
     @Override
     public void updateSortedFilteredListToShowAll() {
         updateFilteredListToShowAll();
-    }
-    
-    @Override
-    public void updateSortedFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
     }
     
     @Override
@@ -115,19 +174,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Filtered Task List Accessors ===============================================================
-
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-
+    
+    // @@author A0148042M
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
-
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DescQualifier(keywords)));
+    
+    public void updateFilteredTagListToShowAll() {
+        filteredTags.setPredicate(null);
     }
-
+    
+    // @author
+    public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
+        updateFilteredTaskList(new PredicateExpression(new EnhancedSearchQualifier(propertiesToMatch)));
+    }
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -163,25 +224,16 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    private class DescQualifier implements Qualifier {
-        private Set<String> descKeyWords;
-
-        DescQualifier(Set<String> descKeyWords) {
-            this.descKeyWords = descKeyWords;
+    private class EnhancedSearchQualifier implements Qualifier {
+        private HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch;
+        
+        public EnhancedSearchQualifier(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
+            this.propertiesToMatch = propertiesToMatch;
         }
-
+        
         @Override
         public boolean run(ReadOnlyTask task) {
-            return descKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDesc().get().getValue(), keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "desc=" + String.join(", ", descKeyWords);
+            return task.matches(propertiesToMatch);
         }
     }
-
 }

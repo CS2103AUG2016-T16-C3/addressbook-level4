@@ -11,6 +11,7 @@ public class Priority extends TaskProperty {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priorities should be either low, med or high";
     public static final String PRIORITY_VALIDATION_REGEX = "low|med|high";
     
+    //@@author A0147924X
     private static enum VALUES {
     	LOW("low"), MED("med"), HIGH("high");
     	
@@ -24,6 +25,7 @@ public class Priority extends TaskProperty {
     private VALUES value = null;
     
     /**
+     * @@author A0147924X
      * Validates given priority.
      *
      * @throws IllegalValueException if given priority string is invalid.
@@ -44,7 +46,19 @@ public class Priority extends TaskProperty {
     public String toString() {
         return value.value;
     }
-
+    
+    /**
+     * @@author A0139621H
+     * Checks if the task property matches with that of the search function's input
+     */
+    @Override
+    public boolean matches(TaskProperty priority) {
+        assert priority instanceof Priority;
+        
+        return ((Priority) priority).equals(this);
+    }
+    
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -52,6 +66,7 @@ public class Priority extends TaskProperty {
                 && this.value.equals(((Priority) other).value)); // state check
     }
     
+    // @@author A0147924X
     @Override
     public int compareTo(TaskProperty other) {
     	assert other instanceof Priority;

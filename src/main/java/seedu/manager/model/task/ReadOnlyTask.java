@@ -17,10 +17,12 @@ public interface ReadOnlyTask {
     Optional<TaskProperty> getStartTime();
     Optional<TaskProperty> getEndTime();
     Optional<TaskProperty> getDone();
+    Optional<TaskProperty> getTag();
     HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
     HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
 
     /**
+     * @@author A0147924X
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
@@ -31,10 +33,12 @@ public interface ReadOnlyTask {
                 && other.getPriority().equals(this.getPriority())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
-        		&& other.getDone().equals(this.getDone()));
+        		&& other.getDone().equals(this.getDone()))
+                && other.getTag().equals(this.getTag());
     }
 
     /**
+     * @@author A0148042M-reused
      * Formats the task as text, showing all properties except done.
      */
     default String getAsText() {
@@ -52,6 +56,9 @@ public interface ReadOnlyTask {
         }
         if (getEndTime().isPresent()) {
             builder.append(" End Time: ").append(getEndTime().get());
+        }
+        if (getTag().isPresent()) {
+            builder.append(" Tag: ").append(getTag().get());
         }
         return builder.toString();
     }
@@ -75,8 +82,15 @@ public interface ReadOnlyTask {
         if (getEndTime().isPresent()) {
             builder.append(" End Time: ").append(getEndTime().get().toPrettyString());
         }
+        if (getTag().isPresent()) {
+            builder.append(" Tag: ").append(getTag().get());
+        }
         return builder.toString();
     }
     
+    //@@author A0147924X
     public int compareProperty(ReadOnlyTask other, TaskProperties property);
+    
+    //@author A0139621H
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
 }

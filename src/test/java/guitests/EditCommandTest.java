@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Optional;
 
+// @@author A0147924X
 public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit() throws IllegalValueException {
@@ -43,6 +44,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertResultMessage("The task index provided is invalid");
     }
     
+    // @@author
     private void assertEditSuccess(String editCommand, int index, TestTask editedTask, TestTask... currentList) {
         commandBox.runCommand(String.format(editCommand, index));
         

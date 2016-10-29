@@ -1,7 +1,11 @@
 package seedu.manager.logic.commands;
 
 public class SortCommand extends Command implements UndoableCommand{
-	
+/**
+ * @@author A0147924X
+ * Allows user to sort the displayed tasks by priority
+ *
+ */	
 	public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

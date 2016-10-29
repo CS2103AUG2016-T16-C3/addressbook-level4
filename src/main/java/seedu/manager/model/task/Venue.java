@@ -1,6 +1,7 @@
 package seedu.manager.model.task;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.commons.util.StringUtil;
 
 /**
  * Represents a Task's venue number in the task manager.
@@ -13,6 +14,7 @@ public class Venue extends TaskProperty {
     private String value;
 
     /**
+     * @@author A0147924X
      * Validates given venue.
      *
      * @throws IllegalValueException if given venue string is invalid.
@@ -26,7 +28,25 @@ public class Venue extends TaskProperty {
     public String toString() {
         return value;
     }
+    
+    /**
+     * @@author A0139621H
+     * Checks if any words from the task's venue matches that with the search function's input words
+     */
+    @Override
+    public boolean matches(TaskProperty venue) {
+        assert venue instanceof Venue;
 
+        String[] arr = ((Venue) venue).value.split(" ");
+        for (String string : arr) {
+            if (StringUtil.containsIgnoreCase(this.value, string)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //@@ author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

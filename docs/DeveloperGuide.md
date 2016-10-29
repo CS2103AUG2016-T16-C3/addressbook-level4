@@ -13,6 +13,7 @@
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
+<!-- @@author A0147924X -->
 ## Introduction
 
 Task Ninja is a task manager with a command line interface. It is aimed at users who prefer to only use the keyboard and prefer to be able to add tasks with one line of information.<br>
@@ -20,6 +21,7 @@ Task Ninja is a task manager with a command line interface. It is aimed at users
 This guide describes how Task Ninja has been designed and implemented. It is directed at developers new to this application aiming to understand the architecture of the application and at more experienced developers aiming to refresh their knowledge of the application. It also provides a description of how you can set up the development environment. Finally, it includes User Stories, Use Cases, Non Functional Requirements and a Product Survey in the Appendix to give you a better idea of the pain points that this application is trying to solve.
 
 
+<!-- @@author -->
 ## Setting up
 
 #### Prerequisites
@@ -302,6 +304,7 @@ a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 
+<!-- @@author A0147924X -->
 ## Appendix A : User Stories
 
 Likeliness: Likely - `L`, Unlikely - `U`
@@ -338,6 +341,7 @@ Likeliness | As (a)... | I want to... | So that I can...
 `U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
 `U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
 
+<!-- @@author  -->
 ## Appendix B : Use Cases
 
 ( For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise. )
@@ -427,7 +431,7 @@ Use case resumes at step 3.
 > 4b1. User is shown correct format for data. <br>
 Use case resumes at step 3.
 
-
+<!-- @@author A0148042M -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -448,7 +452,6 @@ Use case resumes at step 3.
 ##### Floating Task
 
 > A task which has no specified date or time
-
 
 ## Appendix E : Product Survey
 

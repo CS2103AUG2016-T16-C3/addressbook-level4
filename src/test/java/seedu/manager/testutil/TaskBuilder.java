@@ -4,7 +4,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
 
 /**
- *
+ * Builds the task from its properties
  */
 public class TaskBuilder {
 
@@ -43,6 +43,11 @@ public class TaskBuilder {
 		this.task.setDone(new Done(done));
 		return this;
 	}
+    
+    public TaskBuilder withTag(String tag) throws IllegalValueException {
+        this.task.setTag(new Tag(tag));
+        return this;
+    }
 
     public TestTask build() {
         return this.task;

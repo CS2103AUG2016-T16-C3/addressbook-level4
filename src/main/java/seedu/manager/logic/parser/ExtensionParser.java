@@ -1,54 +1,54 @@
 package seedu.manager.logic.parser;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
 
 import seedu.manager.model.task.StartTime;
 import seedu.manager.model.task.EndTime;
+import seedu.manager.model.task.Tag;
 
 /**
+ * @@author A0147924X
  * Used to parse extensions in the user input
- * @author varungupta
  *
  */
 public class ExtensionParser {
-    
-    public static enum ExtensionCmds {
-        VENUE("venue"), BY("by"), EVENT("from"), AT("at"), PRIORITY("priority");
-        
-        private String value;
-        
-        private ExtensionCmds(String value) {
-            this.value = value;
-        }
-        
-        public String getValue() {
-            return value;
-        }
-    };
-    
     public static final String EXTENSION_FROM_TO_INVALID_FORMAT = "From-to times should be in the format from <startTime> to <endTime>";
     public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s";
     public static final String START_AFTER_END = "Start time should be before end time.";
     
-    private static final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
-    private static final String EXTENSION_REGEX_OPTIONS;
-    private static final Pattern EXTENSIONS_DESC_FORMAT;
-    private static final Pattern EXTENSIONS_ARGS_FORMAT;
-    private static final Pattern EXTENSION_ARGS_FORMAT = 
+    private final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
+    private String EXTENSION_REGEX_OPTIONS;
+    private Pattern EXTENSIONS_DESC_FORMAT;
+    private Pattern EXTENSIONS_ARGS_FORMAT;
+    private final Pattern EXTENSION_ARGS_FORMAT = 
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final Pattern EVENT_ARGS_FORMAT = 
+    private final Pattern EVENT_ARGS_FORMAT = 
             Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)");
     
-    static {
-        EXTENSION_REGEX_OPTIONS = String.join("|", Arrays.stream(ExtensionCmds.values()).map(ex -> ex.getValue()).toArray(size -> new String[size]));
+    private HashMap<Commands, String> extensionWords = null;
+    private ArrayList<Tag> tagList;
+    
+    public ExtensionParser(HashMap<Commands, String> extensionWordsIn) {
+        tagList = new ArrayList<Tag>();
+        extensionWords = extensionWordsIn;
+        compileRegexes();
+    }
+    
+    public ArrayList<Tag> getTagList() {
+        return tagList;
+    }
+    
+    public void compileRegexes() {
+    	EXTENSION_REGEX_OPTIONS = String.join("|", extensionWords.values());
         EXTENSIONS_DESC_FORMAT = 
                 Pattern.compile("(^.*?(?=(?:(?:(?:\\s|^)(?:"
                         + EXTENSION_REGEX_OPTIONS
@@ -60,8 +60,6 @@ public class ExtensionParser {
                         + EXTENSION_REGEX_OPTIONS
                         + ")\\s)|$)))");
     }
-    
-    public ExtensionParser() {}
     
     /**
      * Build task from extensions
@@ -77,6 +75,7 @@ public class ExtensionParser {
         Matcher descMatcher = EXTENSIONS_DESC_FORMAT.matcher(extensionsStr);
         if (descMatcher.find()) {
             String desc = descMatcher.group().trim();
+            desc = removeEscapingChars(desc);
             properties.put(TaskProperties.DESC, 
                     desc.equals("") ? Optional.empty() : Optional.of(desc));
         }
@@ -96,39 +95,43 @@ public class ExtensionParser {
      */
     private void parseSingleExtension(String extension, HashMap<Task.TaskProperties, Optional<String>> properties) 
             throws IllegalValueException{
+    	
         Matcher matcher = EXTENSION_ARGS_FORMAT.matcher(extension);
+        
         if (matcher.matches()) {
             String extensionCommand = matcher.group("commandWord").trim();
             String arguments = matcher.group("arguments").trim();
+            arguments = removeEscapingChars(arguments);
             
-            ExtensionCmds matchedCommand = getMatchedCommand(extensionCommand);
-            
-            if (matchedCommand == null) {
-                throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
-            }
+            Commands matchedCommand = getMatchedCommand(extensionCommand);
             
             switch (matchedCommand) {
             case VENUE:
-                throwExceptionIfDuplicate(properties, TaskProperties.VENUE, ExtensionCmds.VENUE);
+                throwExceptionIfDuplicate(properties, TaskProperties.VENUE, Commands.VENUE);
                 addToProperties(properties, TaskProperties.VENUE, arguments);
                 break;
             case BY:
-                throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.BY);
+                throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, Commands.BY);
                 addToProperties(properties, TaskProperties.ENDTIME, arguments);
                 break;
             case AT:
-                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.AT);
+                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, Commands.AT);
                 addToProperties(properties, TaskProperties.STARTTIME, arguments);
                 break;
             case EVENT:
-                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, ExtensionCmds.EVENT);
-                throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, ExtensionCmds.EVENT);
+                throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, Commands.EVENT);
+                throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, Commands.EVENT);
                 addEvent(properties, arguments);
                 //throwExceptionIfTimeInvalid(properties, TaskProperties.STARTTIME, TaskProperties.ENDTIME);
                 break;
             case PRIORITY:
-                throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, ExtensionCmds.PRIORITY);
+                throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, Commands.PRIORITY);
                 addToProperties(properties, TaskProperties.PRIORITY, arguments);
+                break;
+            case TAG:
+                throwExceptionIfDuplicate(properties, TaskProperties.TAG, Commands.TAG);
+                addToTagList(arguments);
+                addToProperties(properties, TaskProperties.TAG, arguments);
                 break;
             default:
                 throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
@@ -142,15 +145,20 @@ public class ExtensionParser {
      * Get the extension command which matches the input command
      * @param extensionCommand
      */
-	private ExtensionCmds getMatchedCommand(String extensionCommand) {
-		ExtensionCmds matchedCommand = null;
-		for (ExtensionCmds ex : ExtensionCmds.values()) {
-		    if (ex.value.equals(extensionCommand)) {
-		        matchedCommand = ex;
-		        break;
+	private Commands getMatchedCommand(String extensionCommand) throws IllegalValueException {
+		for (Commands command : Commands.values()) {
+		    if (extensionWords.containsKey(command) && extensionWords.get(command).equals(extensionCommand)) {
+		        return command;
 		    }
 		}
-		return matchedCommand;
+		throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
+	}
+	
+	private String removeEscapingChars(String args) {
+		for (String extensionWord : extensionWords.values()) {
+			args = args.replaceAll("'" + extensionWord + "'", extensionWord);
+		}
+		return args;
 	}
     
 	/**
@@ -163,9 +171,9 @@ public class ExtensionParser {
 	 */
     private void throwExceptionIfDuplicate(HashMap<Task.TaskProperties, Optional<String>> properties,
             							   TaskProperties taskProperty,
-            							   ExtensionCmds extensionCmd) throws IllegalValueException {
+            							   Commands extensionCmd) throws IllegalValueException {
         if (properties.get(taskProperty).isPresent()) {
-            throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionCmd.getValue()));
+            throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionWords.get(extensionCmd)));
         }
     }
 
@@ -187,8 +195,9 @@ public class ExtensionParser {
     }
     
     /**
+     * @@author A0148042M
      * Parses events and puts the times into the properties
-     * Throw an exception if start time is behind end time
+     * Throw an exception if start time is after end time
      * 
      * @param properties Properties to put in.
      * @param arguments Arguments specifying the time.
@@ -204,6 +213,7 @@ public class ExtensionParser {
     }
     
     /**
+     * @@author A0147924X
      * Adds a property to the properties HashMap
      * 
      * @param properties HashMap to put the new property into.
@@ -213,5 +223,12 @@ public class ExtensionParser {
     private void addToProperties(HashMap<Task.TaskProperties, Optional<String>> properties, 
             					 TaskProperties taskProperty, String arguments) {
         properties.put(taskProperty, arguments.equals("") ? Optional.empty() : Optional.of(arguments));
+    }
+    
+    private void addToTagList(String arguments) throws IllegalValueException {
+        boolean isContained = tagList.contains(new Tag(arguments));
+        if(!isContained) {
+            tagList.add(new Tag(arguments));
+        }
     }
 }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import seedu.manager.commons.core.EventsCenter;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
@@ -25,6 +25,8 @@ public class AddCommand extends Command implements UndoableCommand {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String UNDO_SUCCESS = "Previous added task deleted: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    public static final String MESSAGE_INVALID_TAG = "This is an invalid tag";
 
     private final Task toAdd;
 
@@ -41,24 +43,26 @@ public class AddCommand extends Command implements UndoableCommand {
         this.toAdd = new Task(properties);
         
     }
-
+    
+    // @@author A0148042M
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
             model.addTask(toAdd);
-            
+            if (toAdd.getTag().isPresent()) {
+                model.addTag((Tag) toAdd.getTag().get());
+            }
             int addedIndex = model.getIndexOfTask(toAdd);
             assert addedIndex != -1;
             
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(addedIndex));
+            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(addedIndex));
             
             this.addUndo(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
     }
     
     @Override

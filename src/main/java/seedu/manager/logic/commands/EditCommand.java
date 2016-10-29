@@ -6,7 +6,7 @@ import java.util.Optional;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -42,7 +42,7 @@ public class EditCommand extends Command implements UndoableCommand {
         this.targetIndex = targetIndex;
         this.editedProperties = editedProperties;
     }
-    
+
     public Task newTask;
     public Task oldTask;
 
@@ -69,8 +69,12 @@ public class EditCommand extends Command implements UndoableCommand {
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            int newIndex = model.getIndexOfTask(newTask);
+            assert newIndex != -1;
+            
+            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(newIndex));
             this.addUndo(this);
+            
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
         } catch (TaskNotFoundException e) {
             return new CommandResult("The target task cannot be missing");

@@ -43,6 +43,10 @@ public class TestTask implements ReadOnlyTask {
     public void setDone(Done done) {
         this.properties.put(TaskProperties.DONE, Optional.of(done));
     }
+    
+    public void setTag(Tag tag) {
+        this.properties.put(TaskProperties.TAG, Optional.of(tag));
+    }
 
     @Override
     public Optional<TaskProperty> getDesc() {
@@ -73,12 +77,18 @@ public class TestTask implements ReadOnlyTask {
     public Optional<TaskProperty> getDone() {
         return properties.get(TaskProperties.DONE);
     }
-
+    
+    @Override
+    public Optional<TaskProperty> getTag() {
+        return properties.get(TaskProperties.TAG);
+    }
+    
     @Override
     public String toString() {
         return getAsText();
     }
-
+    
+    // @@author A0147924X
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDesc().get().getValue() + " ");
@@ -93,6 +103,9 @@ public class TestTask implements ReadOnlyTask {
         }
         if (this.getEndTime().isPresent()) {
             sb.append("by " + this.getEndTime().get().getValue() + " ");
+        }
+        if (this.getTag().isPresent()) {
+            sb.append("tag " + this.getTag().get().getValue() + " ");
         }
         return sb.toString();
     }
@@ -129,5 +142,20 @@ public class TestTask implements ReadOnlyTask {
 				return this.properties.get(property).get().compareTo(otherProps.get(property).get());
 			}
 		}
+    }
+	
+	// @@author
+    @Override
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
+        for (TaskProperties property : TaskProperties.values()) {
+            if (other.get(property).isPresent()) {
+                if (!this.properties.get(property).isPresent()) {
+                    return false;
+                } else if (!this.properties.get(property).get().matches(other.get(property).get())){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

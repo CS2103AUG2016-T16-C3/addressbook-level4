@@ -1,12 +1,14 @@
 package seedu.manager.model.task;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.commons.util.StringUtil;
 
 /**
  * Represents a Task's desc in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Desc extends TaskProperty {
+    
     public static final String MESSAGE_DESC_CONSTRAINTS = "Task descriptions can contain any characters";
     public static final String DESC_VALIDATION_REGEX = ".+";
     
@@ -14,6 +16,7 @@ public class Desc extends TaskProperty {
     private static final int PRETTY_MAX_LENGTH = 50; 
     
     /**
+     * @@author A0147924X
      * Validates given desc.
      *
      * @throws IllegalValueException if given desc string is invalid.
@@ -23,12 +26,13 @@ public class Desc extends TaskProperty {
         value = desc;
     }
 
-
+    //@@author
     @Override
     public String toString() {
         return value;
     }
     
+    //@@author A0147924X
     @Override
     public String getPrettyValue() {
     	if (value.length() > PRETTY_MAX_LENGTH) {
@@ -37,7 +41,25 @@ public class Desc extends TaskProperty {
 			return value;
 		}
     }
+    
+    /**
+     * @@author A0139621H
+     * Checks if any words from the task's venue matches that with the search function's input words
+     */
+    @Override
+    public boolean matches(TaskProperty desc) {
+        assert desc instanceof Desc;
 
+        String[] arr = ((Desc) desc).value.split(" ");
+        for (String string : arr) {
+            if (StringUtil.containsIgnoreCase(this.value, string)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
