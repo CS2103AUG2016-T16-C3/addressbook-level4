@@ -17,8 +17,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Optional;
 
+// @@author A0147924X
 public class EditCommandTest extends TaskManagerGuiTest {
-	// @@author A0147924X
     @Test
     public void edit() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();

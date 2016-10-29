@@ -6,6 +6,8 @@ import java.io.IOException;
 import org.junit.Test;
 
 import seedu.manager.TestApp;
+import seedu.manager.commons.core.EventsCenter;
+import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.manager.logic.commands.StorageCommand;
 import seedu.manager.testutil.TestUtil;
 
@@ -71,6 +73,6 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		Thread.sleep(300);
 		
 		String resetFilePath = "data/taskmanager.xml";
-		commandBox.runCommand("storage " + resetFilePath); // Reset storage location back to default
+		EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(resetFilePath)); // Reset storage location back to default
 	}
 }

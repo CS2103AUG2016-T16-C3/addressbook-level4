@@ -54,10 +54,9 @@ public class StorageManager extends ComponentManager implements Storage {
     	saveUserPrefs(event.userPrefs);
     }
 
-
+    // @@author
     // ================ TaskManager methods ==============================
     
-    // @@author
     @Override
     public String getTaskManagerFilePath() {
         return taskManagerStorage.getTaskManagerFilePath();

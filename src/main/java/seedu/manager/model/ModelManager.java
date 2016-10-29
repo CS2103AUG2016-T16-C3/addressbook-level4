@@ -88,6 +88,11 @@ public class ModelManager extends ComponentManager implements Model {
     	return userPrefs.commandWords;
     }
     
+    @Override
+    public HashMap<Commands, String> getExtensionWords() {
+    	return userPrefs.extensionWords;
+    }
+    
     // @@author
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {

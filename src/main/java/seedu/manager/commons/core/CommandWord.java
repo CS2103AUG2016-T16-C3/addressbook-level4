@@ -10,7 +10,9 @@ public class CommandWord {
 	public enum Commands {
 		ADD("add"), EDIT("edit"), DELETE("delete"), UNDO("undo"), 
 		FIND("find"), STORAGE("storage"), CLEAR("clear"), DONE("done"), 
-		EXIT("exit"), HELP("help"), LIST("list"), SORT("sort"), ALIAS("alias");
+		EXIT("exit"), HELP("help"), LIST("list"), SORT("sort"),
+		ALIAS("alias"), BY("by"), AT("at"), EVENT("from"),
+		PRIORITY("priority"), TAG("tag"), VENUE("venue");
 		
 		private String commandRep;
 		

@@ -16,6 +16,7 @@ public class UserPrefs {
 
     public GuiSettings guiSettings;
     public HashMap<Commands, String> commandWords;
+    public HashMap<Commands, String> extensionWords;
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -42,6 +43,16 @@ public class UserPrefs {
         				"alias"
         			}
         		);
+        this.setExtensionsWords(
+        		new Commands[]{
+        				Commands.BY, Commands.AT, Commands.EVENT, Commands.PRIORITY, 
+        				Commands.TAG, Commands.VENUE
+    				},
+        		new String[]{
+        				"by", "at", "from", "priority", 
+        				"tag", "venue"
+        			}
+        		);
     }
     
     // @@author
@@ -54,6 +65,10 @@ public class UserPrefs {
     	return commandWords;
     }
     
+    public HashMap<Commands, String> getExtensionsWords() {
+    	return extensionWords;
+    }
+    
     public void setCommandWords(Commands[] commands, String[] commandStrings) {
     	assert commands.length == commandStrings.length;
     	
@@ -63,19 +78,35 @@ public class UserPrefs {
 		}
 	}
     
+    public void setExtensionsWords(Commands[] commands, String[] commandStrings) {
+    	assert commands.length == commandStrings.length;
+    	
+    	this.extensionWords = new HashMap<>();
+    	for (int i = 0; i < commands.length; i++) {
+    		extensionWords.put(commands[i], commandStrings[i]);
+    	}
+    }
+    
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
     	
     	Commands matchedCommand = getMatchingCommand(commandToChange, messageNoMatch);
     	throwExceptionIfAliasAlreadyExists(matchedCommand, alias, messageAliasAlreadyTaken);
     	
-    	commandWords.put(matchedCommand, alias);
+    	if (commandWords.containsKey(matchedCommand)) {
+    		commandWords.put(matchedCommand, alias);
+		} else {
+			extensionWords.put(matchedCommand, alias);
+		}
+		
     	EventsCenter.getInstance().post(new UserPrefsChangedEvent(this));
     }
     
     private Commands getMatchingCommand(String commandToChange, String messageNoMatch) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
-			if (commandWords.get(command).equals(commandToChange)) {
+			if (commandWords.containsKey(command) && commandWords.get(command).equals(commandToChange)) {
+				return command;
+			} else if (extensionWords.containsKey(command) && extensionWords.get(command).equals(commandToChange)) {
 				return command;
 			}
 		}
@@ -83,11 +114,15 @@ public class UserPrefs {
     	throw new IllegalValueException(messageNoMatch);
     }
     
-    private void throwExceptionIfAliasAlreadyExists(Commands matchedCommand, String alias, String messageAliasAlreadyTaken) 
+    private void throwExceptionIfAliasAlreadyExists(Commands matchedCommand, String alias, String messageAliasAlreadyTaken)
     		throws IllegalValueException {
     	for (Commands command : Commands.values()) {
-			if (!command.equals(matchedCommand) && commandWords.get(command).equals(alias)) {
-				throw new IllegalValueException(String.format(messageAliasAlreadyTaken, command));
+			if (!command.equals(matchedCommand)) {
+				if (commandWords.containsKey(command) && commandWords.get(command).equals(alias)) {
+					throw new IllegalValueException(String.format(messageAliasAlreadyTaken, command));
+				} else if (extensionWords.containsKey(command) && extensionWords.get(command).equals(alias)) {
+					
+				}
 			}
 		}
     }
