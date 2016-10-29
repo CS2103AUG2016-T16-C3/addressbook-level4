@@ -22,8 +22,11 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		File unWriteableFolder = new File(unWriteableFilePath).getParentFile();
 		unWriteableFolder.setWritable(false);
 		Thread.sleep(300);
-		commandBox.runCommand("storage " + unWriteableFilePath);
-		assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
+		if (!System.getProperty("os.name").startsWith("Windows")) {
+			// Test fails on windows, cannot restrict access to folders
+			commandBox.runCommand("storage " + unWriteableFilePath);
+			assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
+		}
 		
 		
 		unWriteableFolder.setWritable(true);
@@ -32,8 +35,11 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		Thread.sleep(300);
 		unWriteableFolder.setWritable(false);
 		Thread.sleep(300);
-		commandBox.runCommand("storage " + unWriteableFilePath);
-		assertResultMessage(StorageCommand.MESSAGE_ALREADY_EXISTS_NO_OVERWRITE);
+		if (!System.getProperty("os.name").startsWith("Windows")) {
+			// Test fails on windows, cannot restrict access to folders
+			commandBox.runCommand("storage " + unWriteableFilePath);
+			assertResultMessage(StorageCommand.MESSAGE_ALREADY_EXISTS_NO_OVERWRITE);
+		}
 		
 		unWriteableFolder.setWritable(true);
 		Thread.sleep(300);
@@ -50,6 +56,19 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		Thread.sleep(300);
 		commandBox.runCommand("storage " + newFilePath);
 		assertResultMessage(String.format(StorageCommand.MESSAGE_SUCCESS, newFilePath));
+		
+		String throwsNullExceptionPath = "taskmanager.xml";
+		commandBox.runCommand("storage " + throwsNullExceptionPath);
+		assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
+
+		String throwsNullExceptionOverwritePath = "taskninja.xml";
+		File throwsNullExceptionOverwriteFile = new File(throwsNullExceptionOverwritePath);
+		throwsNullExceptionOverwriteFile.createNewFile();
+		Thread.sleep(300);
+		commandBox.runCommand("storage " + throwsNullExceptionOverwritePath);
+		assertResultMessage(StorageCommand.MESSAGE_ALREADY_EXISTS_NO_OVERWRITE);
+		throwsNullExceptionOverwriteFile.delete();
+		Thread.sleep(300);
 		
 		String resetFilePath = "data/taskmanager.xml";
 		commandBox.runCommand("storage " + resetFilePath); // Reset storage location back to default

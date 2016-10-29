@@ -8,7 +8,6 @@ import seedu.manager.commons.util.CollectionUtil;
 import java.util.*;
 
 /**
- * @@author A0147924X
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
