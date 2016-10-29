@@ -36,7 +36,9 @@ public class Priority extends TaskProperty {
 				value = val;
 			}
 		}
-        throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+        if (value == null) {
+        	throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+		}
     }
 
     @Override
