@@ -1,6 +1,6 @@
 package seedu.manager.logic.commands;
 
-public class SortCommand extends Command {
+public class SortCommand extends Command implements UndoableCommand{
 	
 	public static final String COMMAND_WORD = "sort";
 
@@ -9,13 +9,20 @@ public class SortCommand extends Command {
             + "Parameters: None\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Sorted Tasks";
-    
+    public static final String MESSAGE_SUCCESS = "Sorted task list.";
+    public static final String UNDO_SUCCESS = "Unsorted task list.";
     public SortCommand() {}
 
 	@Override
 	public CommandResult execute() {
 		model.sortSortedFilteredTaskListByPriority();
+		this.addUndo(this);
 		return new CommandResult(MESSAGE_SUCCESS);
+	}
+
+	@Override
+	public CommandResult undoIt() {
+		model.unSortSortedFilteredTaskList();
+	    return new CommandResult(UNDO_SUCCESS);
 	}
 }

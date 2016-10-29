@@ -63,6 +63,7 @@ public class AddCommand extends Command implements UndoableCommand {
     
     @Override
 	public CommandResult undoIt() {
+    	// for undoCommand
 		 assert model != null;
 	        try {
 	            model.deleteTask(toAdd);
