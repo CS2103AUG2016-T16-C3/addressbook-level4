@@ -37,13 +37,10 @@ public class ExtensionParser {
     private HashMap<Commands, String> extensionWords = null;
     private ArrayList<Tag> tagList;
     
-    public ExtensionParser() {
+    public ExtensionParser(HashMap<Commands, String> extensionWordsIn) {
         tagList = new ArrayList<Tag>();
-    }
-    
-    public void setExtensionWords(HashMap<Commands, String> commandWordsIn) {
-    	extensionWords = commandWordsIn;
-    	compileRegexes();
+        extensionWords = extensionWordsIn;
+        compileRegexes();
     }
     
     public ArrayList<Tag> getTagList() {

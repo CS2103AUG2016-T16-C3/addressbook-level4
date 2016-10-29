@@ -198,7 +198,6 @@ public class MainWindow extends UiPart {
         return this.tagListPanel;
     }
     
-    // @@author
     /**
      * Render Status Bar Footer again, used when storage location in config changes
      */

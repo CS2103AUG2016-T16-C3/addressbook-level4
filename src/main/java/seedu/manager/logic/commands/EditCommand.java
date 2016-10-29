@@ -41,7 +41,8 @@ public class EditCommand extends Command {
         this.targetIndex = targetIndex;
         this.editedProperties = editedProperties;
     }
-
+    
+    // @@author A0147924X
     @Override
     public CommandResult execute() {
         assert model != null;

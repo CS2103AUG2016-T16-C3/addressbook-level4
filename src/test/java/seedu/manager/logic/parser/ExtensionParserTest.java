@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.model.UserPrefs;
 import seedu.manager.model.task.Task.TaskProperties;
 
 // @@author A0147924X
@@ -17,7 +17,7 @@ public class ExtensionParserTest {
     private ExtensionParser extensionParser;
     @Before
     public void init_ext_parser() {
-        extensionParser = new ExtensionParser();
+        extensionParser = new ExtensionParser((new UserPrefs()).getExtensionsWords());
     }
     
     @Test

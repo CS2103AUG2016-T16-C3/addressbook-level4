@@ -23,12 +23,14 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
     
+    // @@author A0147924X
     /** Returns the Command words */
     HashMap<Commands, String> getCommandWords();
     
     /** Returns the Extension words */
     HashMap<Commands, String> getExtensionWords();
-
+    
+    // @@author
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 

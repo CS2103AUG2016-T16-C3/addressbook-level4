@@ -29,21 +29,24 @@ public class Parser {
     private static final Pattern FIND_KEYWORDS_FORMAT =
             Pattern.compile("(?<arguments>.+)");
     
-    private final ExtensionParser extParser = new ExtensionParser();
+    private final ExtensionParser extParser;
     
     private HashMap<Commands, String> commandWords = null;
 
-    public Parser() {}
-    
-    public void setCommandWords(HashMap<Commands, String> commandWordsIn, HashMap<Commands, String> extensionWordsIn) {
+    // @@author A0147924X
+    public Parser(HashMap<Commands, String> commandWordsIn, HashMap<Commands, String> extensionWordsIn) {
     	commandWords = commandWordsIn;
-    	extParser.setExtensionWords(extensionWordsIn);
+    	extParser = new ExtensionParser(extensionWordsIn);
     }
     
+    /**
+     * Compiles the regexes used in the parser
+     */
     public void compileRegexes() {
     	extParser.compileRegexes();
     }
-
+    
+    // @@author
     /**
      * Parses user input into command for execution.
      *
