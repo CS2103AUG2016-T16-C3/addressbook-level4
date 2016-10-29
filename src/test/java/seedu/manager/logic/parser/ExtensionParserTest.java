@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.model.UserPrefs;
 import seedu.manager.model.task.Task.TaskProperties;
 
 // @@author A0147924X
@@ -16,7 +17,7 @@ public class ExtensionParserTest {
     private ExtensionParser extensionParser;
     @Before
     public void init_ext_parser() {
-        extensionParser = new ExtensionParser();
+        extensionParser = new ExtensionParser((new UserPrefs()).getExtensionsWords());
     }
     
     @Test
@@ -25,21 +26,21 @@ public class ExtensionParserTest {
             extensionParser.getTaskProperties("Dinner with Lancelot venue Avalon venue Round Table");
             fail("Didn't throw exception");
         } catch (IllegalValueException e) {
-            assertEquals(e.getMessage(), String.format(ExtensionParser.EXTENSION_DUPLICATES, ExtensionParser.ExtensionCmds.VENUE.getValue()));
+            assertEquals(e.getMessage(), String.format(ExtensionParser.EXTENSION_DUPLICATES, "venue"));
         }
         
         try {
             extensionParser.getTaskProperties("Dinner with Lancelot venue Avalon priority high priority low");
             fail("Didn't throw exception");
         } catch (IllegalValueException e) {
-            assertEquals(e.getMessage(), String.format(ExtensionParser.EXTENSION_DUPLICATES, ExtensionParser.ExtensionCmds.PRIORITY.getValue()));
+            assertEquals(e.getMessage(), String.format(ExtensionParser.EXTENSION_DUPLICATES, "priority"));
         }
         
         try {
             extensionParser.getTaskProperties("Dinner with Lancelot priority high at 8:30 at 9:00");
             fail("Didn't throw exception");
         } catch (IllegalValueException e) {
-            assertEquals(e.getMessage(), String.format(ExtensionParser.EXTENSION_DUPLICATES, ExtensionParser.ExtensionCmds.AT.getValue()));
+            assertEquals(e.getMessage(), String.format(ExtensionParser.EXTENSION_DUPLICATES, "at"));
         }
     }
     

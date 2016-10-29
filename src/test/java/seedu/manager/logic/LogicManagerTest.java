@@ -6,7 +6,8 @@ import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTagListRequestEvent;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
@@ -51,7 +52,8 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
-    private int targetedJumpIndex;
+    private int targetedTaskJumpIndex;
+    private int targetedTagJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -64,8 +66,13 @@ public class LogicManagerTest {
     }
     
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-    	targetedJumpIndex = je.targetIndex;
+    private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent je) {
+    	targetedTaskJumpIndex = je.targetIndex;
+    }
+    
+    @Subscribe
+    private void handleJumpToTagListRequestEvent(JumpToTagListRequestEvent je) {
+    	targetedTagJumpIndex = je.targetIndex;
     }
 
     @Before
@@ -196,7 +203,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_desc_contains_keyword_successful() throws Exception {
+    public void execute_add_descContainsKeyword_successful() throws Exception {
     	// setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.morgana();
@@ -207,7 +214,33 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(0, targetedTaskJumpIndex);
+    }
+    
+    @Test
+    public void execute_add_containsEscapedKeyword_successful() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.challenge();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+        		"add Come 'at' me venue Battlefield priority high",
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(0, targetedTaskJumpIndex);
+        
+        toBeAdded = helper.canoodle();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+        		"add Secret rendezvous venue 'by' the wall",
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(1, targetedTaskJumpIndex);
     }
     
     // @@author
@@ -224,7 +257,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(0, targetedTaskJumpIndex);
         
         
         toBeAdded = helper.guinevere();
@@ -234,7 +267,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(1, targetedJumpIndex);
+        assertEquals(1, targetedTaskJumpIndex);
     }
 
     @Test
@@ -251,7 +284,6 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedTM,
                 expectedTM.getTaskList());
@@ -284,12 +316,12 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedList);
         
-        assertEquals(expectedList.indexOf(toBeAdded), targetedJumpIndex);
+        assertEquals(expectedList.indexOf(toBeAdded), targetedTaskJumpIndex);
     }
     
     // @@author
     @Test
-    public void execute_edit_invalidArgsFormat_erroeMessageShown() throws Exception {
+    public void execute_edit_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("edit", expectedMessage);
     }
@@ -314,6 +346,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.lancelot();
         model.addTask(toBeEdited);
+        model.addTask(helper.morgana());
         
         HashMap<TaskProperties, Optional<String>> newProps = 
                 toBeEdited.getPropertiesAsStrings();
@@ -321,6 +354,7 @@ public class LogicManagerTest {
         
         Task newTask = new Task(newProps);        
         TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(helper.morgana());
         expectedTM.addTask(newTask);
 
         String editCommand = "edit 1 Dinner with Guinevere";
@@ -332,14 +366,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(0, targetedJumpIndex);
-
-        assertCommandBehavior(
-                editCommand,
-                String.format(EditCommand.MESSAGE_DUPLICATE_PARAMS, newTask),
-                expectedTM,
-                expectedTM.getTaskList()
-        );
+        assertEquals(1, targetedTaskJumpIndex);
         
         
         HashMap<TaskProperties, Optional<String>> newProps1 = 
@@ -352,7 +379,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
 
-        String editCommand1 = "edit 1 Dinner with Lancelot venue Avalon";
+        String editCommand1 = "edit 2 Dinner with Lancelot venue Avalon";
 
         assertCommandBehavior(
                 editCommand1,
@@ -361,7 +388,14 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(1, targetedTaskJumpIndex);
+
+        assertCommandBehavior(
+                editCommand1,
+                String.format(EditCommand.MESSAGE_DUPLICATE_PARAMS, newTask1),
+                expectedTM,
+                expectedTM.getTaskList()
+        );
         
         
         HashMap<TaskProperties, Optional<String>> newProps2 = 
@@ -375,7 +409,7 @@ public class LogicManagerTest {
         expectedTM.removeTask(newTask1);
         expectedTM.addTask(newTask2);
 
-        String editCommand2 = "edit 1 from 7:30pm to 8:50pm priority low";
+        String editCommand2 = "edit 2 from 7:30pm to 8:50pm priority low";
 
         assertCommandBehavior(
                 editCommand2,
@@ -384,7 +418,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList()
         );
         
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(1, targetedTaskJumpIndex);
     }
     
     @Test
@@ -420,7 +454,7 @@ public class LogicManagerTest {
                 expectedList
         );
         
-        assertEquals(expectedList.indexOf(newTask), targetedJumpIndex);
+        assertEquals(expectedList.indexOf(newTask), targetedTaskJumpIndex);
     }
     
     
@@ -682,6 +716,32 @@ public class LogicManagerTest {
         assertCommandBehavior("find priority abc", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
     }
     
+    // @@author A0147924X
+    @Test
+    public void execute_findTag_successful() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithTagAndDesc("Kill Mordred", "Violent");
+        Task p2 = helper.guinevere();
+        Task p3 = helper.lancelot();
+        Task p4 = helper.morgana();
+        Task p5 = helper.generateTaskWithTagAndDesc("Elope with Guinevere", "Home-wrecking");
+        
+        List<Task> fiveTasks = helper.generateTaskList(p5, p3, p1, p4, p2);
+        TaskManager expectedTM = helper.generateTaskManager(fiveTasks);
+        helper.addToModel(model, fiveTasks);
+        model.addTag(new Tag("Home-wrecking"));
+        model.addTag(new Tag("Violent"));
+        
+        List<Task> expectedList = helper.generateTaskList(p1);
+        
+        assertCommandBehavior("find tag Violent",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedTM,
+                expectedList);
+        assertEquals(1, targetedTagJumpIndex);
+    }
+    
+    // @@author
     @Test
     public void execute_findStartTime_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -841,7 +901,8 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
-        assertEquals(0, targetedJumpIndex);
+        assertEquals(0, targetedTaskJumpIndex);
+        
         
         assertCommandBehavior("alias delete -",
                 String.format(AliasCommand.MESSAGE_SUCCESS, "delete", "-"),
@@ -853,6 +914,26 @@ public class LogicManagerTest {
                 String.format(DeleteCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
                 expectedTM,
                 expectedTM.getTaskList());
+        
+        
+        assertCommandBehavior("alias priority p",
+                String.format(AliasCommand.MESSAGE_SUCCESS, "priority", "p"),
+                expectedTM,
+                expectedTM.getTaskList());
+        
+        toBeAdded = helper.morgana();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(helper.generateAddCommandWithAlias(toBeAdded, "+").replace("priority", "p"),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getAsPrettyText()),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(0, targetedTaskJumpIndex);
+        
+        // cleanup
+        logic.execute("alias + add");
+        logic.execute("alias - delete");
+        logic.execute("alias p priority");
     }
     
     /**
@@ -872,9 +953,16 @@ public class LogicManagerTest {
         Task morgana() throws Exception {
         	return new Task("Flatten Morgana", "Camelot", "high", "", "", "", "");
         }
+        
+        Task challenge() throws Exception {
+        	return new Task("Come at me", "Battlefield", "high", "", "", "", "");
+        }
+        
+        Task canoodle() throws Exception {
+        	return new Task("Secret rendezvous", "by the wall", "", "", "", "", "");
+        }
 
         /**
-         * @@author A0147924X
          * Generates a valid task using the given seed.
          * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Task object.
@@ -923,7 +1011,8 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
         	return generateAddCommandWithAlias(p, "add");
         }
-
+        
+        // @@author
         /**
          * Generates an TaskManager with auto-generated tasks.
          */
@@ -1093,6 +1182,21 @@ public class LogicManagerTest {
                     "7am",
                     "",
                     ""
+            );
+        }
+        
+        /**
+         * Generates a Task object with given tag. Other fields will have some dummy values.
+         */
+        Task generateTaskWithTagAndDesc(String desc, String tag) throws Exception {
+            return new Task(
+                    desc,
+                    "Camelot",
+                    "med",
+                    "4.30am",
+                    "7am",
+                    "",
+                    tag
             );
         }
     }

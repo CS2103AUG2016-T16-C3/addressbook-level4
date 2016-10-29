@@ -29,16 +29,24 @@ public class Parser {
     private static final Pattern FIND_KEYWORDS_FORMAT =
             Pattern.compile("(?<arguments>.+)");
     
-    private static final ExtensionParser extParser = new ExtensionParser();
+    private final ExtensionParser extParser;
     
     private HashMap<Commands, String> commandWords = null;
 
-    public Parser() {}
-    
-    public void setCommandWords(HashMap<Commands, String> commandWordsIn) {
+    // @@author A0147924X
+    public Parser(HashMap<Commands, String> commandWordsIn, HashMap<Commands, String> extensionWordsIn) {
     	commandWords = commandWordsIn;
+    	extParser = new ExtensionParser(extensionWordsIn);
     }
-
+    
+    /**
+     * Compiles the regexes used in the parser
+     */
+    public void compileRegexes() {
+    	extParser.compileRegexes();
+    }
+    
+    // @@author
     /**
      * Parses user input into command for execution.
      *
@@ -115,7 +123,7 @@ public class Parser {
      */
     private Commands getMatchedCommand(String commandWord) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
-			if (commandWords.get(command).equals(commandWord)) {
+			if (commandWords.containsKey(command) && commandWords.get(command).equals(commandWord)) {
 				return command;
 			}
 		}
@@ -219,6 +227,8 @@ public class Parser {
     }
 
     /**
+     * @@author A0139621H
+     * 
      * Parses arguments in the context of the find task command.
      *
      * @param args full command args string

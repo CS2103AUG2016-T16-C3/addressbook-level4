@@ -23,9 +23,14 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
     
+    // @@author A0147924X
     /** Returns the Command words */
     HashMap<Commands, String> getCommandWords();
-
+    
+    /** Returns the Extension words */
+    HashMap<Commands, String> getExtensionWords();
+    
+    // @@author
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
@@ -42,11 +47,16 @@ public interface Model {
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
     
     // @@author A0148042M
-    /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
-    
     /** Returns the sorted and filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getSortedFilteredTagList();
+    
+    // @@author A0147924X
+    /** Returns index of task in sorted and filtered list */
+    int getIndexOfTag(Tag tag);
+    
+    // @@author
+    /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
     
     /** Updates the filter of the sorted and filtered task list to show all tasks */
     void updateSortedFilteredListToShowAll();
@@ -61,7 +71,6 @@ public interface Model {
     /** Unsort the sorted and filtered task list */
     void unSortSortedFilteredTaskList();
     
-    // @@author
     /** Returns index of task in sorted and filtered list */
     int getIndexOfTask(ReadOnlyTask task);
 }

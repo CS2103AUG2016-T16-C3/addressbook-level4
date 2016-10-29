@@ -10,8 +10,8 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  */
 public class Tag extends TaskProperty {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names can have anything";
+    public static final String TAG_VALIDATION_REGEX = ".+";
 
     public String tagName;
 
@@ -51,6 +51,7 @@ public class Tag extends TaskProperty {
         return " [" + tagName + "]";
     }
 
+    //@@author A0139621H
     @Override
     public boolean matches(TaskProperty tag) {
         assert tag instanceof Tag;

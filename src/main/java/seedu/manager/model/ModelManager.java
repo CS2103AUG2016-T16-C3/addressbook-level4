@@ -88,6 +88,11 @@ public class ModelManager extends ComponentManager implements Model {
     	return userPrefs.commandWords;
     }
     
+    @Override
+    public HashMap<Commands, String> getExtensionWords() {
+    	return userPrefs.extensionWords;
+    }
+    
     // @@author
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
@@ -126,6 +131,13 @@ public class ModelManager extends ComponentManager implements Model {
 		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
 		
 	}
+	
+	//=========== Sorted and Filtered Tag List Accessors ===============================================================
+	
+	@Override
+    public int getIndexOfTag(Tag tag) {
+    	return sortedTags.indexOf(tag);
+    }
     
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 

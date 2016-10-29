@@ -193,6 +193,11 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
     
+    // @@author A0147924X
+    public TagListPanel getTagListPanel() {
+        return this.tagListPanel;
+    }
+    
     /**
      * Render Status Bar Footer again, used when storage location in config changes
      */

@@ -98,6 +98,7 @@ public abstract class Time extends TaskProperty {
     }
     
     /**
+     * @@author A0139621H
      * Checks if the start time of a task is equal to or later than that of the search function's input
      */
 	@Override

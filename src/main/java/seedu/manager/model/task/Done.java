@@ -8,7 +8,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Done extends TaskProperty {
-
+    
     public static final String MESSAGE_DONE_CONSTRAINTS =
             "Task done indicator should be in the form \"Yes\" or \"No\"";
     public static final String DONE_VALIDATION_REGEX = "Yes|No";
@@ -16,6 +16,7 @@ public class Done extends TaskProperty {
     private boolean value;
 
     /**
+     * @@author A0147924X
      * Validates given done indicator.
      *
      * @throws IllegalValueException if given done indicator address string is invalid.
@@ -31,6 +32,7 @@ public class Done extends TaskProperty {
     }
     
     /**
+     * @@author A0139621H
      * Checks if the task property matches with that of the search function's input
      */
     @Override
@@ -40,6 +42,7 @@ public class Done extends TaskProperty {
         return ((Done) done).equals(this);
     }
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -3,6 +3,7 @@ package seedu.manager.logic;
 import javafx.collections.ObservableList;
 import seedu.manager.commons.core.ComponentManager;
 import seedu.manager.commons.core.LogsCenter;
+import seedu.manager.commons.events.logic.CommandWordsChangedEvent;
 import seedu.manager.logic.commands.Command;
 import seedu.manager.logic.commands.CommandResult;
 import seedu.manager.logic.parser.Parser;
@@ -12,6 +13,8 @@ import seedu.manager.model.task.Tag;
 import seedu.manager.storage.Storage;
 
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 
 /**
@@ -25,8 +28,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.parser = new Parser();
-        this.parser.setCommandWords(model.getCommandWords());
+        this.parser = new Parser(model.getCommandWords(), model.getExtensionWords());
     }
 
     @Override
@@ -46,5 +48,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Tag> getSortedFilteredTagList() {
         return model.getSortedFilteredTagList();        
+    }
+    
+    // @@author A0147924X
+    @Subscribe
+    public void handleCommandWordsChangedEvent(CommandWordsChangedEvent event) {
+    	parser.compileRegexes();
     }
 }
