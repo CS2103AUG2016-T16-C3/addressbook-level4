@@ -72,7 +72,7 @@ public class LogicManagerTest {
     
     @Subscribe
     private void handleJumpToTagListRequestEvent(JumpToTagListRequestEvent je) {
-    	targetedTagJumpIndex = je.targetIndex;
+    	targetedTagJumpIndex = je.getTargetIndex();
     }
 
     @Before

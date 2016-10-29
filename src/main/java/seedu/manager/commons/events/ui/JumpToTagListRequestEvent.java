@@ -9,11 +9,15 @@ import seedu.manager.commons.events.BaseEvent;
  */
 public class JumpToTagListRequestEvent extends BaseEvent {
 
-    public final int targetIndex;
+    private final int targetIndex;
 
     public JumpToTagListRequestEvent(int targetIndex) {
         this.targetIndex = targetIndex;
     }
+    
+    public int getTargetIndex() {
+		return targetIndex;
+	}
 
     @Override
     public String toString() {

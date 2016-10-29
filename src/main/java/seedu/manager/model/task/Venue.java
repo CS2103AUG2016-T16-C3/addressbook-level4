@@ -16,7 +16,6 @@ public class Venue extends TaskProperty {
     /**
      * @@author A0147924X
      * Validates given venue.
-     *
      * @throws IllegalValueException if given venue string is invalid.
      */
     public Venue(String venue) throws IllegalValueException {

@@ -10,10 +10,14 @@ import seedu.manager.model.UserPrefs;
  */
 public class UserPrefsChangedEvent extends BaseEvent {
 	
-	public UserPrefs userPrefs;
+	private UserPrefs userPrefs;
 	
 	public UserPrefsChangedEvent(UserPrefs userPrefs) {
 		this.userPrefs = userPrefs;
+	}
+	
+	public UserPrefs getUserPrefs() {
+		return userPrefs;
 	}
 
 	@Override

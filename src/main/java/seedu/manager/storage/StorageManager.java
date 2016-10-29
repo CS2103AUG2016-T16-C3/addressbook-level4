@@ -50,8 +50,13 @@ public class StorageManager extends ComponentManager implements Storage {
     
     // @@author A0147924X
     @Subscribe
+    /**
+     * Save user preferences when they are changed
+     * @param event Event indicating that the user preferences have changed
+     * @throws IOException
+     */
     public void handleUserPrefsChangedEvent(UserPrefsChangedEvent event) throws IOException {
-    	saveUserPrefs(event.userPrefs);
+    	saveUserPrefs(event.getUserPrefs());
     }
 
     // @@author
@@ -91,9 +96,13 @@ public class StorageManager extends ComponentManager implements Storage {
     
     // @@author A0147924X
     @Subscribe
+    /**
+     * Sets new file path when user wants to change the path
+     * @param event Event indicating that the file path has changed
+     */
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, altering filepaths"));
-    	setFilePath(event.filePath);
+    	setFilePath(event.getFilePath());
     }
     
     // @@author
