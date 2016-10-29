@@ -38,6 +38,11 @@ public class Parser {
     public void setCommandWords(HashMap<Commands, String> commandWordsIn) {
     	commandWords = commandWordsIn;
     }
+    
+    public static void main(String[] args) {
+		Scanner inp = new Scanner(System.in);
+		System.out.println(inp.nextLine().replaceAll("'at'", "at"));
+	}
 
     /**
      * Parses user input into command for execution.

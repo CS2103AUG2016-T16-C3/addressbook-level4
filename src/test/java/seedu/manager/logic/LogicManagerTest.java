@@ -203,7 +203,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_desc_contains_keyword_successful() throws Exception {
+    public void execute_add_descContainsKeyword_successful() throws Exception {
     	// setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.morgana();
@@ -215,6 +215,32 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedTM.getTaskList());
         assertEquals(0, targetedTaskJumpIndex);
+    }
+    
+    @Test
+    public void execute_add_containsEscapedKeyword_successful() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.challenge();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+        		"add Come 'at' me venue Battlefield priority high",
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(0, targetedTaskJumpIndex);
+        
+        toBeAdded = helper.canoodle();
+        expectedTM.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+        		"add Secret rendezvous venue 'by' the wall",
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTM,
+                expectedTM.getTaskList());
+        assertEquals(1, targetedTaskJumpIndex);
     }
     
     // @@author
@@ -904,6 +930,14 @@ public class LogicManagerTest {
         
         Task morgana() throws Exception {
         	return new Task("Flatten Morgana", "Camelot", "high", "", "", "", "");
+        }
+        
+        Task challenge() throws Exception {
+        	return new Task("Come at me", "Battlefield", "high", "", "", "", "");
+        }
+        
+        Task canoodle() throws Exception {
+        	return new Task("Secret rendezvous", "by the wall", "", "", "", "", "");
         }
 
         /**

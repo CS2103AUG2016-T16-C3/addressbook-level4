@@ -87,6 +87,7 @@ public class ExtensionParser {
         Matcher descMatcher = EXTENSIONS_DESC_FORMAT.matcher(extensionsStr);
         if (descMatcher.find()) {
             String desc = descMatcher.group().trim();
+            desc = removeEscapingChars(desc);
             properties.put(TaskProperties.DESC, 
                     desc.equals("") ? Optional.empty() : Optional.of(desc));
         }
@@ -110,6 +111,7 @@ public class ExtensionParser {
         if (matcher.matches()) {
             String extensionCommand = matcher.group("commandWord").trim();
             String arguments = matcher.group("arguments").trim();
+            arguments = removeEscapingChars(arguments);
             
             ExtensionCmds matchedCommand = getMatchedCommand(extensionCommand);
             
@@ -166,6 +168,13 @@ public class ExtensionParser {
 		    }
 		}
 		return matchedCommand;
+	}
+	
+	private String removeEscapingChars(String args) {
+		for (ExtensionCmds extensionCmd : ExtensionCmds.values()) {
+			args = args.replaceAll("'" + extensionCmd.getValue() + "'", extensionCmd.getValue());
+		}
+		return args;
 	}
     
 	/**
