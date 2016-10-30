@@ -49,4 +49,8 @@ public class Done extends TaskProperty {
                 || (other instanceof Done // instanceof handles nulls
                 && this.value == ((Done) other).value); // state check
     }
+    
+    public boolean isTrue() {
+    	return value;
+    }
 }

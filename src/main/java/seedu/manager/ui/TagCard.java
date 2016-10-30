@@ -46,7 +46,7 @@ public class TagCard extends UiPart{
     @FXML
     public void initialize() {
         id.setText(displayedIndex + ". ");
-//        tag.setText(task.getTag().isPresent() ? task.getTag().get().getPrettyValue() : "");
+    // tag.setText(task.getTag().isPresent() ? task.getTag().get().getPrettyValue() : "");
         tag.setText(tagToLoad.getValue());
     }
 
