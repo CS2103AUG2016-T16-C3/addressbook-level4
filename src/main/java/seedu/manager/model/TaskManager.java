@@ -53,8 +53,21 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     // @@author A0148042M
     public ObservableList<Tag> getTags() {
-//         return tags.getInternalList();
-        return getTagsFromTaskList(this.getTasks());
+        ObservableList<Tag> internalTagList = tags.getInternalList();
+        ObservableList<Tag> tagListFromTaskList = getTagsFromTaskList(this.getTasks());
+        
+        return combineTwoList(internalTagList, tagListFromTaskList);
+    }
+    
+    public ObservableList<Tag> combineTwoList(ObservableList<Tag> internalTagList, ObservableList<Tag> tagListFromTaskList) {
+        ObservableList<Tag> combinedTagList = internalTagList;
+        for(int i = 0;i < tagListFromTaskList.size();i++) {
+            if(!internalTagList.contains(tagListFromTaskList.get(i))) {
+                internalTagList.add(tagListFromTaskList.get(i));
+            }
+        }
+        
+        return combinedTagList;
     }
     
     public ObservableList<Tag> getTagsFromTaskList(ObservableList<Task> taskList) {
