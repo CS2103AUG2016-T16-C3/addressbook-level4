@@ -1,5 +1,6 @@
 package seedu.manager.model.task;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -30,6 +31,47 @@ public interface ReadOnlyTask {
      * @return Hashmap representing the task properties
      */
     HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
+    
+    default boolean doesPriorityEqual(String arg) {
+    	
+    	if (this.getPriority().isPresent() && this.getPriority().get().getValue().equals(arg)) {
+    	    return true;
+    	}
+    	
+        return false;
+    }
+    
+    default boolean isPriorityHigh() {	
+    	return doesPriorityEqual("high");
+    }
+    
+    default boolean isPriorityLow() {
+    	return doesPriorityEqual("low");
+    }
+    
+    default boolean isPriorityMedium() {
+    	return doesPriorityEqual("med");
+    }
+    
+    default boolean isDone() {
+        return ((Done) this.getDone().get()).isTrue();
+    }
+    
+    default boolean isTaskOverDue() {	
+    	if(this.isDone()) {
+    		return false;
+    	}
+    	
+    	Date now = new Date();
+    	
+    	if (this.getEndTime().isPresent()) {
+    		return ((Time) this.getEndTime().get()).isBefore(now); 
+    	} else if (this.getStartTime().isPresent()) {
+    		return ((Time) this.getStartTime().get()).isBefore(now); 
+    	} else {
+    		return false;
+    	}
+    }
 
     /**
      * @@author A0147924X

@@ -137,4 +137,12 @@ public abstract class Time extends TaskProperty {
 			return false;
 		}
     }
+
+	public boolean isBefore(Date now) {
+	
+		if (value.before(now)) {
+			return true;
+		}
+		return false;
+	}
 }

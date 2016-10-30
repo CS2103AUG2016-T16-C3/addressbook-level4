@@ -20,8 +20,6 @@ public class TaskCard extends UiPart{
     @FXML
     private Label venue;
     @FXML
-    private Label priority;
-    @FXML
     private Label startTime;
     @FXML
     private Label endTime;
@@ -47,16 +45,82 @@ public class TaskCard extends UiPart{
     @FXML
     // @@author A0147924X
     public void initialize() {
-        desc.setText(task.getDesc().map(p -> p.getPrettyValue()).orElse(""));
+    	initText();
+    	initId();
+    	initVenue();
+        initTime();
+        initDone();
+        initTag();
+        initPriorityColor();
+        initTaskOverDue();
+    }
+     
+    public void initTaskOverDue() {
+        if (task.isTaskOverDue()) {
+        	// Varun complete the OverDue Displace.
+        }
+    }
+    
+    public void initText() {
+        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
+    }
+    
+    public void initId() {
         id.setText(displayedIndex + ". ");
-        venue.setText(task.getVenue().map(p -> p.getPrettyValue()).orElse(""));
-        priority.setText(task.getPriority().map(p -> p.getPrettyValue()).orElse(""));
-        startTime.setText(task.getStartTime().map(p -> p.getPrettyValue()).orElse(""));
-        endTime.setText(task.getEndTime().map(p -> p.getPrettyValue()).orElse(""));
-        done.setText(task.getDone().map(p -> p.getPrettyValue()).orElse(""));
-        tag.setText(task.getTag().map(p -> p.getPrettyValue()).orElse(""));
-        
-        done.setStyle("-fx-font-size: 20pt; -fx-text-fill: green");
+    }
+    
+    public void initVenue() {
+        venue.setText(task.getVenue().isPresent() ? "Venue : " + task.getVenue().get().getPrettyValue() : "");
+    }
+    
+    public void initTime() {
+    	if (task.getStartTime().isPresent()) {
+    		if (task.getEndTime().isPresent()) {
+    			startTime.setText("From   : " + task.getStartTime().get().getPrettyValue());
+    			endTime.setText("To       : " + task.getEndTime().get().getPrettyValue()); 
+    		}
+    		
+    		else {
+    			startTime.setText("At        : " + task.getStartTime().get().getPrettyValue());
+    			endTime.setText("");
+    		}
+    	}
+    	
+    	else {
+    		if ((task.getEndTime().isPresent())) {
+    			startTime.setText("By       : " + task.getEndTime().get().getPrettyValue());
+    			endTime.setText("");  
+    		}
+    		
+    		else {
+    			startTime.setText("");
+    			endTime.setText("");
+    		}
+    		}
+    	
+    }
+    
+    public void initDone() {
+    	done.setText(task.getDone().isPresent() ? task.getDone().get().getPrettyValue() : "");
+    	done.setStyle("-fx-font-size: 20pt; -fx-text-fill: green");
+    }
+    
+    public void initTag() {
+    	tag.setText(task.getTag().isPresent() ? "Tag     : " + task.getTag().get().getPrettyValue() : "");
+    }
+    
+    public void initPriorityColor() {
+        if (task.isPriorityHigh()) {
+            setTextColor("red");
+        } else if (task.isPriorityMedium()) {
+        	setTextColor("orange");
+        } else if (task.isPriorityLow()) {
+        	setTextColor("green");
+        }
+    }
+    
+    public void setTextColor (String color) {
+    	desc.setStyle("-fx-text-fill: " + color);        
     }
     
     // @@author
