@@ -113,13 +113,14 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     @Subscribe
+    // @@author A0147924X-reused
     private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    	mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+    	mainWindow.getTaskListPanel().scrollTo(event.getTargetIndex());
     }
     
-    // @@author A0147924X
     @Subscribe
+    // @@author A0147924X
     /**
      * Scrolls to a tag when requested
      * @param event Event that requests jumping to a certain tag

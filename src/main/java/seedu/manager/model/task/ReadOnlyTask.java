@@ -18,7 +18,17 @@ public interface ReadOnlyTask {
     Optional<TaskProperty> getEndTime();
     Optional<TaskProperty> getDone();
     Optional<TaskProperty> getTag();
+    
+    /**
+     * Get properties of the task as a Hashmap mapping from TaskProperties to Optional TaskProperty
+     * @return Hashmap representing the task properties
+     */
     HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
+    
+    /**
+     * Get properties of the task as a Hashmap mapping from TaskProperties to Optional Strings
+     * @return Hashmap representing the task properties
+     */
     HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
 
     /**
@@ -97,6 +107,6 @@ public interface ReadOnlyTask {
      */
     public int compareProperty(ReadOnlyTask other, TaskProperties property);
     
-    //@author A0139621H
+    // @author A0139621H
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
 }

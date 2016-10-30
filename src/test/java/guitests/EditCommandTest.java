@@ -22,26 +22,28 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
+        
         TestTask taskToEdit = td.beta;
-        HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
-                taskToEdit.getProperties();
-        
-        // edit desc
-        newProps.put(TaskProperties.DESC, Optional.of(new Desc("Dinner with Guinevere")));
-        
-        TestTask editedTask = new TestTask(newProps);
-        
+        TestTask editedTask = editTaskWithProperty(taskToEdit, TaskProperties.DESC, new Desc("Dinner with Guinevere"));
         assertEditSuccess("edit %1$s Dinner with Guinevere", 2, editedTask, currentList);
         
-        // edit venue
         currentList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, 2), editedTask);
-        newProps.put(TaskProperties.VENUE, Optional.of(new Venue("Avalon")));
         
-        assertEditSuccess("edit %1$s venue Avalon", 7, new TestTask(newProps), currentList);
+        TestTask editedTask1 = editTaskWithProperty(editedTask, TaskProperties.VENUE, new Venue("Avalon"));
+        assertEditSuccess("edit %1$s venue Avalon", 7, editedTask1, currentList);
         
         // invalid index
         commandBox.runCommand("edit " + (currentList.length + 1) + " Some Description");
         assertResultMessage("The task index provided is invalid");
+    }
+    
+    private TestTask editTaskWithProperty(TestTask taskToEdit, TaskProperties property, TaskProperty value) {
+    	HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
+                taskToEdit.getProperties();
+        
+        newProps.put(property, Optional.of(value));
+        
+        return new TestTask(newProps);
     }
     
     // @@author
