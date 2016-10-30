@@ -78,6 +78,6 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		Thread.sleep(300);
 		
 		String resetFilePath = "data/taskmanager.xml";
-		EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(resetFilePath)); // Reset storage location back to default
+		commandBox.runCommand("storage " + resetFilePath); // Reset storage location back to default
 	}
 }

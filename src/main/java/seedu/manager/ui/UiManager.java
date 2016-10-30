@@ -113,16 +113,21 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     @Subscribe
+    // @@author A0147924X-reused
     private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    	mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+    	mainWindow.getTaskListPanel().scrollTo(event.getTargetIndex());
     }
     
-    // @@author A0147924X
     @Subscribe
+    // @@author A0147924X
+    /**
+     * Scrolls to a tag when requested
+     * @param event Event that requests jumping to a certain tag
+     */
     private void handleJumpToTagListRequestEvent(JumpToTagListRequestEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    	mainWindow.getTagListPanel().scrollTo(event.targetIndex);
+    	mainWindow.getTagListPanel().scrollTo(event.getTargetIndex());
     }
     
     // @@author
@@ -133,6 +138,10 @@ public class UiManager extends ComponentManager implements Ui {
     
     // @@author A0147924X
     @Subscribe
+    /**
+     * Updates file path on GUI when it is changed
+     * @param event Event indicating that the file path has changed
+     */
     public void handleConfigFilePathChangedEvent(ConfigFilePathChangedEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, updating status bar"));
     	mainWindow.rerenderStatusBarFooter();

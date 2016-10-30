@@ -6,7 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.StartTime;
@@ -15,7 +17,7 @@ import seedu.manager.model.task.Time;
 // @@author A0147924X
 public class TimeTest {
 	@Test
-	public void parseTime_invalid_throwsError() {
+	public void parseTime_invalid_throwsError() throws IllegalValueException {
 		assertInvalidTime("This is not a time");
 		assertInvalidTime("123");
 		assertInvalidTime("tomorrow and day after tomorrow"); // multiple times
@@ -50,27 +52,48 @@ public class TimeTest {
 		assertParsedTimeEquals(new StartTime("Sat Oct 16 01:00:00 " + timeZone + " 2100"), setAll(2100, Calendar.OCTOBER, 16, 1, 0, true));
 	}
 	
-	private void assertInvalidTime(String time) {
-		try {
-			StartTime startTime = new StartTime(time);
-			System.out.println(startTime);
-			fail("didn't throw exception");
-		} catch (IllegalValueException e) {
-			assertEquals(e.getMessage(), Time.MESSAGE_TIME_CONSTRAINTS);
-		}
+	@Rule
+    public ExpectedException expectedEx = ExpectedException.none();
+	
+	/**
+	 * Asserts that the time is invalid
+	 * @param time Time to be tested
+	 * @throws IllegalValueException
+	 */
+	private void assertInvalidTime(String time) throws IllegalValueException {
+		expectedEx.expect(IllegalValueException.class);
+		expectedEx.expectMessage(Time.MESSAGE_TIME_CONSTRAINTS);
+		new StartTime(time);
 	}
 	
+	/**
+	 * Gets a new calendar instance
+	 * @return Calendar instance
+	 */
 	private Calendar getCalendar() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		return calendar;
 	}
 	
+	/**
+	 * Adds the specified number of days to the calendar
+	 * @param calendar Calendar to which days will be added
+	 * @param numDays Number of days to add
+	 * @return Calendar with days added
+	 */
 	private Calendar addDaysToCal(Calendar calendar, int numDays) {
 		calendar.add(Calendar.DATE, numDays);
 		return calendar;
 	}
 	
+	/**
+	 * Set hour, minute and part of day in a calendar
+	 * @param hour Hour to set
+	 * @param minute Minute to set
+	 * @param isAM Whether the time is AM or PM
+	 * @return Calendar with these properties
+	 */
 	private Calendar setTime(int hour, int minute, boolean isAM) {
 		Calendar calendar = getCalendar();
 		calendar.set(Calendar.HOUR, hour);
@@ -80,17 +103,39 @@ public class TimeTest {
 		return calendar;
 	}
 	
+	/**
+	 * Sets a certain day of the week in the calendar
+	 * @param calendar Calendar in which the day will be set
+	 * @param day Day of the week to set
+	 * @return Calendar with the day set
+	 */
 	private Calendar setDay(Calendar calendar, int day) {
 		calendar.set(Calendar.DAY_OF_WEEK, day);
 		return calendar;
 	}
 	
+	/**
+	 * Sets all of year, month, date, hour, minute and AM/PM in a calendar
+	 * @param year Year to set
+	 * @param month Month to set
+	 * @param date Date to set
+	 * @param hourOfDay Hour to set
+	 * @param minute Minute to set
+	 * @param isAM Whether the time is AM or PM
+	 * @return Calendar with these properties set
+	 */
 	private Calendar setAll(int year, int month, int date, int hourOfDay, int minute, boolean isAM) {
 		Calendar calendar = setTime(hourOfDay, minute, isAM);
 		calendar.set(year, month, date);
 		return calendar;
 	}
 	
+	/**
+	 * Asserts that the parsed time is the same as the time in the calendar
+	 * @param time Parsed time
+	 * @param expected Expected time in a calendar object
+	 * @throws IllegalValueException
+	 */
 	private void assertParsedTimeEquals(Time time, Calendar expected) throws IllegalValueException {
 		assertEquals(expected.getTime().toString(), time.getValue());
 	}

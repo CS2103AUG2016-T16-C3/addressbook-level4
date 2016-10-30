@@ -51,6 +51,10 @@ public class LogicManager extends ComponentManager implements Logic {
     }
     
     @Subscribe
+    /**
+     * Updates parser with the new command words when these are changed
+     * @param event
+     */
     public void handleCommandWordsChangedEvent(CommandWordsChangedEvent event) {
     	parser.compileRegexes();
     }

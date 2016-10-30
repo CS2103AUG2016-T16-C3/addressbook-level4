@@ -63,22 +63,20 @@ public class ExtensionParser {
     
     /**
      * Build task from extensions
+     * @param extensionsStr String containing the extensions to be parsed
+     * @return Hashmap of properties representing the new task
+     * @throws IllegalValueException
      */
-    public HashMap<Task.TaskProperties, Optional<String>> getTaskProperties(String extensionsStr) throws IllegalValueException {
-        HashMap<Task.TaskProperties, Optional<String>> properties = new HashMap<>();
+    public HashMap<TaskProperties, Optional<String>> getTaskProperties(String extensionsStr) 
+    		throws IllegalValueException {
+        HashMap<TaskProperties, Optional<String>> properties = new HashMap<>();
         extensionsStr = extensionsStr.trim();
         
-        for (Task.TaskProperties property : Task.TaskProperties.values()) {
+        for (TaskProperties property : TaskProperties.values()) {
             properties.put(property, Optional.empty());
         }
         
-        Matcher descMatcher = EXTENSIONS_DESC_FORMAT.matcher(extensionsStr);
-        if (descMatcher.find()) {
-            String desc = descMatcher.group().trim();
-            desc = removeEscapingChars(desc);
-            properties.put(TaskProperties.DESC, 
-                    desc.equals("") ? Optional.empty() : Optional.of(desc));
-        }
+        parseDesc(extensionsStr, properties);
         
         Matcher extMatcher = EXTENSIONS_ARGS_FORMAT.matcher(extensionsStr);
         while (extMatcher.find()) {
@@ -89,11 +87,27 @@ public class ExtensionParser {
     }
     
     /**
-     * Parses a single extension
-     * 
+     * Parses the task description into the properties
+     * @param extensionsStr Full string containing the extensions
+     * @param properties The Hashmap of properties to which the description will be added
+     */
+    private void parseDesc(String extensionsStr, HashMap<TaskProperties, Optional<String>> properties) {
+    	Matcher descMatcher = EXTENSIONS_DESC_FORMAT.matcher(extensionsStr);
+        if (descMatcher.find()) {
+            String desc = descMatcher.group().trim();
+            desc = removeEscapingChars(desc);
+            properties.put(TaskProperties.DESC, 
+                    desc.equals("") ? Optional.empty() : Optional.of(desc));
+        }
+    }
+    
+    /**
+     * Parses a single extension given a string containing extension word and arguments
+     * @param extension User input with only one extension and arguments
+     * @param properties The Hashmap of properties to which the new extension will be added
      * @throws IllegalValueException
      */
-    private void parseSingleExtension(String extension, HashMap<Task.TaskProperties, Optional<String>> properties) 
+    private void parseSingleExtension(String extension, HashMap<TaskProperties, Optional<String>> properties) 
             throws IllegalValueException{
     	
         Matcher matcher = EXTENSION_ARGS_FORMAT.matcher(extension);
@@ -122,7 +136,6 @@ public class ExtensionParser {
                 throwExceptionIfDuplicate(properties, TaskProperties.STARTTIME, Commands.EVENT);
                 throwExceptionIfDuplicate(properties, TaskProperties.ENDTIME, Commands.EVENT);
                 addEvent(properties, arguments);
-                //throwExceptionIfTimeInvalid(properties, TaskProperties.STARTTIME, TaskProperties.ENDTIME);
                 break;
             case PRIORITY:
                 throwExceptionIfDuplicate(properties, TaskProperties.PRIORITY, Commands.PRIORITY);
@@ -169,7 +182,7 @@ public class ExtensionParser {
 	 * @param extensionCmd Command that caused duplication.
 	 * @throws IllegalValueException
 	 */
-    private void throwExceptionIfDuplicate(HashMap<Task.TaskProperties, Optional<String>> properties,
+    private void throwExceptionIfDuplicate(HashMap<TaskProperties, Optional<String>> properties,
             							   TaskProperties taskProperty,
             							   Commands extensionCmd) throws IllegalValueException {
         if (properties.get(taskProperty).isPresent()) {
@@ -177,7 +190,7 @@ public class ExtensionParser {
         }
     }
 
-    private void addEvent(HashMap<Task.TaskProperties, Optional<String>> properties, String arguments)
+    private void addEvent(HashMap<TaskProperties, Optional<String>> properties, String arguments)
     		     throws IllegalValueException {
         Matcher matcher = EVENT_ARGS_FORMAT.matcher(arguments);
         
@@ -220,11 +233,12 @@ public class ExtensionParser {
      * @param taskProperty Property to put.
      * @param arguments Value of the property.
      */
-    private void addToProperties(HashMap<Task.TaskProperties, Optional<String>> properties, 
+    private void addToProperties(HashMap<TaskProperties, Optional<String>> properties, 
             					 TaskProperties taskProperty, String arguments) {
         properties.put(taskProperty, arguments.equals("") ? Optional.empty() : Optional.of(arguments));
     }
     
+    // @@author A0148042M
     private void addToTagList(String arguments) throws IllegalValueException {
         boolean isContained = tagList.contains(new Tag(arguments));
         if(!isContained) {

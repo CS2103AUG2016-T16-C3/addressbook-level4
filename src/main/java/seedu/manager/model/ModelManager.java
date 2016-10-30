@@ -82,13 +82,19 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
-    // @@author A0147924X
     @Override
+    /**
+     * @@author A0147924X
+     * Retrieves command words from the user preferences
+     */
     public HashMap<Commands, String> getCommandWords() {
     	return userPrefs.commandWords;
     }
     
     @Override
+    /**
+     * Retrieves extension words from the user preferences
+     */
     public HashMap<Commands, String> getExtensionWords() {
     	return userPrefs.extensionWords;
     }
@@ -124,12 +130,10 @@ public class ModelManager extends ComponentManager implements Model {
 //        indicateTaskManagerChanged();
     }
     
-    // @@author A0147924X
 	@Override
 	public void setSingleCommandWord(String commandToChange, String alias,
 			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
 		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
-		
 	}
 	
 	//=========== Sorted and Filtered Tag List Accessors ===============================================================

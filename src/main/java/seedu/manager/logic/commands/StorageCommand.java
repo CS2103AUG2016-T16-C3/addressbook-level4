@@ -36,7 +36,7 @@ public class StorageCommand extends Command {
 		}
 		
 		String feedbackToUser;
-		if (fileAlreadyExists(filePath)) {
+		if (doesfileAlreadyExist(filePath)) {
 			if (canOverWriteExisting(filePath)) {
 				feedbackToUser = String.format(MESSAGE_ALREADY_EXISTS_SUCCESS, filePath);
 			} else {
@@ -51,7 +51,7 @@ public class StorageCommand extends Command {
 		}
 		
 		EventsCenter.getInstance().post(new StorageLocationChangedEvent(filePath));
-		EventsCenter.getInstance().post(new TaskManagerChangedEvent(model.getTaskManager()));
+		EventsCenter.getInstance().post(new TaskManagerChangedEvent(model.getTaskManager())); // save to new location
 		return new CommandResult(feedbackToUser);
 	}
 	
@@ -59,7 +59,7 @@ public class StorageCommand extends Command {
 		return filePath.endsWith(".xml") && !filePath.equals("");
 	}
 	
-	private boolean fileAlreadyExists(String filePath) {
+	private boolean doesfileAlreadyExist(String filePath) {
 		File file = new File(filePath);
 		return file.exists();
 	}

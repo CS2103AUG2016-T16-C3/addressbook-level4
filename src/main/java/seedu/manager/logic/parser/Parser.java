@@ -34,9 +34,14 @@ public class Parser {
     private HashMap<Commands, String> commandWords = null;
 
     // @@author A0147924X
-    public Parser(HashMap<Commands, String> commandWordsIn, HashMap<Commands, String> extensionWordsIn) {
-    	commandWords = commandWordsIn;
-    	extParser = new ExtensionParser(extensionWordsIn);
+    /**
+     * Constructs a parser given command words and extension words
+     * @param commandWords
+     * @param extensionWords
+     */
+    public Parser(HashMap<Commands, String> commandWords, HashMap<Commands, String> extensionWords) {
+    	this.commandWords = commandWords;
+    	extParser = new ExtensionParser(extensionWords);
     }
     
     /**
@@ -137,7 +142,6 @@ public class Parser {
 	/**
 	 * @@author
      * Parses arguments in the context of the add task command.
-     *
      * @param args full command args string
      * @return the prepared command 
      */
@@ -153,7 +157,6 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the delete task command.
-     *
      * @param args full command args string
      * @return the prepared command
      */
@@ -170,7 +173,6 @@ public class Parser {
     
     /**
      * Parses arguments in the context of the edit task command.
-     *
      * @param args full command args string
      * @return the prepared command 
      */
@@ -230,8 +232,9 @@ public class Parser {
     }
 
     /**
+     * @@author A0139621H
+     * 
      * Parses arguments in the context of the find task command.
-     *
      * @param args full command args string
      * @return the prepared command
      */

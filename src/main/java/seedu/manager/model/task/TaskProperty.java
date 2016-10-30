@@ -8,38 +8,37 @@ import seedu.manager.commons.exceptions.IllegalValueException;
  *
  */
 public abstract class TaskProperty implements Comparable<TaskProperty> {
-    private static String MESSAGE_CONSTRAINTS;
-    private static String VALIDATION_REGEX;
+    private String MESSAGE_CONSTRAINTS;
+    private String VALIDATION_REGEX;
     
     /**
      * Create a TaskProperty given a string representing its value, a validation regex and a constraints message
-     * 
      * @param property Value of the property. 
-     * @param validationRegex
-     * @param messageConstraints
+     * @param validationRegex Regex to validate against
+     * @param messageConstraints Message with the constraints to show if property is not valid
      * @throws IllegalValueException
      */
     public TaskProperty(String property, String validationRegex, String messageConstraints) throws IllegalValueException {
         assert property != null;
         MESSAGE_CONSTRAINTS = messageConstraints;
         VALIDATION_REGEX = validationRegex;
-        if (!isValid(property, VALIDATION_REGEX)) {
-            throw new IllegalValueException(this.getMessageConstraints());
+        if (!isValid(property)) {
+            throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
     }
     
     /**
-     * Tests a string against the given regex
-     * 
+     * Tests whether a string valid or not
      * @param test
-     * @param validationRegex
+     * @return Whether the string matches or not
      */
-    public boolean isValid(String test, String validationRegex) {
-        return test.matches(validationRegex);
+    public boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
     
     /**
      * Gets value of property as a string
+     * @return Value as string
      */
     public String getValue() {
         return this.toString();
@@ -47,6 +46,7 @@ public abstract class TaskProperty implements Comparable<TaskProperty> {
     
     /**
      * Gets value of property as a pretty string, for displaying on the UI
+     * @return Value as pretty string
      */
     public String getPrettyValue() {
         return this.toPrettyString();

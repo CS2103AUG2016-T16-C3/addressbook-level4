@@ -108,10 +108,10 @@ public class Config {
     // @@author A0147924X
     @Subscribe
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
-    	setTaskManagerFilePath(event.filePath);
+    	setTaskManagerFilePath(event.getFilePath());
     	try {
 			ConfigUtil.saveConfig(this, DEFAULT_CONFIG_FILE);
-			EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(event.filePath));
+			EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(event.getFilePath()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

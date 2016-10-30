@@ -16,12 +16,12 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 /**
  * @@author A0147924X
  * Represents a tasks time 
- *
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public abstract class Time extends TaskProperty {
 	public static final String MESSAGE_TIME_CONSTRAINTS =
             "Invalid Time. While times are quite flexible, don't forget that I'm just a computer. :)";
-    public static final String TIME_VALIDATION_REGEX = ".+"; // Time validation done by timeParser
+    public static final String TIME_VALIDATION_REGEX = ".+";
     
     private static final Pattern DATE_STRING_FORMAT_REGEX = 
     		Pattern.compile("([A-Z][a-z]{2} ){2}\\d{2} \\d{2}:\\d{2}:\\d{2} [A-Z]{3} \\d{4}");
@@ -43,7 +43,7 @@ public abstract class Time extends TaskProperty {
     public Time(String time) throws IllegalValueException {
         super(time, TIME_VALIDATION_REGEX, MESSAGE_TIME_CONSTRAINTS);
         
-        // To parse strings created by Date.toString
+        // To parse strings created by Date.toString()
         Matcher matcher = DATE_STRING_FORMAT_REGEX.matcher(time);
         if (matcher.matches()) {
 			try {
@@ -55,6 +55,29 @@ public abstract class Time extends TaskProperty {
 			value = parseTime(time);
 		}
     }
+    
+    @Override
+    public boolean isValid(String test) {
+    	Matcher matcher = DATE_STRING_FORMAT_REGEX.matcher(test);
+        if (matcher.matches()) {
+			try {
+				DATE_FORMAT.parse(test);
+			} catch (ParseException e) {
+				try {
+					parseTime(test);
+				} catch (IllegalValueException e1) {
+					return false;
+				}
+			}
+		} else {
+			try {
+				parseTime(test);
+			} catch (IllegalValueException e) {
+				return false;
+			}
+		}
+        return true;
+    };
 
     @Override
     public String toString() {
@@ -75,8 +98,7 @@ public abstract class Time extends TaskProperty {
     
     /**
      * Parses the time string using PrettyTime
-     * 
-     * @param time
+     * @param time Time to be parsed
      * @throws IllegalValueException
      */
     private Date parseTime(String time) throws IllegalValueException {
@@ -93,6 +115,10 @@ public abstract class Time extends TaskProperty {
     	return groups.get(0);
     }
     
+    /**
+     * @@author A0148042M
+     * @return this property's time
+     */
     public Date getTime() {
         return value;
     }
@@ -111,4 +137,12 @@ public abstract class Time extends TaskProperty {
 			return false;
 		}
     }
+
+	public boolean isBefore(Date now) {
+	
+		if (value.before(now)) {
+			return true;
+		}
+		return false;
+	}
 }
