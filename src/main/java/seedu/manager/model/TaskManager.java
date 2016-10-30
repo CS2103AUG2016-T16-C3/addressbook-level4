@@ -1,5 +1,6 @@
 package seedu.manager.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -52,7 +53,21 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     // @@author A0148042M
     public ObservableList<Tag> getTags() {
-        return tags.getInternalList();
+//         return tags.getInternalList();
+        return getTagsFromTaskList(this.getTasks());
+    }
+    
+    public ObservableList<Tag> getTagsFromTaskList(ObservableList<Task> taskList) {
+        ObservableList<Tag> tagList = FXCollections.observableArrayList();
+        for(int i = 0;i < taskList.size();i++) {
+            if(taskList.get(i).getTag().isPresent()) {
+                Tag tag = (Tag) taskList.get(i).getTag().get();
+                if(!tagList.contains(tag)) {
+                    tagList.add(tag);
+                }
+            }
+        }
+        return tagList;
     }
 
     // @@author
