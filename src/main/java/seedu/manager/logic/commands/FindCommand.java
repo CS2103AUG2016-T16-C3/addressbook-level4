@@ -40,6 +40,7 @@ public class FindCommand extends Command {
         this.foundProperties = foundProperties;
     }
     
+    //@@author A0139621H
     @Override
     public CommandResult execute() {
         try {
@@ -66,7 +67,7 @@ public class FindCommand extends Command {
      * Builds a TaskProperty object using a value from the TaskProperties enum and a value
      * @param property that should be built
      * @param value of the property
-     * @return
+     * @return value of the property if found
      */
     private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
         if (!value.isPresent()) {

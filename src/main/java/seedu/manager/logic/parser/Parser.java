@@ -229,6 +229,8 @@ public class Parser {
     }
 
     /**
+     * @@author A0139621H
+     * 
      * Parses arguments in the context of the find task command.
      * @param args full command args string
      * @return the prepared command
