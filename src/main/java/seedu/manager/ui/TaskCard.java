@@ -55,6 +55,8 @@ public class TaskCard extends UiPart{
         endTime.setText(task.getEndTime().map(p -> p.getPrettyValue()).orElse(""));
         done.setText(task.getDone().map(p -> p.getPrettyValue()).orElse(""));
         tag.setText(task.getTag().map(p -> p.getPrettyValue()).orElse(""));
+        
+        done.setStyle("-fx-font-size: 20pt; -fx-text-fill: green");
     }
     
     // @@author
