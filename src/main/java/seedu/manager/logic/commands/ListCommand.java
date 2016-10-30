@@ -4,7 +4,7 @@ package seedu.manager.logic.commands;
 /**
  * Lists all tasks in the task manager to the user.
  */
-public class ListCommand extends Command {
+public class ListCommand extends Command{
 
     public static final String COMMAND_WORD = "list";
 

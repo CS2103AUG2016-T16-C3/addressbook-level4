@@ -18,7 +18,7 @@ import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
  * Marks a task identified using it's last displayed index as done.
  * 
  */
-public class DoneCommand extends Command {
+public class DoneCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "done";
 
@@ -28,8 +28,12 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Marked Task as Done: %1$s";
+    
+    public static final String UNDO_SUCCESS = "Unmarked the Task to Undone."; 
 
     public final int targetIndex;
+    
+    public Task taskToUnmark;
 
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -52,6 +56,7 @@ public class DoneCommand extends Command {
 
         try {
             Task markedTask = new Task(propsToEdit);
+            taskToUnmark = markedTask;
             model.deleteTask(taskToMark);
             model.addTask(markedTask);
             
@@ -59,13 +64,31 @@ public class DoneCommand extends Command {
             assert newIndex != -1;
             
             EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(newIndex));
+
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {
 			return new CommandResult(e.getMessage());
 		}
-
+        this.addUndo(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
     }
 
+	@Override
+	public CommandResult undoIt() {
+	    assert model != null;
+	    
+	    HashMap<TaskProperties, Optional<String>> propsToEdit = taskToUnmark.getPropertiesAsStrings();
+        propsToEdit.put(TaskProperties.DONE, Optional.of("No"));
+
+        try {
+            model.deleteTask(taskToUnmark);
+            model.addTask(new Task(propsToEdit));
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } catch (IllegalValueException e) {
+			return new CommandResult(e.getMessage());
+        }
+		return new CommandResult (UNDO_SUCCESS);
+	}
 }

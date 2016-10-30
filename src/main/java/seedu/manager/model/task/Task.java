@@ -100,7 +100,6 @@ public class Task implements ReadOnlyTask {
         return clone;
     }
     
-
     /**
      * Builds a TaskProperty object using a value from the TaskProperties enum and a value
      * @param property that should be built
@@ -179,7 +178,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                || (other instanceof ReadOnlyTask // instance of handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
     

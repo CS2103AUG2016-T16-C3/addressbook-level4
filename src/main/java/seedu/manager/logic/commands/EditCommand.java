@@ -20,7 +20,7 @@ import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
  * @author varungupta
  *
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements UndoableCommand {
     
     public static final String COMMAND_WORD = "edit";
 
@@ -31,6 +31,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_PARAMS = "The new parameters are the same as before";
+    public static final String UNDO_SUCCESS = "Undone the previous edit: %1$s";
 
     public final int targetIndex;
     
@@ -41,8 +42,10 @@ public class EditCommand extends Command {
         this.targetIndex = targetIndex;
         this.editedProperties = editedProperties;
     }
-    
-    // @@author A0147924X
+
+    public Task newTask;
+    public Task oldTask;
+
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -60,7 +63,9 @@ public class EditCommand extends Command {
         	HashMap<TaskProperties, Optional<String>> newProperties = 
         		buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties);
         	
-            Task newTask = new Task(newProperties);
+            newTask = new Task(newProperties);
+            oldTask = new Task(taskToEdit);
+            
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             
@@ -68,6 +73,7 @@ public class EditCommand extends Command {
             assert newIndex != -1;
             
             EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(newIndex));
+            this.addUndo(this);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
         } catch (TaskNotFoundException e) {
@@ -102,4 +108,22 @@ public class EditCommand extends Command {
         
         return newProperties;
     }
+    
+    @Override
+    public CommandResult undoIt() {
+    	assert model != null;
+    	
+    	try {
+    		model.addTask(oldTask);
+    		model.deleteTask(newTask);
+    		
+            return new CommandResult(String.format(UNDO_SUCCESS, oldTask));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult("The target task cannot be missing");
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_PARAMS);
+        }
+    	
+    }
+    
 }

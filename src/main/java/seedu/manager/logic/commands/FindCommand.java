@@ -52,6 +52,7 @@ public class FindCommand extends Command {
             return new CommandResult(e.getMessage());
         }
     }
+
     
     private HashMap<TaskProperties, Optional<TaskProperty>> buildProperties(HashMap<TaskProperties, Optional<String>> propertiesStrings) throws IllegalValueException {
         HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();

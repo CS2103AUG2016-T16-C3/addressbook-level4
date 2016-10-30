@@ -22,14 +22,19 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		String unWriteableFilePath = TestUtil.getFilePathInSandboxFolder("unwritable.xml");
 		File unWriteableFile = new File(unWriteableFilePath);
 		File unWriteableFolder = new File(unWriteableFilePath).getParentFile();
+		Thread.sleep(500);
 		unWriteableFolder.setWritable(false);
+
+		Thread.sleep(500);
+		commandBox.runCommand("storage " + unWriteableFilePath);
+		assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
+
 		Thread.sleep(300);
 		if (!System.getProperty("os.name").startsWith("Windows")) {
 			// Test fails on windows, cannot restrict access to folders
 			commandBox.runCommand("storage " + unWriteableFilePath);
 			assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
 		}
-		
 		
 		unWriteableFolder.setWritable(true);
 		Thread.sleep(300);

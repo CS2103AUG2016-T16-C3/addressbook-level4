@@ -586,6 +586,17 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedTM.getTaskList());
     }
+    
+    @Test
+    public void execute_undo_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeUndone = helper.lancelot();
+        
+        // execute command and verify result
+        logic.execute(helper.generateAddCommand(toBeUndone));
+        assertCommandBehavior("undo",String.format(AddCommand.UNDO_SUCCESS, toBeUndone));
+    }
 
 
     @Test

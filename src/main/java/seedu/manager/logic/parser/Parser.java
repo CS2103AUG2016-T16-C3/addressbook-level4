@@ -112,6 +112,9 @@ public class Parser {
         case SORT:
         	return new SortCommand();
         
+        case UNDO:
+        	return new UndoCommand();
+
         case ALIAS:
         	return prepareAlias(arguments);
 

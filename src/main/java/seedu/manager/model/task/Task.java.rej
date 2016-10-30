@@ -1,0 +1,12 @@
+diff a/src/main/java/seedu/manager/model/task/Task.java b/src/main/java/seedu/manager/model/task/Task.java	(rejected hunks)
+@@ -19,7 +19,10 @@
+     
+     public static final String START_AFTER_END = "Start time should be before end time.";
+     
++    private static int maxId = 0;
++    
+     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
++    private int id;
+ 
+     /**
+      * Build task from properties represented as Strings
