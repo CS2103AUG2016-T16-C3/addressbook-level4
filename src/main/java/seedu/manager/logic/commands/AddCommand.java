@@ -53,12 +53,10 @@ public class AddCommand extends Command implements UndoableCommand {
             if (toAdd.getTag().isPresent()) {
                 model.addTag((Tag) toAdd.getTag().get());
             }
-            int addedIndex = model.getIndexOfTask(toAdd);
-            assert addedIndex != -1;
-            
-            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(addedIndex));
+            jumpToTask(toAdd);
             
             this.addUndo(this);
+            
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -67,14 +65,13 @@ public class AddCommand extends Command implements UndoableCommand {
     
     @Override
 	public CommandResult undoIt() {
-    	// for undoCommand
-		 assert model != null;
-	        try {
-	            model.deleteTask(toAdd);
-	        } catch (TaskNotFoundException pnfe) {
-	            assert false : "The target task cannot be missing";
-	        }
+    	assert model != null;
+        try {
+            model.deleteTask(toAdd);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
 
-	        return new CommandResult(String.format(UNDO_SUCCESS, toAdd));
-	    }
+        return new CommandResult(String.format(UNDO_SUCCESS, toAdd));
+    }
 }

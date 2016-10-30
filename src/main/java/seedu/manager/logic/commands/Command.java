@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.model.Model;
+import seedu.manager.model.task.ReadOnlyTask;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -46,6 +48,19 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    /**
+     * @@author A0147924X
+     * Jumps to the given task
+     * @param task Task to jump to
+     */
+    protected void jumpToTask(ReadOnlyTask task) {
+    	int taskIndex = model.getIndexOfTask(task);
+        assert taskIndex != -1;
+        
+        EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(taskIndex));
+    }
+    
+    // @@author
     public void addUndo(UndoableCommand newCommand) {
     	if (newCommand != null)
     	undoList.add(newCommand);

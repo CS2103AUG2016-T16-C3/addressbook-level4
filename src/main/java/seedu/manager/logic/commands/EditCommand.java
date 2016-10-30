@@ -68,11 +68,8 @@ public class EditCommand extends Command implements UndoableCommand {
             
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
+            jumpToTask(newTask);
             
-            int newIndex = model.getIndexOfTask(newTask);
-            assert newIndex != -1;
-            
-            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(newIndex));
             this.addUndo(this);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
@@ -116,6 +113,7 @@ public class EditCommand extends Command implements UndoableCommand {
     	try {
     		model.addTask(oldTask);
     		model.deleteTask(newTask);
+    		jumpToTask(oldTask);
     		
             return new CommandResult(String.format(UNDO_SUCCESS, oldTask));
         } catch (TaskNotFoundException e) {
