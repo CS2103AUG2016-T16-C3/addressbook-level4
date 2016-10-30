@@ -501,6 +501,7 @@ public class LogicManagerTest {
                 String.format(DoneCommand.MESSAGE_SUCCESS, doneTask),
                 expectedTM,
                 expectedTM.getTaskList());
+        assertEquals(2, targetedTaskJumpIndex);
     }
 
     // @@author
