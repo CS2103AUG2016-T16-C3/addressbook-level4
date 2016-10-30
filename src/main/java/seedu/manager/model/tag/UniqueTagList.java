@@ -130,6 +130,10 @@ public class UniqueTagList implements Iterable<Tag> {
     public ObservableList<Tag> getInternalList() {
         return internalList;
     }
+    
+    public boolean remove(Tag tag) {
+        return internalList.remove(tag);
+    }
 
     @Override
     public boolean equals(Object other) {

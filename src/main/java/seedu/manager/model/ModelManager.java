@@ -110,6 +110,11 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void deleteTag(Optional<TaskProperty> tag) {
+        taskManager.removeTag((Tag) tag.get());
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {

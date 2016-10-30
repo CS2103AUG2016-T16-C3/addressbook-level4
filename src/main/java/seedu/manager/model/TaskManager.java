@@ -59,13 +59,18 @@ public class TaskManager implements ReadOnlyTaskManager {
         return combineTwoList(internalTagList, tagListFromTaskList);
     }
     
-    public ObservableList<Tag> combineTwoList(ObservableList<Tag> internalTagList, ObservableList<Tag> tagListFromTaskList) {
+    public ObservableList<Tag> combineTwoList(ObservableList<Tag> internalTagList, 
+            ObservableList<Tag> tagListFromTaskList) {
         ObservableList<Tag> combinedTagList = internalTagList;
-        for(int i = 0;i < tagListFromTaskList.size();i++) {
-            if(!internalTagList.contains(tagListFromTaskList.get(i))) {
-                internalTagList.add(tagListFromTaskList.get(i));
+        
+        if(internalTagList.size() == 0) {
+            for(int i = 0;i < tagListFromTaskList.size();i++) {
+                if(!internalTagList.contains(tagListFromTaskList.get(i))) {
+                    // internalTagList.add(tagListFromTaskList.get(i));
+                    combinedTagList.add(tagListFromTaskList.get(i));
+                }
             }
-        }
+        } 
         
         return combinedTagList;
     }
@@ -123,6 +128,22 @@ public class TaskManager implements ReadOnlyTaskManager {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public void removeTag(Tag tag) {
+        int count = 0;
+        ObservableList<Task> taskList = tasks.getInternalList();
+        for(int i = 0;i < tasks.getSize();i++) {
+            if(taskList.get(i).getTag().isPresent()) {
+                if(((Tag) taskList.get(i).getTag().get()).equals(tag)) {
+                    count++;
+                }
+            }
+        }
+        
+        if(count == 1) {
+            tags.remove(tag);
         }
     }
 
