@@ -23,12 +23,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     public void done() throws IllegalValueException {
     	TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToMark = td.charlie;
-        HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
-                taskToMark.getProperties();
-        
-        // mark as done
-        newProps.put(TaskProperties.DONE, Optional.of(new Done("Yes")));
-        TestTask markedTask = new TestTask(newProps);
+        TestTask markedTask = markAsDone(taskToMark);
         assertDoneSuccess("done %1$s", 3, markedTask, currentList);
         
         // propagate changes to current list
@@ -36,16 +31,20 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
         // mark another as done
         TestTask taskToMark1 = td.alpha;
-        HashMap<TaskProperties, Optional<TaskProperty>> newProps1 = 
-                taskToMark1.getProperties();
-        
-        newProps1.put(TaskProperties.DONE, Optional.of(new Done("Yes")));
-        TestTask markedTask1 = new TestTask(newProps1);
+        TestTask markedTask1 = markAsDone(taskToMark1);
         assertDoneSuccess("done %1$s", 1, markedTask1, currentList);
         
         // invalid index
         commandBox.runCommand("done " + (currentList.length + 1));
         assertResultMessage("The task index provided is invalid");
+    }
+    
+    private TestTask markAsDone(TestTask taskToMark) throws IllegalValueException {
+    	HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
+                taskToMark.getProperties();
+        
+        newProps.put(TaskProperties.DONE, Optional.of(new Done("Yes")));
+        return new TestTask(newProps);
     }
     
     private void assertDoneSuccess(String doneCommand, int index, TestTask markedTask, TestTask... currentList) {

@@ -18,7 +18,6 @@ public class Done extends TaskProperty {
     /**
      * @@author A0147924X
      * Validates given done indicator.
-     *
      * @throws IllegalValueException if given done indicator address string is invalid.
      */
     public Done(String done) throws IllegalValueException {
@@ -29,6 +28,11 @@ public class Done extends TaskProperty {
     @Override
     public String toString() {
         return value ? "Yes" : "No";
+    }
+    
+    @Override
+    public String getPrettyValue() {
+        return value ? "\u2713" : "";
     }
     
     /**

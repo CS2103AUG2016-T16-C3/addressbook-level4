@@ -8,10 +8,14 @@ import seedu.manager.commons.events.BaseEvent;
  *
  */
 public class ConfigFilePathChangedEvent extends BaseEvent {
-	public final String filePath;
+	private final String filePath;
 	
 	public ConfigFilePathChangedEvent(String filePath) {
 		this.filePath = filePath;
+	}
+	
+	public String getFilePath() {
+		return filePath;
 	}
 	
 	@Override

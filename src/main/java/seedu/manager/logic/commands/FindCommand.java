@@ -40,6 +40,7 @@ public class FindCommand extends Command {
         this.foundProperties = foundProperties;
     }
     
+    //@@author A0139621H
     @Override
     public CommandResult execute() {
         try {
@@ -66,7 +67,7 @@ public class FindCommand extends Command {
      * Builds a TaskProperty object using a value from the TaskProperties enum and a value
      * @param property that should be built
      * @param value of the property
-     * @return
+     * @return value of the property if found
      */
     private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
         if (!value.isPresent()) {
@@ -95,6 +96,10 @@ public class FindCommand extends Command {
     }
     
     // @@author A0147924X
+    /**
+     * If tag is present in the search properties, then raises an event requesting jump to that tag 
+     * @param properties
+     */
     private void jumpToTagIfPresent(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
     	if (properties.get(TaskProperties.TAG).isPresent()) {
 			int targetIndex = model.getIndexOfTag((Tag) properties.get(TaskProperties.TAG).get());

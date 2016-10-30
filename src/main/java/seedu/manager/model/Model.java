@@ -41,8 +41,15 @@ public interface Model {
     /** Adds the given tag */
     void addTag(Tag tag);
     
-    // @@author A0147924X
-    /** Change alias for a certain command */
+    /**
+     * @@author A0147924X
+     * Changes a command to a given alias in the user preferences
+	 * @param commandToChange The command which should be aliased
+	 * @param alias The alias which will be assigned to the command
+	 * @param messageNoMatch Message used in error which will be thrown if there is no matching command
+	 * @param messageAliasAlreadyTaken Message used in error which will be thrown if alias is already taken
+	 * @throws IllegalValueException
+     */
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
     
@@ -50,8 +57,12 @@ public interface Model {
     /** Returns the sorted and filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getSortedFilteredTagList();
     
-    // @@author A0147924X
-    /** Returns index of task in sorted and filtered list */
+    /**
+     * @@author A0147924X
+     * Get the index of a specified tag in the list currently being displayed
+     * @param tag Tag whose index will be returned
+     * @return index of the tag
+     */
     int getIndexOfTag(Tag tag);
     
     // @@author
@@ -68,9 +79,13 @@ public interface Model {
     /** Sorts the sorted and filtered task list by priority */
     void sortSortedFilteredTaskListByPriority();
     
-    /** Unsort the sorted and filtered task list */
+    /** Unsorts the sorted and filtered task list */
     void unSortSortedFilteredTaskList();
     
-    /** Returns index of task in sorted and filtered list */
+    /** 
+     * Get the index of a specified tag in the list currently being displayed
+     * @param task Task whose index will be returned
+     * @return index of the task 
+     */
     int getIndexOfTask(ReadOnlyTask task);
 }

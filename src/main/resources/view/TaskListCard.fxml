@@ -38,10 +38,20 @@
                         <Label fx:id="venue" styleClass="cell_small_label" text="\$venue" />
                         <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
                         <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
-                        <Label fx:id="done" styleClass="cell_small_label" text="\$done" />
                         <Label fx:id="tag" styleClass="cell_small_label" text="\$tag" />
                     </children>
                 </VBox>
+                <HBox alignment="CENTER_RIGHT">
+                	<padding>
+                        <Insets bottom="5" left="15" right="5" top="40" />
+                    </padding>
+                    
+                    <children>
+ 	                	<HBox>
+ 	                    	<Label fx:id="done" styleClass="cell_small_label" text="\$done" />
+                    	</HBox>
+                    </children>
+                </HBox>
             </children>
          <rowConstraints>
             <RowConstraints />

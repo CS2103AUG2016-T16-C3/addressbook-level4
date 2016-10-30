@@ -43,6 +43,7 @@ public class TaskCard extends UiPart{
     }
 
     @FXML
+    // @@author A0147924X
     public void initialize() {
     	initText();
     	initId();
@@ -101,6 +102,7 @@ public class TaskCard extends UiPart{
     
     public void initDone() {
     	done.setText(task.getDone().isPresent() ? task.getDone().get().getPrettyValue() : "");
+    	done.setStyle("-fx-font-size: 20pt; -fx-text-fill: green");
     }
     
     public void initTag() {
@@ -118,9 +120,10 @@ public class TaskCard extends UiPart{
     }
     
     public void setTextColor (String color) {
-    	desc.setStyle("-fx-text-fill: " + color);
+    	desc.setStyle("-fx-text-fill: " + color);        
     }
-
+    
+    // @@author
     public HBox getLayout() {
         return cardPane;
     }

@@ -9,10 +9,14 @@ import seedu.manager.commons.events.BaseEvent;
  */
 public class StorageLocationChangedEvent extends BaseEvent {
 	
-	public final String filePath;
+	private final String filePath;
 	
 	public StorageLocationChangedEvent(String filePath) {
 		this.filePath = filePath;
+	}
+	
+	public String getFilePath() {
+		return filePath;
 	}
 	
 	@Override

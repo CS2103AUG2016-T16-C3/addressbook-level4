@@ -28,8 +28,8 @@ public class SortCommandTest extends TaskManagerGuiTest {
         assertSortSuccess(true);
 	}
 	
-	private void assertSortSuccess(boolean runSortCommand) {
-        if (runSortCommand) {
+	private void assertSortSuccess(boolean shouldRunSortCommand) {
+        if (shouldRunSortCommand) {
         	commandBox.runCommand("sort");
 		}
         
@@ -37,7 +37,7 @@ public class SortCommandTest extends TaskManagerGuiTest {
         
         assertTrue(isSorted(priorityComparator, taskListPanel.getListView().getItems()));
         
-        if (runSortCommand) {
+        if (shouldRunSortCommand) {
         	assertResultMessage(SortCommand.MESSAGE_SUCCESS);
 		}
     }

@@ -69,6 +69,11 @@ public class UserPrefs {
     	return extensionWords;
     }
     
+    /**
+     * Sets command words given 2 arrays representing the commands and their respective keywords
+     * @param commands Array of commands
+     * @param commandStrings Array of keywords
+     */
     public void setCommandWords(Commands[] commands, String[] commandStrings) {
     	assert commands.length == commandStrings.length;
     	
@@ -78,6 +83,11 @@ public class UserPrefs {
 		}
 	}
     
+    /**
+     * Sets extension words given 2 arrays representing the extensions and their respective keywords
+     * @param commands Array of extensions
+     * @param commandStrings Array of keywords
+     */
     public void setExtensionsWords(Commands[] commands, String[] commandStrings) {
     	assert commands.length == commandStrings.length;
     	
@@ -87,6 +97,14 @@ public class UserPrefs {
     	}
     }
     
+    /**
+     * Change alias of a certain command
+     * @param commandToChange Command whose alias will be changed
+     * @param alias The new alias for the command
+     * @param messageNoMatch Message used in error which will be thrown if there is no matching command
+	 * @param messageAliasAlreadyTaken Message used in error which will be thrown if alias is already taken
+     * @throws IllegalValueException
+     */
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
     	
@@ -102,6 +120,13 @@ public class UserPrefs {
     	EventsCenter.getInstance().post(new UserPrefsChangedEvent(this));
     }
     
+    /**
+     * Gets the command that matches with the input command
+     * @param commandToChange Command that will be matched against
+     * @param messageNoMatch Message used in error which will be thrown if there is no matching command 
+     * @return Command which matches the input command
+     * @throws IllegalValueException
+     */
     private Commands getMatchingCommand(String commandToChange, String messageNoMatch) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
 			if (commandWords.containsKey(command) && commandWords.get(command).equals(commandToChange)) {
@@ -114,6 +139,13 @@ public class UserPrefs {
     	throw new IllegalValueException(messageNoMatch);
     }
     
+    /**
+     * Throws an exception if the alias has already been taken by a command other than the matched command
+     * @param matchedCommand Command that user wants to alias
+     * @param alias New alias for the command
+     * @param messageAliasAlreadyTaken Message used in error which will be thrown if alias is already taken
+     * @throws IllegalValueException
+     */
     private void throwExceptionIfAliasAlreadyExists(Commands matchedCommand, String alias, String messageAliasAlreadyTaken)
     		throws IllegalValueException {
     	for (Commands command : Commands.values()) {
@@ -121,7 +153,7 @@ public class UserPrefs {
 				if (commandWords.containsKey(command) && commandWords.get(command).equals(alias)) {
 					throw new IllegalValueException(String.format(messageAliasAlreadyTaken, command));
 				} else if (extensionWords.containsKey(command) && extensionWords.get(command).equals(alias)) {
-					
+					throw new IllegalValueException(String.format(messageAliasAlreadyTaken, command));
 				}
 			}
 		}
