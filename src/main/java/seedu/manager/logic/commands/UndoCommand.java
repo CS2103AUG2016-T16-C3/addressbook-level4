@@ -4,9 +4,10 @@ public class UndoCommand extends Command {
     
 	public static final String COMMAND_WORD = "undo";
 	
-	public static final String NO_UNDOABLE_COMMANDS = "Sorry. the undo_command list is empty.";
+	public static final String NO_UNDOABLE_COMMANDS = "Sorry, there are no commands to undo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo your last undoable step. e.g. add, delete or edit.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo your last undoable step, "
+    		+ "i.e. add, delete, edit, done, alias and sort.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_UNDO_MESSAGE = "Typed in \"undo\" to the input box.";
