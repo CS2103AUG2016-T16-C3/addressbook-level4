@@ -18,7 +18,6 @@ public class Desc extends TaskProperty {
     /**
      * @@author A0147924X
      * Validates given desc.
-     *
      * @throws IllegalValueException if given desc string is invalid.
      */
     public Desc(String desc) throws IllegalValueException {
@@ -59,7 +58,7 @@ public class Desc extends TaskProperty {
         return false;
     }
 
-    //@@author
+    // @@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -9,6 +9,7 @@ import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.events.ui.JumpToTagListRequestEvent;
 import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
+import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
 import seedu.manager.logic.commands.*;
@@ -20,6 +21,7 @@ import seedu.manager.model.ReadOnlyTaskManager;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.storage.StorageManager;
+import seedu.manager.testutil.TestTask;
 
 import org.junit.After;
 import org.junit.Before;
@@ -67,12 +69,12 @@ public class LogicManagerTest {
     
     @Subscribe
     private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent je) {
-    	targetedTaskJumpIndex = je.targetIndex;
+    	targetedTaskJumpIndex = je.getTargetIndex();
     }
     
     @Subscribe
     private void handleJumpToTagListRequestEvent(JumpToTagListRequestEvent je) {
-    	targetedTagJumpIndex = je.targetIndex;
+    	targetedTagJumpIndex = je.getTargetIndex();
     }
 
     @Before
@@ -188,7 +190,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_only_desc_successful() throws Exception {
+    public void execute_addOnlyDesc_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.guinevere();
@@ -203,7 +205,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_descContainsKeyword_successful() throws Exception {
+    public void execute_addDescContainsKeyword_successful() throws Exception {
     	// setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.morgana();
@@ -218,7 +220,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_containsEscapedKeyword_successful() throws Exception {
+    public void execute_addContainsEscapedKeyword_successful() throws Exception {
     	// setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.challenge();
@@ -287,7 +289,6 @@ public class LogicManagerTest {
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedTM,
                 expectedTM.getTaskList());
-
     }
     
     // @@author A0147924X
@@ -295,20 +296,16 @@ public class LogicManagerTest {
     public void execute_addAfterSorting_successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
     	Task toBeAdded = helper.guinevere();
-    	model.addTask(helper.generateTask(1));
-    	model.addTask(helper.generateTask(2));
-    	model.addTask(helper.generateTask(3));
-    	
-    	logic.execute("sort");
+    	helper.addToModel(model, 3);
     	
     	TaskManager expectedTM = new TaskManager();
-        expectedTM.addTask(helper.generateTask(1));
-        expectedTM.addTask(helper.generateTask(2));
-        expectedTM.addTask(helper.generateTask(3));
+    	helper.addToTaskManager(expectedTM, 3);
         expectedTM.addTask(toBeAdded);
         
         List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
         expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        
+        logic.execute("sort");
         
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
@@ -319,40 +316,52 @@ public class LogicManagerTest {
         assertEquals(expectedList.indexOf(toBeAdded), targetedTaskJumpIndex);
     }
     
-    // @@author
     @Test
-    public void execute_edit_invalidArgsFormat_errorMessageShown() throws Exception {
+    public void execute_editInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("edit", expectedMessage);
     }
 
-    // @@author A0147924X
     @Test
-    public void execute_edit_indexInvalid_errorMessageShown() throws Exception {
+    public void execute_editIndexInvalid_errorMessageShown() throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         assertCommandBehavior("edit 52 Dinner with Arthur", expectedMessage);
         assertCommandBehavior("edit 10 Dinner with Arthur", expectedMessage);
     }
 
     @Test
-    public void execute_edit_invalidFromToFormat() throws Exception {
+    public void execute_editInvalidFromToFormat_errorMessage() throws Exception {
         String expectedMessage = ExtensionParser.EXTENSION_FROM_TO_INVALID_FORMAT;
         assertCommandBehavior("edit 1 from 7:30-8:30", expectedMessage);
         assertCommandBehavior("edit 1 from 7:30", expectedMessage);
+    }
+    
+    @Test
+    public void execute_editDuplicateParams_errorMessage() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+        TaskManager expectedTM = new TaskManager();
+        Task toBeEdited = helper.guinevere();
+        model.addTask(toBeEdited);
+        expectedTM.addTask(toBeEdited);
+        
+        String editCommand = "edit 1 Picnic with Guinevere";
+        
+    	assertCommandBehavior(
+                editCommand,
+                String.format(EditCommand.MESSAGE_DUPLICATE_PARAMS, toBeEdited),
+                expectedTM,
+                expectedTM.getTaskList()
+        );
     }
 
     @Test
     public void execute_edit_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.lancelot();
+        Task newTask = editTaskWithProperty(toBeEdited, TaskProperties.DESC, "Dinner with Guinevere");
+        
         model.addTask(toBeEdited);
         model.addTask(helper.morgana());
-        
-        HashMap<TaskProperties, Optional<String>> newProps = 
-                toBeEdited.getPropertiesAsStrings();
-        newProps.put(TaskProperties.DESC, Optional.of("Dinner with Guinevere"));
-        
-        Task newTask = new Task(newProps);        
         TaskManager expectedTM = new TaskManager();
         expectedTM.addTask(helper.morgana());
         expectedTM.addTask(newTask);
@@ -369,12 +378,8 @@ public class LogicManagerTest {
         assertEquals(1, targetedTaskJumpIndex);
         
         
-        HashMap<TaskProperties, Optional<String>> newProps1 = 
-                newTask.getPropertiesAsStrings();
-        newProps1.put(TaskProperties.DESC, Optional.of("Dinner with Lancelot"));
-        newProps1.put(TaskProperties.VENUE, Optional.of("Avalon"));
-        
-        Task newTask1 = new Task(newProps1);
+        Task newTask1 = editTaskWithProperty(newTask, TaskProperties.DESC, "Dinner with Lancelot");
+        newTask1 = editTaskWithProperty(newTask1, TaskProperties.VENUE, "Avalon");
 
         expectedTM.removeTask(newTask);
         expectedTM.addTask(newTask1);
@@ -389,22 +394,11 @@ public class LogicManagerTest {
         );
         
         assertEquals(1, targetedTaskJumpIndex);
-
-        assertCommandBehavior(
-                editCommand1,
-                String.format(EditCommand.MESSAGE_DUPLICATE_PARAMS, newTask1),
-                expectedTM,
-                expectedTM.getTaskList()
-        );
         
         
-        HashMap<TaskProperties, Optional<String>> newProps2 = 
-                newTask1.getPropertiesAsStrings();
-        newProps2.put(TaskProperties.STARTTIME, Optional.of("7:30pm"));
-        newProps2.put(TaskProperties.ENDTIME, Optional.of("8:50pm"));
-        newProps2.put(TaskProperties.PRIORITY, Optional.of("low"));
-        
-        Task newTask2 = new Task(newProps2);
+        Task newTask2 = editTaskWithProperty(newTask1, TaskProperties.STARTTIME, "7:30pm");
+        newTask2 = editTaskWithProperty(newTask2, TaskProperties.ENDTIME, "8:50pm");
+        newTask2 = editTaskWithProperty(newTask2, TaskProperties.PRIORITY, "low");
 
         expectedTM.removeTask(newTask1);
         expectedTM.addTask(newTask2);
@@ -419,6 +413,24 @@ public class LogicManagerTest {
         );
         
         assertEquals(1, targetedTaskJumpIndex);
+    }
+    
+    /**
+     * Edit a certain property of a given task
+     * @param taskToEdit Task that will be edited
+     * @param property The property that will be edited
+     * @param value The new value of the property
+     * @return A new task with the edited property
+     * @throws IllegalValueException
+     */
+    private Task editTaskWithProperty(Task taskToEdit, TaskProperties property, String value)
+    		throws IllegalValueException {
+    	HashMap<TaskProperties, Optional<String>> newProps = 
+                taskToEdit.getPropertiesAsStrings();
+        
+        newProps.put(property, Optional.of(value));
+        
+        return new Task(newProps);
     }
     
     @Test
@@ -459,13 +471,13 @@ public class LogicManagerTest {
     
     
     @Test
-    public void execute_done_invalidArgsFormat_errorMessageShown() throws Exception {
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
     	String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
     	assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
     }
     
     @Test
-    public void execute_done_indexInvalid_errorMessageShown() throws Exception {
+    public void execute_doneIndexInvalid_errorMessageShown() throws Exception {
     	String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         assertCommandBehavior("done 52", expectedMessage);
         assertCommandBehavior("done 10", expectedMessage);
@@ -476,17 +488,13 @@ public class LogicManagerTest {
     	TestDataHelper helper = new TestDataHelper();
     	List<Task> threeTasks = helper.generateTaskList(3);
     	helper.addToModel(model, threeTasks);
+    	TaskManager expectedTM = helper.generateTaskManager(threeTasks);
         
-        HashMap<TaskProperties, Optional<String>> newProps = 
-                threeTasks.get(1).getPropertiesAsStrings();
-        newProps.put(TaskProperties.DONE, Optional.of("Yes"));
-        
-        Task doneTask = new Task(newProps);        
-        TaskManager expectedTM = helper.generateTaskManager(threeTasks);
+        Task doneTask = editTaskWithProperty(threeTasks.get(1), TaskProperties.DONE, "Yes");
         expectedTM.removeTask(threeTasks.get(1));
         expectedTM.addTask(doneTask);
         
-        String doneCommand = "done  2 ";
+        String doneCommand = "done 2";
 
         // execute command and verify result
         assertCommandBehavior(doneCommand,
@@ -892,8 +900,8 @@ public class LogicManagerTest {
         assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
         
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.lancelot();
         TaskManager expectedTM = new TaskManager();
+        Task toBeAdded = helper.lancelot();
         expectedTM.addTask(toBeAdded);
 
         // execute command and verify result

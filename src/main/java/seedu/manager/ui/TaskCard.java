@@ -45,17 +45,19 @@ public class TaskCard extends UiPart{
     }
 
     @FXML
+    // @@author A0147924X
     public void initialize() {
-        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
+        desc.setText(task.getDesc().map(p -> p.getPrettyValue()).orElse(""));
         id.setText(displayedIndex + ". ");
-        venue.setText(task.getVenue().isPresent() ? task.getVenue().get().getPrettyValue() : "");
-        priority.setText(task.getPriority().isPresent() ? task.getPriority().get().getPrettyValue() : "");
-        startTime.setText(task.getStartTime().isPresent() ? task.getStartTime().get().getPrettyValue() : "");
-        endTime.setText(task.getEndTime().isPresent() ? task.getEndTime().get().getPrettyValue() : "");
-        done.setText(task.getDone().isPresent() ? task.getDone().get().getPrettyValue() : "");
-        tag.setText(task.getTag().isPresent() ? task.getTag().get().getPrettyValue() : "");
+        venue.setText(task.getVenue().map(p -> p.getPrettyValue()).orElse(""));
+        priority.setText(task.getPriority().map(p -> p.getPrettyValue()).orElse(""));
+        startTime.setText(task.getStartTime().map(p -> p.getPrettyValue()).orElse(""));
+        endTime.setText(task.getEndTime().map(p -> p.getPrettyValue()).orElse(""));
+        done.setText(task.getDone().map(p -> p.getPrettyValue()).orElse(""));
+        tag.setText(task.getTag().map(p -> p.getPrettyValue()).orElse(""));
     }
-
+    
+    // @@author
     public HBox getLayout() {
         return cardPane;
     }
