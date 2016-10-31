@@ -39,7 +39,7 @@ public class TypicalTestTasks {
             //Manually added
             hotel = new TaskBuilder().withDesc("Help dad fix his phone").withVenue("Home").withStartTime("6:30pm").withEndTime("7:00pm").withPriority("high").withDone("No").withTag("family").build();
             india = new TaskBuilder().withDesc("Help mum set up the computer properly").withVenue("Home").withStartTime("7:30pm").withEndTime("7:40pm").withPriority("med").withDone("No").withTag("family").build();
-            juliet = new TaskBuilder().withDesc("Help Varun with debugging").withVenue("School of Computing").withStartTime("3:00pm").withEndTime("5:30pm").withPriority("high").withDone("No").withTag("family").build();
+            juliet = new TaskBuilder().withDesc("Help Varun with debugging").withVenue("School of Computing").withStartTime("3 hours ago").withEndTime("2 hours ago").withPriority("high").withDone("No").withTag("family").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
