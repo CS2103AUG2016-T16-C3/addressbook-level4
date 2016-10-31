@@ -14,6 +14,8 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
+    private HBox overdue;
+    @FXML
     private Label desc;
     @FXML
     private Label id;
@@ -43,7 +45,6 @@ public class TaskCard extends UiPart{
     }
 
     @FXML
-    // @@author A0147924X
     public void initialize() {
     	initText();
     	initId();
@@ -52,15 +53,20 @@ public class TaskCard extends UiPart{
         initDone();
         initTag();
         initPriorityColor();
-        initTaskOverDue();
+        initTaskOverdue();
     }
-     
-    public void initTaskOverDue() {
-        if (task.isTaskOverDue()) {
-        	// Varun complete the OverDue Displace.
+    
+    // @@author A0147924X
+    /**
+     * Colour overdue bar red if task is overdue
+     */
+    public void initTaskOverdue() {
+        if (task.isTaskOverdue()) {
+        	overdue.setStyle("-fx-background-color: red");
         }
     }
     
+    // @@author
     public void initText() {
         desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
     }

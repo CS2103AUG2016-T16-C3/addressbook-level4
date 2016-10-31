@@ -57,7 +57,7 @@ public interface ReadOnlyTask {
         return ((Done) this.getDone().get()).isTrue();
     }
     
-    default boolean isTaskOverDue() {	
+    default boolean isTaskOverdue() {	
     	if(this.isDone()) {
     		return false;
     	}
