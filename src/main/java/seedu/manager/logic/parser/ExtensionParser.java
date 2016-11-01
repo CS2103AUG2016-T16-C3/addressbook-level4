@@ -56,7 +56,7 @@ public class ExtensionParser {
         EXTENSIONS_ARGS_FORMAT =
                 Pattern.compile("((?:^|\\s)(?:"
                         + EXTENSION_REGEX_OPTIONS
-                        + ").+?(?=(?:(?:\\s(?:"
+                        + ")\\s.+?(?=(?:(?:\\s(?:"
                         + EXTENSION_REGEX_OPTIONS
                         + ")\\s)|$)))");
     }
