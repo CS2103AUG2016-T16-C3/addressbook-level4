@@ -63,6 +63,8 @@ public class DeleteCommand extends Command implements UndoableCommand {
     	 assert model != null;
          try {
              model.addTask(taskToDelete);
+             jumpToTask(taskToDelete);
+             
              return new CommandResult(String.format(UNDO_SUCCESS, taskToDelete));
          } catch (UniqueTaskList.DuplicateTaskException e) {
              return new CommandResult(MESSAGE_DUPLICATE_PERSON);

@@ -13,11 +13,14 @@
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
+            	<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" maxWidth="10.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+            	<HBox alignment="CENTER_LEFT" fx:id="overdue" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" GridPane.columnIndex="0">
+                </HBox>
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="1">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -41,9 +44,9 @@
                         <Label fx:id="tag" styleClass="cell_small_label" text="\$tag" />
                     </children>
                 </VBox>
-                <HBox alignment="CENTER_RIGHT">
+                <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2">
                 	<padding>
-                        <Insets bottom="5" left="15" right="5" top="40" />
+                        <Insets bottom="5" left="5" right="35" top="40" />
                     </padding>
                     
                     <children>
