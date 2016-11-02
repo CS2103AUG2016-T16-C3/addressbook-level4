@@ -41,6 +41,8 @@ public interface Model {
     /** Adds the given tag */
     void addTag(Tag tag);
     
+    public String getAliasForCommand(Commands command);
+    
     /**
      * @@author A0147924X
      * Changes a command to a given alias in the user preferences

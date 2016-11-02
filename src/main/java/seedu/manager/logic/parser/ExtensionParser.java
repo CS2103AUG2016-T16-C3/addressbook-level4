@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
 
 import seedu.manager.model.task.StartTime;
@@ -160,10 +159,11 @@ public class ExtensionParser {
      */
 	private Commands getMatchedCommand(String extensionCommand) throws IllegalValueException {
 		for (Commands command : Commands.values()) {
-		    if (extensionWords.containsKey(command) && extensionWords.get(command).equals(extensionCommand)) {
+		    if (extensionCommand.equals(command.toString())) {
 		        return command;
 		    }
 		}
+		
 		throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
 	}
 	
