@@ -24,6 +24,7 @@ public class ExtensionParser {
     public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s";
     public static final String START_AFTER_END = "Start time should be before end time.";
     
+    private static final String ESCAPING_CHARACTER = "'"; 
     private final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
     private String EXTENSION_REGEX_OPTIONS;
     private Pattern EXTENSIONS_DESC_FORMAT;
@@ -159,7 +160,7 @@ public class ExtensionParser {
      */
 	private Commands getMatchedCommand(String extensionCommand) throws IllegalValueException {
 		for (Commands command : Commands.values()) {
-		    if (extensionCommand.equals(command.toString())) {
+		    if (extensionWords.containsKey(command) && extensionWords.get(command).equals(extensionCommand)) {
 		        return command;
 		    }
 		}
@@ -167,9 +168,14 @@ public class ExtensionParser {
 		throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
 	}
 	
+	/**
+	 * Removes the escaping characters from extension arguments
+	 * @param args Arguments to remove escape characters from
+	 * @return Arguments without the escaping characters
+	 */
 	private String removeEscapingChars(String args) {
 		for (String extensionWord : extensionWords.values()) {
-			args = args.replaceAll("'" + extensionWord + "'", extensionWord);
+			args = args.replaceAll(ESCAPING_CHARACTER + extensionWord + ESCAPING_CHARACTER, extensionWord);
 		}
 		return args;
 	}
