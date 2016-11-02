@@ -140,21 +140,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     public void removeTag(Tag tag) {
-//        int count = 0;
-//        ObservableList<Task> taskList = tasks.getInternalList();
-//        for(int i = 0;i < tasks.getSize();i++) {
-//            if(taskList.get(i).getTag().isPresent()) {
-//                if(((Tag) taskList.get(i).getTag().get()).equals(tag)) {
-//                    count++;
-//                }
-//            }
-//        }
-//        
-//        if(count == 1) {
-//            tags.remove(tag);
-//        }
+        int count = 0;
+        ObservableList<Task> taskList = tasks.getInternalList();
+        for(int i = 0;i < tasks.getSize();i++) {
+            if(taskList.get(i).getTag().isPresent()) {
+                if(((Tag) taskList.get(i).getTag().get()).equals(tag)) {
+                    count++;
+                }
+            }
+        }
+        
         try {
-            tags.remove(tag);
+            if(count == 0) {
+                tags.remove(tag);
+            }
         } catch (TagNotRemovedException e) {
             e.printStackTrace();
         }
