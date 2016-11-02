@@ -24,7 +24,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     	TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToMark = td.charlie;
         TestTask markedTask = markAsDone(taskToMark);
-        assertDoneSuccess("done %1$s", 3, markedTask, currentList);
+        assertDoneSuccess("done %1$s", 3, 6, markedTask, currentList);
         
         // propagate changes to current list
         currentList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, 3), markedTask);
@@ -32,7 +32,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         // mark another as done
         TestTask taskToMark1 = td.alpha;
         TestTask markedTask1 = markAsDone(taskToMark1);
-        assertDoneSuccess("done %1$s", 1, markedTask1, currentList);
+        assertDoneSuccess("done %1$s", 1, 5, markedTask1, currentList);
         
         // invalid index
         commandBox.runCommand("done " + (currentList.length + 1));
@@ -47,13 +47,14 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         return new TestTask(newProps);
     }
     
-    private void assertDoneSuccess(String doneCommand, int index, TestTask markedTask, TestTask... currentList) {
+    private void assertDoneSuccess(String doneCommand, int index, int indexToInsert,
+    							   TestTask markedTask, TestTask... currentList) {
         commandBox.runCommand(String.format(doneCommand, index));
         
         TaskCardHandle addedCard = taskListPanel.navigateToTask(markedTask.getDesc().get().getValue());
         assertMatching(markedTask, addedCard);
         
-        TestTask[] expectedList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, index), markedTask);
+        TestTask[] expectedList = TestUtil.addTasksToList(indexToInsert, TestUtil.removeTaskFromList(currentList, index), markedTask);
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         assertResultMessage(String.format(DoneCommand.MESSAGE_SUCCESS, markedTask));

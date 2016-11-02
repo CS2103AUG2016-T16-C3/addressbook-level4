@@ -2,6 +2,11 @@ package seedu.manager.logic.commands;
 
 import seedu.manager.model.task.Task.TaskProperties;
 
+/**
+ * @@author A0147924X
+ * Allows user to unsort the displayed tasks, placing Done tasks at the bottom
+ *
+ */	
 public class UnSortCommand extends Command implements UndoableCommand {
 	public static final String COMMAND_WORD = "unsort";
 
