@@ -112,6 +112,9 @@ public class Parser {
         case SORT:
         	return new SortCommand();
         
+        case UNSORT:
+        	return new UnSortCommand();
+        
         case UNDO:
         	return new UndoCommand();
 

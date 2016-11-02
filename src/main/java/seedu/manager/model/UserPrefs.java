@@ -34,13 +34,13 @@ public class UserPrefs {
         				Commands.ADD, Commands.EDIT, Commands.DELETE, Commands.UNDO, 
         				Commands.FIND, Commands.STORAGE, Commands.CLEAR, Commands.DONE, 
         				Commands.EXIT, Commands.HELP, Commands.LIST, Commands.SORT,
-        				Commands.ALIAS
+        				Commands.UNSORT, Commands.ALIAS
     				},
         		new String[]{
         				"add", "edit", "delete", "undo", 
         				"find", "storage", "clear", "done", 
         				"exit", "help", "list", "sort",
-        				"alias"
+        				"unsort", "alias"
         			}
         		);
         this.setExtensionsWords(
