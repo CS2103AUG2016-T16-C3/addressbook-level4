@@ -2,6 +2,7 @@ package seedu.manager.logic.commands;
 
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
+import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
@@ -63,6 +64,9 @@ public class DeleteCommand extends Command implements UndoableCommand {
     	 assert model != null;
          try {
              model.addTask(taskToDelete);
+             if (taskToDelete.getTag().isPresent()) {
+                 model.addTag((Tag) taskToDelete.getTag().get());
+             }
              jumpToTask(taskToDelete);
              
              return new CommandResult(String.format(UNDO_SUCCESS, taskToDelete));
