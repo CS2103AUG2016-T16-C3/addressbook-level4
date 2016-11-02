@@ -10,7 +10,9 @@ import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
+import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -68,8 +70,18 @@ public class EditCommand extends Command implements UndoableCommand {
             
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
-            jumpToTask(newTask);
             
+            if(newTask.getTag().isPresent()) {
+            model.addTag((Tag) newTask.getTag().get());
+            }
+            if(taskToEdit.getTag().isPresent()) {
+                model.deleteTag((Tag) taskToEdit.getTag().get());
+            }
+            
+            int newIndex = model.getIndexOfTask(newTask);
+            assert newIndex != -1;
+            
+            EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(newIndex));
             this.addUndo(this);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
@@ -113,7 +125,6 @@ public class EditCommand extends Command implements UndoableCommand {
     	try {
     		model.addTask(oldTask);
     		model.deleteTask(newTask);
-    		jumpToTask(oldTask);
     		
             return new CommandResult(String.format(UNDO_SUCCESS, oldTask));
         } catch (TaskNotFoundException e) {
