@@ -7,6 +7,7 @@ import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
+// @@author A0147924X
 /**
  * Format full help instructions for every command for display.
  */
@@ -54,25 +55,39 @@ public class HelpCommand extends Command {
     	System.out.println(commandToGetHelpFor);
     	System.out.println(commandToGetHelpFor.isPresent());
         if (commandToGetHelpFor.isPresent()) {
-			return getHelpForMatchingCommand();
+			return getHelpForMatchingCommand(commandToGetHelpFor.get());
 		} else {
 			EventsCenter.getInstance().post(new ShowHelpRequestEvent());
 			return new CommandResult(SHOWING_HELP_MESSAGE);
 		}
     }
     
-    private CommandResult getHelpForMatchingCommand() {
+    /**
+     * Gets the help message for a certain command
+     * @param commandToGetHelpFor The command to get help for
+     * @return CommandResult representing the help for the given command
+     */
+    private CommandResult getHelpForMatchingCommand(String commandToGetHelpFor) {
     	try {
-			Commands matchedCommand = getMatchedKeyword(commandToGetHelpFor.get());
-			String helpForCommand = constructHelpForCommand(matchedCommand);
+			Commands matchedCommand = getMatchedKeyword(commandToGetHelpFor);
+			String helpForCommand = constructUsageMessageForCommand(matchedCommand);
+			
 			String aliasForCommand = "Alias: " + model.getAliasForCommand(matchedCommand);
+			
 			return new CommandResult(helpForCommand + "\n" + aliasForCommand);
+			
 		} catch (IllegalValueException e) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(e.getMessage());
 		}
     }
     
+    /**
+     * Gets the command keyword matching the user input
+     * @param userInputCommand Command that user gave as a String
+     * @return Command that matches the user input
+     * @throws IllegalValueException If no matching command
+     */
     private Commands getMatchedKeyword(String userInputCommand) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
 			if (command.toString().equals(userInputCommand)) {
@@ -83,7 +98,12 @@ public class HelpCommand extends Command {
     	throw new IllegalValueException(MESSAGE_WRONG_HELP_COMMAND);
     }
     
-    private String constructHelpForCommand(Commands command) {
+    /**
+     * Constructs the usage message for a command
+     * @param command The command for which the usage message will be made
+     * @return The usage message for input command
+     */
+    private String constructUsageMessageForCommand(Commands command) {
     	switch (command) {
 		case ADD:
 			return AddCommand.MESSAGE_USAGE;
