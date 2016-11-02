@@ -15,6 +15,7 @@ import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.manager.model.tag.UniqueTagList.TagNotRemovedException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashMap;
@@ -112,8 +113,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteTag(Optional<TaskProperty> tag) {
-        taskManager.removeTag((Tag) tag.get());
+    public synchronized void deleteTag(Tag tag) {
+        taskManager.removeTag(tag);
     }
 
     @Override

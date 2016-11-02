@@ -6,6 +6,7 @@ import java.util.Optional;
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
+import seedu.manager.model.tag.UniqueTagList.TagNotRemovedException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
@@ -35,7 +36,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Deletes the given tag. */
-    void deleteTag(Optional<TaskProperty> tag);
+    void deleteTag(Tag tag);
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;

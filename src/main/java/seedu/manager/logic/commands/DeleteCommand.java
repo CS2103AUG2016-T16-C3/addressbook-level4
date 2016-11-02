@@ -4,6 +4,7 @@ import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -48,7 +49,7 @@ public class DeleteCommand extends Command implements UndoableCommand {
         try {
             model.deleteTask(taskToDelete);
             if(taskToDelete.getTag().isPresent()) {
-                model.deleteTag(taskToDelete.getTag());
+                model.deleteTag((Tag) taskToDelete.getTag().get());
             }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

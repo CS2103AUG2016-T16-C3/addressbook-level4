@@ -28,7 +28,9 @@ public class UniqueTagList implements Iterable<Tag> {
             super("Operation would result in duplicate tags");
         }
     }
-
+    
+    public static class TagNotRemovedException extends Exception {};
+    
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
     /**
@@ -128,11 +130,17 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     public ObservableList<Tag> getInternalList() {
+        
         return internalList;
     }
     
-    public boolean remove(Tag tag) {
-        return internalList.remove(tag);
+    public boolean remove(Tag toRemove) throws TagNotRemovedException {
+        boolean isTagRemoved = internalList.remove(toRemove);
+        if(!isTagRemoved) {
+            throw new TagNotRemovedException();
+        }
+        
+        return isTagRemoved;
     }
 
     @Override

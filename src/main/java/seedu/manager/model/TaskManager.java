@@ -7,6 +7,8 @@ import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList;
+import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.manager.model.tag.UniqueTagList.TagNotRemovedException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,6 +57,12 @@ public class TaskManager implements ReadOnlyTaskManager {
     public ObservableList<Tag> getTags() {
         ObservableList<Tag> internalTagList = tags.getInternalList();
         ObservableList<Tag> tagListFromTaskList = getTagsFromTaskList(this.getTasks());
+
+//        try {
+//            tags.mergeFrom(new UniqueTagList(tagListFromTaskList));
+//        } catch (DuplicateTagException e) {
+//            e.printStackTrace();
+//        }
         
         return combineTwoList(internalTagList, tagListFromTaskList);
     }
@@ -66,7 +74,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         if(internalTagList.size() == 0) {
             for(int i = 0;i < tagListFromTaskList.size();i++) {
                 if(!internalTagList.contains(tagListFromTaskList.get(i))) {
-                    // internalTagList.add(tagListFromTaskList.get(i));
+//                    internalTagList.add(tagListFromTaskList.get(i));
                     combinedTagList.add(tagListFromTaskList.get(i));
                 }
             }
@@ -132,18 +140,23 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     public void removeTag(Tag tag) {
-        int count = 0;
-        ObservableList<Task> taskList = tasks.getInternalList();
-        for(int i = 0;i < tasks.getSize();i++) {
-            if(taskList.get(i).getTag().isPresent()) {
-                if(((Tag) taskList.get(i).getTag().get()).equals(tag)) {
-                    count++;
-                }
-            }
-        }
-        
-        if(count == 1) {
+//        int count = 0;
+//        ObservableList<Task> taskList = tasks.getInternalList();
+//        for(int i = 0;i < tasks.getSize();i++) {
+//            if(taskList.get(i).getTag().isPresent()) {
+//                if(((Tag) taskList.get(i).getTag().get()).equals(tag)) {
+//                    count++;
+//                }
+//            }
+//        }
+//        
+//        if(count == 1) {
+//            tags.remove(tag);
+//        }
+        try {
             tags.remove(tag);
+        } catch (TagNotRemovedException e) {
+            e.printStackTrace();
         }
     }
 
