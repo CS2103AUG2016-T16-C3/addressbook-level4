@@ -104,9 +104,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void resetData(Collection<? extends ReadOnlyTask> newTasks)  {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
     }
+    
+    public void clearTagList() {
+        tags.clear();
+    }
 
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList());
+        clearTagList();
     }
 
 //// task-level operations
@@ -171,10 +176,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
+    
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags.getInternalList());
+    }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
+    }
+    
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        return this.tags;
     }
 
 

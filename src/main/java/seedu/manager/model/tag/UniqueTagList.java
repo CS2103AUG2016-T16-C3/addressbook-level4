@@ -110,6 +110,10 @@ public class UniqueTagList implements Iterable<Tag> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    
+    public void clear() {
+        this.internalList.clear();
+    }
 
     /**
      * Adds a Tag to the list.
