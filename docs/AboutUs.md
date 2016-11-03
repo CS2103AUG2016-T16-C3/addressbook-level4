@@ -6,19 +6,19 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Varun Gupta](http://github.com/varung97) <br>
 <img src="images/Varun.png" width="150"><br><br>
-* Components in charge of: [Logic](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/DeveloperGuide.md#logic-component), [Model](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/DeveloperGuide.md#model-component)
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/DeveloperGuide.md#logic-component), [Model](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/DeveloperGuide.md#model-component)
 * Aspects/tools in charge of: Parsing, Testing, Integration
 * Features implemented:
-   * [Flexible command structure](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/UserGuide.md#overview)
-   * [Design of command extensions](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/UserGuide.md#extensions)
-   * [Edit any property](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/UserGuide.md#editing-tasks-edit)
+   * [Flexible command structure](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#overview)
+   * [Design of command extensions](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#extensions)
+   * [Edit any property](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#editing-tasks-edit)
    * [Sort tasks by priority](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#sort-by-priority-level-sort)
-   * [Specify storage folder](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/UserGuide.md#specify-a-storage-folder-storage)
+   * [Specify storage folder](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#specify-a-storage-folder-storage)
    * [Mark task as done](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#ticking-off-tasks-done)
    * [Alias commands](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#changing-command-names-alias)
    * Use PrettyTime to [parse dates and times](https://github.com/CS2103AUG2016-T16-C3/main/commit/ecbbee9f78bff30453e08b670a0f760bc5f65125), and to [display them on UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/49)
    * [Jump to task when added/edited](https://github.com/CS2103AUG2016-T16-C3/main/pull/52)
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/main/A0147924X.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/test/A0147924X.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/docs/A0147924X.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/main/A0147924X.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/test/A0147924X.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/docs/A0147924X.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to TaskManager [[426d2e4](https://github.com/CS2103AUG2016-T16-C3/main/commit/426d2e40ad05b5ea4d09f92a5f43e0d615c2da83)]
   * Set up Travis and Coveralls
@@ -26,10 +26,19 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
-#### [Gary Tang](https://github.com/e0003506)
+#### [Gary Tang](https://github.com/gary-tang)
 <img src="images/Gary.png" width="150"><br><br>
-**Role**: Developer<br>
-**Responsibilities**: Storage
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/DeveloperGuide.md#logic-component), [Model](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/DeveloperGuide.md#model-component), [Storage](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/DeveloperGuide.md#storage-component)
+* Aspects/tools in charge of: Task properties, Testing
+* Features implemented:
+  * [Event](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#from-to)
+  * [Start time (At](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#at))
+  * [End time ([Before](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#before))
+  * Done command
+  * Enhanced [find](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#find) command
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/main/A0139621H.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/test/A0139621H.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/docs/A0139621H.md)]
+* Other major contributions:
+  * Help other people to proofread and correct grammatical errors in User Guide and Developer Guide
 
 -----
 
@@ -50,10 +59,8 @@ We are a team based in the [School of Computing, National University of Singapor
 [[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/main/A0148042M.md)][[functional reused code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/main/A0148042Mreused.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/test/A0148042M.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/docs/A0148042M.md)]
 
 * Other major contributions:
-  * Help other people to proofread and correct grammatical errors of User Guide
-  * Help others to modify the structure of test cases to conform with our current structure
-
-
+  * Help other people to proofread and correct grammatical errors in User Guide
+  * Help other people to check collated methods
 
 -----
 
