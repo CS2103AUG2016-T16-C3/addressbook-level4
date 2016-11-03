@@ -34,9 +34,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final SortedList<Task> sortedTasks;
     private final SortedList<Tag> sortedTags;
     private final UserPrefs userPrefs;
-
+    
+    // @@author A0148042M
     /**
-     * @@author A0148042M
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
@@ -113,11 +113,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    // @@author A0148042M
     @Override
     public synchronized void deleteTag(Tag tag) {
         taskManager.removeTag(tag);
     }
-
+    
+    // @@author
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
@@ -134,7 +136,6 @@ public class ModelManager extends ComponentManager implements Model {
             e.printStackTrace();
         }
         updateFilteredTagListToShowAll();
-//        indicateTaskManagerChanged();
     }
     
     // @@author A0147924X

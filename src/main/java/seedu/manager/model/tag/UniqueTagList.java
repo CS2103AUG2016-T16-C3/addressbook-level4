@@ -8,6 +8,7 @@ import seedu.manager.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
 
+// @@author A0148042M
 /**
  * A list of tags that enforces no nulls and uniqueness between its elements.
  *
@@ -16,7 +17,6 @@ import java.util.*;
  * @see Tag#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  * 
- * @@author A0148042M
  */
 public class UniqueTagList implements Iterable<Tag> {
 
@@ -111,6 +111,9 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList.contains(toCheck);
     }
     
+    /**
+     * Clear all the tags in the current tag list.
+     */
     public void clear() {
         this.internalList.clear();
     }
