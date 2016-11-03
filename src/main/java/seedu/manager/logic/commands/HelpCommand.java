@@ -83,6 +83,7 @@ public class HelpCommand extends Command {
 		usageMessages.put(Commands.LIST, ListCommand.MESSAGE_USAGE);
 		usageMessages.put(Commands.SORT, SortCommand.MESSAGE_USAGE);
 		usageMessages.put(Commands.STORAGE, StorageCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.UNSORT, UnSortCommand.MESSAGE_USAGE);
 		usageMessages.put(Commands.UNDO, UndoCommand.MESSAGE_USAGE);
 		
 		usageMessages.put(Commands.AT, MESSAGE_AT_USAGE);

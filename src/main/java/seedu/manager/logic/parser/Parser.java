@@ -13,6 +13,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.logic.commands.*;
 
+// @@author A0147924X
 /**
  * Parses user input.
  */
@@ -35,7 +36,6 @@ public class Parser {
     private HashMap<Commands, String> commandWords = null;
     private HashMap<Commands, String> extensionWords = null;
 
-    // @@author A0147924X
     /**
      * Constructs a parser given command words and extension words
      * @param commandWords
@@ -54,7 +54,6 @@ public class Parser {
     	extParser.compileRegexes();
     }
     
-    // @@author
     /**
      * Parses user input into command for execution.
      *
@@ -115,6 +114,9 @@ public class Parser {
         case SORT:
         	return new SortCommand();
         
+        case UNSORT:
+        	return new UnSortCommand();
+        
         case UNDO:
         	return new UndoCommand();
 
@@ -127,7 +129,6 @@ public class Parser {
     }
     
     /**
-     * @@author A0147924X
      * Get the command which matches with the command word entered by the user
      * @param commandWord
      * @throws IllegalValueException

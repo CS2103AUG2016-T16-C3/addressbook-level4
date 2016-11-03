@@ -5,11 +5,17 @@ import org.junit.Test;
 
 import seedu.manager.commons.core.Messages;
 import seedu.manager.logic.commands.AddCommand;
+import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.testutil.TestTask;
 import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
+// @@author A0147924X
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
@@ -17,13 +23,13 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.hotel;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertAddSuccess(3, taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(3, currentList, taskToAdd);
 
         //add another task
         taskToAdd = td.india;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertAddSuccess(3, taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(3, currentList, taskToAdd);
 
         //add duplicate task
         commandBox.runCommand(td.hotel.getAddCommand());
@@ -32,14 +38,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alpha);
+        assertAddSuccess(0, td.alpha);
 
         //invalid command
         commandBox.runCommand("helps Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+    private void assertAddSuccess(int indexToInsert, TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
@@ -47,7 +53,8 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(indexToInsert, currentList, taskToAdd);
+        
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
