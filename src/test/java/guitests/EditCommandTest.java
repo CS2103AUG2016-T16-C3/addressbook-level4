@@ -37,6 +37,13 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertResultMessage("The task index provided is invalid");
     }
     
+    /**
+     * Edits a task to change a certain property
+     * @param taskToEdit The task which should be edited
+     * @param property The property of the task to edit
+     * @param value The new value for this property
+     * @return Edited task
+     */
     private TestTask editTaskWithProperty(TestTask taskToEdit, TaskProperties property, TaskProperty value) {
     	HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
                 taskToEdit.getProperties();
@@ -46,7 +53,14 @@ public class EditCommandTest extends TaskManagerGuiTest {
         return new TestTask(newProps);
     }
     
-    // @@author
+    /**
+     * Asserts that the edit command worked
+     * @param editCommand A string representing the command to run
+     * @param index The index of the task to be edited
+     * @param indexToInsert Index at which edited task should be inserted into the current list
+     * @param editedTask The edited task Current task list to check panel list against
+     * @param currentList
+     */
     private void assertEditSuccess(String editCommand, int index, int indexToInsert,
     							   TestTask editedTask, TestTask... currentList) {
         commandBox.runCommand(String.format(editCommand, index));

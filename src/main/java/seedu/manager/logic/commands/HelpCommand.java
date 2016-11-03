@@ -11,6 +11,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 // @@author A0147924X
 /**
  * Format full help instructions for every command for display.
+ * 
  */
 public class HelpCommand extends Command {
 
@@ -54,7 +55,6 @@ public class HelpCommand extends Command {
 
     public HelpCommand(Optional<String> commandToGetHelpFor) {
     	this.commandToGetHelpFor = commandToGetHelpFor;
-    	buildUsageMessageHashmap();
     }
 
     @Override

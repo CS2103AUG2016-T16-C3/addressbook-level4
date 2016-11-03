@@ -6,8 +6,8 @@ import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
 import seedu.manager.commons.events.storage.StorageLocationChangedEvent;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Allows user to change the storage location
  *
  */

@@ -264,7 +264,6 @@ public class LogicManagerTest {
         assertEquals(1, targetedTaskJumpIndex);
     }
     
-    // @@author
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -310,7 +309,6 @@ public class LogicManagerTest {
                 expectedTM.getTaskList());
     }
     
-    // @@author A0147924X
     @Test
     public void execute_addAfterSorting_successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
@@ -909,7 +907,7 @@ public class LogicManagerTest {
     
     // @@author A0147924X
     @Test
-    public void execute_alias_wrongNumberOfCommands() throws Exception {
+    public void execute_alias_wrongNumberOfArgs() throws Exception {
         assertCommandBehavior("alias", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
         assertCommandBehavior("alias add", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
         assertCommandBehavior("alias add + -", AliasCommand.MESSAGE_WRONG_NUM_ARGS);
@@ -1021,40 +1019,49 @@ public class LogicManagerTest {
             );
         }
         
-        /** Generates the correct add command  */
-        String generateAddCommandWithAlias(Task p, String alias) {
+        /**
+         * Generated the add command given a task and alias for the add command
+         * @param task Task for which the add command will be generated
+         * @param alias Alias of the add command
+         * @return The generated add command
+         */
+        String generateAddCommandWithAlias(Task task, String alias) {
         	StringBuffer cmd = new StringBuffer();
 
             cmd.append(alias + " ");
 
-            cmd.append(p.getDesc().get().toString());
-            if (p.getVenue().isPresent()) {
-                cmd.append(" venue ").append(p.getVenue().get().toString());
+            cmd.append(task.getDesc().get().toString());
+            if (task.getVenue().isPresent()) {
+                cmd.append(" venue ").append(task.getVenue().get().toString());
             }
-            if (p.getPriority().isPresent()) {
-                cmd.append(" priority ").append(p.getPriority().get().toString());
+            if (task.getPriority().isPresent()) {
+                cmd.append(" priority ").append(task.getPriority().get().toString());
             }
-            if (p.getStartTime().isPresent()) {
-                cmd.append(" from ").append(p.getStartTime().get().toString());
+            if (task.getStartTime().isPresent()) {
+                cmd.append(" from ").append(task.getStartTime().get().toString());
             }
-            if (p.getEndTime().isPresent()) {
-                cmd.append(" to ").append(p.getEndTime().get().toString());
+            if (task.getEndTime().isPresent()) {
+                cmd.append(" to ").append(task.getEndTime().get().toString());
             }
-            if (p.getTag().isPresent()) {
-                cmd.append(" tag ").append(p.getTag().get().toString());
+            if (task.getTag().isPresent()) {
+                cmd.append(" tag ").append(task.getTag().get().toString());
             }
 
             return cmd.toString();
         }
 
-        /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
-        	return generateAddCommandWithAlias(p, "add");
+        /**
+         * Generates the add command given a task (assumes alias is add)"
+         * @param task The task for which add command will be generated
+         * @return The generated add command
+         */
+        String generateAddCommand(Task task) {
+        	return generateAddCommandWithAlias(task, "add");
         }
         
         // @@author
         /**
-         * Generates an TaskManager with auto-generated tasks.
+         * Generates a TaskManager with auto-generated tasks.
          */
         TaskManager generateTaskManager(int numGenerated) throws Exception{
             TaskManager taskManager = new TaskManager();
@@ -1225,8 +1232,13 @@ public class LogicManagerTest {
             );
         }
         
+        // @@author A0147924X
         /**
          * Generates a Task object with given tag. Other fields will have some dummy values.
+         * @param desc Description for the task
+         * @param tag Tag for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithTagAndDesc(String desc, String tag) throws Exception {
             return new Task(

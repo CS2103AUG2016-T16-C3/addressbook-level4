@@ -21,8 +21,8 @@ public class Task implements ReadOnlyTask {
     
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Build task from properties represented as Strings
      * @param properties Hashmap with properties represented as strings
      * @throws IllegalValueException
@@ -63,7 +63,8 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Copy constructor.
+     * Copy constructor
+     * @param source Task which will be copied
      */
     public Task(ReadOnlyTask source) {
         HashMap<TaskProperties, Optional<TaskProperty>> properties = source.getProperties();
@@ -147,7 +148,7 @@ public class Task implements ReadOnlyTask {
         return properties.get(TaskProperties.VENUE);
     }
 
-    //@@author A0139621H
+    // @@author A0139621H
     @Override
     public Optional<TaskProperty> getPriority() {
         return properties.get(TaskProperties.PRIORITY);
@@ -168,13 +169,13 @@ public class Task implements ReadOnlyTask {
     	return properties.get(TaskProperties.DONE);
     }
     
-    //@@author A0148042M
+    // @@author A0148042M
     @Override
     public Optional<TaskProperty> getTag() {
         return properties.get(TaskProperties.TAG);
     }
     
-    //@@author
+    // @@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

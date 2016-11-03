@@ -2,8 +2,8 @@ package seedu.manager.logic.commands;
 
 import seedu.manager.model.task.Task.TaskProperties;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Allows user to sort the displayed tasks by priority
  *
  */	

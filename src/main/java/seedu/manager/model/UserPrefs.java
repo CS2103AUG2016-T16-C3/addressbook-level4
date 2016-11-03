@@ -63,10 +63,18 @@ public class UserPrefs {
     }
     
     // @@author A0147924X
+    /**
+     * Get the keywords representing primary commands
+     * @return Hashmap mapping from commands to keywords
+     */
     public HashMap<Commands, String> getCommandWords() {
     	return commandWords;
     }
     
+    /**
+     * Get the keywords representing extensions
+     * @return Hashmap mapping from commands to keywords
+     */
     public HashMap<Commands, String> getExtensionsWords() {
     	return extensionWords;
     }

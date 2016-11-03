@@ -12,6 +12,7 @@
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
+        	<!-- @@author A0147924X -->
             <columnConstraints>
             	<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" maxWidth="10.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
@@ -20,6 +21,7 @@
             <children>
             	<HBox alignment="CENTER_LEFT" fx:id="overdue" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" GridPane.columnIndex="0">
                 </HBox>
+                <!-- @@author -->
                 <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="1">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />

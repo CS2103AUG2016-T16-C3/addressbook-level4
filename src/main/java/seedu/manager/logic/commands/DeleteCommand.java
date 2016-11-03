@@ -2,7 +2,6 @@ package seedu.manager.logic.commands;
 
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
-import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
@@ -23,7 +22,7 @@ public class DeleteCommand extends Command implements UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "Deleted Task: %1$s";
     public static final String UNDO_SUCCESS = "Undone the previous deleting: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     public final int targetIndex;
     public Task taskToDelete;
@@ -71,7 +70,7 @@ public class DeleteCommand extends Command implements UndoableCommand {
              
              return new CommandResult(String.format(UNDO_SUCCESS, taskToDelete));
          } catch (UniqueTaskList.DuplicateTaskException e) {
-             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }
 }

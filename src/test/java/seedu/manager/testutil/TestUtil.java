@@ -305,9 +305,9 @@ public class TestUtil {
     
     // @@author A0147924X
     /**
-     * Inserts tasks to the array of tasks.
+     * Inserts tasks into the array of tasks.
      * @param index Index at which to insert the first of the tasks
-     * @param tasks A array of tasks.
+     * @param tasks An array of tasks
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */

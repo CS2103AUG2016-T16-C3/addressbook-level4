@@ -15,8 +15,8 @@ public class Done extends TaskProperty {
     public static final String COMMAND_WORD = "done";
     private boolean value;
 
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Validates given done indicator.
      * @throws IllegalValueException if given done indicator address string is invalid.
      */

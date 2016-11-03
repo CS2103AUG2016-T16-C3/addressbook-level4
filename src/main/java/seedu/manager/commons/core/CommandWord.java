@@ -1,7 +1,7 @@
 package seedu.manager.commons.core;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Represents a command in the task manager
  *
  */

@@ -14,8 +14,8 @@ import seedu.manager.model.task.StartTime;
 import seedu.manager.model.task.EndTime;
 import seedu.manager.model.task.Tag;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Used to parse extensions in the user input
  *
  */
@@ -231,8 +231,8 @@ public class ExtensionParser {
         }
     }
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Adds a property to the properties HashMap
      * 
      * @param properties HashMap to put the new property into.

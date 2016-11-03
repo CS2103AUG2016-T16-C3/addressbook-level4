@@ -3,8 +3,6 @@ package seedu.manager.logic.commands;
 import java.util.HashMap;
 import java.util.Optional;
 
-import seedu.manager.commons.core.EventsCenter;
-import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
@@ -24,12 +22,12 @@ public class AddCommand extends Command implements UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String UNDO_SUCCESS = "Previous added task deleted: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
     public static final String MESSAGE_INVALID_TAG = "This is an invalid tag";
 
     private final Task toAdd;
-
+    
+    // @@author A0147924X
     /**
      * Convenience constructor using raw values.
      *
@@ -63,6 +61,7 @@ public class AddCommand extends Command implements UndoableCommand {
         }
     }
     
+    // @@author
     @Override
 	public CommandResult undoIt() {
     	assert model != null;
