@@ -35,8 +35,8 @@ public class Done extends TaskProperty {
         return value ? "\u2713" : "";
     }
     
+    //@@author A0139621H
     /**
-     * @@author A0139621H
      * Checks if the task property matches with that of the search function's input
      */
     @Override

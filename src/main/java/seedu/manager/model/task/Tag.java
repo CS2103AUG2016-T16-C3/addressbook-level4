@@ -3,8 +3,8 @@ package seedu.manager.model.task;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 
+//@@author A0148042M
 /**
- * @@author A0148042M
  * Represents a Tag in the task manager.
  * Guarantees: immutable; name is valid as declared in {@link #isValid(String, String)}
  */
@@ -14,9 +14,6 @@ public class Tag extends TaskProperty {
     public static final String TAG_VALIDATION_REGEX = ".+";
 
     public String tagName;
-
-//    public Tag() {
-//    }
 
     /**
      * Validates given tag name.
@@ -28,6 +25,7 @@ public class Tag extends TaskProperty {
         this.tagName = name;
     }
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -35,6 +33,7 @@ public class Tag extends TaskProperty {
                 && this.tagName.equals(((Tag) other).tagName)); // state check
     }
 
+    //@@author A0148042M
     @Override
     public int hashCode() {
         return tagName.hashCode();
@@ -45,10 +44,6 @@ public class Tag extends TaskProperty {
      */
     public String toString() {
         return tagName;
-    }
-    
-    public String toUiString() {
-        return " [" + tagName + "]";
     }
 
     //@@author A0139621H
