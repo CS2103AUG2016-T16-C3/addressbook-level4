@@ -77,6 +77,10 @@ public class UniqueTaskList implements Iterable<Task> {
     public ObservableList<Task> getInternalList() {
         return internalList;
     }
+    
+    public int getSize() {
+        return internalList.size();
+    }
 
     @Override
     public Iterator<Task> iterator() {
