@@ -1,5 +1,6 @@
 package seedu.manager.logic.commands;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 import seedu.manager.commons.core.EventsCenter;
@@ -45,21 +46,51 @@ public class HelpCommand extends Command {
             + "Example: tag Legend";
     
     private final Optional<String> commandToGetHelpFor;
+    private static final HashMap<Commands, String> usageMessages = new HashMap<>();
+    
+    static {
+    	buildUsageMessageHashmap();
+    }
 
     public HelpCommand(Optional<String> commandToGetHelpFor) {
     	this.commandToGetHelpFor = commandToGetHelpFor;
+    	buildUsageMessageHashmap();
     }
 
     @Override
     public CommandResult execute() {
-    	System.out.println(commandToGetHelpFor);
-    	System.out.println(commandToGetHelpFor.isPresent());
         if (commandToGetHelpFor.isPresent()) {
 			return getHelpForMatchingCommand(commandToGetHelpFor.get());
 		} else {
 			EventsCenter.getInstance().post(new ShowHelpRequestEvent());
 			return new CommandResult(SHOWING_HELP_MESSAGE);
 		}
+    }
+    
+    /**
+     * Creates a hashmap of usage messages for all commands and extensions
+     */
+    private static void buildUsageMessageHashmap() {
+    	usageMessages.put(Commands.ADD, AddCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.ALIAS, AliasCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.CLEAR, ClearCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.DELETE, DeleteCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.DONE, DoneCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.EDIT, EditCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.EXIT, ExitCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.FIND, FindCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.HELP, HelpCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.LIST, ListCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.SORT, SortCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.STORAGE, StorageCommand.MESSAGE_USAGE);
+		usageMessages.put(Commands.UNDO, UndoCommand.MESSAGE_USAGE);
+		
+		usageMessages.put(Commands.AT, MESSAGE_AT_USAGE);
+		usageMessages.put(Commands.BY, MESSAGE_BY_USAGE);
+		usageMessages.put(Commands.EVENT, MESSAGE_EVENT_USAGE);
+		usageMessages.put(Commands.PRIORITY, MESSAGE_PRIORITY_USAGE);
+		usageMessages.put(Commands.TAG, MESSAGE_TAG_USAGE);
+		usageMessages.put(Commands.VENUE, MESSAGE_VENUE_USAGE);
     }
     
     /**
@@ -104,66 +135,9 @@ public class HelpCommand extends Command {
      * @return The usage message for input command
      */
     private String constructUsageMessageForCommand(Commands command) {
-    	switch (command) {
-		case ADD:
-			return AddCommand.MESSAGE_USAGE;
-		
-		case ALIAS:
-			return AliasCommand.MESSAGE_USAGE;
-		
-		case CLEAR:
-			return ClearCommand.MESSAGE_USAGE;
-		
-		case DELETE:
-			return DeleteCommand.MESSAGE_USAGE;
-		
-		case DONE:
-			return DoneCommand.MESSAGE_USAGE;
-		
-		case EDIT:
-			return EditCommand.MESSAGE_USAGE;
-		
-		case EXIT:
-			return ExitCommand.MESSAGE_USAGE;
-		
-		case FIND:
-			return FindCommand.MESSAGE_USAGE;
-		
-		case HELP:
-			return HelpCommand.MESSAGE_USAGE;
-		
-		case LIST:
-			return ListCommand.MESSAGE_USAGE;
-		
-		case SORT:
-			return SortCommand.MESSAGE_USAGE;
-		
-		case STORAGE:
-			return StorageCommand.MESSAGE_USAGE;
-		
-		case UNDO:
-			return UndoCommand.MESSAGE_USAGE;
-		
-		case AT:
-			return MESSAGE_AT_USAGE;
-		
-		case BY:
-			return MESSAGE_BY_USAGE;
-		
-		case EVENT:
-			return MESSAGE_EVENT_USAGE;
-		
-		case PRIORITY:
-			return MESSAGE_PRIORITY_USAGE;
-		
-		case TAG:
-			return MESSAGE_TAG_USAGE;
-		
-		case VENUE:
-			return MESSAGE_VENUE_USAGE;
-
-		default:
-			assert false;
+    	if (usageMessages.containsKey(command)) {
+			return usageMessages.get(command);
+		} else {
 			return MESSAGE_WRONG_HELP_COMMAND;
 		}
     }
