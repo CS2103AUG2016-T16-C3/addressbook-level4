@@ -33,7 +33,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented:
   * [Event](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#from-to)
   * [Start time (At](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#at))
-  * [End time ([Before](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#before))
+  * [End time (Before](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#before))
   * Done command
   * Enhanced [find](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#find) command
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/main/A0139621H.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/test/A0139621H.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/docs/A0139621H.md)]
