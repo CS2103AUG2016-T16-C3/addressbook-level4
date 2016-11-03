@@ -3,10 +3,8 @@ package seedu.manager.logic.commands;
 import java.util.HashMap;
 import java.util.Optional;
 
-import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
-import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -107,6 +105,12 @@ public class EditCommand extends Command implements UndoableCommand {
     }
     
     @Override
+    
+    // @@ author A0148003U
+    
+    /**
+     * How the edit command undoes itself.
+     */
     public CommandResult undoIt() {
     	assert model != null;
     	

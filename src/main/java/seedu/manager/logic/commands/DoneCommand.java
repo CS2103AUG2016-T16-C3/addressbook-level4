@@ -3,10 +3,8 @@ package seedu.manager.logic.commands;
 import java.util.HashMap;
 import java.util.Optional;
 
-import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
-import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -69,6 +67,7 @@ public class DoneCommand extends Command implements UndoableCommand {
 		}
     }
 
+    // @@ author A0148003U
 	@Override
 	public CommandResult undoIt() {
 	    assert model != null;

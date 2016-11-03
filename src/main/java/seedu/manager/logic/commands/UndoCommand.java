@@ -1,5 +1,11 @@
 package seedu.manager.logic.commands;
 
+// @@ author A0148003U
+
+/**
+ * Allows users to undo the previous operations by typing in "undo";
+ */
+
 public class UndoCommand extends Command {
     
 	public static final String COMMAND_WORD = "undo";
@@ -17,7 +23,7 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
     	assert model != null;
-    	if(undoList.isEmpty()) {
+    	if (undoList.isEmpty()) {
     		return new CommandResult(NO_UNDOABLE_COMMANDS);
     	}
     	

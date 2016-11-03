@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.manager.model.task.ReadOnlyTask;
-import seedu.manager.model.task.Tag;
 
 public class TaskCard extends UiPart{
 
@@ -79,6 +78,7 @@ public class TaskCard extends UiPart{
         venue.setText(task.getVenue().isPresent() ? "Venue : " + task.getVenue().get().getPrettyValue() : "");
     }
     
+    // @@ author A0148003U
     public void initTime() {
     	if (task.getStartTime().isPresent()) {
     		if (task.getEndTime().isPresent()) {
@@ -115,6 +115,7 @@ public class TaskCard extends UiPart{
     	tag.setText(task.getTag().isPresent() ? "Tag     : " + task.getTag().get().getPrettyValue() : "");
     }
     
+    // @@ author A0148003U
     public void initPriorityColor() {
         if (task.isPriorityHigh()) {
             setTextColor("red");

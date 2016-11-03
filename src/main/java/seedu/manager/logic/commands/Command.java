@@ -60,11 +60,22 @@ public abstract class Command {
         EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(taskIndex));
     }
     
-    // @@author
+    // @@ author Jiang Yisong.
+    
+    /**
+     * add undoable command to the undoList.
+     */
+    
     public void addUndo(UndoableCommand newCommand) {
     	if (newCommand != null)
     	undoList.add(newCommand);
     }
+    
+    // @@ author Jiang Yisong.
+    
+    /**
+     * remove an undoable command from the undoList.
+     */
     
     public void removeUndone(){
     	undoList.removeLast();
