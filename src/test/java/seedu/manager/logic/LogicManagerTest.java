@@ -706,7 +706,7 @@ public class LogicManagerTest {
         assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }
     
-    // @@author
+    //@@author A0139621H
     @Test
     public void execute_findVenue_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -779,7 +779,7 @@ public class LogicManagerTest {
         assertEquals(1, targetedTagJumpIndex);
     }
     
-    // @@author
+    //@@author A0139621H
     @Test
     public void execute_findStartTime_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -1128,8 +1128,12 @@ public class LogicManagerTest {
             return Arrays.asList(tasks);
         }
 
+        //@@author A0139621H
         /**
          * Generates a Task object with given desc. Other fields will have some dummy values.
+         * @param desc Description for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithDesc(String desc) throws Exception {
             return new Task(
@@ -1145,6 +1149,9 @@ public class LogicManagerTest {
         
         /**
          * Generates a Task object with given venue. Other fields will have some dummy values.
+         * @param venue Venue for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithVenue(String venue) throws Exception {
             return new Task(
@@ -1160,6 +1167,9 @@ public class LogicManagerTest {
         
         /**
          * Generates a Task object with given priority. Other fields will have some dummy values.
+         * @param priority Priority for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithPriority(String priority) throws Exception {
             return new Task(
@@ -1175,6 +1185,9 @@ public class LogicManagerTest {
         
         /**
          * Generates a Task object with given start time. Other fields will have some dummy values.
+         * @param startTime Start time for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithStartTime(String startTime) throws Exception {
             return new Task(
@@ -1190,6 +1203,9 @@ public class LogicManagerTest {
         
         /**
          * Generates a Task object with given end time. Other fields will have some dummy values.
+         * @param endTime End time for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithEndTime(String endTime) throws Exception {
             return new Task(
@@ -1205,6 +1221,10 @@ public class LogicManagerTest {
         
         /**
          * Generates a Task object with given start and end time. Other fields will have some dummy values.
+         * @param startTime Start time for the task
+         * @param endTime End time for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithStartAndEndTime(String startTime, String endTime) throws Exception {
             return new Task(
@@ -1220,6 +1240,10 @@ public class LogicManagerTest {
         
         /**
          * Generates a Task object with given desc and venue. Other fields will have some dummy values.
+         * @param desc Description for the task
+         * @param venue Venue for the task
+         * @return Task with the given parameters
+         * @throws Exception
          */
         Task generateTaskWithDescAndVenue(String desc, String venue) throws Exception {
             return new Task(
@@ -1235,7 +1259,7 @@ public class LogicManagerTest {
         
         // @@author A0147924X
         /**
-         * Generates a Task object with given tag. Other fields will have some dummy values.
+         * Generates a Task object with given desc and tag. Other fields will have some dummy values.
          * @param desc Description for the task
          * @param tag Tag for the task
          * @return Task with the given parameters

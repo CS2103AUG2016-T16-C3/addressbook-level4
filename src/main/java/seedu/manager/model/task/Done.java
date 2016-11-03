@@ -30,12 +30,12 @@ public class Done extends TaskProperty {
         return value ? "Yes" : "No";
     }
     
+    //@@author A0139621H
     @Override
     public String getPrettyValue() {
         return value ? "\u2713" : "";
     }
     
-    //@@author A0139621H
     /**
      * Checks if the task property matches with that of the search function's input
      */
