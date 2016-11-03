@@ -60,32 +60,31 @@ public abstract class Command {
         EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(taskIndex));
     }
     
-    // @@ author Jiang Yisong.
     
+    public Model getModel() {
+    	return model;
+    }
+    
+    // @@author A0148003U
     /**
-     * add undoable command to the undoList.
+     * add undo-able command to the undoList.
      */
-    
     public void addUndo(UndoableCommand newCommand) {
     	if (newCommand != null)
     	undoList.add(newCommand);
     }
     
-    // @@ author Jiang Yisong.
-    
     /**
-     * remove an undoable command from the undoList.
-     */
-    
+     * remove an undo-able command from the undoList.
+     */    
     public void removeUndone(){
     	undoList.removeLast();
     }
     
+    /**
+     * check whether the undo-list is empty.
+     */
     public boolean isEmpty() {
     	return undoList == null;
     	}
-    
-    public Model getModel() {
-    	return model;
-    }
 }

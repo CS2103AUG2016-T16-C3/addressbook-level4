@@ -112,11 +112,8 @@ public class EditCommand extends Command implements UndoableCommand {
         return newProperties;
     }
     
-    // @@author
+    // @@author A0148003U
     @Override
-    
-    // @@ author A0148003U
-    
     /**
      * How the edit command undoes itself.
      */

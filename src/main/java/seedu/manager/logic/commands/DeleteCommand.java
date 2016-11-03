@@ -58,7 +58,7 @@ public class DeleteCommand extends Command implements UndoableCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToDelete.getAsPrettyText()));
     }
     
-    // @@ author A0148003U
+    // @@author A0148003U
     @Override
     public CommandResult undoIt() {
     	 assert model != null;
