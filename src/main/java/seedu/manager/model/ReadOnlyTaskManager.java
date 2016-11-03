@@ -15,12 +15,15 @@ public interface ReadOnlyTaskManager {
 
     UniqueTaskList getUniqueTaskList();
     
+    // @@author A0148042M
     UniqueTagList getUniqueTagList();
     
+    // @@author 
     /**
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
     
+    // @@author A0148042M
     List<Tag> getTagList();
 }
