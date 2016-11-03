@@ -42,11 +42,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspects/tools in charge of: Tag, structure of UI
 * Features implemented:
    * [Design of Tag in command extensions](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/UserGuide.md#extensions)
+   * [Make Tag list responses for add, delete, edit and clear](https://github.com/CS2103AUG2016-T16-C3/main/pull/88)
    * [Change the components of UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/55)
    * [Check validation of time](https://github.com/CS2103AUG2016-T16-C3/main/commit/0abb21f743a5dfdf3fa9e9ba284bd5e2ab278d15)
 
 * Code written:
-[[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/main/A0148042M.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/test/A0148042M.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/docs/A0148042M.md)]
+[[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/main/A0148042M.md)][[functional reused code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/main/A0148042Mreused.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/test/A0148042M.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/collated/docs/A0148042M.md)]
 
 * Other major contributions:
   * Help other people to proofread and correct grammatical errors of User Guide
