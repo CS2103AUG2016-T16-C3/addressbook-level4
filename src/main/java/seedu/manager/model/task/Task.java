@@ -21,10 +21,10 @@ public class Task implements ReadOnlyTask {
     
     private HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
 
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Build task from properties represented as Strings
-     * @param properties
+     * @param properties Hashmap with properties represented as strings
      * @throws IllegalValueException
      */
     public Task(HashMap<TaskProperties, Optional<String>> properties) throws IllegalValueException {
@@ -38,16 +38,16 @@ public class Task implements ReadOnlyTask {
     }
 
 	/**
-	 * Task Constructor from individual strings
-	 * @param desc
-	 * @param venue
-	 * @param priority
-	 * @param startTime
-	 * @param endTime
-	 * @param done
-	 * @param tag
-	 * @throws IllegalValueException
+	 * Task Constructor from individual strings. Empty strings indicate empty properties. 
 	 * Every field must be present and not null. Desc cannot be empty
+	 * @param desc Task's description
+	 * @param venue Task's venue
+	 * @param priority Task's priority
+	 * @param startTime Task's start time
+	 * @param endTime Task's end time
+	 * @param done Whether task is done
+	 * @param tag Task's tag
+	 * @throws IllegalValueException
 	 */
     public Task(String desc, String venue, String priority, String startTime, String endTime, String done, String tag) throws IllegalValueException {
        assert !CollectionUtil.isAnyNull(desc, venue, priority, startTime, endTime, done, tag);
@@ -63,7 +63,8 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Copy constructor.
+     * Copy constructor
+     * @param source Task which will be copied
      */
     public Task(ReadOnlyTask source) {
         HashMap<TaskProperties, Optional<TaskProperty>> properties = source.getProperties();
@@ -77,6 +78,7 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Get properties of task as TaskProperty objects
+     * @return clone of Task's properties
      */
     @Override
     public HashMap<TaskProperties, Optional<TaskProperty>> getProperties() {
@@ -94,20 +96,16 @@ public class Task implements ReadOnlyTask {
     public HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings() {
         HashMap<TaskProperties, Optional<String>> clone = new HashMap<>();
         for (Entry<TaskProperties, Optional<TaskProperty>> prop : properties.entrySet()) {
-            clone.put(prop.getKey(),
-            		prop.getValue().isPresent() ? 
-            				Optional.of(prop.getValue().get().getValue()) : 
-            				Optional.empty());
+            clone.put(prop.getKey(), prop.getValue().map(TaskProperty::getValue));
         }
         return clone;
     }
     
-
     /**
      * Builds a TaskProperty object using a value from the TaskProperties enum and a value
      * @param property that should be built
-     * @param value of the property
-     * @return
+     * @param Optional which may have the value of the property, or be empty
+     * @return An optional containing a property if the input had one, else empty
      */
     private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
     	if (!value.isPresent()) {
@@ -150,6 +148,7 @@ public class Task implements ReadOnlyTask {
         return properties.get(TaskProperties.VENUE);
     }
 
+    // @@author A0139621H
     @Override
     public Optional<TaskProperty> getPriority() {
         return properties.get(TaskProperties.PRIORITY);
@@ -170,6 +169,7 @@ public class Task implements ReadOnlyTask {
     	return properties.get(TaskProperties.DONE);
     }
     
+    // @@author A0148042M
     @Override
     public Optional<TaskProperty> getTag() {
         return properties.get(TaskProperties.TAG);
@@ -179,27 +179,18 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                || (other instanceof ReadOnlyTask // instance of handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
     
+    // @@author A0147924X
     @Override
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
         for (TaskProperties property : TaskProperties.values()) {
             if (other.get(property).isPresent()) {
                 if (!this.properties.get(property).isPresent()) {
-                	if (property.equals(TaskProperties.STARTTIME)) {
-    					if (!(this.properties.get(TaskProperties.ENDTIME).isPresent() &&
-     						this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
-							return false;
-						}
-    				} else if (property.equals(TaskProperties.ENDTIME)) {
-    					if (!(this.properties.get(TaskProperties.STARTTIME).isPresent() &&
-      						this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
-							return false;
-						}
-     				} else {
-     					return false;
+                	if (!matchStartOrEndTime(other, property)) {
+						return false;
 					}
                 } else if (!this.properties.get(property).get().matches(other.get(property).get())){
                     return false;
@@ -209,7 +200,33 @@ public class Task implements ReadOnlyTask {
         return true;
     }
     
-    // @@author A0147924X
+    /**
+     * Tries to match start time against end time in the case that this task doesn't have a start time
+     * and vice versa 
+     * @param other Other properties to compare against
+     * @param property Property to compare on
+     * @return true if property is start or end time and matches with this task, false otherwise
+     */
+    private boolean matchStartOrEndTime(HashMap<TaskProperties, Optional<TaskProperty>> other, TaskProperties property) {
+    	if (property.equals(TaskProperties.STARTTIME)) {
+			if (!(this.properties.get(TaskProperties.ENDTIME).isPresent() &&
+					this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (property.equals(TaskProperties.ENDTIME)) {
+			if (!(this.properties.get(TaskProperties.STARTTIME).isPresent() &&
+					this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+    }
+    
     @Override
     public int compareProperty(ReadOnlyTask other, TaskProperties property) {
     	assert other != null;

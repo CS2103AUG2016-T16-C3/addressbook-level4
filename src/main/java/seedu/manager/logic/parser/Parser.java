@@ -3,7 +3,8 @@ package seedu.manager.logic.parser;
 import static seedu.manager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.manager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.logic.commands.*;
 
+// @@author A0147924X
 /**
  * Parses user input.
  */
@@ -29,16 +31,27 @@ public class Parser {
     private static final Pattern FIND_KEYWORDS_FORMAT =
             Pattern.compile("(?<arguments>.+)");
     
-    private static final ExtensionParser extParser = new ExtensionParser();
+    private final ExtensionParser extParser;
     
     private HashMap<Commands, String> commandWords = null;
 
-    public Parser() {}
-    
-    public void setCommandWords(HashMap<Commands, String> commandWordsIn) {
-    	commandWords = commandWordsIn;
+    /**
+     * Constructs a parser given command words and extension words
+     * @param commandWords
+     * @param extensionWords
+     */
+    public Parser(HashMap<Commands, String> commandWords, HashMap<Commands, String> extensionWords) {
+    	this.commandWords = commandWords;
+    	extParser = new ExtensionParser(extensionWords);
     }
-
+    
+    /**
+     * Compiles the regexes used in the parser
+     */
+    public void compileRegexes() {
+    	extParser.compileRegexes();
+    }
+    
     /**
      * Parses user input into command for execution.
      *
@@ -91,7 +104,7 @@ public class Parser {
             return new ExitCommand();
 
         case HELP:
-            return new HelpCommand();
+            return prepareHelp(arguments);
         
         case STORAGE:
             return new StorageCommand(arguments);
@@ -99,6 +112,12 @@ public class Parser {
         case SORT:
         	return new SortCommand();
         
+        case UNSORT:
+        	return new UnSortCommand();
+        
+        case UNDO:
+        	return new UndoCommand();
+
         case ALIAS:
         	return prepareAlias(arguments);
 
@@ -108,14 +127,13 @@ public class Parser {
     }
     
     /**
-     * @@author A0147924X
      * Get the command which matches with the command word entered by the user
      * @param commandWord
      * @throws IllegalValueException
      */
     private Commands getMatchedCommand(String commandWord) throws IllegalValueException {
     	for (Commands command : Commands.values()) {
-			if (commandWords.get(command).equals(commandWord)) {
+			if (commandWords.containsKey(command) && commandWords.get(command).equals(commandWord)) {
 				return command;
 			}
 		}
@@ -124,9 +142,7 @@ public class Parser {
     }
 
 	/**
-	 * @@author
      * Parses arguments in the context of the add task command.
-     *
      * @param args full command args string
      * @return the prepared command 
      */
@@ -139,10 +155,10 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
+    // @@author
     /**
      * Parses arguments in the context of the delete task command.
-     *
      * @param args full command args string
      * @return the prepared command
      */
@@ -159,7 +175,6 @@ public class Parser {
     
     /**
      * Parses arguments in the context of the edit task command.
-     *
      * @param args full command args string
      * @return the prepared command 
      */
@@ -183,8 +198,8 @@ public class Parser {
         } 
     }
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Parses arguments in the context of the done task command
      * @param args full commmand args string
      * @return the prepared command
@@ -198,9 +213,9 @@ public class Parser {
 
         return new DoneCommand(index.get());
 	}
-
+    
+    // @@author
     /**
-     * @@author
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
@@ -219,8 +234,9 @@ public class Parser {
     }
 
     /**
+     * @@author A0139621H
+     * 
      * Parses arguments in the context of the find task command.
-     *
      * @param args full command args string
      * @return the prepared command
      */
@@ -238,18 +254,36 @@ public class Parser {
         }
     }
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Parses arguments in the context of the alias command
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAlias(String args) {
-    	String[] splitArgs = args.split(" ");
+    	String[] splitArgs = args.trim().split(" ");
     	if (splitArgs.length != 2) {
 			return new IncorrectCommand(AliasCommand.MESSAGE_WRONG_NUM_ARGS);
 		}
     	
     	return new AliasCommand(splitArgs[0], splitArgs[1]);
+    }
+    
+    /**
+     * Parses arguments in the context of the help command
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareHelp(String args) {
+    	String[] splitArgs = args.trim().split(" ");
+    	System.out.println(splitArgs.length);
+    	System.out.println(splitArgs);
+    	if (splitArgs.length > 1) {
+			return new IncorrectCommand(HelpCommand.MESSAGE_WRONG_NUM_ARGS);
+		} else if (splitArgs.length == 1 && !splitArgs[0].equals("")) {
+			return new HelpCommand(Optional.of(splitArgs[0]));
+		} else {
+			return new HelpCommand(Optional.empty());
+		}
     }
 }

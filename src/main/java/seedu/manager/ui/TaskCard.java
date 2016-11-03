@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.manager.model.task.ReadOnlyTask;
-import seedu.manager.model.task.Tag;
 
 public class TaskCard extends UiPart{
 
@@ -14,13 +13,13 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
+    private HBox overdue;
+    @FXML
     private Label desc;
     @FXML
     private Label id;
     @FXML
     private Label venue;
-    @FXML
-    private Label priority;
     @FXML
     private Label startTime;
     @FXML
@@ -46,16 +45,90 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
-        id.setText(displayedIndex + ". ");
-        venue.setText(task.getVenue().isPresent() ? task.getVenue().get().getPrettyValue() : "");
-        priority.setText(task.getPriority().isPresent() ? task.getPriority().get().getPrettyValue() : "");
-        startTime.setText(task.getStartTime().isPresent() ? task.getStartTime().get().getPrettyValue() : "");
-        endTime.setText(task.getEndTime().isPresent() ? task.getEndTime().get().getPrettyValue() : "");
-        done.setText(task.getDone().isPresent() ? task.getDone().get().getPrettyValue() : "");
-        tag.setText(task.getTag().isPresent() ? task.getTag().get().getPrettyValue() : "");
+    	initText();
+    	initId();
+    	initVenue();
+        initTime();
+        initDone();
+        initTag();
+        initPriorityColor();
+        initTaskOverdue();
     }
-
+    
+    // @@author A0147924X
+    /**
+     * Colour overdue bar red if task is overdue
+     */
+    public void initTaskOverdue() {
+        if (task.isTaskOverdue()) {
+        	overdue.setStyle("-fx-background-color: red");
+        }
+    }
+    
+    // @@author
+    public void initText() {
+        desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
+    }
+    
+    public void initId() {
+        id.setText(displayedIndex + ". ");
+    }
+    
+    public void initVenue() {
+        venue.setText(task.getVenue().isPresent() ? "Venue : " + task.getVenue().get().getPrettyValue() : "");
+    }
+    
+    public void initTime() {
+    	if (task.getStartTime().isPresent()) {
+    		if (task.getEndTime().isPresent()) {
+    			startTime.setText("From   : " + task.getStartTime().get().getPrettyValue());
+    			endTime.setText("To       : " + task.getEndTime().get().getPrettyValue()); 
+    		}
+    		
+    		else {
+    			startTime.setText("At        : " + task.getStartTime().get().getPrettyValue());
+    			endTime.setText("");
+    		}
+    	}
+    	
+    	else {
+    		if ((task.getEndTime().isPresent())) {
+    			startTime.setText("By       : " + task.getEndTime().get().getPrettyValue());
+    			endTime.setText("");  
+    		}
+    		
+    		else {
+    			startTime.setText("");
+    			endTime.setText("");
+    		}
+    		}
+    	
+    }
+    
+    public void initDone() {
+    	done.setText(task.getDone().isPresent() ? task.getDone().get().getPrettyValue() : "");
+    	done.setStyle("-fx-font-size: 20pt; -fx-text-fill: green");
+    }
+    
+    public void initTag() {
+    	tag.setText(task.getTag().isPresent() ? "Tag     : " + task.getTag().get().getPrettyValue() : "");
+    }
+    
+    public void initPriorityColor() {
+        if (task.isPriorityHigh()) {
+            setTextColor("red");
+        } else if (task.isPriorityMedium()) {
+        	setTextColor("orange");
+        } else if (task.isPriorityLow()) {
+        	setTextColor("green");
+        }
+    }
+    
+    public void setTextColor (String color) {
+    	desc.setStyle("-fx-text-fill: " + color);        
+    }
+    
+    // @@author
     public HBox getLayout() {
         return cardPane;
     }

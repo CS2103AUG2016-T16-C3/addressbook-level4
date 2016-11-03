@@ -3,24 +3,23 @@ package seedu.manager.logic.commands;
 import java.util.HashMap;
 import java.util.Optional;
 
-import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.core.Messages;
 import seedu.manager.commons.core.UnmodifiableObservableList;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0147924X
 /**
  * Allows tasks to be edited. Uses an index to extract the task to be edited and changes its
  * properties according to the new properties given
- * @author varungupta
  *
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements UndoableCommand {
     
     public static final String COMMAND_WORD = "edit";
 
@@ -31,6 +30,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_PARAMS = "The new parameters are the same as before";
+    public static final String UNDO_SUCCESS = "Undone the previous edit: %1$s";
 
     public final int targetIndex;
     
@@ -41,6 +41,9 @@ public class EditCommand extends Command {
         this.targetIndex = targetIndex;
         this.editedProperties = editedProperties;
     }
+
+    public Task newTask;
+    public Task oldTask;
 
     @Override
     public CommandResult execute() {
@@ -59,11 +62,21 @@ public class EditCommand extends Command {
         	HashMap<TaskProperties, Optional<String>> newProperties = 
         		buildNewPropsFromOldAndEdited(taskToEdit.getPropertiesAsStrings(), editedProperties);
         	
-            Task newTask = new Task(newProperties);
+            newTask = new Task(newProperties);
+            oldTask = new Task(taskToEdit);
+            
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            if(newTask.getTag().isPresent()) {
+                model.addTag((Tag) newTask.getTag().get());
+            }
+            if(taskToEdit.getTag().isPresent()) {
+                model.deleteTag((Tag) taskToEdit.getTag().get());
+            }
+            
+            jumpToTask(newTask);
+            this.addUndo(this);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
         } catch (TaskNotFoundException e) {
@@ -98,4 +111,32 @@ public class EditCommand extends Command {
         
         return newProperties;
     }
+    
+    // @@author
+    @Override
+    public CommandResult undoIt() {
+    	assert model != null;
+    	
+    	try {
+    		model.addTask(oldTask);
+    		model.deleteTask(newTask);
+    		
+            if(oldTask.getTag().isPresent()) {
+                model.addTag((Tag) oldTask.getTag().get());
+            }
+            if(newTask.getTag().isPresent()) {
+                model.deleteTag((Tag) newTask.getTag().get());
+            }
+            
+            jumpToTask(oldTask);
+    		
+            return new CommandResult(String.format(UNDO_SUCCESS, oldTask));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult("The target task cannot be missing");
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_PARAMS);
+        }
+    	
+    }
+    
 }

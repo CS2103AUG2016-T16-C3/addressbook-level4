@@ -11,11 +11,12 @@ import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Marks a task identified using it's last displayed index as done.
+ * 
  */
-public class DoneCommand extends Command {
+public class DoneCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "done";
 
@@ -25,8 +26,12 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Marked Task as Done: %1$s";
+    
+    public static final String UNDO_SUCCESS = "Unmarked the Task to Undone."; 
 
     public final int targetIndex;
+    
+    public Task taskToUnmark;
 
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -44,19 +49,54 @@ public class DoneCommand extends Command {
         }
 
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
-        HashMap<TaskProperties, Optional<String>> propsToEdit = taskToMark.getPropertiesAsStrings();
-        propsToEdit.put(TaskProperties.DONE, Optional.of("Yes"));
 
         try {
+            Task markedTask = markDonePropertyOfTask(taskToMark, true);
             model.deleteTask(taskToMark);
-            model.addTask(new Task(propsToEdit));
+            model.addTask(markedTask);
+            jumpToTask(markedTask);
+            
+            taskToUnmark = markedTask;
+            this.addUndo(this);
+            
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+        	return new CommandResult("The target task cannot be missing");
         } catch (IllegalValueException e) {
 			return new CommandResult(e.getMessage());
 		}
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
     }
+    
+    // @@author
+	@Override
+	public CommandResult undoIt() {
+	    assert model != null;
 
+        try {
+        	Task markedTask = markDonePropertyOfTask(taskToUnmark, false);
+            model.deleteTask(taskToUnmark);
+            model.addTask(markedTask);
+            jumpToTask(markedTask);
+        } catch (TaskNotFoundException pnfe) {
+        	return new CommandResult("The target task cannot be missing");
+        } catch (IllegalValueException e) {
+			return new CommandResult(e.getMessage());
+        }
+		return new CommandResult (UNDO_SUCCESS);
+	}
+	
+	/**
+	 * @@author A0147924X
+	 * Marks the done property of a task
+	 * @param taskToMark The task which should be marked
+	 * @param isDone Whether it should be marked as done or not done
+	 * @return The new marked task
+	 * @throws IllegalValueException
+	 */
+	private Task markDonePropertyOfTask(ReadOnlyTask taskToMark, boolean isDone) throws IllegalValueException {
+		String done = isDone ? "Yes" : "No";
+		HashMap<TaskProperties, Optional<String>> propsToEdit = taskToMark.getPropertiesAsStrings();
+        propsToEdit.put(TaskProperties.DONE, Optional.of(done));
+        return new Task(propsToEdit);
+	}
 }

@@ -8,15 +8,16 @@ import seedu.manager.commons.util.StringUtil;
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Desc extends TaskProperty {
+    
     public static final String MESSAGE_DESC_CONSTRAINTS = "Task descriptions can contain any characters";
     public static final String DESC_VALIDATION_REGEX = ".+";
     
     private String value;
     private static final int PRETTY_MAX_LENGTH = 50; 
     
+    // @@author A0147924X
     /**
      * Validates given desc.
-     *
      * @throws IllegalValueException if given desc string is invalid.
      */
     public Desc(String desc) throws IllegalValueException {
@@ -24,13 +25,13 @@ public class Desc extends TaskProperty {
         value = desc;
     }
 
-
+    //@@author
     @Override
     public String toString() {
         return value;
     }
     
-    // @@author A0147924X
+    //@@author A0147924X
     @Override
     public String getPrettyValue() {
     	if (value.length() > PRETTY_MAX_LENGTH) {
@@ -41,7 +42,7 @@ public class Desc extends TaskProperty {
     }
     
     /**
-     * @@author
+     * @@author A0139621H
      * Checks if any words from the task's venue matches that with the search function's input words
      */
     @Override
@@ -57,6 +58,7 @@ public class Desc extends TaskProperty {
         return false;
     }
 
+    // @@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

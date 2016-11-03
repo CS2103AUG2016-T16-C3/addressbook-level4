@@ -13,9 +13,9 @@ public class Venue extends TaskProperty {
     public static final String VENUE_VALIDATION_REGEX = ".+";
     private String value;
 
+    // @@author A0147924X
     /**
      * Validates given venue.
-     *
      * @throws IllegalValueException if given venue string is invalid.
      */
     public Venue(String venue) throws IllegalValueException {
@@ -29,6 +29,7 @@ public class Venue extends TaskProperty {
     }
     
     /**
+     * @@author A0139621H
      * Checks if any words from the task's venue matches that with the search function's input words
      */
     @Override
@@ -44,6 +45,7 @@ public class Venue extends TaskProperty {
         return false;
     }
 
+    //@@ author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

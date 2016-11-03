@@ -193,8 +193,16 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
     
+    // @@author A0147924X
     /**
-     * Render Status Bar Footer again, used when storage location in config changes
+     * Gets the Tag List Panel
+     */
+    public TagListPanel getTagListPanel() {
+        return this.tagListPanel;
+    }
+    
+    /**
+     * Rerender Status Bar Footer
      */
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());

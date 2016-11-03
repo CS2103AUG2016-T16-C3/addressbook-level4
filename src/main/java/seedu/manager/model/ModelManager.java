@@ -11,8 +11,8 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
-import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.TaskProperty;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
@@ -68,6 +68,8 @@ public class ModelManager extends ComponentManager implements Model {
         sortedTasks = new SortedList<>(filteredTasks);
         sortedTags = new SortedList<>(filteredTags);
         this.userPrefs = userPrefs;
+        
+        sortSortedFilteredTaskListByProperty(TaskProperties.DONE);
     }
     
     // @@author
@@ -82,10 +84,21 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
-    // @@author A0147924X
     @Override
+    /**
+     * @@author A0147924X
+     * Retrieves command words from the user preferences
+     */
     public HashMap<Commands, String> getCommandWords() {
     	return userPrefs.commandWords;
+    }
+    
+    @Override
+    /**
+     * Retrieves extension words from the user preferences
+     */
+    public HashMap<Commands, String> getExtensionWords() {
+    	return userPrefs.extensionWords;
     }
     
     // @@author
@@ -99,11 +112,16 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void deleteTag(Tag tag) {
+        taskManager.removeTag(tag);
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredTaskListToShowAll();
         indicateTaskManagerChanged();
     }
     
@@ -120,12 +138,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     // @@author A0147924X
+    @Override
+    public String getAliasForCommand(Commands command) {
+    	return userPrefs.getAliasForCommand(command);
+    }
+    
 	@Override
 	public void setSingleCommandWord(String commandToChange, String alias,
 			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {
 		userPrefs.setSingleCommandWord(commandToChange, alias, messageNoMatch, messageAliasAlreadyTaken);
-		
 	}
+	
+	//=========== Sorted and Filtered Tag List Accessors ===============================================================
+	
+	@Override
+    public int getIndexOfTag(Tag tag) {
+    	return sortedTags.indexOf(tag);
+    }
     
     //=========== Sorted and Filtered Task List Accessors ===============================================================
 
@@ -140,20 +169,20 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(sortedTags);
     }
     
-    // @author
+    // @@author A0147924X
     @Override
-    public void updateSortedFilteredListToShowAll() {
-        updateFilteredListToShowAll();
+    public void updateSortedFilteredTaskListToShowAll() {
+        updateFilteredTaskListToShowAll();
     }
     
     @Override
-    public void sortSortedFilteredTaskListByPriority() {
-    	sortedTasks.setComparator((Task t1, Task t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+    public void sortSortedFilteredTaskListByProperty(TaskProperties property) {
+    	sortedTasks.setComparator((Task t1, Task t2) -> t1.compareProperty(t2, property));
     }
     
     @Override
     public void unSortSortedFilteredTaskList() {
-    	sortedTasks.setComparator(null);
+    	sortSortedFilteredTaskListByProperty(TaskProperties.DONE);
     }
     
     @Override
@@ -161,18 +190,20 @@ public class ModelManager extends ComponentManager implements Model {
     	return sortedTasks.indexOf(task);
     }
 
+    // @@author
     //=========== Filtered Task List Accessors ===============================================================
     
-    // @@author A0148042M
-    public void updateFilteredListToShowAll() {
+    public void updateFilteredTaskListToShowAll() {
         filteredTasks.setPredicate(null);
     }
     
+    // @@author A0148042M
     public void updateFilteredTagListToShowAll() {
         filteredTags.setPredicate(null);
     }
     
     // @author
+    @Override
     public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
         updateFilteredTaskList(new PredicateExpression(new EnhancedSearchQualifier(propertiesToMatch)));
     }

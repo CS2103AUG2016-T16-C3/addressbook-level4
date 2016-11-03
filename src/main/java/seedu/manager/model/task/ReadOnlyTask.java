@@ -1,5 +1,6 @@
 package seedu.manager.model.task;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -18,9 +19,61 @@ public interface ReadOnlyTask {
     Optional<TaskProperty> getEndTime();
     Optional<TaskProperty> getDone();
     Optional<TaskProperty> getTag();
+    
+    /**
+     * Get properties of the task as a Hashmap mapping from TaskProperties to Optional TaskProperty
+     * @return Hashmap representing the task properties
+     */
     HashMap<TaskProperties, Optional<TaskProperty>> getProperties();
+    
+    /**
+     * Get properties of the task as a Hashmap mapping from TaskProperties to Optional Strings
+     * @return Hashmap representing the task properties
+     */
     HashMap<TaskProperties, Optional<String>> getPropertiesAsStrings();
-
+    
+    default boolean doesPriorityEqual(String arg) {
+    	
+    	if (this.getPriority().isPresent() && this.getPriority().get().getValue().equals(arg)) {
+    	    return true;
+    	}
+    	
+        return false;
+    }
+    
+    default boolean isPriorityHigh() {	
+    	return doesPriorityEqual("high");
+    }
+    
+    default boolean isPriorityLow() {
+    	return doesPriorityEqual("low");
+    }
+    
+    default boolean isPriorityMedium() {
+    	return doesPriorityEqual("med");
+    }
+    
+    default boolean isDone() {
+        return ((Done) this.getDone().get()).isTrue();
+    }
+    
+    default boolean isTaskOverdue() {	
+    	if(this.isDone()) {
+    		return false;
+    	}
+    	
+    	Date now = new Date();
+    	
+    	if (this.getEndTime().isPresent()) {
+    		return ((Time) this.getEndTime().get()).isBefore(now); 
+    	} else if (this.getStartTime().isPresent()) {
+    		return ((Time) this.getStartTime().get()).isBefore(now); 
+    	} else {
+    		return false;
+    	}
+    }
+    
+    // @@author A0147924X
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -62,6 +115,7 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
     
+    // @@author A0147924X
     /**
      * Formats the task as pretty text, meant to be displayed on the UI and in messages
      */
@@ -82,12 +136,19 @@ public interface ReadOnlyTask {
             builder.append(" End Time: ").append(getEndTime().get().toPrettyString());
         }
         if (getTag().isPresent()) {
-            builder.append(" Tag: ").append(getTag().get());
+            builder.append(" Tag: ").append(getTag().get().toPrettyString());
         }
         return builder.toString();
     }
     
+    /**
+     * Compares two tasks using a certain property (for sorting)
+     * @param other Other task
+     * @param property Property to be compared on
+     * @return -1 if this is smaller, 0 if equal, 1 is this is larger
+     */
     public int compareProperty(ReadOnlyTask other, TaskProperties property);
     
+    // @author A0139621H
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
 }

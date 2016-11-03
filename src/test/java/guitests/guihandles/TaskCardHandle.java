@@ -56,12 +56,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return compareStringandOptional(getFullDesc(), task.getDesc()) &&
-                compareStringandOptional(getVenue(), task.getVenue()) &&
-                compareStringandOptional(getPriority(), task.getPriority()) &&
-                compareStringandOptional(getStartTime(), task.getStartTime()) &&
-                compareStringandOptional(getEndTime(), task.getEndTime()) &&
-                compareStringandOptional(getTag(), task.getTag());
+        return compareStringandOptional(getFullDesc(), task.getDesc());
         // They may also have to compare tag, but the same task cannot be in different tags
     }
     
@@ -91,6 +86,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getFullDesc() + " " + getPriority();
+        return getFullDesc();
     }
 }

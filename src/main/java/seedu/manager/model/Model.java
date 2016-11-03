@@ -23,12 +23,20 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
     
+    // @@author A0147924X
     /** Returns the Command words */
     HashMap<Commands, String> getCommandWords();
-
+    
+    /** Returns the Extension words */
+    HashMap<Commands, String> getExtensionWords();
+    
+    // @@author
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Deletes the given tag. */
+    void deleteTag(Tag tag);
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
@@ -37,31 +45,57 @@ public interface Model {
     void addTag(Tag tag);
     
     // @@author A0147924X
-    /** Change alias for a certain command */
+    /**
+     * Gets the alias for a certain command from the user preferences
+     * @param command Command for which alias will be returned 
+     * @return Alias of the command
+     */
+    public String getAliasForCommand(Commands command);
+    
+    /**
+     * Changes a command to a given alias in the user preferences
+	 * @param commandToChange The command which should be aliased
+	 * @param alias The alias which will be assigned to the command
+	 * @param messageNoMatch Message used in error which will be thrown if there is no matching command
+	 * @param messageAliasAlreadyTaken Message used in error which will be thrown if alias is already taken
+	 * @throws IllegalValueException
+     */
     public void setSingleCommandWord(String commandToChange, String alias,
     		String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException;
     
     // @@author A0148042M
-    /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
-    
     /** Returns the sorted and filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getSortedFilteredTagList();
     
+    // @@author A0147924X
+    /**
+     * Get the index of a specified tag in the list currently being displayed
+     * @param tag Tag whose index will be returned
+     * @return index of the tag
+     */
+    int getIndexOfTag(Tag tag);
+    
+    // @@author
+    /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
+    
     /** Updates the filter of the sorted and filtered task list to show all tasks */
-    void updateSortedFilteredListToShowAll();
+    void updateSortedFilteredTaskListToShowAll();
     
     /** Updates the filter of the sorted and filtered task list to filter by the given properties from the find function*/
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
     // @@author A0147924X
-    /** Sorts the sorted and filtered task list by priority */
-    void sortSortedFilteredTaskListByPriority();
+    /** Sorts the sorted and filtered task list by a certain property */
+    void sortSortedFilteredTaskListByProperty(TaskProperties property);
     
-    /** Unsort the sorted and filtered task list */
+    /** Unsorts the sorted and filtered task list */
     void unSortSortedFilteredTaskList();
     
-    // @@author
-    /** Returns index of task in sorted and filtered list */
+    /** 
+     * Get the index of a specified tag in the list currently being displayed
+     * @param task Task whose index will be returned
+     * @return index of the task 
+     */
     int getIndexOfTask(ReadOnlyTask task);
 }

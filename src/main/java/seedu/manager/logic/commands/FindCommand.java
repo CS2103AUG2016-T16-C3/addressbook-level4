@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.Map.Entry;
 
+import seedu.manager.commons.core.EventsCenter;
+import seedu.manager.commons.events.ui.JumpToTagListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.Desc;
 import seedu.manager.model.task.Done;
 import seedu.manager.model.task.EndTime;
 import seedu.manager.model.task.Priority;
 import seedu.manager.model.task.StartTime;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.Venue;
 import seedu.manager.model.task.Task.TaskProperties;
@@ -37,15 +40,19 @@ public class FindCommand extends Command {
         this.foundProperties = foundProperties;
     }
     
+    //@@author A0139621H
     @Override
     public CommandResult execute() {
         try {
-            model.updateFilteredTaskList(buildProperties(foundProperties));
+        	HashMap<TaskProperties, Optional<TaskProperty>> builtProperties = buildProperties(foundProperties); 
+            model.updateFilteredTaskList(builtProperties);
+            jumpToTagIfPresent(builtProperties);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getSortedFilteredTaskList().size()));
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
         }
-        return new CommandResult(getMessageForTaskListShownSummary(model.getSortedFilteredTaskList().size()));
     }
+
     
     private HashMap<TaskProperties, Optional<TaskProperty>> buildProperties(HashMap<TaskProperties, Optional<String>> propertiesStrings) throws IllegalValueException {
         HashMap<TaskProperties, Optional<TaskProperty>> properties = new HashMap<>();
@@ -61,7 +68,7 @@ public class FindCommand extends Command {
      * Builds a TaskProperty object using a value from the TaskProperties enum and a value
      * @param property that should be built
      * @param value of the property
-     * @return
+     * @return value of the property if found
      */
     private Optional<TaskProperty> buildProperty(TaskProperties property, Optional<String> value) throws IllegalValueException {
         if (!value.isPresent()) {
@@ -82,8 +89,24 @@ public class FindCommand extends Command {
             return Optional.of(new Priority(stringValue));
         case DONE:
             return Optional.of(new Done(stringValue));
+        case TAG:
+            return Optional.of(new Tag(stringValue));
         default:
             throw new IllegalValueException("Property not found");
         }
+    }
+    
+    // @@author A0147924X
+    /**
+     * If tag is present in the search properties, then raises an event requesting jump to that tag 
+     * @param properties
+     */
+    private void jumpToTagIfPresent(HashMap<TaskProperties, Optional<TaskProperty>> properties) {
+    	if (properties.get(TaskProperties.TAG).isPresent()) {
+			int targetIndex = model.getIndexOfTag((Tag) properties.get(TaskProperties.TAG).get());
+			if (targetIndex != -1) {
+				EventsCenter.getInstance().post(new JumpToTagListRequestEvent(targetIndex));
+			}
+		}
     }
 }

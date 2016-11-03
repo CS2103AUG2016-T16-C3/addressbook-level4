@@ -1,17 +1,6 @@
-package seedu.manager.testutil;
-
-import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.TaskManager;
-import seedu.manager.model.task.*;
-
-/**
- * A list of custom tasks for testing
- */
-public class TypicalTestTasks {
-
-    public static TestTask alpha, beta, charlie, delta, echo, foxtrot, golf, hotel, india, juliet;
-    
-    // @@author A0139621H-reused
+# A0139621Hreused
+###### /java/seedu/manager/testutil/TypicalTestTasks.java
+``` java
     public TypicalTestTasks() {
         try {
             alpha =  new TaskBuilder().withDesc("Do CS2101 UG").withVenue("School of Computing")
@@ -71,3 +60,4 @@ public class TypicalTestTasks {
         return tm;
     }
 }
+```

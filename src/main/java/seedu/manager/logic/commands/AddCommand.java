@@ -3,16 +3,15 @@ package seedu.manager.logic.commands;
 import java.util.HashMap;
 import java.util.Optional;
 
-import seedu.manager.commons.core.EventsCenter;
-import seedu.manager.commons.events.ui.JumpToListRequestEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
+import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to the task manager.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -22,11 +21,13 @@ public class AddCommand extends Command {
             + " Dinner with Lancelot venue Avalon after 8:30pm before 9:00pm priority med";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String UNDO_SUCCESS = "Previous added task deleted: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
     public static final String MESSAGE_INVALID_TAG = "This is an invalid tag";
 
     private final Task toAdd;
-
+    
+    // @@author A0147924X
     /**
      * Convenience constructor using raw values.
      *
@@ -38,6 +39,7 @@ public class AddCommand extends Command {
             throw new IllegalValueException(MESSAGE_USAGE);
         }
         this.toAdd = new Task(properties);
+        
     }
     
     // @@author A0148042M
@@ -47,17 +49,31 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             if (toAdd.getTag().isPresent()) {
-                model.addTag((Tag)toAdd.getTag().get());
+                model.addTag((Tag) toAdd.getTag().get());
             }
-            int addedIndex = model.getIndexOfTask(toAdd);
-            assert addedIndex != -1;
+            jumpToTask(toAdd);
             
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(addedIndex));
+            this.addUndo(this);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getAsPrettyText()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }
+    
+    // @@author
+    @Override
+	public CommandResult undoIt() {
+    	assert model != null;
+        try {
+            model.deleteTask(toAdd);
+            if(toAdd.getTag().isPresent()) {
+                model.deleteTag((Tag) toAdd.getTag().get());
+            }
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
 
+        return new CommandResult(String.format(UNDO_SUCCESS, toAdd));
+    }
 }
