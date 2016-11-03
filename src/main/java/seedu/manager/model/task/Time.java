@@ -13,8 +13,8 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Represents a tasks time 
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */

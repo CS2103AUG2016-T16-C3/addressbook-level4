@@ -34,7 +34,6 @@ public class Parser {
     private final ExtensionParser extParser;
     
     private HashMap<Commands, String> commandWords = null;
-    private HashMap<Commands, String> extensionWords = null;
 
     /**
      * Constructs a parser given command words and extension words
@@ -43,7 +42,6 @@ public class Parser {
      */
     public Parser(HashMap<Commands, String> commandWords, HashMap<Commands, String> extensionWords) {
     	this.commandWords = commandWords;
-    	this.extensionWords = extensionWords;
     	extParser = new ExtensionParser(extensionWords);
     }
     
@@ -144,7 +142,6 @@ public class Parser {
     }
 
 	/**
-	 * @@author
      * Parses arguments in the context of the add task command.
      * @param args full command args string
      * @return the prepared command 
@@ -158,7 +155,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
+    // @@author
     /**
      * Parses arguments in the context of the delete task command.
      * @param args full command args string
@@ -215,9 +213,9 @@ public class Parser {
 
         return new DoneCommand(index.get());
 	}
-
+    
+    // @@author
     /**
-     * @@author
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */

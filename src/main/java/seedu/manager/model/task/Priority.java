@@ -24,7 +24,6 @@ public class Priority extends TaskProperty {
     private VALUES value = null;
     
     /**
-     * @@author A0147924X
      * Validates given priority.
      *
      * @throws IllegalValueException if given priority string is invalid.

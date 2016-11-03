@@ -31,8 +31,12 @@ public class UnSortCommandTest extends TaskManagerGuiTest {
         assertUnSortSuccess(true);
 	}
 	
-	private void assertUnSortSuccess(boolean shouldRunSortCommand) {
-        if (shouldRunSortCommand) {
+	/**
+	 * Asserts that the unsort command worked
+	 * @param shouldRunUnSortCommand Whether the unsort command should be run or not
+	 */
+	private void assertUnSortSuccess(boolean shouldRunUnSortCommand) {
+        if (shouldRunUnSortCommand) {
         	commandBox.runCommand("unsort");
 		}
         
@@ -40,11 +44,17 @@ public class UnSortCommandTest extends TaskManagerGuiTest {
         
         assertTrue(isSorted(doneComparator, taskListPanel.getListView().getItems()));
         
-        if (shouldRunSortCommand) {
+        if (shouldRunUnSortCommand) {
         	assertResultMessage(UnSortCommand.MESSAGE_SUCCESS);
 		}
     }
 	
+	/**
+	 * Uses a comparator to check whether a given list is sorted or not
+	 * @param comparator The comparator which decides ordering of the tasks
+	 * @param listToCheck The list which will be checked
+	 * @return True if list is sorted, else False
+	 */
 	private boolean isSorted(Comparator<? super ReadOnlyTask> comparator, ObservableList<ReadOnlyTask> listToCheck) {
 		for (int i = 1; i < listToCheck.size(); i++) {
 			if (comparator.compare(listToCheck.get(i - 1), listToCheck.get(i)) > 0) {

@@ -6,7 +6,6 @@ import java.util.Optional;
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.tag.UniqueTagList.TagNotRemovedException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
@@ -68,8 +67,8 @@ public interface Model {
     /** Returns the sorted and filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getSortedFilteredTagList();
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Get the index of a specified tag in the list currently being displayed
      * @param tag Tag whose index will be returned
      * @return index of the tag
@@ -87,7 +86,7 @@ public interface Model {
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
     // @@author A0147924X
-    /** Sorts the sorted and filtered task list by priority */
+    /** Sorts the sorted and filtered task list by a certain property */
     void sortSortedFilteredTaskListByProperty(TaskProperties property);
     
     /** Unsorts the sorted and filtered task list */

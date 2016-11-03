@@ -4,8 +4,8 @@ import seedu.manager.commons.core.EventsCenter;
 import seedu.manager.commons.events.logic.CommandWordsChangedEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Allows user to alias commands
  *
  */

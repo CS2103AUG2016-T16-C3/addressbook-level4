@@ -5,15 +5,10 @@ import org.junit.Test;
 
 import seedu.manager.commons.core.Messages;
 import seedu.manager.logic.commands.AddCommand;
-import seedu.manager.model.task.ReadOnlyTask;
-import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.testutil.TestTask;
 import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.Comparator;
 
 // @@author A0147924X
 public class AddCommandTest extends TaskManagerGuiTest {
@@ -44,7 +39,13 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("helps Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-
+    
+    /**
+     * Asserts that the add command worked
+     * @param indexToInsert Index at which new task should be inserted into the current list
+     * @param taskToAdd The task which should be added to the current list
+     * @param currentList Current task list to check panel list against
+     */
     private void assertAddSuccess(int indexToInsert, TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 

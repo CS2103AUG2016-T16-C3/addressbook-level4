@@ -28,6 +28,10 @@ public class SortCommandTest extends TaskManagerGuiTest {
         assertSortSuccess(true);
 	}
 	
+	/**
+	 * Asserts that the sort command worked
+	 * @param shouldRunSortCommand Whether the sort command should be run or not
+	 */
 	private void assertSortSuccess(boolean shouldRunSortCommand) {
         if (shouldRunSortCommand) {
         	commandBox.runCommand("sort");
@@ -42,6 +46,12 @@ public class SortCommandTest extends TaskManagerGuiTest {
 		}
     }
 	
+	/**
+	 * Uses a comparator to check whether a given list is sorted or not
+	 * @param comparator The comparator which decides ordering of the tasks
+	 * @param listToCheck The list which will be checked
+	 * @return True if list is sorted, else False
+	 */
 	private boolean isSorted(Comparator<? super ReadOnlyTask> comparator, ObservableList<ReadOnlyTask> listToCheck) {
 		for (int i = 1; i < listToCheck.size(); i++) {
 			if (comparator.compare(listToCheck.get(i - 1), listToCheck.get(i)) > 0) {

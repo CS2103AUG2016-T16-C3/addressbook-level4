@@ -7,7 +7,6 @@ import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList;
-import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.tag.UniqueTagList.TagNotRemovedException;
 
 import java.util.*;

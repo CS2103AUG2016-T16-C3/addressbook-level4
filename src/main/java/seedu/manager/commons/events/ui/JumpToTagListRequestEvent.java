@@ -2,8 +2,8 @@ package seedu.manager.commons.events.ui;
 
 import seedu.manager.commons.events.BaseEvent;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Indicates a request to jump to a certain tag
  *
  */

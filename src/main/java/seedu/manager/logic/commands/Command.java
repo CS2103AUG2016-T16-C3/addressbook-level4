@@ -48,8 +48,8 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Jumps to the given task
      * @param task Task to jump to
      */

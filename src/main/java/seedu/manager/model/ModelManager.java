@@ -15,7 +15,6 @@ import seedu.manager.model.task.TaskProperty;
 import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.manager.model.tag.UniqueTagList.TagNotRemovedException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashMap;

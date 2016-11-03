@@ -24,7 +24,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     	TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToMark = td.charlie;
         TestTask markedTask = markAsDone(taskToMark);
-        assertDoneSuccess("done %1$s", 3, 6, markedTask, currentList);
+        assertDoneSuccess(3, 6, markedTask, currentList);
         
         // propagate changes to current list
         currentList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, 3), markedTask);
@@ -32,13 +32,19 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         // mark another as done
         TestTask taskToMark1 = td.alpha;
         TestTask markedTask1 = markAsDone(taskToMark1);
-        assertDoneSuccess("done %1$s", 1, 5, markedTask1, currentList);
+        assertDoneSuccess(1, 5, markedTask1, currentList);
         
         // invalid index
         commandBox.runCommand("done " + (currentList.length + 1));
         assertResultMessage("The task index provided is invalid");
     }
     
+    /**
+     * Marks a task as done
+     * @param taskToMark The task which should be marked
+     * @return Marked task
+     * @throws IllegalValueException
+     */
     private TestTask markAsDone(TestTask taskToMark) throws IllegalValueException {
     	HashMap<TaskProperties, Optional<TaskProperty>> newProps = 
                 taskToMark.getProperties();
@@ -47,9 +53,16 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         return new TestTask(newProps);
     }
     
-    private void assertDoneSuccess(String doneCommand, int index, int indexToInsert,
+    /**
+     * Asserts that the done command worked
+     * @param index Index to mark as done
+     * @param indexToInsert Index at which to insert the marked task in the current list
+     * @param markedTask The marked task which will be inserted into the current list
+     * @param currentList Current task list to check panel list against 
+     */
+    private void assertDoneSuccess(int index, int indexToInsert,
     							   TestTask markedTask, TestTask... currentList) {
-        commandBox.runCommand(String.format(doneCommand, index));
+        commandBox.runCommand(String.format("done %1$s", index));
         
         TaskCardHandle addedCard = taskListPanel.navigateToTask(markedTask.getDesc().get().getValue());
         assertMatching(markedTask, addedCard);
