@@ -17,6 +17,8 @@ public class UserPrefs {
     public GuiSettings guiSettings;
     public HashMap<Commands, String> commandWords;
     public HashMap<Commands, String> extensionWords;
+    
+    private static final String MESSAGE_NO_ALIAS = "No such alias exists";
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -34,13 +36,13 @@ public class UserPrefs {
         				Commands.ADD, Commands.EDIT, Commands.DELETE, Commands.UNDO, 
         				Commands.FIND, Commands.STORAGE, Commands.CLEAR, Commands.DONE, 
         				Commands.EXIT, Commands.HELP, Commands.LIST, Commands.SORT,
-        				Commands.ALIAS
+        				Commands.UNSORT, Commands.ALIAS
     				},
         		new String[]{
         				"add", "edit", "delete", "undo", 
         				"find", "storage", "clear", "done", 
         				"exit", "help", "list", "sort",
-        				"alias"
+        				"unsort", "alias"
         			}
         		);
         this.setExtensionsWords(
@@ -61,12 +63,36 @@ public class UserPrefs {
     }
     
     // @@author A0147924X
+    /**
+     * Get the keywords representing primary commands
+     * @return Hashmap mapping from commands to keywords
+     */
     public HashMap<Commands, String> getCommandWords() {
     	return commandWords;
     }
     
+    /**
+     * Get the keywords representing extensions
+     * @return Hashmap mapping from commands to keywords
+     */
     public HashMap<Commands, String> getExtensionsWords() {
     	return extensionWords;
+    }
+    
+    /**
+     * Gets the alias for a certain command
+     * @param command Command for which alias will be returned 
+     * @return Alias of the command
+     */
+    public String getAliasForCommand(Commands command) {
+    	if (commandWords.containsKey(command)) {
+			return commandWords.get(command);
+		} else if (extensionWords.containsKey(command)) {
+			return extensionWords.get(command);
+		} else {
+			assert false;
+			return MESSAGE_NO_ALIAS; // should never reach this
+		}
     }
     
     /**

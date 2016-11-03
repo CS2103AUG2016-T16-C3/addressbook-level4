@@ -34,6 +34,9 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Deletes the given tag. */
+    void deleteTag(Tag tag);
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
@@ -41,8 +44,15 @@ public interface Model {
     /** Adds the given tag */
     void addTag(Tag tag);
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
+     * Gets the alias for a certain command from the user preferences
+     * @param command Command for which alias will be returned 
+     * @return Alias of the command
+     */
+    public String getAliasForCommand(Commands command);
+    
+    /**
      * Changes a command to a given alias in the user preferences
 	 * @param commandToChange The command which should be aliased
 	 * @param alias The alias which will be assigned to the command
@@ -57,8 +67,8 @@ public interface Model {
     /** Returns the sorted and filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getSortedFilteredTagList();
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Get the index of a specified tag in the list currently being displayed
      * @param tag Tag whose index will be returned
      * @return index of the tag
@@ -70,14 +80,14 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
     
     /** Updates the filter of the sorted and filtered task list to show all tasks */
-    void updateSortedFilteredListToShowAll();
+    void updateSortedFilteredTaskListToShowAll();
     
     /** Updates the filter of the sorted and filtered task list to filter by the given properties from the find function*/
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
     // @@author A0147924X
-    /** Sorts the sorted and filtered task list by priority */
-    void sortSortedFilteredTaskListByPriority();
+    /** Sorts the sorted and filtered task list by a certain property */
+    void sortSortedFilteredTaskListByProperty(TaskProperties property);
     
     /** Unsorts the sorted and filtered task list */
     void unSortSortedFilteredTaskList();

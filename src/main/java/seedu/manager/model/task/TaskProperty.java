@@ -2,8 +2,8 @@ package seedu.manager.model.task;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * An interface representing a property of a task
  *
  */
@@ -28,7 +28,7 @@ public abstract class TaskProperty implements Comparable<TaskProperty> {
     }
     
     /**
-     * Tests whether a string valid or not
+     * Tests whether a string is valid or not
      * @param test
      * @return Whether the string matches or not
      */

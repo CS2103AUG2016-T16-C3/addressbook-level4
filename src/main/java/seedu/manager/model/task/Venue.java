@@ -13,8 +13,8 @@ public class Venue extends TaskProperty {
     public static final String VENUE_VALIDATION_REGEX = ".+";
     private String value;
 
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Validates given venue.
      * @throws IllegalValueException if given venue string is invalid.
      */

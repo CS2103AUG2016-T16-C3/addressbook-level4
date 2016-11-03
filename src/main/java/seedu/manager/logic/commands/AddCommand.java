@@ -22,12 +22,12 @@ public class AddCommand extends Command implements UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String UNDO_SUCCESS = "Previous added task deleted: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
     public static final String MESSAGE_INVALID_TAG = "This is an invalid tag";
 
     private final Task toAdd;
-
+    
+    // @@author A0147924X
     /**
      * Convenience constructor using raw values.
      *
@@ -61,12 +61,15 @@ public class AddCommand extends Command implements UndoableCommand {
         }
     }
     
-    // @@ author A0148003U
+    // @@author A0148003U
     @Override
 	public CommandResult undoIt() {
     	assert model != null;
         try {
             model.deleteTask(toAdd);
+            if(toAdd.getTag().isPresent()) {
+                model.deleteTag((Tag) toAdd.getTag().get());
+            }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

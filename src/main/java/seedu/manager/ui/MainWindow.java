@@ -202,7 +202,7 @@ public class MainWindow extends UiPart {
     }
     
     /**
-     * Render Status Bar Footer, used when storage location in config changes
+     * Rerender Status Bar Footer
      */
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());

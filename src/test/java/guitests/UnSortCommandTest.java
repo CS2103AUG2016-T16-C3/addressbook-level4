@@ -7,42 +7,45 @@ import java.util.Comparator;
 import org.junit.Test;
 
 import javafx.collections.ObservableList;
-import seedu.manager.logic.commands.SortCommand;
+import seedu.manager.logic.commands.UnSortCommand;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.testutil.TestTask;
 
-// @@author A0147924X
-public class SortCommandTest extends TaskManagerGuiTest {
+//@@author A0147924X
+public class UnSortCommandTest extends TaskManagerGuiTest {
 	
 	@Test
-	public void sort() {
-		assertSortSuccess(true);
+	public void unsort() {
+		assertUnSortSuccess(false);
 		
 		TestTask taskToAdd = td.hotel;
 		commandBox.runCommand(taskToAdd.getAddCommand());
         
-        assertSortSuccess(false);
+        assertUnSortSuccess(false);
         
-        commandBox.runCommand("find CS2101");
-        assertSortSuccess(true);
+        commandBox.runCommand("done 1");
+        assertUnSortSuccess(false);
+        
+        commandBox.runCommand("sort");
+        assertUnSortSuccess(true);
 	}
 	
 	/**
-	 * Asserts that the sort command worked
-	 * @param shouldRunSortCommand Whether the sort command should be run or not
+	 * Asserts that the unsort command worked
+	 * @param shouldRunUnSortCommand Whether the unsort command should be run or not
 	 */
-	private void assertSortSuccess(boolean shouldRunSortCommand) {
-        if (shouldRunSortCommand) {
-        	commandBox.runCommand("sort");
+	private void assertUnSortSuccess(boolean shouldRunUnSortCommand) {
+        if (shouldRunUnSortCommand) {
+        	commandBox.runCommand("unsort");
 		}
         
-        Comparator<? super ReadOnlyTask> priorityComparator = (t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY);
+        Comparator<? super ReadOnlyTask> doneComparator = (t1, t2) -> t1.compareProperty(t2, TaskProperties.DONE);
         
-        assertTrue(isSorted(priorityComparator, taskListPanel.getListView().getItems()));
+        assertTrue(isSorted(doneComparator, taskListPanel.getListView().getItems()));
         
-        if (shouldRunSortCommand) {
-        	assertResultMessage(SortCommand.MESSAGE_SUCCESS);
+        if (shouldRunUnSortCommand) {
+        	assertResultMessage(UnSortCommand.MESSAGE_SUCCESS);
 		}
     }
 	

@@ -72,9 +72,9 @@ public interface ReadOnlyTask {
     		return false;
     	}
     }
-
+    
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
@@ -115,8 +115,8 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Formats the task as pretty text, meant to be displayed on the UI and in messages
      */
     default String getAsPrettyText() {

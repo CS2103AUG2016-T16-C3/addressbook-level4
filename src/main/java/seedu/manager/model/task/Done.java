@@ -15,8 +15,8 @@ public class Done extends TaskProperty {
     public static final String COMMAND_WORD = "done";
     private boolean value;
 
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Validates given done indicator.
      * @throws IllegalValueException if given done indicator address string is invalid.
      */
@@ -56,5 +56,19 @@ public class Done extends TaskProperty {
     
     public boolean isTrue() {
     	return value;
+    }
+    
+    // @@author A0147924X
+    @Override
+    public int compareTo(TaskProperty other) {
+    	assert other instanceof Done;
+    	
+    	if (this.isTrue() && !((Done) other).isTrue()) {
+			return 1;
+		} else if (!this.isTrue() && ((Done) other).isTrue()) {
+			return -1;
+		} else {
+			return 0;
+		}
     }
 }

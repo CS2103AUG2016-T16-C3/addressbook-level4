@@ -5,7 +5,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.ReadOnlyTaskManager;
+import seedu.manager.model.tag.UniqueTagList;
 import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.UniqueTaskList;
 
@@ -64,6 +66,18 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Tag> getTagList() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

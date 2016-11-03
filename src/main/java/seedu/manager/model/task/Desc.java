@@ -15,8 +15,8 @@ public class Desc extends TaskProperty {
     private String value;
     private static final int PRETTY_MAX_LENGTH = 50; 
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Validates given desc.
      * @throws IllegalValueException if given desc string is invalid.
      */

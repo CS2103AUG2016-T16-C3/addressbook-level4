@@ -1,11 +1,13 @@
 package seedu.manager.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList;
+import seedu.manager.model.tag.UniqueTagList.TagNotRemovedException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,7 +54,45 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     // @@author A0148042M
     public ObservableList<Tag> getTags() {
-        return tags.getInternalList();
+        ObservableList<Tag> internalTagList = tags.getInternalList();
+        ObservableList<Tag> tagListFromTaskList = getTagsFromTaskList(this.getTasks());
+
+//        try {
+//            tags.mergeFrom(new UniqueTagList(tagListFromTaskList));
+//        } catch (DuplicateTagException e) {
+//            e.printStackTrace();
+//        }
+        
+        return combineTwoList(internalTagList, tagListFromTaskList);
+    }
+    
+    public ObservableList<Tag> combineTwoList(ObservableList<Tag> internalTagList, 
+            ObservableList<Tag> tagListFromTaskList) {
+        ObservableList<Tag> combinedTagList = internalTagList;
+        
+        if(internalTagList.size() == 0) {
+            for(int i = 0;i < tagListFromTaskList.size();i++) {
+                if(!internalTagList.contains(tagListFromTaskList.get(i))) {
+//                    internalTagList.add(tagListFromTaskList.get(i));
+                    combinedTagList.add(tagListFromTaskList.get(i));
+                }
+            }
+        } 
+        
+        return combinedTagList;
+    }
+    
+    public ObservableList<Tag> getTagsFromTaskList(ObservableList<Task> taskList) {
+        ObservableList<Tag> tagList = FXCollections.observableArrayList();
+        for(int i = 0;i < taskList.size();i++) {
+            if(taskList.get(i).getTag().isPresent()) {
+                Tag tag = (Tag) taskList.get(i).getTag().get();
+                if(!tagList.contains(tag)) {
+                    tagList.add(tag);
+                }
+            }
+        }
+        return tagList;
     }
 
     // @@author
@@ -63,9 +103,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void resetData(Collection<? extends ReadOnlyTask> newTasks)  {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
     }
+    
+    public void clearTagList() {
+        tags.clear();
+    }
 
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList());
+        clearTagList();
     }
 
 //// task-level operations
@@ -97,6 +142,26 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public void removeTag(Tag tag) {
+        int count = 0;
+        ObservableList<Task> taskList = tasks.getInternalList();
+        for(int i = 0;i < tasks.getSize();i++) {
+            if(taskList.get(i).getTag().isPresent()) {
+                if(((Tag) taskList.get(i).getTag().get()).equals(tag)) {
+                    count++;
+                }
+            }
+        }
+        
+        try {
+            if(count == 0) {
+                tags.remove(tag);
+            }
+        } catch (TagNotRemovedException e) {
+            e.printStackTrace();
+        }
+    }
 
 //// util methods
 
@@ -110,10 +175,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
+    
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags.getInternalList());
+    }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
+    }
+    
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        return this.tags;
     }
 
 

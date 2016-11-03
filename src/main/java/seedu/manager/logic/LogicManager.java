@@ -25,12 +25,14 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
-
+    
+    // @@author A0147924X
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser(model.getCommandWords(), model.getExtensionWords());
     }
-
+    
+    // @@author
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -50,6 +52,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getSortedFilteredTagList();        
     }
     
+    // @@author A0147924X
     @Subscribe
     /**
      * Updates parser with the new command words when these are changed

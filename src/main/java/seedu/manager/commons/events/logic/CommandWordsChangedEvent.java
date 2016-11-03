@@ -2,8 +2,8 @@ package seedu.manager.commons.events.logic;
 
 import seedu.manager.commons.events.BaseEvent;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Indicates that command words have changed
  *
  */

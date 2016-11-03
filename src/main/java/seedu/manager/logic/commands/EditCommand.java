@@ -8,14 +8,15 @@ import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
+import seedu.manager.model.task.Tag;
 import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+// @@author A0147924X
 /**
  * Allows tasks to be edited. Uses an index to extract the task to be edited and changes its
  * properties according to the new properties given
- * @author varungupta
  *
  */
 public class EditCommand extends Command implements UndoableCommand {
@@ -66,8 +67,15 @@ public class EditCommand extends Command implements UndoableCommand {
             
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
-            jumpToTask(newTask);
             
+            if(newTask.getTag().isPresent()) {
+                model.addTag((Tag) newTask.getTag().get());
+            }
+            if(taskToEdit.getTag().isPresent()) {
+                model.deleteTag((Tag) taskToEdit.getTag().get());
+            }
+            
+            jumpToTask(newTask);
             this.addUndo(this);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.getAsPrettyText()));
@@ -104,6 +112,7 @@ public class EditCommand extends Command implements UndoableCommand {
         return newProperties;
     }
     
+    // @@author
     @Override
     
     // @@ author A0148003U
@@ -117,7 +126,15 @@ public class EditCommand extends Command implements UndoableCommand {
     	try {
     		model.addTask(oldTask);
     		model.deleteTask(newTask);
-    		jumpToTask(oldTask);
+    		
+            if(oldTask.getTag().isPresent()) {
+                model.addTag((Tag) oldTask.getTag().get());
+            }
+            if(newTask.getTag().isPresent()) {
+                model.deleteTag((Tag) newTask.getTag().get());
+            }
+            
+            jumpToTask(oldTask);
     		
             return new CommandResult(String.format(UNDO_SUCCESS, oldTask));
         } catch (TaskNotFoundException e) {

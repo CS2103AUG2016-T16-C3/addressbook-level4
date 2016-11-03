@@ -2,8 +2,8 @@ package seedu.manager.commons.events.storage;
 
 import seedu.manager.commons.events.BaseEvent;
 
+// @@author A0147924X
 /**
- * @@author A0147924X
  * Indicates that the TaskManager Storage location has changed in the Config
  *
  */
