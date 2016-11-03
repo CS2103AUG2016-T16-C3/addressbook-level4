@@ -138,6 +138,12 @@ public class ModelManager extends ComponentManager implements Model {
 //        indicateTaskManagerChanged();
     }
     
+    // @@author A0147924X
+    @Override
+    public String getAliasForCommand(Commands command) {
+    	return userPrefs.getAliasForCommand(command);
+    }
+    
 	@Override
 	public void setSingleCommandWord(String commandToChange, String alias,
 			String messageNoMatch, String messageAliasAlreadyTaken) throws IllegalValueException {

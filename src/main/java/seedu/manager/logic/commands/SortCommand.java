@@ -12,7 +12,6 @@ public class SortCommand extends Command implements UndoableCommand{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the displayed tasks by priority, from highest to lowest. Tasks with no priority are shown last.\n"
-            + "Parameters: None\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Sorted task list.";

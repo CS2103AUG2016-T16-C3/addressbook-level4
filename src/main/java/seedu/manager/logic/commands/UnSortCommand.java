@@ -12,7 +12,6 @@ public class UnSortCommand extends Command implements UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unsorts the task list, moving done tasks to the bottom.\n"
-            + "Parameters: None\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Unsorted task list.";

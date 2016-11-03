@@ -17,6 +17,8 @@ public class UserPrefs {
     public GuiSettings guiSettings;
     public HashMap<Commands, String> commandWords;
     public HashMap<Commands, String> extensionWords;
+    
+    private static final String MESSAGE_NO_ALIAS = "No such alias exists";
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -67,6 +69,22 @@ public class UserPrefs {
     
     public HashMap<Commands, String> getExtensionsWords() {
     	return extensionWords;
+    }
+    
+    /**
+     * Gets the alias for a certain command
+     * @param command Command for which alias will be returned 
+     * @return Alias of the command
+     */
+    public String getAliasForCommand(Commands command) {
+    	if (commandWords.containsKey(command)) {
+			return commandWords.get(command);
+		} else if (extensionWords.containsKey(command)) {
+			return extensionWords.get(command);
+		} else {
+			assert false;
+			return MESSAGE_NO_ALIAS; // should never reach this
+		}
     }
     
     /**

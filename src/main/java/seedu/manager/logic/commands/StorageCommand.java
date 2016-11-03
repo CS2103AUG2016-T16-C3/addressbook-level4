@@ -22,6 +22,10 @@ public class StorageCommand extends Command {
     			+ "\nWarning - file already exists, overwriting old data";
     public static final String MESSAGE_ALREADY_EXISTS_NO_OVERWRITE = "File already exists, and I don't have permission to overwrite it";
     public static final String MESSAGE_NO_PERMISSION = "I don't have permission to access this location";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the storage location. "
+            + "Parameters: <path/to/file/fileName.xml> \n"
+            + "Example: " + COMMAND_WORD
+            + " data/myFile.xml";
     
     private String filePath;
     

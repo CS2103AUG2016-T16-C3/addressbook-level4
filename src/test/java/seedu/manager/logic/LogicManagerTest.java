@@ -21,7 +21,6 @@ import seedu.manager.model.ReadOnlyTaskManager;
 import seedu.manager.model.task.*;
 import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.storage.StorageManager;
-import seedu.manager.testutil.TestTask;
 
 import org.junit.After;
 import org.junit.Before;
@@ -86,6 +85,8 @@ public class LogicManagerTest {
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
+        targetedTagJumpIndex = -1;
+        targetedTaskJumpIndex = -1;
         helpShown = false;
     }
 
@@ -139,13 +140,31 @@ public class LogicManagerTest {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
+    
+    // @@author A0147924X
+    @Test
+    public void execute_helpExtraArgs_errorMessageShown() throws Exception {
+    	assertCommandBehavior("help abc abc", HelpCommand.MESSAGE_WRONG_NUM_ARGS);
+    }
+    
+    @Test
+    public void execute_helpForNonexistentCommand_errorMessageShown() throws Exception {
+    	assertCommandBehavior("help abc", HelpCommand.MESSAGE_WRONG_HELP_COMMAND);
+    }
 
     @Test
-    public void execute_help_successful() throws Exception {
+    public void execute_helpNoArgs_successful() throws Exception {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
-
+    
+    @Test
+    public void execute_helpForCommand_successful() throws Exception {
+    	assertCommandBehavior("help add", AddCommand.MESSAGE_USAGE + "\nAlias: add");
+    	assertCommandBehavior("help priority", HelpCommand.MESSAGE_PRIORITY_USAGE + "\nAlias: priority");
+    }
+    
+    // @@author
     @Test
     public void execute_exit_successful() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
@@ -910,6 +929,7 @@ public class LogicManagerTest {
     @Test
     public void execute_alias_successful() throws Exception {
         assertCommandBehavior("alias add +", String.format(AliasCommand.MESSAGE_SUCCESS, "add", "+"));
+        assertCommandBehavior("help add", AddCommand.MESSAGE_USAGE + "\nAlias: +");
         
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedTM = new TaskManager();

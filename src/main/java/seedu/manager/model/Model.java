@@ -45,8 +45,15 @@ public interface Model {
     /** Adds the given tag */
     void addTag(Tag tag);
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
+     * Gets the alias for a certain command from the user preferences
+     * @param command Command for which alias will be returned 
+     * @return Alias of the command
+     */
+    public String getAliasForCommand(Commands command);
+    
+    /**
      * Changes a command to a given alias in the user preferences
 	 * @param commandToChange The command which should be aliased
 	 * @param alias The alias which will be assigned to the command

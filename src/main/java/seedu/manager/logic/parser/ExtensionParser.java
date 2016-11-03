@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.exceptions.IllegalValueException;
-import seedu.manager.model.task.Task;
 import seedu.manager.model.task.Task.TaskProperties;
 
 import seedu.manager.model.task.StartTime;
@@ -25,6 +24,7 @@ public class ExtensionParser {
     public static final String EXTENSION_DUPLICATES = "Extensions should only contain one %1$s";
     public static final String START_AFTER_END = "Start time should be before end time.";
     
+    private static final String ESCAPING_CHARACTER = "'"; 
     private final String EXTENSION_INVALID_FORMAT = "Extensions should have the form <extension> <arguments>";
     private String EXTENSION_REGEX_OPTIONS;
     private Pattern EXTENSIONS_DESC_FORMAT;
@@ -164,12 +164,18 @@ public class ExtensionParser {
 		        return command;
 		    }
 		}
+		
 		throw new IllegalValueException(EXTENSION_INVALID_FORMAT);
 	}
 	
+	/**
+	 * Removes the escaping characters from extension arguments
+	 * @param args Arguments to remove escape characters from
+	 * @return Arguments without the escaping characters
+	 */
 	private String removeEscapingChars(String args) {
 		for (String extensionWord : extensionWords.values()) {
-			args = args.replaceAll("'" + extensionWord + "'", extensionWord);
+			args = args.replaceAll(ESCAPING_CHARACTER + extensionWord + ESCAPING_CHARACTER, extensionWord);
 		}
 		return args;
 	}

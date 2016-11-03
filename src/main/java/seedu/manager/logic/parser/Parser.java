@@ -3,7 +3,8 @@ package seedu.manager.logic.parser;
 import static seedu.manager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.manager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +34,7 @@ public class Parser {
     private final ExtensionParser extParser;
     
     private HashMap<Commands, String> commandWords = null;
+    private HashMap<Commands, String> extensionWords = null;
 
     /**
      * Constructs a parser given command words and extension words
@@ -41,6 +43,7 @@ public class Parser {
      */
     public Parser(HashMap<Commands, String> commandWords, HashMap<Commands, String> extensionWords) {
     	this.commandWords = commandWords;
+    	this.extensionWords = extensionWords;
     	extParser = new ExtensionParser(extensionWords);
     }
     
@@ -103,7 +106,7 @@ public class Parser {
             return new ExitCommand();
 
         case HELP:
-            return new HelpCommand();
+            return prepareHelp(arguments);
         
         case STORAGE:
             return new StorageCommand(arguments);
@@ -197,8 +200,8 @@ public class Parser {
         } 
     }
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Parses arguments in the context of the done task command
      * @param args full commmand args string
      * @return the prepared command
@@ -253,18 +256,36 @@ public class Parser {
         }
     }
     
+    // @@author A0147924X
     /**
-     * @@author A0147924X
      * Parses arguments in the context of the alias command
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAlias(String args) {
-    	String[] splitArgs = args.split(" ");
+    	String[] splitArgs = args.trim().split(" ");
     	if (splitArgs.length != 2) {
 			return new IncorrectCommand(AliasCommand.MESSAGE_WRONG_NUM_ARGS);
 		}
     	
     	return new AliasCommand(splitArgs[0], splitArgs[1]);
+    }
+    
+    /**
+     * Parses arguments in the context of the help command
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareHelp(String args) {
+    	String[] splitArgs = args.trim().split(" ");
+    	System.out.println(splitArgs.length);
+    	System.out.println(splitArgs);
+    	if (splitArgs.length > 1) {
+			return new IncorrectCommand(HelpCommand.MESSAGE_WRONG_NUM_ARGS);
+		} else if (splitArgs.length == 1 && !splitArgs[0].equals("")) {
+			return new HelpCommand(Optional.of(splitArgs[0]));
+		} else {
+			return new HelpCommand(Optional.empty());
+		}
     }
 }
