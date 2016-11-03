@@ -74,14 +74,14 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
     
     /** Updates the filter of the sorted and filtered task list to show all tasks */
-    void updateSortedFilteredListToShowAll();
+    void updateSortedFilteredTaskListToShowAll();
     
     /** Updates the filter of the sorted and filtered task list to filter by the given properties from the find function*/
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
     // @@author A0147924X
     /** Sorts the sorted and filtered task list by priority */
-    void sortSortedFilteredTaskListByPriority();
+    void sortSortedFilteredTaskListByProperty(TaskProperties property);
     
     /** Unsorts the sorted and filtered task list */
     void unSortSortedFilteredTaskList();

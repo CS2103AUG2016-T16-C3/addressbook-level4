@@ -57,4 +57,18 @@ public class Done extends TaskProperty {
     public boolean isTrue() {
     	return value;
     }
+    
+    // @@author A0147924X
+    @Override
+    public int compareTo(TaskProperty other) {
+    	assert other instanceof Done;
+    	
+    	if (this.isTrue() && !((Done) other).isTrue()) {
+			return 1;
+		} else if (!this.isTrue() && ((Done) other).isTrue()) {
+			return -1;
+		} else {
+			return 0;
+		}
+    }
 }
