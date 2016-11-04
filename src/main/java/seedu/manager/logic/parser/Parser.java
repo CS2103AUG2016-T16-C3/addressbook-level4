@@ -109,11 +109,8 @@ public class Parser {
         case STORAGE:
             return new StorageCommand(arguments);
         
-        case SORT:
-        	return new SortCommand();
-        
-        case UNSORT:
-        	return new UnSortCommand();
+        case SORTBY:
+        	return prepareSort(arguments);
         
         case UNDO:
         	return new UndoCommand();
@@ -262,6 +259,7 @@ public class Parser {
      */
     private Command prepareAlias(String args) {
     	String[] splitArgs = args.trim().split(" ");
+    	
     	if (splitArgs.length != 2) {
 			return new IncorrectCommand(AliasCommand.MESSAGE_WRONG_NUM_ARGS);
 		}
@@ -276,6 +274,7 @@ public class Parser {
      */
     private Command prepareHelp(String args) {
     	String[] splitArgs = args.trim().split(" ");
+    	
     	if (splitArgs.length > 1) {
 			return new IncorrectCommand(HelpCommand.MESSAGE_WRONG_NUM_ARGS);
 		} else if (splitArgs.length == 1 && !splitArgs[0].equals("")) {
@@ -283,5 +282,17 @@ public class Parser {
 		} else {
 			return new HelpCommand(Optional.empty());
 		}
+    }
+    
+    private Command prepareSort(String args) {
+    	args = args.trim();
+    	
+    	for (SortCommand.SortComparators comparator : SortCommand.SortComparators.values()) {
+			if (args.equals(comparator.getValue())) {
+				return new SortCommand(comparator);
+			}
+		}
+    	
+    	return new IncorrectCommand(SortCommand.MESSAGE_NOT_A_COMPARATOR);
     }
 }
