@@ -194,7 +194,7 @@ public class LogicManagerTest {
         expectedTM.addTask(helper.generateTask(3));
         
         List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
-        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        expectedList.sort((t1, t2) -> t1.comparePriority(t2));
         
         assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }
@@ -320,7 +320,7 @@ public class LogicManagerTest {
         expectedTM.addTask(toBeAdded);
         
         List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
-        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        expectedList.sort((t1, t2) -> t1.comparePriority(t2));
         
         logic.execute("sort");
         
@@ -474,7 +474,7 @@ public class LogicManagerTest {
         String editCommand = "edit 2 Dinner with Guinevere";
         
         List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
-        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        expectedList.sort((t1, t2) -> t1.comparePriority(t2));
 
         assertCommandBehavior(
                 editCommand,
@@ -683,24 +683,24 @@ public class LogicManagerTest {
     @Test
     public void execute_findThenSort_successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithDesc("bla bla bla bla");
-        Task p2 = helper.generateTaskWithDesc("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithDesc("key key");
-        Task p4 = helper.generateTaskWithDesc("KEy sduauo");
+        Task t1 = helper.generateTaskWithDesc("bla bla bla bla");
+        Task t2 = helper.generateTaskWithDesc("bla KEY bla bceofeia");
+        Task t3 = helper.generateTaskWithDesc("key key");
+        Task t4 = helper.generateTaskWithDesc("KEy sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        List<Task> fourTasks = helper.generateTaskList(t3, t1, t4, t2);
         TaskManager expectedTM = helper.generateTaskManager(fourTasks);
         helper.addToModel(model, fourTasks);
         
         
-        List<Task> expectedList = helper.generateTaskList(p3, p4, p2);
+        List<Task> expectedList = helper.generateTaskList(t3, t4, t2);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTM,
                 expectedList);
         
-        expectedList.sort((t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY));
+        expectedList.sort((task1, task2) -> task1.comparePriority(task2));
         
         assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }

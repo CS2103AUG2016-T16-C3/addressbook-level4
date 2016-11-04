@@ -138,11 +138,30 @@ public abstract class Time extends TaskProperty {
 		}
     }
 
-	public boolean isBefore(Date now) {
-	
-		if (value.before(now)) {
+	public boolean isBefore(Date time) {
+		if (value.before(time)) {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean isAfter(Date time) {
+		if (value.after(time)) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public int compareTo(TaskProperty other) {
+		assert other instanceof Time;
+		
+		if (this.isBefore(((Time) other).getTime())) {
+			return -1;
+		} else if (this.isAfter(((Time) other).getTime())) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }

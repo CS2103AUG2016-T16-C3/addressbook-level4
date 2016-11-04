@@ -276,8 +276,6 @@ public class Parser {
      */
     private Command prepareHelp(String args) {
     	String[] splitArgs = args.trim().split(" ");
-    	System.out.println(splitArgs.length);
-    	System.out.println(splitArgs);
     	if (splitArgs.length > 1) {
 			return new IncorrectCommand(HelpCommand.MESSAGE_WRONG_NUM_ARGS);
 		} else if (splitArgs.length == 1 && !splitArgs[0].equals("")) {

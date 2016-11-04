@@ -1,7 +1,5 @@
 package seedu.manager.logic.commands;
 
-import seedu.manager.model.task.Task.TaskProperties;
-
 // @@author A0147924X
 /**
  * Allows user to unsort the displayed tasks, placing completed tasks at the bottom
@@ -21,14 +19,14 @@ public class UnSortCommand extends Command implements UndoableCommand {
 
 	@Override
 	public CommandResult execute() {
-		model.unSortSortedFilteredTaskList();;
+		model.sortSortedFilteredTaskListByTime();
 		this.addUndo(this);
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
 	@Override
 	public CommandResult undoIt() {
-		model.sortSortedFilteredTaskListByProperty(TaskProperties.PRIORITY);
+		model.sortSortedFilteredTaskListByPriority();
 	    return new CommandResult(UNDO_SUCCESS);
 	}
 }

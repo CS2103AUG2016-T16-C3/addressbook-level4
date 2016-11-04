@@ -58,7 +58,7 @@ public interface ReadOnlyTask {
     }
     
     default boolean isTaskOverdue() {	
-    	if(this.isDone()) {
+    	if (this.isDone()) {
     		return false;
     	}
     	
@@ -142,12 +142,57 @@ public interface ReadOnlyTask {
     }
     
     /**
-     * Compares two tasks using a certain property (for sorting)
-     * @param other Other task
-     * @param property Property to be compared on
-     * @return -1 if this is smaller, 0 if equal, 1 is this is larger
+     * Compares a certain property of one task with a certain property of another task
+     * @param firstTask First task to compare
+     * @param secondTask Second task to compare
+     * @param firstProperty Property of first task to compare
+     * @param secondProperty Property of second task to compare
+     * @return -1 if first task is smaller, 0 if equal, 1 if first task is larger
      */
-    public int compareProperty(ReadOnlyTask other, TaskProperties property);
+    default public int compareProperty(ReadOnlyTask firstTask, ReadOnlyTask secondTask, 
+    								   TaskProperties firstProperty, TaskProperties secondProperty) {
+    	assert firstTask != null && secondTask != null;
+    	HashMap<TaskProperties, Optional<TaskProperty>> firstProps = firstTask.getProperties();
+    	HashMap<TaskProperties, Optional<TaskProperty>> secondProps = secondTask.getProperties();
+    	
+    	if (!firstProps.get(firstProperty).isPresent() && !secondProps.get(secondProperty).isPresent()) {
+    		return 0;
+    	} else if (!firstProps.get(firstProperty).isPresent()) {
+    		return 1;
+    	} else if (!secondProps.get(secondProperty).isPresent()) {
+    		return -1;
+    	} else {
+    		return firstProps.get(firstProperty).get().compareTo(secondProps.get(secondProperty).get());
+    	}
+    }
+    
+    default public int comparePriority(ReadOnlyTask other) {
+    	assert other != null;
+    	
+    	return this.compareProperty(this, other, TaskProperties.PRIORITY, TaskProperties.PRIORITY);
+    }
+    
+    default public int compareTime(ReadOnlyTask other) {
+    	assert other != null;
+    	HashMap<TaskProperties, Optional<TaskProperty>> thisProps = this.getProperties();
+    	HashMap<TaskProperties, Optional<TaskProperty>> otherProps = other.getProperties();
+    	
+    	if (thisProps.get(TaskProperties.ENDTIME).isPresent() && otherProps.get(TaskProperties.ENDTIME).isPresent()) {
+			return this.compareProperty(this, other, TaskProperties.ENDTIME, TaskProperties.ENDTIME);
+		} else if (!thisProps.get(TaskProperties.ENDTIME).isPresent() && !otherProps.get(TaskProperties.ENDTIME).isPresent()) {
+			return this.compareProperty(this, other, TaskProperties.STARTTIME, TaskProperties.STARTTIME);
+		} else if (!otherProps.get(TaskProperties.ENDTIME).isPresent()) {
+			return this.compareProperty(this, other, TaskProperties.ENDTIME, TaskProperties.STARTTIME);
+		} else {
+			return this.compareProperty(this, other, TaskProperties.STARTTIME, TaskProperties.ENDTIME);
+		}
+    }
+    
+    default public int compareDone(ReadOnlyTask other) {
+    	assert other != null;
+    	
+    	return compareProperty(this, other, TaskProperties.DONE, TaskProperties.DONE);
+    }
     
     // @author A0139621H
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);

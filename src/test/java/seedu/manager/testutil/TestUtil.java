@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -305,16 +306,47 @@ public class TestUtil {
     
     // @@author A0147924X
     /**
-     * Inserts tasks into the array of tasks.
-     * @param index Index at which to insert the first of the tasks
-     * @param tasks An array of tasks
-     * @param tasksToAdd The tasks that are to be appended behind the original array.
-     * @return The modified array of tasks.
+     * Sorts the given list of tasks by time (done tasks go to the bottom)
+     * @param listToSort The list which should be sorted
      */
-    public static TestTask[] addTasksToList(int index, final TestTask[] tasks, TestTask... tasksToAdd) {
-        List<TestTask> listOfTasks = asList(tasks);
-        listOfTasks.addAll(index, asList(tasksToAdd));
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    public static void sortListByTime(TestTask[] listToSort) {
+    	Comparator<ReadOnlyTask> timeComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.compareTime(t2);
+			}
+    	};
+    	Arrays.sort(listToSort, timeComparator);
+    }
+    
+    /**
+     * Sorts the given list of tasks by priority (done tasks go to the bottom)
+     * @param listToSort The list which should be sorted
+     */
+    public static void sortListByPriority(TestTask[] listToSort) {
+    	Comparator<ReadOnlyTask> priorityComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.comparePriority(t2);
+			}
+    	};
+    	Arrays.sort(listToSort, priorityComparator);
+    }
+    
+    /**
+     * Adds tasks to a list that is sorted by time and maintains the sorting
+     * @param tasks List to which to add
+     * @param tasksToAdd The tasks that should be added
+     * @return Updated sorted (by time) list with the new tasks 
+     */
+    public static TestTask[] addTasksToListSortedByTime(TestTask[] tasks, TestTask... tasksToAdd) {
+    	TestTask[] updatedList = addTasksToList(tasks, tasksToAdd);
+    	sortListByTime(updatedList);
+    	return updatedList;
     }
     
     // @@author

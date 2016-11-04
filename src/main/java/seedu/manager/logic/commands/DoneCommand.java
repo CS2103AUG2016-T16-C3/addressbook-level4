@@ -85,8 +85,8 @@ public class DoneCommand extends Command implements UndoableCommand {
 		return new CommandResult (UNDO_SUCCESS);
 	}
 	
+	// @@author A0147924X
 	/**
-	 * @@author A0147924X
 	 * Marks the done property of a task
 	 * @param taskToMark The task which should be marked
 	 * @param isDone Whether it should be marked as done or not done
