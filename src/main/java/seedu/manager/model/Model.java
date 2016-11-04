@@ -86,10 +86,10 @@ public interface Model {
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
     // @@author A0147924X
-    /** Sorts the sorted and filtered task list by a certain property */
+    /** Sorts the sorted and filtered task list by priority */
     void sortSortedFilteredTaskListByPriority();
     
-    /** Unsorts the sorted and filtered task list */
+    /** Sorts the sorted and filtered task list by time */
     void sortSortedFilteredTaskListByTime();
     
     /** 

@@ -31,20 +31,22 @@ public class UserPrefs {
     // @@author A0147924X
     public UserPrefs(){
         this.setGuiSettings(500, 500, 0, 0);
+        
         this.setCommandWords(
         		new Commands[]{
         				Commands.ADD, Commands.EDIT, Commands.DELETE, Commands.UNDO, 
         				Commands.FIND, Commands.STORAGE, Commands.CLEAR, Commands.DONE, 
-        				Commands.EXIT, Commands.HELP, Commands.LIST, Commands.SORT,
-        				Commands.UNSORT, Commands.ALIAS
+        				Commands.EXIT, Commands.HELP, Commands.LIST, Commands.SORTBY,
+        				Commands.ALIAS
     				},
         		new String[]{
         				"add", "edit", "delete", "undo", 
         				"find", "storage", "clear", "done", 
-        				"exit", "help", "list", "sort",
-        				"unsort", "alias"
+        				"exit", "help", "list", "sortby",
+        				"alias"
         			}
         		);
+        
         this.setExtensionsWords(
         		new Commands[]{
         				Commands.BY, Commands.AT, Commands.EVENT, Commands.PRIORITY, 

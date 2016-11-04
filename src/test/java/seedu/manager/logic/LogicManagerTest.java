@@ -13,6 +13,7 @@ import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.logic.Logic;
 import seedu.manager.logic.LogicManager;
 import seedu.manager.logic.commands.*;
+import seedu.manager.logic.commands.SortCommand.SortComparators;
 import seedu.manager.logic.parser.ExtensionParser;
 import seedu.manager.model.TaskManager;
 import seedu.manager.model.Model;
@@ -194,9 +195,24 @@ public class LogicManagerTest {
         expectedTM.addTask(helper.generateTask(3));
         
         List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
+        
+        SortComparators comparator = SortComparators.PRIORITY;
         expectedList.sort((t1, t2) -> t1.comparePriority(t2));
         
-        assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
+        assertCommandBehavior(
+        		String.format("sortby %1$s", comparator.getValue()),
+        		String.format(SortCommand.MESSAGE_SUCCESS, comparator.getValue()),
+        		expectedTM,
+        		expectedList);
+        
+        comparator = SortComparators.TIME;
+        expectedList.sort((t1, t2) -> t1.compareTime(t2));
+        
+        assertCommandBehavior(
+        		String.format("sortby %1$s", comparator.getValue()),
+        		String.format(SortCommand.MESSAGE_SUCCESS, comparator.getValue()),
+        		expectedTM,
+        		expectedList);
     }
     
     
@@ -322,7 +338,7 @@ public class LogicManagerTest {
         List<ReadOnlyTask> expectedList = new ArrayList<>(expectedTM.getTaskList());
         expectedList.sort((t1, t2) -> t1.comparePriority(t2));
         
-        logic.execute("sort");
+        logic.execute("sortby priority");
         
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
@@ -458,7 +474,7 @@ public class LogicManagerTest {
     	model.addTask(helper.generateTask(3));
     	model.addTask(toBeEdited);
     	
-    	logic.execute("sort");
+    	logic.execute("sortby priority");
     	
     	TaskManager expectedTM = new TaskManager();
         expectedTM.addTask(helper.generateTask(2));
@@ -683,10 +699,10 @@ public class LogicManagerTest {
     @Test
     public void execute_findThenSort_successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
-        Task t1 = helper.generateTaskWithDesc("bla bla bla bla");
-        Task t2 = helper.generateTaskWithDesc("bla KEY bla bceofeia");
-        Task t3 = helper.generateTaskWithDesc("key key");
-        Task t4 = helper.generateTaskWithDesc("KEy sduauo");
+        Task t1 = helper.generateTaskWithDescAndPriority("bla bla bla bla", "high");
+        Task t2 = helper.generateTaskWithDescAndPriority("bla KEY bla bceofeia", "med");
+        Task t3 = helper.generateTaskWithDescAndPriority("key key", "low");
+        Task t4 = helper.generateTaskWithDescAndPriority("KEy sduauo", "");
 
         List<Task> fourTasks = helper.generateTaskList(t3, t1, t4, t2);
         TaskManager expectedTM = helper.generateTaskManager(fourTasks);
@@ -694,6 +710,7 @@ public class LogicManagerTest {
         
         
         List<Task> expectedList = helper.generateTaskList(t3, t4, t2);
+        SortComparators comparator = SortComparators.PRIORITY;
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -702,7 +719,11 @@ public class LogicManagerTest {
         
         expectedList.sort((task1, task2) -> task1.comparePriority(task2));
         
-        assertCommandBehavior("sort", SortCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
+        assertCommandBehavior(
+        		String.format("sortby %1$s", comparator.getValue()), 
+        		String.format(SortCommand.MESSAGE_SUCCESS, comparator.getValue()), 
+        		expectedTM, 
+        		expectedList);
     }
     
     // @@author
@@ -1249,6 +1270,25 @@ public class LogicManagerTest {
                     "7am",
                     "",
                     tag
+            );
+        }
+        
+        /**
+         * Generates a Task object with given tag. Other fields will have some dummy values.
+         * @param desc Description for the task
+         * @param priority Priority for the task
+         * @return Task with the given parameters
+         * @throws Exception
+         */
+        Task generateTaskWithDescAndPriority(String desc, String priority) throws Exception {
+            return new Task(
+                    desc,
+                    "Camelot",
+                    priority,
+                    "4.30am",
+                    "7am",
+                    "",
+                    ""
             );
         }
     }
