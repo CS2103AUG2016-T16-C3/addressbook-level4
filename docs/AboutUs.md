@@ -13,23 +13,15 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Design of command extensions](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#extensions)
    * [Edit any property](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#editing-tasks-edit)
    * [Sort tasks by priority](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#sort-by-priority-level-sort)
-<<<<<<< HEAD
-   * [Sort tasks by done](https://github.com/CS2103AUG2016-T16-C3/main/pull/94)
-   * [Specify storage folder](https://github.com/CS2103AUG2016-T16-C3/main/blob/V0.4/docs/UserGuide.md#specify-a-storage-folder-storage)
-=======
    * [Specify storage folder](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/docs/UserGuide.md#specify-a-storage-folder-storage)
->>>>>>> d9004175744c4e1495c5f9fbb974eb6632421079
    * [Mark task as done](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#ticking-off-tasks-done)
    * Alias [commands](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#changing-command-names-alias) and [extensions](https://github.com/CS2103AUG2016-T16-C3/main/pull/74)
    * Use PrettyTime to [parse dates and times](https://github.com/CS2103AUG2016-T16-C3/main/commit/ecbbee9f78bff30453e08b670a0f760bc5f65125), and to [display them on UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/49)
    * [Jump to task when added/edited](https://github.com/CS2103AUG2016-T16-C3/main/pull/52)
-<<<<<<< HEAD
    * [Jump to tag when finding by tag](https://github.com/CS2103AUG2016-T16-C3/main/pull/71)
    * [Offline help](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#viewing-help-help)
    * [Indicate overdue tasks](https://github.com/CS2103AUG2016-T16-C3/main/pull/89)
    * [Allow user to escape keywords](https://github.com/CS2103AUG2016-T16-C3/main/pull/74)
-=======
->>>>>>> d9004175744c4e1495c5f9fbb974eb6632421079
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/main/A0147924X.md)][[test code](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/test/A0147924X.md)][[docs](https://github.com/CS2103AUG2016-T16-C3/main/blob/master/collated/docs/A0147924X.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to TaskManager [[426d2e4](https://github.com/CS2103AUG2016-T16-C3/main/commit/426d2e40ad05b5ea4d09f92a5f43e0d615c2da83)]
