@@ -1,7 +1,5 @@
 package seedu.manager.logic.commands;
 
-import seedu.manager.model.task.Task.TaskProperties;
-
 // @@author A0147924X
 /**
  * Allows user to sort the displayed tasks by priority
@@ -21,14 +19,14 @@ public class SortCommand extends Command implements UndoableCommand{
 
 	@Override
 	public CommandResult execute() {
-		model.sortSortedFilteredTaskListByProperty(TaskProperties.PRIORITY);
+		model.sortSortedFilteredTaskListByPriority();
 		this.addUndo(this);
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
 	@Override
 	public CommandResult undoIt() {
-		model.unSortSortedFilteredTaskList();
+		model.sortSortedFilteredTaskListByTime();
 	    return new CommandResult(UNDO_SUCCESS);
 	}
 }

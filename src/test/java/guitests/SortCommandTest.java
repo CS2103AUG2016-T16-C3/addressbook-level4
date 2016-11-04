@@ -9,7 +9,6 @@ import org.junit.Test;
 import javafx.collections.ObservableList;
 import seedu.manager.logic.commands.SortCommand;
 import seedu.manager.model.task.ReadOnlyTask;
-import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.testutil.TestTask;
 
 // @@author A0147924X
@@ -37,7 +36,14 @@ public class SortCommandTest extends TaskManagerGuiTest {
         	commandBox.runCommand("sort");
 		}
         
-        Comparator<? super ReadOnlyTask> priorityComparator = (t1, t2) -> t1.compareProperty(t2, TaskProperties.PRIORITY);
+        Comparator<ReadOnlyTask> priorityComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.comparePriority(t2);
+			}
+    	};
         
         assertTrue(isSorted(priorityComparator, taskListPanel.getListView().getItems()));
         

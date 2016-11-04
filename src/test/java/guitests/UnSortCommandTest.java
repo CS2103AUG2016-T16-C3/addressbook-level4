@@ -9,7 +9,6 @@ import org.junit.Test;
 import javafx.collections.ObservableList;
 import seedu.manager.logic.commands.UnSortCommand;
 import seedu.manager.model.task.ReadOnlyTask;
-import seedu.manager.model.task.Task.TaskProperties;
 import seedu.manager.testutil.TestTask;
 
 //@@author A0147924X
@@ -40,9 +39,16 @@ public class UnSortCommandTest extends TaskManagerGuiTest {
         	commandBox.runCommand("unsort");
 		}
         
-        Comparator<? super ReadOnlyTask> doneComparator = (t1, t2) -> t1.compareProperty(t2, TaskProperties.DONE);
+        Comparator<? super ReadOnlyTask> priorityComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.compareTime(t2);
+			}
+    	};
         
-        assertTrue(isSorted(doneComparator, taskListPanel.getListView().getItems()));
+        assertTrue(isSorted(priorityComparator, taskListPanel.getListView().getItems()));
         
         if (shouldRunUnSortCommand) {
         	assertResultMessage(UnSortCommand.MESSAGE_SUCCESS);
