@@ -167,7 +167,7 @@ The `Logic`,
 
 > The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add Name")`
  API call.<br><br>
 
 <p align="center"><img src="images/DeleteTaskSdForLogic.png" width="800"><br>

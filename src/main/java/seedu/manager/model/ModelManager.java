@@ -56,7 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.userPrefs = userPrefs;
     }
     
-    // @author
+    // @@author
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
     }
@@ -219,7 +219,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTags.setPredicate(null);
     }
     
-    // @author
+    // @@author
     @Override
     public void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch) {
         updateFilteredTaskList(new PredicateExpression(new EnhancedSearchQualifier(propertiesToMatch)));
