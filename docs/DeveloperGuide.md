@@ -113,9 +113,9 @@ _Figure 2_ below shows how the components interact for the scenario where the us
 command `delete 3`.
 <br>
 
-<p align="center"><img src="images\SDforDeleteTask.png" width="800"><br>
+<p align="center"><img src="images\SDforAddTask.png" width="800"><br>
 
-<sub>Fig 2: Sequence Diagram for Delete Task</sub></p>
+<sub>Fig 2: Sequence Diagram for Add Task</sub></p>
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -125,7 +125,7 @@ being saved to the hard disk and the status bar of the `UI` being updated to ref
 
 <p align="center"><img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
 
-<sub>Fig 3: Sequence Diagram for Event Handling for Delete Task</sub></p>
+<sub>Fig 3: Sequence Diagram for Event Handling for Add Task</sub></p>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
