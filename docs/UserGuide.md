@@ -4,7 +4,7 @@
 * [Quick Start](#quick-start)
 * [Features](#features)
   * [Primary Commands](#primary-commands)
-  * [Extensions](#extensions)
+    * [Extensions](#extensions)
 * [Cheat Sheet](#cheat-sheet)
 * [Appendix A](#appendix-a)
 
@@ -75,7 +75,7 @@ Examples:
 
 
 <a id="extensions"></a>
-_You're probably wondering... what extensions can I use? How do they help me?
+_But now you're probably wondering... what extensions can I use? How do they help me?
 Well to answer that, let's just dive straight into our extensions:_<br>
 
 <a id="venue"></a>
@@ -140,6 +140,8 @@ Examples:
 _Extensions can be used together for maximum flexibility. This means that you can add complex tasks using commands as natural as:_
   * `add Complete assignment by 3pm priority high`
   * `add Appointment with dentist at 5:30pm venue Bright Teeth Clinic`
+
+_Alright! Armed with these extensions, let's take a look at some other commands that help enhance your experience with Task Ninja._
 
 
 <a id="find"></a>
