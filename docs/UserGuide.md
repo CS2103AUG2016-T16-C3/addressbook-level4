@@ -34,11 +34,11 @@
 ## Features
 
 ### Overview
-Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. These commands can then be made more specific using [extensions](#extensions), such as `at`, `before`, `from-to` and `priority`. <br>
+Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. Some of these commands, like `add` and `edit`, can then be made more specific using [extensions](#extensions), such as `at`, `before`, `from-to` and `priority`. <br>
 
 This means that the primary commands are used in conjunction with extensions to give the manager more information about what you want to do. <br>
 
-For example, you could edit the venue of the 1st task displayed by typing `edit 1 at Home`.
+For example, you could edit the venue of the 1st task displayed by typing `edit 1 venue Home`.
 
 > The order of extensions is not fixed.
 
@@ -71,8 +71,75 @@ Format: `add <task description> [<extensions>]`
 
 Examples:
   * `add Dinner with Arthur`
-  * `add Dinner with Arthur venue Avalon from 8:30pm to 9:30pm`
-  * `add Finish 2103T Tutorial before 11:59pm`
+  * `add Elope with Guinevere`
+
+
+<a id="extensions"></a>
+_You're probably wondering... what extensions can I use? How do they help me?
+Well to answer that, let's just dive straight into our extensions:_<br>
+
+<a id="venue"></a>
+##### At a certain venue: `venue`
+_Going to university but somehow ended up wandering at the mall aimlessly? Remember your destination with this extension._<br>
+Format: `venue <description of venue>`
+
+Examples:
+  * `add Lunch with Arthur venue Avalon`
+  * `add Date with Girlfriend venue Romantic spot`
+
+
+<a id="from-to"></a>
+##### Events that last for a certain period of time: `from-to`
+_Mark tasks/events that will be done over a certain period of time._<br>
+Format: `from <start time/date> to <end time/date>`
+
+> * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
+> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide. <br>
+
+Examples:
+  * `add Meeting with Boss from 11am to 1pm`
+  * `add Collect computer from store from 2:30pm to 3:00pm`
+  * `add Picnic with Guinevere from tomorrow morning to tomorrow evening`
+
+
+<a id="at"></a>
+##### At a certain time/date: `at`
+_Specify a start time for a task._<br>
+Format: `at <time/date>`
+
+Examples:
+  * `add Commence update at 23:00`
+  * `add Ballet lesson at day after tomorrow 9pm`
+
+
+<a id="before"></a>
+##### Before a certain time/date: `before`
+_Specify a deadline for a task._<br>
+Format: `before <time/date>`
+
+Examples:
+  * `add Finish 2103T Tutorial before 13:00`
+  * `add Complete assignment before 15 Nov 23:59`
+
+
+<a id="priority"></a>
+##### Priority level for tasks: `priority`
+_Assign a priority level to tasks._<br>
+Format: `priority low/med/high`
+
+> * Helps give levels of importance to tasks. <br>
+> * Priority level can be low, medium or high. <br>
+> * The default priority level of a task is medium ("med"). <br>
+
+Examples:
+  * `add Lunch with Arthur priority low`
+  * `add Steal the Round Table priority high`
+
+
+##### Combining multiple extensions
+_Extensions can be used together for maximum flexibility. This means that you can add complex tasks using commands as natural as:_
+  * `add Complete assignment by 3pm priority high`
+  * `add Appointment with dentist at 5:30pm venue Bright Teeth Clinic`
 
 
 <a id="find"></a>
@@ -170,75 +237,6 @@ Example:
   * `storage data/TaskNinja.xml`
 
 
-### Extensions
-
-<a id="venue"></a>
-#### At a certain venue: `venue`
-_Going to university but somehow ended up wandering at the mall aimlessly? Remember your destination with this extension._<br>
-Format: `venue <description of venue>`
- 
-Examples:
-  * `add Lunch with Arthur venue Avalon`
-  * `edit 1 venue Round Table`
-
-
-<a id="from-to"></a>
-#### Events that last from a certain period of time/date: `from-to`
-_Mark tasks/events that will be done in a certain period of time/date._<br>
-Format: `from <start time/date> to <end time/date>`
-
-> * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
-> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide. <br>
-
-Examples:
-  * `add Meeting with Boss from 11am to 1pm`
-  * `edit 1 from 10/20/16 to 10/25/16`
-  * `add Collect computer from store from 2:30pm to 3:00pm`
-  * `edit 4 from 15 Oct to 17 Oct`
-
-
-<a id="at"></a>
-#### At a certain time/date: `at`
-_Specify a start time for a task._<br>
-Format: `at <time/date>`
-
-> A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
-
-Examples:
-  * `add Commence update at 23:00`
-  * `edit 2 at 31 Oct '16`
-  * `add Start writing essay at Nov 2 2016 2000`
-  * `edit 5 at 1st May`
-
-
-<a id="before"></a>
-#### Before a certain time/date: `before`
-_Specify a deadline for a task._<br>
-Format: `before <time/date>`
-
-> A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
-
-Examples:
-  * `add Finish 2103T Tutorial before 13:00`
-  * `edit 3 before 6 Feb '17`
-  * `add Complete assignment before Nov 2 2016 2359`
-  * `edit 5 before 1st May`
-
-
-<a id="priority"></a>
-#### Priority level for tasks: `priority`
-_Assign a priority level to tasks._<br>
-Format: `priority <low/med/high>`
-
-> * Helps give levels of importance to tasks. <br>
-> * Priority level can be low, medium or high. <br>
-> * The default priority level of a task is medium ("med"). <br>
-
-Examples:
-  * `add Lunch with Arthur priority high`
-  * `edit 1 priority med`
-
-
 ## Cheat Sheet
 
 Type | Command | Format
@@ -271,14 +269,14 @@ Input | Read in as | Comments
 ----- | :--------: | ------- |
 `2am` | Wed Oct 19 02:00:00 | 12-hour format
 `2AM` | Wed Oct 19 02:00:00 | Not case-sensitive
-`2pm` | Wed Oct 19 14:00:00 | 
-`3:30am` | Wed Oct 19 03:30:00 | 
+`2pm` | Wed Oct 19 14:00:00 |
+`3:30am` | Wed Oct 19 03:30:00 |
 `4:45pm` |  Wed Oct 19 16:45:00 |
 `0515` | Wed Oct 19 05:15:00 | 24-hour format
 `1700` | Wed Oct 19 17:00:00 |
 `6:00` | Wed Oct 19 06:00:00 |
 `07:55` | Wed Oct 19 07:55:00 |
-`19:59` | Wed Oct 19 19:59:00 | 
+`19:59` | Wed Oct 19 19:59:00 |
 `20 November` | Sun Nov 20 12:00:00 | Uses current time by default
 `22 January '17` | Sun Jan 22 12:00:00 2017 | Uses an apostrophe in shortened year
 `23rd February 2017` | Tue Feb 23 12:00:00 2017 | Numerals (st, nd, rd, th) are accepted
