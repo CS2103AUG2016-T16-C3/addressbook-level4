@@ -17,6 +17,7 @@ import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -69,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
         sortedTags = new SortedList<>(filteredTags);
         this.userPrefs = userPrefs;
         
-        sortSortedFilteredTaskListByProperty(TaskProperties.DONE);
+        sortSortedFilteredTaskListByTime();
     }
     
     // @@author
@@ -176,13 +177,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void sortSortedFilteredTaskListByProperty(TaskProperties property) {
-    	sortedTasks.setComparator((Task t1, Task t2) -> t1.compareProperty(t2, property));
+    public void sortSortedFilteredTaskListByPriority() {
+    	Comparator<ReadOnlyTask> priorityComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.comparePriority(t2);
+			}
+    	};
+    	sortedTasks.setComparator(priorityComparator);
     }
     
     @Override
-    public void unSortSortedFilteredTaskList() {
-    	sortSortedFilteredTaskListByProperty(TaskProperties.DONE);
+    public void sortSortedFilteredTaskListByTime() {
+    	Comparator<ReadOnlyTask> timeComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.compareTime(t2);
+			}
+    	};
+    	sortedTasks.setComparator(timeComparator);
     }
     
     @Override

@@ -58,7 +58,7 @@ public interface ReadOnlyTask {
     }
     
     default boolean isTaskOverdue() {	
-    	if(this.isDone()) {
+    	if (this.isDone()) {
     		return false;
     	}
     	
@@ -142,12 +142,84 @@ public interface ReadOnlyTask {
     }
     
     /**
-     * Compares two tasks using a certain property (for sorting)
-     * @param other Other task
-     * @param property Property to be compared on
-     * @return -1 if this is smaller, 0 if equal, 1 is this is larger
+     * Compares a certain property of one task with a certain property of another task
+     * @param firstTask First task to compare
+     * @param secondTask Second task to compare
+     * @param firstProperty Property of first task to compare
+     * @param secondProperty Property of second task to compare
+     * @param isNoPropertyHigh Whether empty property is higher than a valid property
+     * @return -1 if first task is smaller, 0 if equal, 1 if first task is larger
      */
-    public int compareProperty(ReadOnlyTask other, TaskProperties property);
+    public static int compareProperty(ReadOnlyTask firstTask, ReadOnlyTask secondTask, 
+    								   TaskProperties firstProperty, TaskProperties secondProperty,
+    								   boolean isNoPropertyHigh) {
+    	assert firstTask != null && secondTask != null;
+    	HashMap<TaskProperties, Optional<TaskProperty>> firstProps = firstTask.getProperties();
+    	HashMap<TaskProperties, Optional<TaskProperty>> secondProps = secondTask.getProperties();
+    	
+    	int noPropertyMultiplier = isNoPropertyHigh ? 1 : -1;
+    	
+    	if (!firstProps.get(firstProperty).isPresent() && !secondProps.get(secondProperty).isPresent()) {
+    		return 0;
+    	} else if (!firstProps.get(firstProperty).isPresent()) {
+    		return 1 * noPropertyMultiplier;
+    	} else if (!secondProps.get(secondProperty).isPresent()) {
+    		return -1 * noPropertyMultiplier;
+    	} else {
+    		return firstProps.get(firstProperty).get().compareTo(secondProps.get(secondProperty).get());
+    	}
+    }
+    
+    /**
+     * Compares priority of this task with another task
+     * @param other Other task
+     * @return -1 if this priority is lower, 1 if this priority is higher (no priority is higher)
+     * and 0 if they are the same
+     */
+    default public int comparePriority(ReadOnlyTask other) {
+    	assert other != null;
+    	
+    	return compareProperty(this, other, TaskProperties.PRIORITY, TaskProperties.PRIORITY, true);
+    }
+    
+    /**
+     * Compares time of this task with another task
+     * @param other Other task
+     * @return -1 if this task's time is before the other task's (no time is lowest), 1 if this time is after
+     * the other task's time and 0 if they are the same
+     */
+    default public int compareTime(ReadOnlyTask other) {
+    	assert other != null;
+    	HashMap<TaskProperties, Optional<TaskProperty>> thisProps = this.getProperties();
+    	HashMap<TaskProperties, Optional<TaskProperty>> otherProps = other.getProperties();
+    	
+    	if (thisProps.get(TaskProperties.ENDTIME).isPresent() && otherProps.get(TaskProperties.ENDTIME).isPresent()) {
+			int endTimeCompare = compareProperty(this, other, TaskProperties.ENDTIME, TaskProperties.ENDTIME, false);
+			if (endTimeCompare != 0) {
+				return endTimeCompare;
+			} else {
+				return compareProperty(this, other, TaskProperties.STARTTIME, TaskProperties.STARTTIME, false);
+			}
+		} else if (!thisProps.get(TaskProperties.ENDTIME).isPresent() && !otherProps.get(TaskProperties.ENDTIME).isPresent()) {
+			return compareProperty(this, other, TaskProperties.STARTTIME, TaskProperties.STARTTIME, false);
+		} else if (!otherProps.get(TaskProperties.ENDTIME).isPresent()) {
+			return compareProperty(this, other, TaskProperties.ENDTIME, TaskProperties.STARTTIME, false);
+		} else {
+			return compareProperty(this, other, TaskProperties.STARTTIME, TaskProperties.ENDTIME, false);
+		}
+    }
+    
+    /**
+     * Compares the done property of this task with another task
+     * @param other Other task
+     * @return Not done is considered to be "larger" than done. 1 returned if this task is larger,
+     * -1 if other task is larger, 0 if they are the same
+     */
+    default public int compareDone(ReadOnlyTask other) {
+    	assert other != null;
+    	
+    	return compareProperty(this, other, TaskProperties.DONE, TaskProperties.DONE, true);
+    }
     
     // @author A0139621H
     public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
