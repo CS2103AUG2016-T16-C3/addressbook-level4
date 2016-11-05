@@ -113,7 +113,7 @@ _Figure 2_ below shows how the components interact for the scenario where the us
 command `delete 3`.
 <br>
 
-<p align="center"><img src="images\SDforAddTask.png" width="800"><br>
+<p align="center"><img src="images\SDforAddTask.jpg" width="800"><br>
 
 <sub>Fig 2: Sequence Diagram for Add Task</sub></p>
 
