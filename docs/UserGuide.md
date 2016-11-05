@@ -74,7 +74,9 @@ Examples:
   * `add Elope with Guinevere`
 
 
+<br>
 <a id="extensions"></a>
+#### Extensions
 _But now you're probably wondering... what extensions can I use? How do they help me?
 Well to answer that, let's just dive straight into our extensions:_<br>
 
@@ -129,20 +131,34 @@ Format: `priority low/med/high`
 
 > * Helps give levels of importance to tasks. <br>
 > * Priority level can be low, medium or high. <br>
-> * The default priority level of a task is medium ("med"). <br>
 
 Examples:
   * `add Lunch with Arthur priority low`
   * `add Steal the Round Table priority high`
 
 
+<a id="tag"></a>
+##### Tag: `tag`
+_Adds a tag to your tasks._<br>
+Format: `tag <your tag>`
+
+> * Only one tag can be added to a task. <br>
+> * You may replace the task's tag using the `edit` command. <br>
+
+Examples:
+  * `add Buy Table Lamp tag shopping`
+  * `edit 4 tag projects`
+
+
+<br>
 ##### Combining multiple extensions
 _Extensions can be used together for maximum flexibility. This means that you can add complex tasks using commands as natural as:_
   * `add Complete assignment by 3pm priority high`
   * `add Appointment with dentist at 5:30pm venue Bright Teeth Clinic`
 
-_Alright! Armed with these extensions, let's take a look at some other commands that help enhance your experience with Task Ninja._
 
+<br>
+_Alright! Armed with these extensions, let's take a look at some other primary commands that help enhance your experience with Task Ninja._
 
 <a id="find"></a>
 #### Searching for tasks: `find`
@@ -182,7 +198,7 @@ Examples:
 _Added a task you don't need? Fear not, for delete is here._<br>
 Format: `delete <task number>`
 
-> Task number specifies which out of the tasks on the screen you wish to delete. <br>
+> The task number specifies the task on the current screen that you wish to delete. <br>
 
 Examples:
   * `delete 1`
@@ -203,26 +219,14 @@ Tasks are saved in the hard disk automatically after any command that changes th
 There is no need to save manually.
 
 
-<a id="next"></a>
-#### List upcoming tasks: `next`
-_Lists all upcoming tasks._<br>
-Format: `next [before <time>]`
-
-> * All tasks whose start times are after the current time are listed, by default. <br>
-> * Floating tasks are also listed; they are listed at the bottom of the list. <br>
-> * Can also be used with `before` to see upcoming tasks until a specified time/date. <br>
-
-Example:
-  * `next`
-  * `next before 10pm`
-
-
+<!-- @@author A0139621H-->
 <a id="undo"></a>
 #### Undo previous action: `undo`
 _Made a mistake? Fret not! Just use this keyword to revert the last action that you did!_<br>
 Format: `undo`
 
-> Can be used more than once. <br>
+> * Can be used more than once. <br>
+> * Cannot be used if you close TaskNinja and reopen it; the temporary history of commands that you use will be cleared and there will be nothing for TaskNinja to undo. <br>
 
 Example:
   * `undo`
@@ -239,6 +243,40 @@ Example:
   * `storage data/TaskNinja.xml`
 
 
+<a id="alias"></a>
+#### Alias Commands: `alias`
+_If you're an advanced user, you may replace our existing commands with a keyword of your own!_<br>
+Format: `alias <command name> <new command name>`
+
+> * Take note that you cannot replace a command with a keyword that is already in use. <br>
+> * If you wish to use the old keyword again, you can simply undo it or use this command again (see the 2nd example). <br>
+
+Example:
+  * `alias add +`
+  * `alias + add`
+  * `alias edit e`
+
+
+<a id="sortby"></a>
+#### Sortby: `sortby`
+_Sorts your task list either by time, or by priority._<br>
+Format: `sortby time/priority`
+
+Example:
+  * `sortby time`
+  * `sortby priority`
+
+
+<a id="clear"></a>
+#### Clear: `clear`
+_Wipes off all tasks and tags from TaskNinja._<br>
+Format: `clear`
+
+> * *WARNING*: This command is irreversible! It cannot be undone even with the `undo` command! <br>
+> * You should hence be VERY sure if you wish to use this command at any point in time, unless you have saved your tasks to another .xml file! <br>
+
+
+<!-- @@author A0147924X -->
 ## Cheat Sheet
 
 Type | Command | Format
@@ -249,14 +287,18 @@ Primary | [Find](#find) | `find <keyword> [<more keywords>]`
 Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
 Primary | [Delete](#delete) | `delete <task number>`
 Primary | [Exit](#exit) | `exit`
-Primary | [Next](#next) | `next [before <time>]`
 Primary | [Undo](#undo) | `undo`
 Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>`
+Primary | [Alias](#alias) | `alias <command name> <new command name>`
+Primary | [Sortby](#sortby) | `sortby time` or `sortby priority`
+Primary | [Clear](#clear) | `clear`
 Extension | [Venue](#venue) | `venue <description of venue>`
 Extension | [Event](#from-to) | `from <start time> to <end time>`
 Extension | [At](#at) | `at <time>`
 Extension | [Before](#before) | `before <time>`
 Extension | [Priority](#priority) | `priority <low/med/high>`
+Extension | [Tag](#tag) | `tag <your tag>`
+
 
 <!-- @@author A0139621H-->
 # Appendix A
