@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.manager.commons.core.Config;
+import seedu.manager.commons.core.CommandWord;
 import seedu.manager.commons.core.GuiSettings;
 import seedu.manager.commons.events.ui.ExitAppRequestEvent;
 import seedu.manager.logic.Logic;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private CommandWord commandWord;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -204,15 +206,17 @@ public class MainWindow extends UiPart {
         return this.tagListPanel;
     }
     
+    // @@author A0148042M
     public void updateTaskListPanel(Tag newSelection) {
-//        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getSortedFilteredTaskList(newSelection));
 //        logic.updateTaskListWhenTagSelected(newSelection);
-//        System.out.println(newSelection);
-        String commandText = new String("find tag ");
+        String commandText = new String(CommandWord.getFindCommandWord());
+//        String commandText = new String("find tag ");
+        commandText += " tag ";
         commandText += newSelection.toString();
         logic.execute(commandText);
     }
     
+    // @@author
     /**
      * Rerender Status Bar Footer
      */

@@ -220,6 +220,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTags.setPredicate(null);
     }
     
+    // @@author A0148042M
     @Override
     public void updateFilteredTaskList(Tag selectedTag) {
         HashMap<TaskProperties, Optional<TaskProperty>> TagToMatch = new HashMap<>();

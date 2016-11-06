@@ -20,11 +20,13 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getSortedFilteredTaskList();
     
-//    ObservableList<ReadOnlyTask> getSortedFilteredTaskList(Tag selectedTag);
-    
-    void updateTaskListWhenTagSelected(Tag selectedTag);
-    
     // @@author A0148042M
+    /**
+     * Updates the task list to be related to tag selected.
+     * @param selectedTag
+     */
+    void updateTaskListWhenTagSelected(Tag selectedTag);
+
     /** Returns the filtered list of tags */
     ObservableList<Tag> getSortedFilteredTagList();
     

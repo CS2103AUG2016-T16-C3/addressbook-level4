@@ -47,20 +47,19 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getSortedFilteredTaskList();
     }
     
-//    @Override
-//    public ObservableList<ReadOnlyTask> getSortedFilteredTaskList(Tag selectedTag) {
-////        model.updateFilteredTaskList(selectedTag);
-//        
-//        return model.getSortedFilteredTaskList(selectedTag);
-//    }
-    
+    // @@author A0148042M
     @Override
+    /**
+     * Update the task list that contains selected tag
+     */
     public void updateTaskListWhenTagSelected(Tag selectedTag) {
         model.updateFilteredTaskList(selectedTag);
     }
     
-    // @@author A0148042M
     @Override
+    /**
+     * Return the sorted and filtered tag list.
+     */
     public ObservableList<Tag> getSortedFilteredTagList() {
         return model.getSortedFilteredTagList();        
     }

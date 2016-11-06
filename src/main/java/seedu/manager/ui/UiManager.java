@@ -131,7 +131,7 @@ public class UiManager extends ComponentManager implements Ui {
     	mainWindow.getTagListPanel().scrollTo(event.getTargetIndex());
     }
     
-    // @@author
+    // @@author A0148042M
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
