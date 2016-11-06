@@ -294,7 +294,7 @@ There is no need to save manually.
 ## Cheat Sheet
 
 Type | Command | Format | Example | Undoable? |
-:--------: | :--------: | ----- | ---- |
+:--------: | :--------: | ----- | ---- | ---- |
 Primary | [Help](#help) | `help [<command>]` | `help add` | No (close the help window to go back to Task Ninja)
 Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete assignment by 3pm priority high tag School` | Yes
 Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med` | No
