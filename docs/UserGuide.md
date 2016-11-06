@@ -34,7 +34,7 @@
 ## Features
 
 ### Overview
-Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. Some of these commands, like `add` and `edit`, can then be made more specific using [extensions](#extensions), such as `at`, `before`, `from-to` and `priority`. <br>
+Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. Some of these commands, like `add` and `edit`, can then be made more specific using [extensions](#extensions), such as `at`, `by`, `from-to` and `priority`. <br>
 
 This means that the primary commands are used in conjunction with extensions to give the manager more information about what you want to do. <br>
 
@@ -52,12 +52,15 @@ For example, you could edit the venue of the 1st task displayed by typing `edit 
 #### Viewing help: `help`
 _Overwhelmed by the amazingness of Task Ninja? `help` is here to help you discover more._<br>
 
-Format: `help`
+Format: `help [<command>]`
 
-> This shows help for all commands. <br>
+> This shows help for all commands (In fact it opens this User Guide)<br>
+> If a command is specified, then it shows help for that command only
 
-Example:
+Examples:
   * `help`
+  * `help add`
+  * `help delete`
 
 
 <a id="add"></a>
@@ -93,7 +96,7 @@ Examples:
 <a id="from-to"></a>
 ##### Events that last for a certain period of time: `from-to`
 _Mark tasks/events that will be done over a certain period of time._<br>
-Format: `from <start time/date> to <end time/date>`
+Format: `from <start time> to <end time>`
 
 > * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
 > * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide. <br>
@@ -107,21 +110,21 @@ Examples:
 <a id="at"></a>
 ##### At a certain time/date: `at`
 _Specify a start time for a task._<br>
-Format: `at <time/date>`
+Format: `at <time>`
 
 Examples:
   * `add Commence update at 23:00`
   * `add Ballet lesson at day after tomorrow 9pm`
 
 
-<a id="before"></a>
-##### Before a certain time/date: `before`
+<a id="by"></a>
+##### By a certain time/date: `by`
 _Specify a deadline for a task._<br>
-Format: `before <time/date>`
+Format: `by <time>`
 
 Examples:
-  * `add Finish 2103T Tutorial before 13:00`
-  * `add Complete assignment before 15 Nov 23:59`
+  * `add Finish 2103T Tutorial by 13:00`
+  * `add Complete assignment by 15 Nov 23:59`
 
 
 <a id="priority"></a>
@@ -180,8 +183,10 @@ Examples:
     Shows all tasks that have to be completed before tomorrow. Includes overdue tasks.
   * `find from tomorrow to day after tomorrow`<br>
     Shows all tasks that are due between tomorrow and day after tomorrow.
-  * `find priority high`
+  * `find priority high`<br>
     Shows all tasks with a high priority.
+  * `find dinner priority med`<br>
+    Shows all tasks that contain `dinner` in their descriptions and have a medium priority
 
 
 <a id="edit"></a>
@@ -225,6 +230,18 @@ Example:
   * `undo`
 
 
+<a id="sortby"></a>
+#### Sortby: `sortby`
+_Sorts your task list either by time, or by priority._<br>
+Format: `sortby time/priority`
+
+> Even if priority or time have been aliased, this command will still use the words priority and time
+
+Examples:
+  * `sortby time`
+  * `sortby priority`
+
+
 <a id="storage"></a>
 #### Specify a storage folder: `storage`
 _Allows you to edit the storage file._<br>
@@ -242,24 +259,12 @@ _If you're an advanced user, you may replace our existing commands with a keywor
 Format: `alias <command name> <new command name>`
 
 > * Take note that you cannot replace a command with a keyword that is already in use. <br>
-> * To see the alias for any command, simply use help for that command. <br>
+> * To a command's alias, simply use help for that command. <br>
 
-Example:
+Examples:
   * `alias add +`
   * `alias + add`
   * `alias priority p`
-
-
-<a id="sortby"></a>
-#### Sortby: `sortby`
-_Sorts your task list either by time, or by priority._<br>
-Format: `sortby time/priority`
-
-Example:
-  * `sortby time`
-  * `sortby priority`
-
-> Even if priority or time have been aliased, this command will still use the words priority and time
 
 
 <a id="clear"></a>
@@ -288,32 +293,32 @@ There is no need to save manually.
 <!-- @@author A0147924X -->
 ## Cheat Sheet
 
-Type | Command | Format
-:--------: | :--------: | ----- |
-Primary | [Help](#help) | `help`
-Primary | [Add](#add) | `add <task description> [<extensions>]`
-Primary | [Find](#find) | `find <keyword> [<more keywords>]`
-Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
-Primary | [Delete](#delete) | `delete <task number>`
-Primary | [Exit](#exit) | `exit`
-Primary | [Undo](#undo) | `undo`
-Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>`
-Primary | [Alias](#alias) | `alias <command name> <new command name>`
-Primary | [Sortby](#sortby) | `sortby time` or `sortby priority`
-Primary | [Clear](#clear) | `clear`
-Extension | [Venue](#venue) | `venue <description of venue>`
-Extension | [Event](#from-to) | `from <start time> to <end time>`
-Extension | [At](#at) | `at <time>`
-Extension | [Before](#before) | `before <time>`
-Extension | [Priority](#priority) | `priority <low/med/high>`
-Extension | [Tag](#tag) | `tag <your tag>`
+Type | Command | Format | Example |
+:--------: | :--------: | ----- | ---- |
+Primary | [Help](#help) | `help [<command>]` | `help add`
+Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete assignment by 3pm priority high tag School`
+Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med`
+Primary | [Edit](#edit) | `edit <task number> [<new task description>] [<extensions>]` | `edit 1 Dinner with Mum venue Home`
+Primary | [Delete](#delete) | `delete <task number>` | `delete 1`
+Primary | [Undo](#undo) | `undo` | `undo`
+Primary | [Sortby](#sortby) | `sortby time/priority` | `sortby priority`
+Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>` | `storage data/TaskNinja.xml`
+Primary | [Alias](#alias) | `alias <command name> <new command name>` | `alias delete -`
+Primary | [Clear](#clear) | `clear` | `clear`
+Primary | [Exit](#exit) | `exit` | `exit`
+Extension | [Venue](#venue) | `venue <description of venue>` | `venue Avalon`
+Extension | [Event](#from-to) | `from <start time> to <end time>` | `from 1pm to 3pm`
+Extension | [At](#at) | `at <time>` | `at 5pm`
+Extension | [By](#by) | `by <time>` | `by tomorrow evening`
+Extension | [Priority](#priority) | `priority low/med/high` | `priority med`
+Extension | [Tag](#tag) | `tag <your tag>` | `tag Camelot`
 
 
 <!-- @@author A0139621H-->
 # Appendix A
 _This appendix lists down all the inputs of dates and times that are accepted when adding/editing a task._<br>
 _As we are using PrettyTime parser to read in dates and times, we strongly recommend you to follow this table in order to let you have the best experience when using Task Ninja!_<br>
-_You may also refer to the examples in [Event](#from-to) and [Before](#before) sections for an overview of how to input your dates and times when adding/editing your task._<br>
+_You may also refer to the examples in [Event](#from-to), [At](#at) and [By](#by) sections for an overview of how to input your dates and times when adding/editing your task._<br>
 
 > * The current time (in HH:MM:SS) will be timestamped to your tasks should you decide not to enter a time.
 > * The following examples use Wed 19 Oct 12:00:00 2016 as the current time and date, unless otherwise specified
