@@ -150,7 +150,6 @@ Examples:
   * `edit 4 tag projects`
 
 
-<br>
 ##### Combining multiple extensions
 _Extensions can be used together for maximum flexibility. This means that you can add complex tasks using commands as natural as:_
   * `add Complete assignment by 3pm priority high tag School`
@@ -220,6 +219,7 @@ Format: `undo`
 > * Can be used more than once. <br>
 > * Cannot be used if you close TaskNinja and reopen it; the temporary history of commands that you use will be cleared and there will be nothing for TaskNinja to undo. <br>
 > * The commands that you can undo are: add, edit, delete and alias
+> * All extension commands cannot be undone, by default.
 
 Example:
   * `undo`
@@ -288,25 +288,25 @@ There is no need to save manually.
 <!-- @@author A0147924X -->
 ## Cheat Sheet
 
-Type | Command | Format
-:--------: | :--------: | ----- |
-Primary | [Help](#help) | `help`
-Primary | [Add](#add) | `add <task description> [<extensions>]`
-Primary | [Find](#find) | `find <keyword> [<more keywords>]`
-Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
-Primary | [Delete](#delete) | `delete <task number>`
-Primary | [Exit](#exit) | `exit`
-Primary | [Undo](#undo) | `undo`
-Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>`
-Primary | [Alias](#alias) | `alias <command name> <new command name>`
-Primary | [Sortby](#sortby) | `sortby time` or `sortby priority`
-Primary | [Clear](#clear) | `clear`
-Extension | [Venue](#venue) | `venue <description of venue>`
-Extension | [Event](#from-to) | `from <start time> to <end time>`
-Extension | [At](#at) | `at <time>`
-Extension | [Before](#before) | `before <time>`
-Extension | [Priority](#priority) | `priority <low/med/high>`
-Extension | [Tag](#tag) | `tag <your tag>`
+Type | Command | Format | Can it be undone?
+:--------: | :--------: | ----- | ----- |
+Primary | [Help](#help) | `help` | No (simply close the help window to go back to what you were doing)
+Primary | [Add](#add) | `add <task description> [<extensions>]` | Yes
+Primary | [Find](#find) | `find <keyword> [<more keywords>]` | No
+Primary | [Edit](#edit) | `edit <task number> [<extensions>]` | Yes
+Primary | [Delete](#delete) | `delete <task number>` | Yes
+Primary | [Exit](#exit) | `exit` | N/A
+Primary | [Undo](#undo) | `undo` | N/A
+Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>` | No
+Primary | [Alias](#alias) | `alias <command name> <new command name>` | Yes
+Primary | [Sortby](#sortby) | `sortby time` or `sortby priority` | No
+Primary | [Clear](#clear) | `clear` | No
+Extension | [Venue](#venue) | `venue <description of venue>` | N/A
+Extension | [Event](#from-to) | `from <start time> to <end time>` | N/A
+Extension | [At](#at) | `at <time>` | N/A
+Extension | [Before](#before) | `before <time>` | N/A
+Extension | [Priority](#priority) | `priority <low/med/high>` | N/A
+Extension | [Tag](#tag) | `tag <your tag>` | N/A
 
 
 <!-- @@author A0139621H-->
