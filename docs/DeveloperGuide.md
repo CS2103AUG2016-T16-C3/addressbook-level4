@@ -420,7 +420,8 @@ Use case resumes at step 3.
 1. User requests to list tasks.
 2. Task Manager shows a list of tasks.
 3. Users supplies Task Manager with new information for a specific task.
-4. Task Manager modifies the corresponding task.
+4. Task Manager modifies the corresponding task. <br>
+Use case ends.
 
 **Extensions**
 
@@ -437,6 +438,69 @@ Use case resumes at step 3.
 
 > 4b1. User is shown correct format for data. <br>
 Use case resumes at step 3.
+
+<!-- @@author A0139621H -->
+#### Use case: Aliasing command keyword
+
+**MSS**
+
+1. User requests to change the keyword of a command.
+2. Task Manager modifies the corresponding command's old keyword to the new one. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The old command that was entered is invalid.
+
+> 2a1. User is notified that the command word is invalid. <br>
+Use case ends.
+
+2b. The new command keyword is already in use by another command.
+
+> 2b1. User is notified as such, and is shown which command is using this keyword. <br>
+Use case ends.
+
+#### Use case: Storage command
+
+**MSS**
+
+1. User requests to change the storage path and/or filename of the Task Manager.
+2. Task Manager modifies the storage path and/or filename accordingly.
+3. Task Manager also updates the filepath at the bottom of the UI. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The new filepath entered is invalid.
+
+> 2a1. User is notified that the filepath is invalid. <br>
+Use case ends.
+
+2b. The new filepath entered is unaccessible.
+
+> 2b1. User is notified that the filepath cannot be used and is thus invalid. <br>
+User case ends.
+
+2c. The filename entered is already in use.
+
+> 2c1. User is notified that any changes to the new file will overwrite that of the old one. <br>
+User case resumes at step 3
+
+#### Use case: Undo
+
+**MSS**
+
+1. User requests to undo an action.
+2. Task manager undos the user's previous action and displays what was undone. <br>
+Use case ends.
+
+**Extensions**
+
+2a. There are no actions to be undone.
+
+> 2a1. User is notified as such. <br>
+Use case ends.
+
 
 <!-- @@author A0148042M -->
 ## Appendix C : Non Functional Requirements
