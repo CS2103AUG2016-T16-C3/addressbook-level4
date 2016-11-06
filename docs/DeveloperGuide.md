@@ -113,7 +113,7 @@ _Figure 2_ below shows how the components interact for the scenario where the us
 command `delete 3`.
 <br>
 
-<p align="center"><img src="images\SDforAddTask.jpg" width="800"><br>
+<p align="center"><img src="images/SDforAddTask.jpg" width="800"><br>
 
 <sub>Fig 2: Sequence Diagram for Add Task</sub></p>
 
@@ -123,7 +123,7 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the `UI` being updated to reflect the 'Last Updated' time. <br>
 
-<p align="center"><img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
+<p align="center"><img src="images/SDforDeleteTaskEventHandling.png" width="800"><br>
 
 <sub>Fig 3: Sequence Diagram for Event Handling for Add Task</sub></p>
 
@@ -169,8 +169,8 @@ The `Logic`,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add Name")` API call.<br><br>
 
-<p align="center"><img src="images/DeleteTaskSdForLogic.png" width="800"><br>
-<sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></p>
+<p align="center"><img src="images/AddTaskSdForLogic.png" width="800"><br>
+<sub>Fig 6: Sequence Diagram for Add command in Logic component</sub></p>
 
 #### Low-level details about the Logic Component
 
