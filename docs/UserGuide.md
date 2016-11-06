@@ -194,7 +194,7 @@ Format: `edit <task number> [<new task description>] [<extensions>]`
 > * Fields for the specified extensions will be changed. <br>
 
 Examples:
-  * `edit 1 Dinner with Guinevere`
+  * `edit 1 Dinner with Guinevere tag Romantic`
   * `edit 2 at 1am 3 Oct`
   * `edit 1 Dinner with Guinevere venue Under the stars`
 
@@ -219,6 +219,7 @@ Format: `undo`
 
 > * Can be used more than once. <br>
 > * Cannot be used if you close TaskNinja and reopen it; the temporary history of commands that you use will be cleared and there will be nothing for TaskNinja to undo. <br>
+> * The commands that you can undo are: add, edit, delete and alias
 
 Example:
   * `undo`
