@@ -153,7 +153,6 @@ Examples:
   * `edit 4 tag projects`
 
 
-<br>
 ##### Combining multiple extensions
 _Extensions can be used together for maximum flexibility. This means that you can add complex tasks using commands as natural as:_
   * `add Complete assignment by 3pm priority high tag School`
@@ -225,6 +224,7 @@ Format: `undo`
 > * Can be used more than once. <br>
 > * Cannot be used if you close TaskNinja and reopen it; the temporary history of commands that you use will be cleared and there will be nothing for TaskNinja to undo. <br>
 > * The commands that you can undo are: add, edit, delete and alias
+> * All extension commands cannot be undone, by default.
 
 Example:
   * `undo`
@@ -293,25 +293,25 @@ There is no need to save manually.
 <!-- @@author A0147924X -->
 ## Cheat Sheet
 
-Type | Command | Format | Example |
+Type | Command | Format | Example | Undoable? |
 :--------: | :--------: | ----- | ---- |
-Primary | [Help](#help) | `help [<command>]` | `help add`
-Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete assignment by 3pm priority high tag School`
-Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med`
-Primary | [Edit](#edit) | `edit <task number> [<new task description>] [<extensions>]` | `edit 1 Dinner with Mum venue Home`
-Primary | [Delete](#delete) | `delete <task number>` | `delete 1`
-Primary | [Undo](#undo) | `undo` | `undo`
-Primary | [Sortby](#sortby) | `sortby time/priority` | `sortby priority`
-Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>` | `storage data/TaskNinja.xml`
-Primary | [Alias](#alias) | `alias <command name> <new command name>` | `alias delete -`
-Primary | [Clear](#clear) | `clear` | `clear`
-Primary | [Exit](#exit) | `exit` | `exit`
-Extension | [Venue](#venue) | `venue <description of venue>` | `venue Avalon`
-Extension | [Event](#from-to) | `from <start time> to <end time>` | `from 1pm to 3pm`
-Extension | [At](#at) | `at <time>` | `at 5pm`
-Extension | [By](#by) | `by <time>` | `by tomorrow evening`
-Extension | [Priority](#priority) | `priority low/med/high` | `priority med`
-Extension | [Tag](#tag) | `tag <your tag>` | `tag Camelot`
+Primary | [Help](#help) | `help [<command>]` | `help add` | No (close the help window to go back to Task Ninja)
+Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete assignment by 3pm priority high tag School` | Yes
+Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med` | No
+Primary | [Edit](#edit) | `edit <task number> [<new task description>] [<extensions>]` | `edit 1 Dinner with Mum venue Home` | Yes
+Primary | [Delete](#delete) | `delete <task number>` | `delete 1` | Yes
+Primary | [Undo](#undo) | `undo` | `undo` | N/A
+Primary | [Sortby](#sortby) | `sortby time/priority` | `sortby priority` | No
+Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>` | `storage data/TaskNinja.xml` | No
+Primary | [Alias](#alias) | `alias <command name> <new command name>` | `alias delete -` | Yes
+Primary | [Clear](#clear) | `clear` | `clear` | No
+Primary | [Exit](#exit) | `exit` | `exit` | N/A
+Extension | [Venue](#venue) | `venue <description of venue>` | `venue Avalon` | N/A
+Extension | [Event](#from-to) | `from <start time> to <end time>` | `from 1pm to 3pm` | N/A
+Extension | [At](#at) | `at <time>` | `at 5pm` | N/A
+Extension | [By](#by) | `by <time>` | `by tomorrow evening` | N/A
+Extension | [Priority](#priority) | `priority low/med/high` | `priority med` | N/A
+Extension | [Tag](#tag) | `tag <your tag>` | `tag Camelot` | N/A
 
 
 <!-- @@author A0139621H-->
