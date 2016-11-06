@@ -153,7 +153,7 @@ Examples:
 <br>
 ##### Combining multiple extensions
 _Extensions can be used together for maximum flexibility. This means that you can add complex tasks using commands as natural as:_
-  * `add Complete assignment by 3pm priority high`
+  * `add Complete assignment by 3pm priority high tag School`
   * `add Appointment with dentist at 5:30pm venue Bright Teeth Clinic`
 
 
@@ -163,19 +163,25 @@ _Alright! Armed with these extensions, let's take a look at some other primary c
 <a id="find"></a>
 #### Searching for tasks: `find`
 _Forgotten when you arranged that date? Use `find`!_<br>
-Format: `find <keywords> [<more keywords>]`
+Format: `find [<description>] [<extensions>]`
 
-> * The search is case sensitive. e.g `dinner` will not match `Dinner`.
-> * The order of the keywords does not matter. e.g. `Tutorial CS2103T` will match `CS2103T Tutorial`.
-> * Only the description is searched for.
-> * Only full words will be matched e.g. `2103T` will not match `CS2103T`.
-> * Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Dinner` will match `Dinner with Mum`.
+> * For matching against description and venue:
+    * The search is case insensitive
+    * The order of the keywords does not matter. e.g. `Tutorial CS2103T` will match `CS2103T Tutorial`.
+    * Only full words will be matched e.g. `2103T` will not match `CS2103T`.
+    * Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Dinner` will match `Dinner with Mum`.
 
 Examples:
   * `find Tutorial`<br>
-    Shows all tasks containing `Tutorial` in the description
-  * `find Dinner Tutorial`<br>
-    Shows all tasks containing `Dinner` or `Tutorial` in their descriptions
+    Shows all tasks containing `Tutorial` in the description.
+  * `find venue Room Home`<br>
+    Shows all tasks containing `Home` or `Room` in their descriptions.
+  * `find by tomorrow`<br>
+    Shows all tasks that have to be completed before tomorrow. Includes overdue tasks.
+  * `find from tomorrow to day after tomorrow`<br>
+    Shows all tasks that are due between tomorrow and day after tomorrow.
+  * `find priority high`
+    Shows all tasks with a high priority.
 
 
 <a id="edit"></a>
@@ -203,20 +209,6 @@ Format: `delete <task number>`
 Examples:
   * `delete 1`
   * `delete 3`
-
-
-<a id="exit"></a>
-#### Exiting Task Ninja: `exit`
-_This command closes Task Ninja. Hope to see you back soon!_<br>
-Format: `exit`
-
-Example:
-  * `exit`
-
-
-#### Saving the data
-Tasks are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
 
 
 <!-- @@author A0139621H-->
@@ -249,12 +241,12 @@ _If you're an advanced user, you may replace our existing commands with a keywor
 Format: `alias <command name> <new command name>`
 
 > * Take note that you cannot replace a command with a keyword that is already in use. <br>
-> * If you wish to use the old keyword again, you can simply undo it or use this command again (see the 2nd example). <br>
+> * To see the alias for any command, simply use help for that command. <br>
 
 Example:
   * `alias add +`
   * `alias + add`
-  * `alias edit e`
+  * `alias priority p`
 
 
 <a id="sortby"></a>
@@ -266,6 +258,8 @@ Example:
   * `sortby time`
   * `sortby priority`
 
+> Even if priority or time have been aliased, this command will still use the words priority and time
+
 
 <a id="clear"></a>
 #### Clear: `clear`
@@ -274,6 +268,20 @@ Format: `clear`
 
 > * *WARNING*: This command is irreversible! It cannot be undone even with the `undo` command! <br>
 > * You should hence be VERY sure if you wish to use this command at any point in time, unless you have saved your tasks to another .xml file! <br>
+
+
+<a id="exit"></a>
+#### Exiting Task Ninja: `exit`
+_This command closes Task Ninja. Hope to see you back soon!_<br>
+Format: `exit`
+
+Example:
+  * `exit`
+
+
+#### Saving the data
+Tasks are saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.
 
 
 <!-- @@author A0147924X -->
