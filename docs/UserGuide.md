@@ -293,9 +293,9 @@ There is no need to save manually.
 <!-- @@author A0147924X -->
 ## Cheat Sheet
 
-Type | Command | Format | Example | Can it be undone?
+Type | Command | Format | Example | Undoable? |
 :--------: | :--------: | ----- | ---- | ---- |
-Primary | [Help](#help) | `help [<command>]` | `help add` | N/A
+Primary | [Help](#help) | `help [<command>]` | `help add` | No (close the help window to go back to Task Ninja)
 Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete assignment by 3pm priority high tag School` | Yes
 Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med` | No
 Primary | [Edit](#edit) | `edit <task number> [<new task description>] [<extensions>]` | `edit 1 Dinner with Mum venue Home` | Yes
