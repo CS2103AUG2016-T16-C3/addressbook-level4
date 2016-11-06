@@ -14,6 +14,8 @@ import seedu.manager.commons.events.ui.ExitAppRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;
 
+import seedu.manager.model.task.Tag;
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -200,6 +202,15 @@ public class MainWindow extends UiPart {
      */
     public TagListPanel getTagListPanel() {
         return this.tagListPanel;
+    }
+    
+    public void updateTaskListPanel(Tag newSelection) {
+//        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getSortedFilteredTaskList(newSelection));
+//        logic.updateTaskListWhenTagSelected(newSelection);
+//        System.out.println(newSelection);
+        String commandText = new String("find tag ");
+        commandText += newSelection.toString();
+        logic.execute(commandText);
     }
     
     /**
