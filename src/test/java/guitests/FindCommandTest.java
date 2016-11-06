@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.manager.commons.core.Messages;
 import seedu.manager.testutil.TestTask;
+import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
@@ -39,7 +40,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
         //find after deleting one result
         commandBox.runCommand("delete 2");
-        assertFindResult("find venue School of Computing", td.alpha, td.charlie);
+        assertFindResult("find venue School of Computing", td.beta, td.charlie);
     }
     
     @Test
@@ -48,13 +49,16 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
         //find after deleting one result
         commandBox.runCommand("delete 3");
-        assertFindResult("find from 8pm to 10pm", td.alpha, td.foxtrot);
+        assertFindResult("find from 8pm to 10pm", td.alpha, td.echo);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
+        TestUtil.sortListByTime(expectedHits);
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
+
+

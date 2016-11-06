@@ -15,6 +15,8 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
+        TestUtil.sortListByTime(currentList);
+        
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
