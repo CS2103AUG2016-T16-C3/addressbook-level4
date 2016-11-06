@@ -185,14 +185,23 @@ public class Task implements ReadOnlyTask {
     
     // @@author A0147924X
     @Override
-    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
+    /**
+     * Checks whether given properties "match" against this task. Properties match if there's a fuzzy
+     * relationship between them. For an understanding of how different properties "match", see the
+     * Overridden method matches in the respective task property classes
+     * @param otherProps The properties to match against
+     * @return Whether the task matches these properties or not
+     */
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> otherProps) {
+    	HashMap<TaskProperties, Optional<TaskProperty>> thisProps = this.getProperties();
+    	
         for (TaskProperties property : TaskProperties.values()) {
-            if (other.get(property).isPresent()) {
-                if (!this.properties.get(property).isPresent()) {
-                	if (!matchStartOrEndTime(other, property)) {
+            if (otherProps.get(property).isPresent()) {
+                if (!thisProps.get(property).isPresent()) {
+                	if (!matchStartOrEndTime(otherProps, property)) {
 						return false;
 					}
-                } else if (!this.properties.get(property).get().matches(other.get(property).get())){
+                } else if (!thisProps.get(property).get().matches(otherProps.get(property).get())){
                     return false;
                 }
             }

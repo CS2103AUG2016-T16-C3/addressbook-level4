@@ -221,6 +221,6 @@ public interface ReadOnlyTask {
     	return compareProperty(this, other, TaskProperties.DONE, TaskProperties.DONE, true);
     }
     
-    // @author A0139621H
-    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
+    // @@author A0139621H
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> otherProps);
 }
