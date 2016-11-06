@@ -77,7 +77,6 @@ Examples:
   * `add Elope with Guinevere`
 
 
-<br>
 <a id="extensions"></a>
 #### Extensions
 _But now you're probably wondering... what extensions can I use? How do they help me?
@@ -159,7 +158,6 @@ _Extensions can be used together for maximum flexibility. This means that you ca
   * `add Appointment with dentist at 5:30pm venue Bright Teeth Clinic`
 
 
-<br>
 _Alright! Armed with these extensions, let's take a look at some other primary commands that help enhance your experience with Task Ninja._
 
 <a id="find"></a>
@@ -295,7 +293,7 @@ There is no need to save manually.
 
 Type | Command | Format | Example | Undoable? |
 :--------: | :--------: | ----- | ---- | ---- |
-Primary | [Help](#help) | `help [<command>]` | `help add` | No (close the help window to go back to Task Ninja)
+Primary | [Help](#help) | `help [<command>]` | `help add` | N/A
 Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete assignment by 3pm priority high tag School` | Yes
 Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med` | No
 Primary | [Edit](#edit) | `edit <task number> [<new task description>] [<extensions>]` | `edit 1 Dinner with Mum venue Home` | Yes
