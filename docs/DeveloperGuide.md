@@ -167,11 +167,19 @@ The `Logic`,
 
 > The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add Name")`
- API call.<br><br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add Name")` API call.<br><br>
 
 <p align="center"><img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 <sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></p>
+
+#### Low-level details about the Logic Component
+
+Undo:<br>
+The `Command` class keeps a static stack of `UndoableCommand` objects. Every time an `UndoableCommand` is successfully executed, it is added to this stack. When the user wishes to undo an action, an element is popped off the stack, and this command is undone.<br>
+
+Link between `Parser` and `Model`:<br>
+The `UserPrefs` object in the model (see [`Model`](#model-component)) stores the command keywords. The `Parser` object keeps a reference to these keywords, so that it can parse commands entered by the user.
+
 
 ### Model component
 
@@ -248,7 +256,7 @@ We have two types of tests:
 
 2. **Non-GUI Tests** - These are tests that do not involving the GUI. They include,
    1. _Unit tests_ targets the lowest level methods/classes. <br>
-      e.g. `seedu.manager.commons.UrlUtilTest`
+      e.g. `seedu.manager.commons.XmlUtilTest`
    2. _Integration tests_ that check the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.manager.storage.StorageManagerTest`
