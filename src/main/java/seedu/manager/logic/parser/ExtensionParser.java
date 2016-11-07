@@ -182,7 +182,6 @@ public class ExtensionParser {
     
 	/**
 	 * Throws an exception if duplicate properties are specified
-	 * 
 	 * @param properties Properties to look in.
 	 * @param taskProperty Property to check.
 	 * @param extensionCmd Command that caused duplication.
@@ -195,7 +194,13 @@ public class ExtensionParser {
             throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionWords.get(extensionCmd)));
         }
     }
-
+    
+    /**
+     * Adds an event (start time and end time) to the task manager
+     * @param properties The current task properties
+     * @param arguments Arguments containing the start and end time
+     * @throws IllegalValueException
+     */
     private void addEvent(HashMap<TaskProperties, Optional<String>> properties, String arguments)
     		     throws IllegalValueException {
         Matcher matcher = EVENT_ARGS_FORMAT.matcher(arguments);
