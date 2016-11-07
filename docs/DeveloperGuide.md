@@ -201,6 +201,12 @@ The `Model`,
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the `UI` can be bound to this list so that the `UI` automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
+#### Low-level details about the Model Component
+
+TaskProperty:<br>
+This is an abstract class that all the task properties (like venue and description) inherit from. It provides most of the API that TaskProperty objects need to expose to other classes. These API are sometimes overridden by the subclasses, for example to provide their own version of a pretty string value (the string displayed on the UI).
+
+
 ### Storage component
 
 <p align="center"><img src="images/StorageClassDiagram.png" width="800"><br>
