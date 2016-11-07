@@ -133,6 +133,7 @@ being saved to the hard disk and the status bar of the `UI` being updated to ref
 
 The sections below give more details of each component.
 
+<!-- @@author A0148042M -->
 ### `UI` component
 
 <p align="center"><img src="images/UiClassDiagram.png" width="800"><br>
@@ -155,11 +156,12 @@ The `UI`,
 #### Low-level details about the UI Component
 
 Relationship between tagList and taskList: <br>
-The tagList inside TagListPanel contains all the tags that taskList has. Whenever there are some changes to the taskList, the tagList will do the same operations to the tags of the changing tasks if they are present.
+The tagList inside `TagListPanel` contains all the tags that taskList has. Whenever there are some changes to the taskList, the tagList will do the same operations to the tags of the changing tasks if they are present.
 
 Respective taskList will show up if their tag is clicked: <br>
 When user click on a specific tag, it will raise up an event called `TagPanelSelectionChangedEvent`, and this event will be handled by `handleTagListPanelSelectionChangedEvent` in `ModelManager` and tasks without the tag clicked will be filtered out and tasks with the tag will remain there.
 
+<!-- @@author A0147924X -->
 ### Logic component
 
 <p align="center"><img src="images/LogicClassDiagram.png" width="800"><br>
@@ -206,7 +208,7 @@ The `Model`,
 TaskProperty:<br>
 This is an abstract class that all the task properties (like venue and description) inherit from. It provides most of the API that TaskProperty objects need to expose to other classes. These API are sometimes overridden by the subclasses, for example to provide their own version of a pretty string value (the string displayed on the UI).
 
-
+<!-- @@author -->
 ### Storage component
 
 <p align="center"><img src="images/StorageClassDiagram.png" width="800"><br>
@@ -349,7 +351,7 @@ User | Undo operation(s) | Remove a mistake
 Advanced User | Edit the storage file | Make changes without going through the manager
 Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
 
-<!-- @@author  -->
+<!-- @@author A0148003U -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise.)
@@ -501,7 +503,7 @@ Use case ends.
 > 2a1. User is notified as such. <br>
 Use case ends.
 
-<!-- @@author A0148042M -->
+<!-- @@author A0147924X -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -523,6 +525,7 @@ Use case ends.
 
 > A task which has no specified date or time
 
+<!-- @@author A0148042M -->
 ## Appendix E : Product Survey
 
 We researched other task managers' special features to better understand the products available and thus enhance design of our own product. Here are the special features we found in four other products:
