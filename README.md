@@ -21,7 +21,7 @@ So what are you waiting for? Download it now over [here](../../releases). Check 
 * [Contact Us](docs/ContactUs.md)
 
 
-#### Acknowledgements
+#### Acknowledgements 
 
 * The base code for this application was taken from [Addressbook Level 4](https://github.com/se-edu/addressbook-level4).
 * We are using the following open-source libraries:
