@@ -43,6 +43,7 @@ public class ExtensionParser {
         compileRegexes();
     }
     
+    // @@author A0148042M
     public ArrayList<Tag> getTagList() {
         return tagList;
     }
