@@ -59,15 +59,31 @@ public class StorageCommand extends Command {
 		return new CommandResult(feedbackToUser);
 	}
 	
+	/**
+	 * Checks whether the file path has .xml extension
+	 * @param filePath File path to be checked
+	 * @return True if it has .xml extension, false if not
+	 */
 	private boolean hasXmlExtension(String filePath) {
 		return filePath.endsWith(".xml") && !filePath.equals("");
 	}
 	
+	/**
+	 * Checks whether the file at a file path already exists
+	 * @param filePath File path to be checked
+	 * @return True if a file already exists at the given path, false if not
+	 */
 	private boolean doesfileAlreadyExist(String filePath) {
 		File file = new File(filePath);
 		return file.exists();
 	}
 	
+	/**
+	 * Checks whether the task manager is allowed to overwrite
+	 * the already existing file at a file path
+	 * @param filePath File path to be checked
+	 * @return True if file can be overwritten, false if not
+	 */
 	private boolean canOverWriteExisting(String filePath) {
 		try {
 			File file = new File(filePath).getParentFile();
@@ -77,6 +93,11 @@ public class StorageCommand extends Command {
 		}
 	}
 	
+	/**
+	 * Checks whether the task manager can write to a file path
+	 * @param filePath File path to be checked
+	 * @return True if can write to the file path, false if not
+	 */
 	private boolean canWriteToFile(String filePath) {
 		try {
 			File file = new File(filePath).getParentFile();
