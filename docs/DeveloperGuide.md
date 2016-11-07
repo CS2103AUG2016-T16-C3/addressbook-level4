@@ -532,45 +532,45 @@ We researched other task managers' special features to better understand the pro
 
 ##### Todo.txt
 *Pros:*<br>
-1. Uses command lines to input task. <br>
-2. Uses plain text as the normal text. <br>
-3. Sorts the task by priority. <br>
-4. Allows user to enter multiple tasks in a single input box. <br>
+* Uses command lines to input task.
+* Uses plain text as the normal text.
+* Sorts the task by priority.
+* Allows user to enter multiple tasks in a single input box.
 
 *Cons:*<br>
-1. The UI is very poor and not very user-friendly. <br>
-2. Beginners may not understand what to do next. <br>
+* The UI is very poor and not very user-friendly.
+* Beginners may not understand what to do next.
 
 ##### Google Calendar
 *Pros:*<br>
-1. User can change visibility between public and private. <br>
-2. User can make video calls and change the time zone. <br>
-3. User can also add attachments and locations. <br>
-4. User can also use a command line mode. <br>
+* User can change visibility between public and private.
+* User can make video calls and change the time zone.
+* User can also add attachments and locations.
+* User can also use a command line mode.
 
 *Cons:*<br>
-1. User has to click many times and type a lot of text to add a task. <br>
-2. This application has to be operated online, which means that user cannot use Google calendar when they do not have Internet access. <br>
+* User has to click many times and type a lot of text to add a task.
+* This application has to be operated online, which means that user cannot use Google calendar when they do not have Internet access. <br>
 
 ##### Wunderlist
 *Pros:*<br>
-1. This application has a very colorful and beautiful GUI. <br>
-2. It allows user to set reminders, and turn them off using the "Do not disturb" button.
-3. It mainly uses lists to represent all the tasks rather than a calendar.
-4. It has a companion product called Wunderline
-    * This is the command line mode of Wunderlist.
-    * Uses natural words as commands, content is put inside single quotes.
-    * Allows exporting data as a JSON file.
-    * Allows searching by keywords.
+* This application has a very colorful and beautiful GUI. <br>
+* It allows user to set reminders, and turn them off using the "Do not disturb" button. <br>
+* It mainly uses lists to represent all the tasks rather than a calendar. <br>
+* It has a companion product called Wunderline
+    * This is the command line mode of Wunderlist. <br>
+    * Uses natural words as commands, content is put inside single quotes. <br>
+    * Allows exporting data as a JSON file. <br>
+    * Allows searching by keywords. <br>
 
 *Cons:*
 It only displays tasks as a list while sometimes the calendar mode can tell users more information.
 
 ##### Calendar Vim
 *Pros:*<br>
-1. This application is a calendar application for Vim.
-2. It can view events on Google Calendar.
-3. It has different view modes, like Year view, Month view, Week view and Day view.
+* This application is a calendar application for Vim.
+* It can view events on Google Calendar.
+* It has different view modes, like Year view, Month view, Week view and Day view.
 
 *Cons:*
 The Graphical User Interface of this application is simple and not user-friendly.
