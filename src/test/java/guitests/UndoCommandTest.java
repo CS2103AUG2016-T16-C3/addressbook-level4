@@ -7,7 +7,6 @@ import seedu.manager.testutil.TestTask;
 import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import java.util.Arrays;
 
 // @@author A0148003U
 public class UndoCommandTest  extends TaskManagerGuiTest  {

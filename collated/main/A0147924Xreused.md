@@ -1,5 +1,5 @@
 # A0147924Xreused
-###### /java/seedu/manager/ui/UiManager.java
+###### \java\seedu\manager\ui\UiManager.java
 ``` java
     @Subscribe
     private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent event) {

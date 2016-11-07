@@ -138,12 +138,7 @@ public abstract class Time extends TaskProperty {
 		}
     }
 
-	//@@author A0148003U
-	/**
-	 * Add your header comment here, Yisong!
-	 * @param now
-	 * @return
-	 */
+	// @@author A0148003U
 	public boolean isBefore(Date time) {
 		if (value.before(time)) {
 			return true;
