@@ -24,4 +24,13 @@ public class CommandWord {
 			return commandRep;
 		}
 	}
+	
+	// @author A0148042M
+	/**
+	 * 
+	 * @return the FIND command word
+	 */
+	public static String getFindCommandWord() {
+	    return Commands.FIND.toString();
+	}
 }

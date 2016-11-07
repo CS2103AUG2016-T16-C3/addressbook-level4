@@ -16,6 +16,7 @@ import seedu.manager.commons.events.ui.JumpToTagListRequestEvent;
 import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.manager.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.manager.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.manager.commons.util.StringUtil;
 import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;
@@ -129,7 +130,7 @@ public class UiManager extends ComponentManager implements Ui {
     	mainWindow.getTagListPanel().scrollTo(event.getTargetIndex());
     }
     
-    // @@author
+    // @@author A0148042M
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
