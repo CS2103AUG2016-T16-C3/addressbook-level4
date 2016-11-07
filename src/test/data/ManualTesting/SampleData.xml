@@ -30,7 +30,7 @@
     <tasks>
         <desc>Prepare 2103 V0.4 demo</desc>
         <venue>SoC</venue>
-        <priority>high</priority>
+        <priority>low</priority>
         <startTime>Thu Oct 27 16:00:00 GMT+08:00 2016</startTime>
         <endTime></endTime>
         <done>No</done>

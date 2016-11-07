@@ -454,7 +454,7 @@ storage, alias, clear
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should open within 2 second.
+4. Should open within 2 seconds.
 5. Should complete all operations within 0.5 seconds.
 6. Should not require an internet connection to work.
 7. Should not require installation to work.
