@@ -52,10 +52,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of:
 [Model](DeveloperGuide.md#model-component),
 [UI](DeveloperGuide.md#ui-component)
-* Aspects/tools in charge of: Tag, structure of UI
+* Aspects/tools in charge of: Tag, structure of UI, Model Manger
 * Features implemented:
    * [Design of Tag in command extensions](UserGuide.md#extensions)
    * [Make Tag list responses for add, delete, edit and clear](https://github.com/CS2103AUG2016-T16-C3/main/pull/88)
+   * [Filter the task list when specific tag is clicked](https://github.com/CS2103AUG2016-T16-C3/main/pull/104)
+   * [Model component responses for UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/104/commits/62ee2102194fc4033aeb7f970061bf9424c4c661)
    * [Change the components of UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/55)
    * [Check validation of time](https://github.com/CS2103AUG2016-T16-C3/main/commit/0abb21f743a5dfdf3fa9e9ba284bd5e2ab278d15)
 * Code written:
@@ -63,6 +65,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions:
   * Help other people to proofread and correct grammatical errors in User Guide
   * Help other people to check collated methods
+  * Add header comments for some methods
 
 -----
 
@@ -81,7 +84,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions:
    * Help other people to proofread and correct grammatical errors in Developer Guide
    * Share the display design plan of TaskCard
-   
+
 -----
 
 # Contributors
