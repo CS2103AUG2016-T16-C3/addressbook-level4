@@ -67,7 +67,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         if(internalTagList.size() == 0) {
             for(int i = 0;i < tagListFromTaskList.size();i++) {
                 if(!internalTagList.contains(tagListFromTaskList.get(i))) {
-//                    internalTagList.add(tagListFromTaskList.get(i));
                     combinedTagList.add(tagListFromTaskList.get(i));
                 }
             }

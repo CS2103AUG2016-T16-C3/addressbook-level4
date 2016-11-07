@@ -87,10 +87,6 @@ public interface Model {
     /** Updates the filter of the sorted and filtered task list to filter by the given properties from the find function*/
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
-    // @@author A0148042M
-    /** Updates the filter of the sorted and filtered task list to filter by the given tag from the find function*/
-    void updateFilteredTaskList(Tag selectedTag);
-    
     // @@author A0147924X
     /** Sorts the sorted and filtered task list by priority */
     void sortSortedFilteredTaskListByPriority();

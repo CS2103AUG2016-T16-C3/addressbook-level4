@@ -137,14 +137,6 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
     
-    @Subscribe
-    private void handleTagListPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        System.out.println(event.getNewSelection());
-        mainWindow.updateTaskListPanel(event.getNewSelection());
-        
-    }
-    
     // @@author A0147924X
     @Subscribe
     /**

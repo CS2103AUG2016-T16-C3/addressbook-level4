@@ -206,16 +206,6 @@ public class MainWindow extends UiPart {
         return this.tagListPanel;
     }
     
-    // @@author A0148042M
-    public void updateTaskListPanel(Tag newSelection) {
-//        logic.updateTaskListWhenTagSelected(newSelection);
-        String commandText = new String(CommandWord.getFindCommandWord());
-//        String commandText = new String("find tag ");
-        commandText += " tag ";
-        commandText += newSelection.toString();
-        logic.execute(commandText);
-    }
-    
     // @@author
     /**
      * Rerender Status Bar Footer
