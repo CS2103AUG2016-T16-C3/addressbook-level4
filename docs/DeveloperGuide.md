@@ -324,37 +324,26 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Likeliness: Likely - `L`, Unlikely - `U`
 
-Likeliness | As (a)... | I want to... | So that I can...
--------- | :-------- | :--------- | :-----------
-`L` | All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
-`L` | New User | View info about a command | Learn how to use these commands
-`L` | User | Add tasks with a description and a specific deadline | Set deadlines for tasks
-`L` | User | Add tasks with description, start time and end time | Create events in the task manager
-`L` | User | Add tasks with only a description | Set tasks that do not have certain time, which are called floating tasks
-`L` | User | Add tasks that starts from a certain time | Set tasks that do not have an end time
-`L` | User | Modify a task | Update deadlines and descriptions
-`L` | User | Delete a task | Remove it from the Task Manager's to-do list
-`L` | User | Tick off a task | Record that this task is complete by marking it as done
-`L` | User | Search for task(s) | Find task(s) and maybe edit it
-`L` | User | See upcoming tasks | Decide what to do next
-`L` | User | Assign priority to tasks | Gauge which task should be done next
-`L` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
-`L` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
-`L` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
-`L` | User | Undo operation(s) | Remove a mistake
-`L` | Advanced User | Edit the storage file | Make changes without going through the manager
-`L` | Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
-`U` | New User | View the procedure of creating a task | Learn how to create a task first
-`U` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
-`U` | User | Redo operation(s) | Redo a change that had been undone
-`U` | User | Declare recurring tasks | Remove the need to enter these tasks multiple times
-`U` | User | Search for empty slots (within a given time frame) | Decide when to schedule a task
-`U` | User | Integrate with third-party applications like GCalendar | Access my tasks on another platform too
-`U` | User | List [floating tasks](#floating-task) | See whether I want to complete a floating task next
-`U` | User | Block multiple slots for a task | Choose later which slot I want to assign this task to and keep the selected slots free for that task
-`U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
-`U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
-`U` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
+As (a)... | I want to... | So that I can...
+:-------- | :--------- | :-----------
+All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
+New User | View info about a command | Learn how to use these commands
+User | Add tasks with a description and a specific deadline | Set deadlines for tasks
+User | Add tasks with description, start time and end time | Create events in the task manager
+User | Add tasks with only a description | Set tasks that do not have certain time, which are called floating tasks
+User | Add tasks that starts from a certain time | Set tasks that do not have an end time
+User | Modify a task | Update deadlines and descriptions
+User | Delete a task | Remove it from the Task Manager's to-do list
+User | Tick off a task | Record that this task is complete by marking it as done
+User | Search for task(s) | Find task(s) and maybe edit it
+User | See upcoming tasks | Decide what to do next
+User | Assign priority to tasks | Gauge which task should be done next
+User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
+User | See tasks in a specific period of time | See what has been scheduled for a certain period
+User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
+User | Undo operation(s) | Remove a mistake
+Advanced User | Edit the storage file | Make changes without going through the manager
+Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
 
 <!-- @@author  -->
 ## Appendix B : Use Cases
