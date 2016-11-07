@@ -4,7 +4,7 @@
         <desc>Search online for motherboard price</desc>
         <venue></venue>
         <priority>low</priority>
-        <startTime>Thu Oct 27 15:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sun Oct 23 15:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -13,7 +13,7 @@
         <desc>Search online for i7-6700K price</desc>
         <venue></venue>
         <priority>low</priority>
-        <startTime>Thu Oct 27 15:00:00 GMT+08:00 2016</startTime>
+        <startTime>Thu Oct 27 15:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag></tag>
@@ -22,8 +22,8 @@
         <desc>Start writing EE2020 project report</desc>
         <venue></venue>
         <priority></priority>
-        <startTime>Fri Oct 28 20:00:00 GMT+08:00 2016</startTime>
-        <endTime>Fri Oct 28 22:00:00 GMT+08:00 2016</endTime>
+        <startTime>Tue Oct 25 20:00:00 CST 2016</startTime>
+        <endTime>Tue Oct 25 22:00:00 CST 2016</endTime>
         <done>No</done>
         <tag>SchoolProject</tag>
     </tasks>
@@ -31,7 +31,7 @@
         <desc>Prepare 2103 V0.4 demo</desc>
         <venue>SoC</venue>
         <priority>low</priority>
-        <startTime>Thu Oct 27 16:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Oct 29 16:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>SchoolProject</tag>
@@ -40,7 +40,7 @@
         <desc>Purchase Corsair RAM sticks</desc>
         <venue></venue>
         <priority></priority>
-        <startTime>Sun Oct 16 21:44:27 GMT+08:00 2016</startTime>
+        <startTime>Fri Oct 28 21:44:27 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -49,7 +49,7 @@
         <desc>Purchase Logitech G502</desc>
         <venue></venue>
         <priority></priority>
-        <startTime>Sun Oct 16 21:45:16 GMT+08:00 2016</startTime>
+        <startTime>Sun Oct 30 21:45:16 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -58,7 +58,7 @@
         <desc>Dinner with church friends</desc>
         <venue></venue>
         <priority></priority>
-        <startTime>Sat Oct 29 19:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Nov 05 19:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag></tag>
@@ -76,8 +76,8 @@
         <desc>Do EE2021 homework 4</desc>
         <venue>FoE</venue>
         <priority>med</priority>
-        <startTime>Sun Oct 30 14:00:00 GMT+08:00 2016</startTime>
-        <endTime>Sun Oct 30 16:00:00 GMT+08:00 2016</endTime>
+        <startTime>Mon Oct 31 14:00:00 CST 2016</startTime>
+        <endTime>Mon Oct 31 16:00:00 CST 2016</endTime>
         <done>No</done>
         <tag>SchoolHomework</tag>
     </tasks>
@@ -85,7 +85,7 @@
         <desc>Do EE2021 homework 3</desc>
         <venue></venue>
         <priority>high</priority>
-        <startTime>Sun Oct 16 21:47:37 GMT+08:00 2016</startTime>
+        <startTime>Thu Nov 03 21:47:37 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>SchoolHomework</tag>
@@ -94,7 +94,7 @@
         <desc>Dinner with Gideon</desc>
         <venue>Techno Edge</venue>
         <priority>high</priority>
-        <startTime>Fri Oct 28 19:00:00 GMT+08:00 2016</startTime>
+        <startTime>Mon Nov 07 19:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag></tag>
@@ -112,7 +112,7 @@
         <desc>Collect new Asus monitor</desc>
         <venue>Sim Lim Square</venue>
         <priority>high</priority>
-        <startTime>Sat Nov 12 14:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Nov 12 14:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -121,7 +121,7 @@
         <desc>Purchase Asus GTX1080</desc>
         <venue>Sim Lim Square</venue>
         <priority>high</priority>
-        <startTime>Fri Nov 11 19:00:00 GMT+08:00 2016</startTime>
+        <startTime>Fri Nov 11 19:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -130,7 +130,7 @@
         <desc>Search online for PSU</desc>
         <venue></venue>
         <priority></priority>
-        <startTime>Sun Nov 06 21:54:06 GMT+08:00 2016</startTime>
+        <startTime>Sat Nov 12 21:54:06 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -139,7 +139,7 @@
         <desc>Prepare for EE2020 quiz</desc>
         <venue></venue>
         <priority>high</priority>
-        <startTime>Sun Nov 13 21:54:45 GMT+08:00 2016</startTime>
+        <startTime>Tue Nov 08 21:54:45 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>SchoolExam</tag>
@@ -148,8 +148,8 @@
         <desc>Revise MA1506</desc>
         <venue></venue>
         <priority>med</priority>
-        <startTime></startTime>
-        <endTime></endTime>
+        <startTime>Tue Nov 08 21:54:45 CST 2016</startTime>
+        <endTime>Mon Nov 28 21:54:45 CST 2016</endTime>
         <done>No</done>
         <tag>SchoolExam</tag>
     </tasks>
@@ -157,7 +157,7 @@
         <desc>Look through CS2103 past-year papers</desc>
         <venue></venue>
         <priority>low</priority>
-        <startTime></startTime>
+        <startTime>Thu Nov 10 21:54:45 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>SchoolExam</tag>
@@ -175,8 +175,8 @@
         <desc>Soccer with friends</desc>
         <venue>Kallang The Cage</venue>
         <priority></priority>
-        <startTime>Sun Oct 30 17:00:00 GMT+08:00 2016</startTime>
-        <endTime>Sun Oct 30 19:00:00 GMT+08:00 2016</endTime>
+        <startTime>Sun Nov 13 17:00:00 CST 2016</startTime>
+        <endTime>Sun Nov 13 19:00:00 CST 2016</endTime>
         <done>No</done>
         <tag>Sports</tag>
     </tasks>
@@ -184,7 +184,7 @@
         <desc>Weekly run with Aaron Tan</desc>
         <venue>SoC</venue>
         <priority></priority>
-        <startTime>Wed Oct 26 18:00:00 GMT+08:00 2016</startTime>
+        <startTime>Wed Nov 16 18:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Sports</tag>
@@ -193,7 +193,7 @@
         <desc>CS2101 OP2</desc>
         <venue>SoC</venue>
         <priority>high</priority>
-        <startTime>Tue Nov 01 12:00:00 GMT+08:00 2016</startTime>
+        <startTime>Tue Nov 01 12:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>SchoolPresentation</tag>
@@ -202,7 +202,7 @@
         <desc>EE2020 project presentation (tentative)</desc>
         <venue>FoE</venue>
         <priority>high</priority>
-        <startTime>Tue Nov 01 14:00:00 GMT+08:00 2016</startTime>
+        <startTime>Tue Nov 08 14:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>SchoolPresentation</tag>
@@ -212,7 +212,7 @@
         <venue></venue>
         <priority></priority>
         <startTime></startTime>
-        <endTime>Sun Nov 13 23:59:00 GMT+08:00 2016</endTime>
+        <endTime>Sun Nov 20 23:59:00 CST 2016</endTime>
         <done>No</done>
         <tag>SchoolWork</tag>
     </tasks>
@@ -220,7 +220,7 @@
         <desc>Buy extra SATA3 cables</desc>
         <venue>Sim Lim Square</venue>
         <priority>low</priority>
-        <startTime></startTime>
+        <startTime>Sun Nov 20 18:59:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -229,7 +229,7 @@
         <desc>Buy replacement DisplayPort cable</desc>
         <venue>Sim Lim Square</venue>
         <priority>high</priority>
-        <startTime></startTime>
+        <startTime>Wed Nov 23 23:59:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -238,8 +238,8 @@
         <desc>Collect Mum's new phone cover</desc>
         <venue>Home</venue>
         <priority>med</priority>
-        <startTime>Tue Nov 01 22:03:30 GMT+08:00 2016</startTime>
-        <endTime>Fri Nov 04 22:03:30 GMT+08:00 2016</endTime>
+        <startTime>Tue Nov 15 22:03:30 CST 2016</startTime>
+        <endTime>Fri Nov 18 22:03:30 CST 2016</endTime>
         <done>No</done>
         <tag>Errands</tag>
     </tasks>
@@ -247,7 +247,7 @@
         <desc>Collect the car</desc>
         <venue>Tan Chong Toa Payoh</venue>
         <priority>high</priority>
-        <startTime>Sat Nov 05 09:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Nov 19 09:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Errands</tag>
@@ -256,7 +256,7 @@
         <desc>Search online for RGB lighting strips</desc>
         <venue></venue>
         <priority>low</priority>
-        <startTime></startTime>
+        <startTime>Sun Nov 27 19:59:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -265,8 +265,8 @@
         <desc>Attend Campus Meet</desc>
         <venue>SDE</venue>
         <priority>med</priority>
-        <startTime>Thu Oct 27 19:00:00 GMT+08:00 2016</startTime>
-        <endTime>Thu Oct 27 22:00:00 GMT+08:00 2016</endTime>
+        <startTime>Thu Oct 27 19:00:00 CST 2016</startTime>
+        <endTime>Thu Oct 27 22:00:00 CST 2016</endTime>
         <done>No</done>
         <tag>Church</tag>
     </tasks>
@@ -274,7 +274,7 @@
         <desc>Do up Calean's birthday card with Zhimin</desc>
         <venue>CLB</venue>
         <priority>high</priority>
-        <startTime>Wed Nov 02 15:00:00 GMT+08:00 2016</startTime>
+        <startTime>Wed Nov 23 15:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Church</tag>
@@ -283,7 +283,7 @@
         <desc>Buy new 1000W PSU</desc>
         <venue>Sim Lim Square</venue>
         <priority></priority>
-        <startTime>Sat Nov 05 10:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Nov 26 10:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -292,7 +292,7 @@
         <desc>Buy new Corsair 120mm and 140mm fans</desc>
         <venue>Sim Lim Square</venue>
         <priority></priority>
-        <startTime>Sat Nov 05 10:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Nov 26 10:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -301,7 +301,7 @@
         <desc>Search for Dell 4K monitor</desc>
         <venue></venue>
         <priority>low</priority>
-        <startTime></startTime>
+        <startTime>Sun Nov 27 23:59:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -311,24 +311,15 @@
         <venue></venue>
         <priority>high</priority>
         <startTime></startTime>
-        <endTime>Mon Oct 31 23:59:00 GMT+08:00 2016</endTime>
+        <endTime>Mon Nov 21 23:59:00 CST 2016</endTime>
         <done>No</done>
         <tag>SchoolProject</tag>
-    </tasks>
-    <tasks>
-        <desc>Buy replacement toner for printer</desc>
-        <venue>Challenger</venue>
-        <priority>high</priority>
-        <startTime>Sun Oct 30 12:00:00 GMT+08:00 2016</startTime>
-        <endTime></endTime>
-        <done>No</done>
-        <tag>Errands</tag>
     </tasks>
     <tasks>
         <desc>Help Ivan buy earphones (if he agrees)</desc>
         <venue>The Adelphi</venue>
         <priority>low</priority>
-        <startTime>Sun Oct 30 11:00:00 GMT+08:00 2016</startTime>
+        <startTime>Mon Nov 28 11:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Errands</tag>
@@ -337,7 +328,7 @@
         <desc>Clean up desk</desc>
         <venue>home</venue>
         <priority>low</priority>
-        <startTime>Sun Oct 30 22:13:17 GMT+08:00 2016</startTime>
+        <startTime>Sun Dec 03 22:13:17 CST 2006</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag></tag>
@@ -346,7 +337,7 @@
         <desc>Start installing new PC</desc>
         <venue>home</venue>
         <priority>high</priority>
-        <startTime>Sun Nov 06 20:00:00 GMT+08:00 2016</startTime>
+        <startTime>Mon Nov 28 20:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -355,7 +346,7 @@
         <desc>Buy new screen protector for mum</desc>
         <venue></venue>
         <priority>low</priority>
-        <startTime></startTime>
+        <startTime>Tue Nov 29 23:59:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Errands</tag>
@@ -365,7 +356,7 @@
         <venue></venue>
         <priority>low</priority>
         <startTime></startTime>
-        <endTime>Fri Nov 11 18:00:00 GMT+08:00 2016</endTime>
+        <endTime>Fri Dec 02 18:00:00 CST 2016</endTime>
         <done>No</done>
         <tag></tag>
     </tasks>
@@ -373,7 +364,7 @@
         <desc>Buy new Seagate Barracuda</desc>
         <venue>ITFair</venue>
         <priority>med</priority>
-        <startTime></startTime>
+        <startTime>Tue Dec 01 23:59:00 CST 2015</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -382,7 +373,7 @@
         <desc>Buy new Samsung 850 EVO/PRO</desc>
         <venue>ITFair</venue>
         <priority>med</priority>
-        <startTime></startTime>
+        <startTime>Sat Dec 03 23:59:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>DIYCom</tag>
@@ -391,7 +382,7 @@
         <desc>Send laptop for repairs (AGAIN!)</desc>
         <venue>Tai Seng</venue>
         <priority>med</priority>
-        <startTime>Sat Nov 12 09:00:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Dec 10 09:00:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag></tag>
@@ -401,7 +392,7 @@
         <venue>home</venue>
         <priority>med</priority>
         <startTime></startTime>
-        <endTime></endTime>
+        <endTime>Tue Nov 29 23:59:00 CST 2016</endTime>
         <done>No</done>
         <tag>Errands</tag>
     </tasks>
@@ -418,7 +409,7 @@
         <desc>Bring guitar to Exam HQ</desc>
         <venue></venue>
         <priority>high</priority>
-        <startTime>Mon Nov 14 22:19:36 GMT+08:00 2016</startTime>
+        <startTime>Mon Nov 14 22:19:36 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Church</tag>
@@ -427,7 +418,7 @@
         <desc>Bring snacks to Exam HQ</desc>
         <venue></venue>
         <priority>med</priority>
-        <startTime>Mon Nov 14 22:20:37 GMT+08:00 2016</startTime>
+        <startTime>Tue Nov 15 22:20:37 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Church</tag>
@@ -436,8 +427,8 @@
         <desc>Cam1 duty</desc>
         <venue>Hope Church Singapore</venue>
         <priority>high</priority>
-        <startTime>Sat Nov 05 14:00:00 GMT+08:00 2016</startTime>
-        <endTime>Sat Nov 05 19:00:00 GMT+08:00 2016</endTime>
+        <startTime>Sat Dec 03 14:00:00 CST 2016</startTime>
+        <endTime>Sat Dec 03 19:00:00 CST 2016</endTime>
         <done>No</done>
         <tag>Church</tag>
     </tasks>
@@ -445,9 +436,18 @@
         <desc>SHINE duty</desc>
         <venue>USpace</venue>
         <priority>high</priority>
-        <startTime>Sat Nov 12 15:30:00 GMT+08:00 2016</startTime>
+        <startTime>Sat Nov 12 15:30:00 CST 2016</startTime>
         <endTime></endTime>
         <done>No</done>
         <tag>Church</tag>
+    </tasks>
+    <tasks>
+        <desc>Buy replacement toner for printer</desc>
+        <venue>Challenger</venue>
+        <priority>high</priority>
+        <startTime>Sun Nov 26 12:00:00 CST 2006</startTime>
+        <endTime></endTime>
+        <done>No</done>
+        <tag>Errands</tag>
     </tasks>
 </taskmanager>

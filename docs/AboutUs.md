@@ -12,8 +12,8 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Flexible command structure](UserGuide.md#overview)
    * [Design of command extensions](UserGuide.md#extensions)
    * [Edit any property](UserGuide.md#editing-tasks-edit)
-   * [Sort tasks by priority or time](UserGuide.md#sort-by-priority-level-sort)
-   * [Specify storage folder](UserGuide.md#sortby-sortby)
+   * [Sort tasks by priority or time](UserGuide.md#sortby-sortby)
+   * [Specify storage folder](UserGuide.md#specify-a-storage-folder-storage)
    * [Mark task as done](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#ticking-off-tasks-done)
    * Alias [commands and extensions](UserGuide.md#alias-commands-alias)
    * Use PrettyTime to [parse dates and times](UserGuide.md#events-that-last-for-a-certain-period-of-time-from-to), and to [display them on UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/49)
@@ -27,6 +27,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Did the initial refactoring from AddressBook to TaskManager [[426d2e4](https://github.com/CS2103AUG2016-T16-C3/main/commit/426d2e40ad05b5ea4d09f92a5f43e0d615c2da83)]
   * Set up Travis and Coveralls
   * Maintain Github [Issues](https://github.com/CS2103AUG2016-T16-C3/main/issues)
+  * [Diagrams for Developer Guide](diagrams/Diagrams.pptx)
 
 -----
 
@@ -35,15 +36,16 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Logic](DeveloperGuide.md#logic-component), [Model](DeveloperGuide.md#model-component), [Storage](DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Task properties, Testing
 * Features implemented:
-  * [Event](UserGuide.md#from-to)
-  * [Start time (At](UserGuide.md#at))
-  * [End time (Before](UserGuide.md#before))
-  * [Enhanced find command](UserGuide.md#find)
+  * [Event](UserGuide.md#events-that-last-for-a-certain-period-of-time-from-to)
+  * [Start time (At)](UserGuide.md#at-a-certain-timedate-at)
+  * [End time (By)](UserGuide.md#by-a-certain-timedate-by)
+  * [Enhanced find command](UserGuide.md#searching-for-tasks-find)
 * Code written: [[functional code](../collated/main/A0139621H.md)][[test code](../collated/test/A0139621H.md)][[docs](../collated/docs/A0139621H.md)]
 * Other major contributions:
   * Help other people to proofread and correct grammatical errors in User Guide and Developer Guide
-  * Added in Appendix A (Acceptable Time and Date Input Formats) to User Guide
-
+  * Added in [Appendix A](UserGuide.md#appendix-a) (Acceptable Time and Date Input Formats) to User Guide
+  * [Diagrams for Developer Guide](diagrams/Diagrams.pptx)
+  
 -----
 
 #### [Zhao Dingfan](https://github.com/ZhaoDingfan)
@@ -52,10 +54,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of:
 [Model](DeveloperGuide.md#model-component),
 [UI](DeveloperGuide.md#ui-component)
-* Aspects/tools in charge of: Tag, structure of UI
+* Aspects/tools in charge of: Tag, structure of UI, Model Manger
 * Features implemented:
    * [Design of Tag in command extensions](UserGuide.md#extensions)
    * [Make Tag list responses for add, delete, edit and clear](https://github.com/CS2103AUG2016-T16-C3/main/pull/88)
+   * [Filter the task list when specific tag is clicked](https://github.com/CS2103AUG2016-T16-C3/main/pull/104)
+   * [Model component responses for UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/104/commits/62ee2102194fc4033aeb7f970061bf9424c4c661)
    * [Change the components of UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/55)
    * [Check validation of time](https://github.com/CS2103AUG2016-T16-C3/main/commit/0abb21f743a5dfdf3fa9e9ba284bd5e2ab278d15)
 * Code written:
@@ -63,6 +67,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions:
   * Help other people to proofread and correct grammatical errors in User Guide
   * Help other people to check collated methods
+  * Add header comments for some methods
 
 -----
 

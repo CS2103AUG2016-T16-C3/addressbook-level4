@@ -133,6 +133,7 @@ being saved to the hard disk and the status bar of the `UI` being updated to ref
 
 The sections below give more details of each component.
 
+<!-- @@author A0148042M -->
 ### `UI` component
 
 <p align="center"><img src="images/UiClassDiagram.png" width="800"><br>
@@ -155,11 +156,12 @@ The `UI`,
 #### Low-level details about the UI Component
 
 Relationship between tagList and taskList: <br>
-The tagList inside TagListPanel contains all the tags that taskList has. Whenever there are some changes to the taskList, the tagList will do the same operations to the tags of the changing tasks if they are present.
+The tagList inside `TagListPanel` contains all the tags that taskList has. Whenever there are some changes to the taskList, the tagList will do the same operations to the tags of the changing tasks if they are present.
 
 Respective taskList will show up if their tag is clicked: <br>
 When user click on a specific tag, it will raise up an event called `TagPanelSelectionChangedEvent`, and this event will be handled by `handleTagListPanelSelectionChangedEvent` in `ModelManager` and tasks without the tag clicked will be filtered out and tasks with the tag will remain there.
 
+<!-- @@author A0147924X -->
 ### Logic component
 
 <p align="center"><img src="images/LogicClassDiagram.png" width="800"><br>
@@ -201,6 +203,12 @@ The `Model`,
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the `UI` can be bound to this list so that the `UI` automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
+#### Low-level details about the Model Component
+
+TaskProperty:<br>
+This is an abstract class that all the task properties (like venue and description) inherit from. It provides most of the API that TaskProperty objects need to expose to other classes. These API are sometimes overridden by the subclasses, for example to provide their own version of a pretty string value (the string displayed on the UI).
+
+<!-- @@author -->
 ### Storage component
 
 <p align="center"><img src="images/StorageClassDiagram.png" width="800"><br>
@@ -322,8 +330,6 @@ b. Require developers to download those libraries manually (this creates extra w
 <!-- @@author A0147924X -->
 ## Appendix A : User Stories
 
-Likeliness: Likely - `L`, Unlikely - `U`
-
 As (a)... | I want to... | So that I can...
 :-------- | :--------- | :-----------
 All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
@@ -345,7 +351,7 @@ User | Undo operation(s) | Remove a mistake
 Advanced User | Edit the storage file | Make changes without going through the manager
 Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
 
-<!-- @@author  -->
+<!-- @@author A0148003U -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise.)
@@ -435,9 +441,69 @@ Use case resumes at step 3.
 > 4b1. User is shown correct format for data. <br>
 Use case resumes at step 3.
 
-storage, alias, clear
+<!-- @@author A0139621H -->
+#### Use case: Aliasing command keyword
 
-<!-- @@author A0148042M -->
+**MSS**
+
+1. User requests to change the keyword of a command.
+2. Task Manager modifies the corresponding command's old keyword to the new one. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The old command that was entered is invalid.
+
+> 2a1. User is notified that the command word is invalid. <br>
+Use case ends.
+
+2b. The new command keyword is already in use by another command.
+
+> 2b1. User is notified as such, and is shown which command is using this keyword. <br>
+Use case ends.
+
+#### Use case: Storage command
+
+**MSS**
+
+1. User requests to change the storage path and/or filename of the Task Manager.
+2. Task Manager modifies the storage path and/or filename accordingly.
+3. Task Manager also updates the filepath at the bottom of the UI. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The new filepath entered is invalid.
+
+> 2a1. User is notified that the filepath is invalid. <br>
+Use case ends.
+
+2b. The new filepath entered is unaccessible.
+
+> 2b1. User is notified that the filepath cannot be used and is thus invalid. <br>
+User case ends.
+
+2c. The filename entered is already in use.
+
+> 2c1. User is notified that any changes to the new file will overwrite that of the old one. <br>
+User case resumes at step 3
+
+#### Use case: Undo
+
+**MSS**
+
+1. User requests to undo an action.
+2. Task manager undos the user's previous action and displays what was undone. <br>
+Use case ends.
+
+**Extensions**
+
+2a. There are no actions to be undone.
+
+> 2a1. User is notified as such. <br>
+Use case ends.
+
+<!-- @@author A0147924X -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -459,6 +525,7 @@ storage, alias, clear
 
 > A task which has no specified date or time
 
+<!-- @@author A0148042M -->
 ## Appendix E : Product Survey
 
 We researched other task managers' special features to better understand the products available and thus enhance design of our own product. Here are the special features we found in four other products:
