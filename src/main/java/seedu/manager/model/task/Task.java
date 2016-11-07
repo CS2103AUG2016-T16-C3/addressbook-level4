@@ -188,7 +188,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Checks whether given properties "match" against this task. Properties match if there's a fuzzy
      * relationship between them. For an understanding of how different properties "match", see the
-     * Overridden method matches in the respective task property classes
+     * overridden method matches in the respective task property classes
      * @param otherProps The properties to match against
      * @return Whether the task matches these properties or not
      */
@@ -211,7 +211,7 @@ public class Task implements ReadOnlyTask {
     
     /**
      * Tries to match start time against end time in the case that this task doesn't have a start time
-     * and vice versa 
+     * and vice versa
      * @param other Other properties to compare against
      * @param property Property to compare on
      * @return true if property is start or end time and matches with this task, false otherwise
@@ -219,14 +219,14 @@ public class Task implements ReadOnlyTask {
     private boolean matchStartOrEndTime(HashMap<TaskProperties, Optional<TaskProperty>> other, TaskProperties property) {
     	if (property.equals(TaskProperties.STARTTIME)) {
 			if (!(this.properties.get(TaskProperties.ENDTIME).isPresent() &&
-					this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
+				  this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
 				return false;
 			} else {
 				return true;
 			}
 		} else if (property.equals(TaskProperties.ENDTIME)) {
 			if (!(this.properties.get(TaskProperties.STARTTIME).isPresent() &&
-					this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
+				  this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
 				return false;
 			} else {
 				return true;

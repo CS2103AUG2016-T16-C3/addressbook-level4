@@ -10,8 +10,6 @@ import seedu.manager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-
 // @@author A0147924X
 public class AddCommandTest extends TaskManagerGuiTest {
 

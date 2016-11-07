@@ -25,7 +25,7 @@ public class Desc extends TaskProperty {
         value = desc;
     }
 
-    //@@author
+    // @@author
     @Override
     public String toString() {
         return value;
@@ -41,8 +41,8 @@ public class Desc extends TaskProperty {
 		}
     }
     
+    // @@author A0139621H
     /**
-     * @@author A0139621H
      * Checks if any words from the task's venue matches that with the search function's input words
      */
     @Override

@@ -8,6 +8,7 @@ import seedu.manager.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.manager.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.manager.model.Model;
 import seedu.manager.model.task.ReadOnlyTask;
+import seedu.manager.model.task.Tag;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -58,6 +59,26 @@ public abstract class Command {
         assert taskIndex != -1;
         
         EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(taskIndex));
+    }
+    
+    /**
+     * Adds a task's tag to the tag list in the model
+     * @param task Task whose tag should be added
+     */
+    protected void addTasksTagToModel(ReadOnlyTask task) {
+    	if (task.getTag().isPresent()) {
+            model.addTag((Tag) task.getTag().get());
+        }
+    }
+    
+    /**
+     * Delete a task's tag from the tag list in the model
+     * @param task Task whose tag should be deleted
+     */
+    protected void deleteTasksTagFromModel(ReadOnlyTask task) {
+    	if(task.getTag().isPresent()) {
+    		model.deleteTag((Tag) task.getTag().get());
+    	}
     }
     
     // @@author

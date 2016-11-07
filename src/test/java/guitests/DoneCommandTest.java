@@ -48,9 +48,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     
     /**
      * Asserts that the done command worked
-     * @param index Index to mark as done
-     * @param indexToInsert Index at which to insert the marked task in the current list
-     * @param markedTask The marked task which will be inserted into the current list
+     * @param indexToMark Index to mark as done
      * @param currentList Current task list to check panel list against
      * @return The new list of tasks 
      * @throws IllegalValueException 

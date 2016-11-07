@@ -15,9 +15,6 @@ public class Tag extends TaskProperty {
 
     public String tagName;
 
-//    public Tag() {
-//    }
-
     /**
      * Validates given tag name.
      *

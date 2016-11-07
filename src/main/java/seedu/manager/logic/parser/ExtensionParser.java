@@ -213,8 +213,8 @@ public class ExtensionParser {
         throwExceptionIfTimeInvalid(startTime, endTime);
     }
     
+    // @@author A0148042M
     /**
-     * @@author A0148042M
      * Parses events and puts the times into the properties
      * Throw an exception if start time is after end time
      * 

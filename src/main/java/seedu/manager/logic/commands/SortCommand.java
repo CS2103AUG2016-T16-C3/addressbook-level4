@@ -13,7 +13,6 @@ public class SortCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Sorted task list by %1$s";
-    public static final String UNDO_SUCCESS = "Unsorted task list";
     public static final String MESSAGE_NOT_A_COMPARATOR = "This is not a valid property to sort by";
     
     public static enum SortComparators {
