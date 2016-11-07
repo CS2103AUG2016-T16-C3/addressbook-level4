@@ -1,5 +1,5 @@
 # A0148042Mreused
-###### /java/seedu/manager/model/task/ReadOnlyTask.java
+###### \java\seedu\manager\model\task\ReadOnlyTask.java
 ``` java
     /**
      * Formats the task as text, showing all properties except done.
