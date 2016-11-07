@@ -22,15 +22,17 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
+        TestUtil.sortListByTime(currentList);
         
-        TestTask taskToEdit = td.beta;
+        int indexToEdit = 2;
+        TestTask taskToEdit = currentList[indexToEdit - 1];
         TestTask editedTask = editTaskWithProperty(taskToEdit, TaskProperties.DESC, new Desc("Dinner with Guinevere"));
-        assertEditSuccess("edit %1$s Dinner with Guinevere", 2, 2, editedTask, currentList);
+        currentList = assertEditSuccess("edit %1$s Dinner with Guinevere", indexToEdit, editedTask, currentList);
         
-        currentList = TestUtil.addTasksToList(2, TestUtil.removeTaskFromList(currentList, 2), editedTask);
-        
-        TestTask editedTask1 = editTaskWithProperty(editedTask, TaskProperties.VENUE, new Venue("Avalon"));
-        assertEditSuccess("edit %1$s venue Avalon", 3, 2, editedTask1, currentList);
+        indexToEdit = 3;
+        taskToEdit = currentList[indexToEdit - 1];
+        TestTask editedTask1 = editTaskWithProperty(taskToEdit, TaskProperties.VENUE, new Venue("Avalon"));
+        currentList = assertEditSuccess("edit %1$s venue Avalon", indexToEdit, editedTask1, currentList);
         
         // invalid index
         commandBox.runCommand("edit " + (currentList.length + 1) + " Some Description");
@@ -56,21 +58,24 @@ public class EditCommandTest extends TaskManagerGuiTest {
     /**
      * Asserts that the edit command worked
      * @param editCommand A string representing the command to run
-     * @param index The index of the task to be edited
-     * @param indexToInsert Index at which edited task should be inserted into the current list
+     * @param indexToEdit The index of the task to be edited
      * @param editedTask The edited task Current task list to check panel list against
-     * @param currentList
+     * @param currentList Current task list to check panel list against
+     * @return The new list of tasks
      */
-    private void assertEditSuccess(String editCommand, int index, int indexToInsert,
+    private TestTask[] assertEditSuccess(String editCommand, int indexToEdit,
     							   TestTask editedTask, TestTask... currentList) {
-        commandBox.runCommand(String.format(editCommand, index));
+        commandBox.runCommand(String.format(editCommand, indexToEdit));
         
         TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getDesc().get().getValue());
         assertMatching(editedTask, editedCard);
         
-        TestTask[] expectedList = TestUtil.addTasksToList(indexToInsert, TestUtil.removeTaskFromList(currentList, index), editedTask);
+        TestTask[] expectedList = TestUtil.removeTaskFromList(currentList, indexToEdit);
+        expectedList = TestUtil.addTasksToListSortedByTime(expectedList, editedTask);
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, editedTask.getAsPrettyText()));
+        
+        return expectedList;
     }
 }

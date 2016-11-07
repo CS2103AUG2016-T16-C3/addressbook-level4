@@ -10,9 +10,8 @@ Brought to you by Ninja Turtles, this revolutionary task manager gives you full 
 Add, modify, search, tick off and get reminded about upcoming tasks, all without ever touching the mouse.
 <br>
 
-<p align="center"><img src="docs/images/Ui.png" width="600"></p><br>
+<p align="center"><img src="docs/images/Ui.png" width="600"></p>
 
-<br>
 So what are you waiting for? Download it now over [here](../../releases). Check out the User Guide below for more information.
 
 #### Site Map
@@ -22,9 +21,14 @@ So what are you waiting for? Download it now over [here](../../releases). Check 
 * [Contact Us](docs/ContactUs.md)
 
 
-#### Acknowledgements
+#### Acknowledgements 
 
 * The base code for this application was taken from [Addressbook Level 4](https://github.com/se-edu/addressbook-level4).
+* We are using the following open-source libraries:
+  * [JavaFX](http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784)
+  * [Jackson](https://github.com/FasterXML/jackson)
+  * [Guava](https://github.com/google/guava)
+  * [PrettyTime](http://www.ocpsoft.org/prettytime/)
 
 
 #### Licence : [MIT](LICENSE)

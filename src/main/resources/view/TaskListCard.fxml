@@ -46,6 +46,7 @@
                         <Label fx:id="tag" styleClass="cell_small_label" text="\$tag" />
                     </children>
                 </VBox>
+                <!-- @@author A0147924X -->
                 <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2">
                 	<padding>
                         <Insets bottom="5" left="5" right="35" top="40" />
@@ -57,6 +58,7 @@
                     	</HBox>
                     </children>
                 </HBox>
+                <!-- @@author -->
             </children>
          <rowConstraints>
             <RowConstraints />

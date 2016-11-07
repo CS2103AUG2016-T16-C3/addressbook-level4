@@ -35,16 +35,10 @@ public class ExtensionParser {
             Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)");
     
     private HashMap<Commands, String> extensionWords = null;
-    private ArrayList<Tag> tagList;
     
     public ExtensionParser(HashMap<Commands, String> extensionWordsIn) {
-        tagList = new ArrayList<Tag>();
         extensionWords = extensionWordsIn;
         compileRegexes();
-    }
-    
-    public ArrayList<Tag> getTagList() {
-        return tagList;
     }
     
     public void compileRegexes() {
@@ -143,7 +137,6 @@ public class ExtensionParser {
                 break;
             case TAG:
                 throwExceptionIfDuplicate(properties, TaskProperties.TAG, Commands.TAG);
-                addToTagList(arguments);
                 addToProperties(properties, TaskProperties.TAG, arguments);
                 break;
             default:
@@ -182,7 +175,6 @@ public class ExtensionParser {
     
 	/**
 	 * Throws an exception if duplicate properties are specified
-	 * 
 	 * @param properties Properties to look in.
 	 * @param taskProperty Property to check.
 	 * @param extensionCmd Command that caused duplication.
@@ -195,7 +187,13 @@ public class ExtensionParser {
             throw new IllegalValueException(String.format(EXTENSION_DUPLICATES, extensionWords.get(extensionCmd)));
         }
     }
-
+    
+    /**
+     * Adds an event (start time and end time) to the task manager
+     * @param properties The current task properties
+     * @param arguments Arguments containing the start and end time
+     * @throws IllegalValueException
+     */
     private void addEvent(HashMap<TaskProperties, Optional<String>> properties, String arguments)
     		     throws IllegalValueException {
         Matcher matcher = EVENT_ARGS_FORMAT.matcher(arguments);
@@ -213,8 +211,8 @@ public class ExtensionParser {
         throwExceptionIfTimeInvalid(startTime, endTime);
     }
     
+    // @@author A0148042M
     /**
-     * @@author A0148042M
      * Parses events and puts the times into the properties
      * Throw an exception if start time is after end time
      * 
@@ -242,13 +240,5 @@ public class ExtensionParser {
     private void addToProperties(HashMap<TaskProperties, Optional<String>> properties, 
             					 TaskProperties taskProperty, String arguments) {
         properties.put(taskProperty, arguments.equals("") ? Optional.empty() : Optional.of(arguments));
-    }
-    
-    // @@author A0148042M
-    private void addToTagList(String arguments) throws IllegalValueException {
-        boolean isContained = tagList.contains(new Tag(arguments));
-        if(!isContained) {
-            tagList.add(new Tag(arguments));
-        }
     }
 }

@@ -49,6 +49,9 @@ public class LogicManager extends ComponentManager implements Logic {
     
     // @@author A0148042M
     @Override
+    /**
+     * Return the sorted and filtered tag list.
+     */
     public ObservableList<Tag> getSortedFilteredTagList() {
         return model.getSortedFilteredTagList();        
     }

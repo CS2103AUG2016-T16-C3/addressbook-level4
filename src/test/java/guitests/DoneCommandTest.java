@@ -22,17 +22,10 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     @Test
     public void done() throws IllegalValueException {
     	TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToMark = td.charlie;
-        TestTask markedTask = markAsDone(taskToMark);
-        assertDoneSuccess(3, 6, markedTask, currentList);
-        
-        // propagate changes to current list
-        currentList = TestUtil.addTasksToList(TestUtil.removeTaskFromList(currentList, 3), markedTask);
-        
-        // mark another as done
-        TestTask taskToMark1 = td.alpha;
-        TestTask markedTask1 = markAsDone(taskToMark1);
-        assertDoneSuccess(1, 5, markedTask1, currentList);
+    	TestUtil.sortListByTime(currentList);
+    	
+        currentList = assertDoneSuccess(3, currentList);
+        currentList = assertDoneSuccess(1, currentList);
         
         // invalid index
         commandBox.runCommand("done " + (currentList.length + 1));
@@ -55,21 +48,26 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     
     /**
      * Asserts that the done command worked
-     * @param index Index to mark as done
-     * @param indexToInsert Index at which to insert the marked task in the current list
-     * @param markedTask The marked task which will be inserted into the current list
-     * @param currentList Current task list to check panel list against 
+     * @param indexToMark Index to mark as done
+     * @param currentList Current task list to check panel list against
+     * @return The new list of tasks 
+     * @throws IllegalValueException 
      */
-    private void assertDoneSuccess(int index, int indexToInsert,
-    							   TestTask markedTask, TestTask... currentList) {
-        commandBox.runCommand(String.format("done %1$s", index));
+    private TestTask[] assertDoneSuccess(int indexToMark, TestTask... currentList) throws IllegalValueException {
+    	TestTask taskToMark = currentList[indexToMark - 1];
+        TestTask markedTask = markAsDone(taskToMark);
+    	
+        commandBox.runCommand(String.format("done %1$s", indexToMark));
         
         TaskCardHandle addedCard = taskListPanel.navigateToTask(markedTask.getDesc().get().getValue());
         assertMatching(markedTask, addedCard);
         
-        TestTask[] expectedList = TestUtil.addTasksToList(indexToInsert, TestUtil.removeTaskFromList(currentList, index), markedTask);
+        TestTask[] expectedList = TestUtil.addTasksToListSortedByTime(TestUtil.removeTaskFromList(currentList, indexToMark), markedTask);
+
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         assertResultMessage(String.format(DoneCommand.MESSAGE_SUCCESS, markedTask));
+        
+        return expectedList;
     }
 }

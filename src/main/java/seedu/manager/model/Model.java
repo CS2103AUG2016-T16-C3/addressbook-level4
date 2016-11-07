@@ -24,10 +24,16 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
     
     // @@author A0147924X
-    /** Returns the Command words */
+    /**
+     * Retrieves command keywords from the user preferences
+     * @return the command keywords
+     */
     HashMap<Commands, String> getCommandWords();
     
-    /** Returns the Extension words */
+    /**
+     * Retrieves extension keywords from the user preferences
+     * @return the extension keywords
+     */
     HashMap<Commands, String> getExtensionWords();
     
     // @@author
@@ -88,11 +94,11 @@ public interface Model {
     void updateFilteredTaskList(HashMap<TaskProperties, Optional<TaskProperty>> propertiesToMatch);
     
     // @@author A0147924X
-    /** Sorts the sorted and filtered task list by a certain property */
-    void sortSortedFilteredTaskListByProperty(TaskProperties property);
+    /** Sorts the sorted and filtered task list by priority */
+    void sortSortedFilteredTaskListByPriority();
     
-    /** Unsorts the sorted and filtered task list */
-    void unSortSortedFilteredTaskList();
+    /** Sorts the sorted and filtered task list by time */
+    void sortSortedFilteredTaskListByTime();
     
     /** 
      * Get the index of a specified tag in the list currently being displayed

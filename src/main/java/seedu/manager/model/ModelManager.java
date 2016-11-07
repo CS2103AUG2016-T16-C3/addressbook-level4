@@ -7,6 +7,7 @@ import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
+import seedu.manager.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -17,9 +18,12 @@ import seedu.manager.model.task.UniqueTaskList;
 import seedu.manager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.manager.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -55,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.userPrefs = userPrefs;
     }
     
-    // @author
+    // @@author
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
     }
@@ -69,7 +73,7 @@ public class ModelManager extends ComponentManager implements Model {
         sortedTags = new SortedList<>(filteredTags);
         this.userPrefs = userPrefs;
         
-        sortSortedFilteredTaskListByProperty(TaskProperties.DONE);
+        sortSortedFilteredTaskListByTime();
     }
     
     // @@author
@@ -85,18 +89,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    /**
-     * @@author A0147924X
-     * Retrieves command words from the user preferences
-     */
+    // @@author A0147924X
     public HashMap<Commands, String> getCommandWords() {
     	return userPrefs.commandWords;
     }
     
     @Override
-    /**
-     * Retrieves extension words from the user preferences
-     */
     public HashMap<Commands, String> getExtensionWords() {
     	return userPrefs.extensionWords;
     }
@@ -133,7 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.addTag(tag);
         } catch (DuplicateTagException e) {
-            e.printStackTrace();
+            // Nothing will happen if there are duplicate tags
         }
         updateFilteredTagListToShowAll();
     }
@@ -177,13 +175,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void sortSortedFilteredTaskListByProperty(TaskProperties property) {
-    	sortedTasks.setComparator((Task t1, Task t2) -> t1.compareProperty(t2, property));
+    public void sortSortedFilteredTaskListByPriority() {
+    	Comparator<ReadOnlyTask> priorityComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.comparePriority(t2);
+			}
+    	};
+    	sortedTasks.setComparator(priorityComparator);
     }
     
     @Override
-    public void unSortSortedFilteredTaskList() {
-    	sortSortedFilteredTaskListByProperty(TaskProperties.DONE);
+    public void sortSortedFilteredTaskListByTime() {
+    	Comparator<ReadOnlyTask> timeComparator = (t1, t2) -> {
+    		int doneCompare = t1.compareDone(t2);
+    		if (doneCompare != 0) {
+				return doneCompare;
+			} else {
+				return t1.compareTime(t2);
+			}
+    	};
+    	sortedTasks.setComparator(timeComparator);
     }
     
     @Override
@@ -201,6 +215,22 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author A0148042M
     public void updateFilteredTagListToShowAll() {
         filteredTags.setPredicate(null);
+    }
+    
+    // @@author A0148042M
+    @Subscribe
+    private void handleTagListPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        HashMap<TaskProperties, Optional<TaskProperty>> tagToMatch = new HashMap<>();
+        Tag selectedTag = event.getNewSelection(); 
+        Optional<TaskProperty> tag = Optional.of(selectedTag);
+        for(TaskProperties prop : TaskProperties.values()) {
+            tagToMatch.put(prop, Optional.empty());
+        }
+        tagToMatch.put(TaskProperties.TAG, tag);
+        
+        updateFilteredTaskList(tagToMatch); 
     }
     
     // @author

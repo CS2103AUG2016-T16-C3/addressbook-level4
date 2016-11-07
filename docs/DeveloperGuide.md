@@ -113,9 +113,9 @@ _Figure 2_ below shows how the components interact for the scenario where the us
 command `delete 3`.
 <br>
 
-<p align="center"><img src="images\SDforDeleteTask.png" width="800"><br>
+<p align="center"><img src="images/SDforAddTask.jpg" width="800"><br>
 
-<sub>Fig 2: Sequence Diagram for Delete Task</sub></p>
+<sub>Fig 2: Sequence Diagram for Add Task</sub></p>
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -123,9 +123,9 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the `UI` being updated to reflect the 'Last Updated' time. <br>
 
-<p align="center"><img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
+<p align="center"><img src="images/SDforDeleteTaskEventHandling.png" width="800"><br>
 
-<sub>Fig 3: Sequence Diagram for Event Handling for Delete Task</sub></p>
+<sub>Fig 3: Sequence Diagram for Event Handling for Add Task</sub></p>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -133,6 +133,7 @@ being saved to the hard disk and the status bar of the `UI` being updated to ref
 
 The sections below give more details of each component.
 
+<!-- @@author A0148042M -->
 ### `UI` component
 
 <p align="center"><img src="images/UiClassDiagram.png" width="800"><br>
@@ -140,9 +141,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/manager/ui/Ui.java)
 
-The `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `TagListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+and they can be loaded using the `UiPartLoader`. Moreover, their actions can be captured and managed by `UiManager`.
 
 The `UI` component uses JavaFx UI framework. The layout of these `UI` parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/manager/ui/MainWindow.java) is specified in
@@ -150,9 +150,18 @@ The `UI` component uses JavaFx UI framework. The layout of these `UI` parts are 
 
 The `UI`,
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the `UI` can auto-update when data in the `Model` change.
+* Binds itself to some data in the `Model` so that the `UI` can auto-update when data in the `Model` changes.
 * Responds to events raised from various parts of the App and updates the `UI` accordingly.
 
+#### Low-level details about the UI Component
+
+Relationship between tagList and taskList: <br>
+The tagList inside `TagListPanel` contains all the tags that taskList has. Whenever there are some changes to the taskList, the tagList will do the same operations to the tags of the changing tasks if they are present.
+
+Respective taskList will show up if their tag is clicked: <br>
+When user click on a specific tag, it will raise up an event called `TagPanelSelectionChangedEvent`, and this event will be handled by `handleTagListPanelSelectionChangedEvent` in `ModelManager` and tasks without the tag clicked will be filtered out and tasks with the tag will remain there.
+
+<!-- @@author A0147924X -->
 ### Logic component
 
 <p align="center"><img src="images/LogicClassDiagram.png" width="800"><br>
@@ -167,11 +176,19 @@ The `Logic`,
 
 > The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br><br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add Name")` API call.<br><br>
 
-<p align="center"><img src="images/DeleteTaskSdForLogic.png" width="800"><br>
-<sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></p>
+<p align="center"><img src="images/AddTaskSdForLogic.png" width="800"><br>
+<sub>Fig 6: Sequence Diagram for Add command in Logic component</sub></p>
+
+#### Low-level details about the Logic Component
+
+Undo Command:<br>
+The `Command` class keeps a static stack of `UndoableCommand` objects. Every time an `UndoableCommand` is successfully executed, it is added to this stack. When the user wishes to undo an action, an element is popped off the stack, and this command is undone.<br>
+
+Link between `Parser` and `Model`:<br>
+The `UserPrefs` object in the model (see [`Model`](#model-component)) stores the command keywords. The `Parser` object keeps a reference to these keywords, so that it can parse commands entered by the user.
+
 
 ### Model component
 
@@ -186,6 +203,12 @@ The `Model`,
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the `UI` can be bound to this list so that the `UI` automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
+#### Low-level details about the Model Component
+
+TaskProperty:<br>
+This is an abstract class that all the task properties (like venue and description) inherit from. It provides most of the API that TaskProperty objects need to expose to other classes. These API are sometimes overridden by the subclasses, for example to provide their own version of a pretty string value (the string displayed on the UI).
+
+<!-- @@author -->
 ### Storage component
 
 <p align="center"><img src="images/StorageClassDiagram.png" width="800"><br>
@@ -223,7 +246,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g. App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g. App name, logging level and App icon) through the configuration file (default: `config.json`).
 
 
 ## Testing
@@ -247,9 +270,9 @@ We have two types of tests:
    These are in the `guitests` package.
 
 2. **Non-GUI Tests** - These are tests that do not involving the GUI. They include,
-   1. _Unit tests_ targets the lowest level methods/classes. <br>
-      e.g. `seedu.manager.commons.UrlUtilTest`
-   2. _Integration tests_ that check the integration of multiple code units
+   1. _Unit tests_ : targets the lowest level methods/classes. <br>
+      e.g. `seedu.manager.commons.XmlUtilTest`
+   2. _Integration tests_ : checks the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.manager.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These tests check multiple code units as well as
@@ -258,14 +281,14 @@ We have two types of tests:
 
 **Headless GUI Testing**:
 
-* Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the headless mode. In the headless mode, GUI tests do not show up on the screen. <br>
+* Thanks to the [TestFX](https://github.com/TestFX/TestFX) library that we use, our GUI tests can be run in the headless mode. In the headless mode, GUI tests do not show up on the screen. <br>
 That means the developer can do other things on the Computer while the tests are running.<br>
 
 * See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 #### Troubleshooting tests
 
- **Problem: Tests fail because of NullPointerException when AssertionError is expected. **
+ **Problem: Tests fail because of NullPointerException when AssertionError is expected.**
 
  * Reason: Assertions are not enabled for JUnit tests.
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later).
@@ -307,44 +330,31 @@ b. Require developers to download those libraries manually (this creates extra w
 <!-- @@author A0147924X -->
 ## Appendix A : User Stories
 
-Likeliness: Likely - `L`, Unlikely - `U`
+As (a)... | I want to... | So that I can...
+:-------- | :--------- | :-----------
+All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
+New User | View info about a command | Learn how to use these commands
+User | Add tasks with a description and a specific deadline | Set deadlines for tasks
+User | Add tasks with description, start time and end time | Create events in the task manager
+User | Add tasks with only a description | Set tasks that do not have certain time, which are called floating tasks
+User | Add tasks that starts from a certain time | Set tasks that do not have an end time
+User | Modify a task | Update deadlines and descriptions
+User | Delete a task | Remove it from the Task Manager's to-do list
+User | Tick off a task | Record that this task is complete by marking it as done
+User | Search for task(s) | Find task(s) and maybe edit it
+User | See upcoming tasks | Decide what to do next
+User | Assign priority to tasks | Gauge which task should be done next
+User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
+User | See tasks in a specific period of time | See what has been scheduled for a certain period
+User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
+User | Undo operation(s) | Remove a mistake
+Advanced User | Edit the storage file | Make changes without going through the manager
+Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
 
-Likeliness | As (a)... | I want to... | So that I can...
--------- | :-------- | :--------- | :-----------
-`L` | All Users | Interact with the manager using a CLI and keys | Get rid of the need for a mouse
-`L` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
-`L` | New User | View info about a command | Learn how to use these commands
-`L` | User | Add tasks with a description and a specific deadline | Set deadlines for tasks
-`L` | User | Add tasks with description, start time and end time | Create events in the calendar
-`L` | User | Add tasks with only a description | Set tasks that need to be completed at some point of time
-`L` | User | Add tasks that starts from a certain time | Set tasks that doesn't have an end time
-`L` | User | Modify a task | Update deadlines and descriptions
-`L` | User | Delete a task | Remove it from the Task Manager's to-do list
-`L` | User | Tick off a task | Record that this task is complete by marking it as done
-`L` | User | Search for (a) task(s) | Find (a) task(s) and maybe edit it
-`L` | User | See upcoming tasks | Decide what to do next
-`L` | User | Assign priority to tasks | Gauge which task should be done next
-`L` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
-`L` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
-`L` | User | Undo operation(s) | Remove a mistake
-`L` | Advanced User | Edit the storage file | Make changes without having to go through the manager
-`L` | Advanced User | Declare my own names for commands | Personalise the experience and make it faster
-`U` | New User | View the procedure of creating a task | Learn how to create a task first
-`U` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
-`U` | User | Redo operation(s) | Redo a change that had been undone
-`U` | User | Declare recurring tasks | Remove the need to enter these tasks multiple times
-`U` | User | Search for empty slots (within a given time frame) | Decide when to schedule a task
-`U` | User | Integrate with third-party applications like GCalendar | Access my tasks on another platform too
-`U` | User | List [floating tasks](#floating-task) | See whether I want to complete a floating task next
-`U` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
-`U` | User | Block multiple slots for a task | Choose later which slot I want to assign this task to and keep the selected slots free for that task
-`U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
-`U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
-
-<!-- @@author  -->
+<!-- @@author A0148003U -->
 ## Appendix B : Use Cases
 
-( For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise. )
+(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise.)
 
 #### Use case: Add a task
 
@@ -366,11 +376,11 @@ Use case resumes at step 1.
 > 2b1. User is notified that the task already exists. <br>
 Use case resumes at step 1.
 
-#### Use case: List specific tasks
+#### Use case: Find specific tasks
 
 **MSS**
 
-1. User supplies Task Manager with information about descriptions of tasks to be listed.
+1. User supplies Task Manager with information about descriptions of tasks to be found.
 2. Task Manager shows the list of tasks. <br>
 Use case ends.
 
@@ -431,13 +441,75 @@ Use case resumes at step 3.
 > 4b1. User is shown correct format for data. <br>
 Use case resumes at step 3.
 
-<!-- @@author A0148042M -->
+<!-- @@author A0139621H -->
+#### Use case: Aliasing command keyword
+
+**MSS**
+
+1. User requests to change the keyword of a command.
+2. Task Manager modifies the corresponding command's old keyword to the new one. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The old command that was entered is invalid.
+
+> 2a1. User is notified that the command word is invalid. <br>
+Use case ends.
+
+2b. The new command keyword is already in use by another command.
+
+> 2b1. User is notified as such, and is shown which command is using this keyword. <br>
+Use case ends.
+
+#### Use case: Storage command
+
+**MSS**
+
+1. User requests to change the storage path and/or filename of the Task Manager.
+2. Task Manager modifies the storage path and/or filename accordingly.
+3. Task Manager also updates the filepath at the bottom of the UI. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The new filepath entered is invalid.
+
+> 2a1. User is notified that the filepath is invalid. <br>
+Use case ends.
+
+2b. The new filepath entered is unaccessible.
+
+> 2b1. User is notified that the filepath cannot be used and is thus invalid. <br>
+User case ends.
+
+2c. The filename entered is already in use.
+
+> 2c1. User is notified that any changes to the new file will overwrite that of the old one. <br>
+User case resumes at step 3
+
+#### Use case: Undo
+
+**MSS**
+
+1. User requests to undo an action.
+2. Task manager undos the user's previous action and displays what was undone. <br>
+Use case ends.
+
+**Extensions**
+
+2a. There are no actions to be undone.
+
+> 2a1. User is notified as such. <br>
+Use case ends.
+
+<!-- @@author A0147924X -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should open within 1 second.
+4. Should open within 2 seconds.
 5. Should complete all operations within 0.5 seconds.
 6. Should not require an internet connection to work.
 7. Should not require installation to work.
@@ -447,57 +519,58 @@ Use case resumes at step 3.
 
 ##### Mainstream OS
 
-> Windows, Linux, Unix, OS-X
+> Windows, Linux, Unix, macOS
 
 ##### Floating Task
 
 > A task which has no specified date or time
 
+<!-- @@author A0148042M -->
 ## Appendix E : Product Survey
 
 We researched other task managers' special features to better understand the products available and thus enhance design of our own product. Here are the special features we found in four other products:
 
 ##### Todo.txt
-*Pros:*
-1. Uses command lines to input task. <br>
-2. Uses plain text as the normal text. <br>
-3. Sorts the task by priority. <br>
-4. Allows user to enter multiple tasks in a single input box. <br>
+*Pros:*<br>
+* Uses command lines to input task.
+* Uses plain text as the normal text.
+* Sorts the task by priority.
+* Allows user to enter multiple tasks in a single input box.
 
-*Cons:*
-1. The UI is very poor and not very user-friendly. <br>
-2. Beginners may not understand what to do next. <br>
+*Cons:*<br>
+* The UI is very poor and not very user-friendly.
+* Beginners may not understand what to do next.
 
 ##### Google Calendar
-*Pros:*
-1. User can change visibility between public and private. <br>
-2. User can make video calls and change the time zone. <br>
-3. User can also add attachments and locations. <br>
-4. User can also use a command line mode. <br>
+*Pros:*<br>
+* User can change visibility between public and private.
+* User can make video calls and change the time zone.
+* User can also add attachments and locations.
+* User can also use a command line mode.
 
-*Cons:*
-1. User has to click many times and type a lot of text to add a task. <br>
-2. This application has to be operated online, which means that user cannot use Google calendar when they do not have Internet access. <br>
+*Cons:*<br>
+* User has to click many times and type a lot of text to add a task.
+* This application has to be operated online, which means that user cannot use Google calendar when they do not have Internet access. <br>
 
 ##### Wunderlist
-*Pros:*
-1. This application has a very colorful and beautiful GUI. <br>
-2. It allows user to set reminders, and turn them off using the "Do not disturb" button.
-3. It mainly uses lists to represent all the tasks rather than a calendar.
-4. It has a companion product called Wunderline
-    * This is the command line mode of Wunderlist.
-    * Uses natural words as commands, content is put inside single quotes.
-    * Allows exporting data as a JSON file.
-    * Allows searching by keywords.
+*Pros:*<br>
+* This application has a very colorful and beautiful GUI. <br>
+* It allows user to set reminders, and turn them off using the "Do not disturb" button. <br>
+* It mainly uses lists to represent all the tasks rather than a calendar. <br>
+* It has a companion product called Wunderline
+    * This is the command line mode of Wunderlist. <br>
+    * Uses natural words as commands, content is put inside single quotes. <br>
+    * Allows exporting data as a JSON file. <br>
+    * Allows searching by keywords. <br>
 
 *Cons:*
 It only displays tasks as a list while sometimes the calendar mode can tell users more information.
 
 ##### Calendar Vim
-*Pros:*
-1. This application is a calendar application for Vim.
-2. It can view events on Google Calendar.
-3. It has different view modes, like Year view, Month view, Week view and Day view.
+*Pros:*<br>
+* This application is a calendar application for Vim.
+* It can view events on Google Calendar.
+* It has different view modes, like Year view, Month view, Week view and Day view.
 
 *Cons:*
 The Graphical User Interface of this application is simple and not user-friendly.

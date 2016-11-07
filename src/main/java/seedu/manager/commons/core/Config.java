@@ -107,6 +107,11 @@ public class Config {
     
     // @@author A0147924X
     @Subscribe
+    /**
+     * Saves the config file and raises a new event indicating that the config file
+     * has changed, when the storage location changes
+     * @param event Event indicating that the storage location has changed
+     */
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
     	setTaskManagerFilePath(event.getFilePath());
     	try {

@@ -4,7 +4,7 @@
 * [Quick Start](#quick-start)
 * [Features](#features)
   * [Primary Commands](#primary-commands)
-  * [Extensions](#extensions)
+    * [Extensions](#extensions)
 * [Cheat Sheet](#cheat-sheet)
 * [Appendix A](#appendix-a)
 
@@ -34,11 +34,11 @@
 ## Features
 
 ### Overview
-Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. These commands can then be made more specific using [extensions](#extensions), such as `at`, `before`, `from-to` and `priority`. <br>
+Task Ninja uses some [primary commands](#primary-commands), like `add`, `edit`, `delete` and `find`. Some of these commands, like `add` and `edit`, can then be made more specific using [extensions](#extensions), such as `at`, `by`, `from-to` and `priority`. <br>
 
 This means that the primary commands are used in conjunction with extensions to give the manager more information about what you want to do. <br>
 
-For example, you could edit the venue of the 1st task displayed by typing `edit 1 at Home`.
+For example, you could edit the venue of the 1st task displayed by typing `edit 1 venue Home`.
 
 > The order of extensions is not fixed.
 
@@ -52,12 +52,15 @@ For example, you could edit the venue of the 1st task displayed by typing `edit 
 #### Viewing help: `help`
 _Overwhelmed by the amazingness of Task Ninja? `help` is here to help you discover more._<br>
 
-Format: `help`
+Format: `help [<command>]`
 
-> This shows help for all commands. <br>
+> This shows help for all commands (In fact it opens this User Guide)<br>
+> If a command is specified, then it shows help for that command only
 
-Example:
+Examples:
   * `help`
+  * `help add`
+  * `help delete`
 
 
 <a id="add"></a>
@@ -71,26 +74,116 @@ Format: `add <task description> [<extensions>]`
 
 Examples:
   * `add Dinner with Arthur`
-  * `add Dinner with Arthur venue Avalon from 8:30pm to 9:30pm`
-  * `add Finish 2103T Tutorial before 11:59pm`
+  * `add Elope with Guinevere`
 
+
+<a id="extensions"></a>
+#### Extensions
+_But now you're probably wondering... what extensions can I use? How do they help me?
+Well to answer that, let's just dive straight into our extensions:_<br>
+
+<a id="venue"></a>
+##### At a certain venue: `venue`
+_Going to university but somehow ended up wandering at the mall aimlessly? Remember your destination with this extension._<br>
+Format: `venue <description of venue>`
+
+Examples:
+  * `add Lunch with Arthur venue Avalon`
+  * `add Date with Girlfriend venue Romantic spot`
+
+
+<a id="from-to"></a>
+##### Events that last for a certain period of time: `from-to`
+_Mark tasks/events that will be done over a certain period of time._<br>
+Format: `from <start time> to <end time>`
+
+> * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
+> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide. <br>
+
+Examples:
+  * `add Meeting with Boss from 11am to 1pm`
+  * `add Collect computer from store from 2:30pm to 3:00pm`
+  * `add Picnic with Guinevere from tomorrow morning to tomorrow evening`
+
+
+<a id="at"></a>
+##### At a certain time/date: `at`
+_Specify a start time for a task._<br>
+Format: `at <time>`
+
+Examples:
+  * `add Commence update at 23:00`
+  * `add Ballet lesson at day after tomorrow 9pm`
+
+
+<a id="by"></a>
+##### By a certain time/date: `by`
+_Specify a deadline for a task._<br>
+Format: `by <time>`
+
+Examples:
+  * `add Finish 2103T Tutorial by 13:00`
+  * `add Complete assignment by 15 Nov 23:59`
+
+
+<a id="priority"></a>
+##### Priority level for tasks: `priority`
+_Assign a priority level to tasks._<br>
+Format: `priority low/med/high`
+
+> * Helps give levels of importance to tasks. <br>
+> * Priority level can be low, medium or high. <br>
+
+Examples:
+  * `add Lunch with Arthur priority low`
+  * `add Steal the Round Table priority high`
+
+
+<a id="tag"></a>
+##### Tag: `tag`
+_Adds a tag to your tasks._<br>
+Format: `tag <your tag>`
+
+> * Only one tag can be added to a task. <br>
+> * You may replace the task's tag using the `edit` command. <br>
+
+Examples:
+  * `add Buy Table Lamp tag shopping`
+  * `edit 4 tag projects`
+
+
+##### Combining multiple extensions
+_Extensions can be used together for maximum flexibility. This means that you can add complex tasks using commands as natural as:_
+  * `add Complete assignment by 3pm priority high tag School`
+  * `add Appointment with dentist at 5:30pm venue Bright Teeth Clinic`
+
+
+_Alright! Armed with these extensions, let's take a look at some other primary commands that help enhance your experience with Task Ninja._
 
 <a id="find"></a>
 #### Searching for tasks: `find`
 _Forgotten when you arranged that date? Use `find`!_<br>
-Format: `find <keywords> [<more keywords>]`
+Format: `find [<description>] [<extensions>]`
 
-> * The search is case sensitive. e.g `dinner` will not match `Dinner`.
-> * The order of the keywords does not matter. e.g. `Tutorial CS2103T` will match `CS2103T Tutorial`.
-> * Only the description is searched for.
-> * Only full words will be matched e.g. `2103T` will not match `CS2103T`.
-> * Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Dinner` will match `Dinner with Mum`.
+> * For matching against description and venue:
+    * The search is case insensitive
+    * The order of the keywords does not matter. e.g. `Tutorial CS2103T` will match `CS2103T Tutorial`.
+    * Only full words will be matched e.g. `2103T` will not match `CS2103T`.
+    * Tasks matching at least one keyword will be returned (i.e. OR search). e.g. `Dinner` will match `Dinner with Mum`.
 
 Examples:
   * `find Tutorial`<br>
-    Shows all tasks containing `Tutorial` in the description
-  * `find Dinner Tutorial`<br>
-    Shows all tasks containing `Dinner` or `Tutorial` in their descriptions
+    Shows all tasks containing `Tutorial` in the description.
+  * `find venue Room Home`<br>
+    Shows all tasks containing `Home` or `Room` in their descriptions.
+  * `find by tomorrow`<br>
+    Shows all tasks that have to be completed before tomorrow. Includes overdue tasks.
+  * `find from tomorrow to day after tomorrow`<br>
+    Shows all tasks that are due between tomorrow and day after tomorrow.
+  * `find priority high`<br>
+    Shows all tasks with a high priority.
+  * `find dinner priority med`<br>
+    Shows all tasks that contain `dinner` in their descriptions and have a medium priority
 
 
 <a id="edit"></a>
@@ -103,7 +196,7 @@ Format: `edit <task number> [<new task description>] [<extensions>]`
 > * Fields for the specified extensions will be changed. <br>
 
 Examples:
-  * `edit 1 Dinner with Guinevere`
+  * `edit 1 Dinner with Guinevere tag Romantic`
   * `edit 2 at 1am 3 Oct`
   * `edit 1 Dinner with Guinevere venue Under the stars`
 
@@ -113,11 +206,85 @@ Examples:
 _Added a task you don't need? Fear not, for delete is here._<br>
 Format: `delete <task number>`
 
-> Task number specifies which out of the tasks on the screen you wish to delete. <br>
+> The task number specifies the task on the current screen that you wish to delete. <br>
 
 Examples:
   * `delete 1`
   * `delete 3`
+
+
+<!-- @@author A0139621H-->
+<a id="done"></a>
+#### Ticking off tasks: `done`
+_Perhaps the most satisfying command! Let's you mark a task as done._<br>
+Format: `done <task number>`
+
+> Task number specifies which out of the tasks on the screen you wish to tick off
+
+Examples:
+ * `done 1`
+ * `done 3`
+
+
+<a id="undo"></a>
+#### Undo previous action: `undo`
+_Made a mistake? Fret not! Just use this keyword to revert the last action that you did!_<br>
+Format: `undo`
+
+> * Can be used more than once. <br>
+> * Cannot be used if you close TaskNinja and reopen it; the temporary history of commands that you use will be cleared and there will be nothing for TaskNinja to undo. <br>
+> * The commands that you can undo are: add, edit, delete and alias
+> * All extension commands cannot be undone, by default.
+
+Example:
+  * `undo`
+
+
+<a id="sortby"></a>
+#### Sortby: `sortby`
+_Sorts your task list either by time, or by priority._<br>
+Format: `sortby time/priority`
+
+> Even if priority or time have been aliased, this command will still use the words priority and time
+
+Examples:
+  * `sortby time`
+  * `sortby priority`
+
+
+<a id="storage"></a>
+#### Specify a storage folder: `storage`
+_Allows you to edit the storage file._<br>
+Format: `storage <path/to/file/fileName.xml>`
+
+> The file's name must have a .xml extension. <br>
+
+Example:
+  * `storage data/TaskNinja.xml`
+
+
+<!-- @@author A0147924X -->
+<a id="alias"></a>
+#### Alias Commands: `alias`
+_If you're an advanced user, you may replace our existing commands with a keyword of your own!_<br>
+Format: `alias <command name> <new command name>`
+
+> * Take note that you cannot replace a command with a keyword that is already in use. <br>
+> * To a command's alias, simply use help for that command. <br>
+
+Examples:
+  * `alias add +`
+  * `alias + add`
+  * `alias priority p`
+
+
+<a id="clear"></a>
+#### Clear: `clear`
+_Wipes off all tasks and tags from TaskNinja._<br>
+Format: `clear`
+
+> * *WARNING*: This command is irreversible! It cannot be undone even with the `undo` command! <br>
+> * You should hence be VERY sure if you wish to use this command at any point in time, unless you have saved your tasks to another .xml file! <br>
 
 
 <a id="exit"></a>
@@ -134,151 +301,51 @@ Tasks are saved in the hard disk automatically after any command that changes th
 There is no need to save manually.
 
 
-<a id="next"></a>
-#### List upcoming tasks: `next`
-_Lists all upcoming tasks._<br>
-Format: `next [before <time>]`
-
-> * All tasks whose start times are after the current time are listed, by default. <br>
-> * Floating tasks are also listed; they are listed at the bottom of the list. <br>
-> * Can also be used with `before` to see upcoming tasks until a specified time/date. <br>
-
-Example:
-  * `next`
-  * `next before 10pm`
-
-
-<a id="undo"></a>
-#### Undo previous action: `undo`
-_Made a mistake? Fret not! Just use this keyword to revert the last action that you did!_<br>
-Format: `undo`
-
-> Can be used more than once. <br>
-
-Example:
-  * `undo`
-
-
-<a id="storage"></a>
-#### Specify a storage folder: `storage`
-_Allows you to edit the storage file._<br>
-Format: `storage <path/to/file/fileName.xml>`
-
-> The file's name must have a .xml extension. <br>
-
-Example:
-  * `storage data/TaskNinja.xml`
-
-
-### Extensions
-
-<a id="venue"></a>
-#### At a certain venue: `venue`
-_Going to university but somehow ended up wandering at the mall aimlessly? Remember your destination with this extension._<br>
-Format: `venue <description of venue>`
- 
-Examples:
-  * `add Lunch with Arthur venue Avalon`
-  * `edit 1 venue Round Table`
-
-
-<a id="from-to"></a>
-#### Events that last from a certain period of time/date: `from-to`
-_Mark tasks/events that will be done in a certain period of time/date._<br>
-Format: `from <start time/date> to <end time/date>`
-
-> * Start time/date indicates when the task/event begins, end time/date indicates when the task/event finishes. <br>
-> * A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide. <br>
-
-Examples:
-  * `add Meeting with Boss from 11am to 1pm`
-  * `edit 1 from 10/20/16 to 10/25/16`
-  * `add Collect computer from store from 2:30pm to 3:00pm`
-  * `edit 4 from 15 Oct to 17 Oct`
-
-
-<a id="at"></a>
-#### At a certain time/date: `at`
-_Specify a start time for a task._<br>
-Format: `at <time/date>`
-
-> A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
-
-Examples:
-  * `add Commence update at 23:00`
-  * `edit 2 at 31 Oct '16`
-  * `add Start writing essay at Nov 2 2016 2000`
-  * `edit 5 at 1st May`
-
-
-<a id="before"></a>
-#### Before a certain time/date: `before`
-_Specify a deadline for a task._<br>
-Format: `before <time/date>`
-
-> A list of supported time and date inputs are listed in [Appendix A](#appendix-a). You may also refer to the examples for a brief guide too. <br>
-
-Examples:
-  * `add Finish 2103T Tutorial before 13:00`
-  * `edit 3 before 6 Feb '17`
-  * `add Complete assignment before Nov 2 2016 2359`
-  * `edit 5 before 1st May`
-
-
-<a id="priority"></a>
-#### Priority level for tasks: `priority`
-_Assign a priority level to tasks._<br>
-Format: `priority <low/med/high>`
-
-> * Helps give levels of importance to tasks. <br>
-> * Priority level can be low, medium or high. <br>
-> * The default priority level of a task is medium ("med"). <br>
-
-Examples:
-  * `add Lunch with Arthur priority high`
-  * `edit 1 priority med`
-
-
 ## Cheat Sheet
 
-Type | Command | Format
-:--------: | :--------: | ----- |
-Primary | [Help](#help) | `help`
-Primary | [Add](#add) | `add <task description> [<extensions>]`
-Primary | [Find](#find) | `find <keyword> [<more keywords>]`
-Primary | [Edit](#edit) | `edit <task number> [<extensions>]`
-Primary | [Delete](#delete) | `delete <task number>`
-Primary | [Exit](#exit) | `exit`
-Primary | [Next](#next) | `next [before <time>]`
-Primary | [Undo](#undo) | `undo`
-Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>`
-Extension | [Venue](#venue) | `venue <description of venue>`
-Extension | [Event](#from-to) | `from <start time> to <end time>`
-Extension | [At](#at) | `at <time>`
-Extension | [Before](#before) | `before <time>`
-Extension | [Priority](#priority) | `priority <low/med/high>`
+Type | Command | Format | Example | Undoable? |
+:--------: | :--------: | ----- | ---- | ---- |
+Primary | [Help](#help) | `help [<command>]` | `help add` | N/A
+Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete assignment by 3pm priority high tag School` | Yes
+Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med` | No
+Primary | [Edit](#edit) | `edit <task number> [<new task description>] [<extensions>]` | `edit 1 Dinner with Mum venue Home` | Yes
+Primary | [Delete](#delete) | `delete <task number>` | `delete 1` | Yes
+Primary | [Done](#done) | `done <task number>` | `done 5` | Yes
+Primary | [Undo](#undo) | `undo` | `undo` | N/A
+Primary | [Sortby](#sortby) | `sortby time/priority` | `sortby priority` | No
+Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>` | `storage data/TaskNinja.xml` | No
+Primary | [Alias](#alias) | `alias <command name> <new command name>` | `alias delete -` | Yes
+Primary | [Clear](#clear) | `clear` | `clear` | No
+Primary | [Exit](#exit) | `exit` | `exit` | N/A
+Extension | [Venue](#venue) | `venue <description of venue>` | `venue Avalon` | N/A
+Extension | [Event](#from-to) | `from <start time> to <end time>` | `from 1pm to 3pm` | N/A
+Extension | [At](#at) | `at <time>` | `at 5pm` | N/A
+Extension | [By](#by) | `by <time>` | `by tomorrow evening` | N/A
+Extension | [Priority](#priority) | `priority low/med/high` | `priority med` | N/A
+Extension | [Tag](#tag) | `tag <your tag>` | `tag Camelot` | N/A
+
 
 <!-- @@author A0139621H-->
 # Appendix A
 _This appendix lists down all the inputs of dates and times that are accepted when adding/editing a task._<br>
 _As we are using PrettyTime parser to read in dates and times, we strongly recommend you to follow this table in order to let you have the best experience when using Task Ninja!_<br>
-_You may also refer to the examples in [Event](#from-to) and [Before](#before) sections for an overview of how to input your dates and times when adding/editing your task._<br>
+_You may also refer to the examples in [Event](#from-to), [At](#at) and [By](#by) sections for an overview of how to input your dates and times when adding/editing your task._<br>
 
-> * The current time (in HH:MM:SS) will be timestamped to your tasks should you decide not to enter a time.
+> * The current time will be timestamped to your tasks should you only enter a date and no time.
 > * The following examples use Wed 19 Oct 12:00:00 2016 as the current time and date, unless otherwise specified
 
 Input | Read in as | Comments
 ----- | :--------: | ------- |
 `2am` | Wed Oct 19 02:00:00 | 12-hour format
 `2AM` | Wed Oct 19 02:00:00 | Not case-sensitive
-`2pm` | Wed Oct 19 14:00:00 | 
-`3:30am` | Wed Oct 19 03:30:00 | 
+`2pm` | Wed Oct 19 14:00:00 |
+`3:30am` | Wed Oct 19 03:30:00 |
 `4:45pm` |  Wed Oct 19 16:45:00 |
 `0515` | Wed Oct 19 05:15:00 | 24-hour format
 `1700` | Wed Oct 19 17:00:00 |
 `6:00` | Wed Oct 19 06:00:00 |
 `07:55` | Wed Oct 19 07:55:00 |
-`19:59` | Wed Oct 19 19:59:00 | 
+`19:59` | Wed Oct 19 19:59:00 |
 `20 November` | Sun Nov 20 12:00:00 | Uses current time by default
 `22 January '17` | Sun Jan 22 12:00:00 2017 | Uses an apostrophe in shortened year
 `23rd February 2017` | Tue Feb 23 12:00:00 2017 | Numerals (st, nd, rd, th) are accepted

@@ -36,6 +36,7 @@ public class Done extends TaskProperty {
         return value ? "\u2713" : "";
     }
     
+    // @@author A0139621H
     /**
      * Checks if the task property matches with that of the search function's input
      */
@@ -46,7 +47,7 @@ public class Done extends TaskProperty {
         return ((Done) done).equals(this);
     }
 
-    //@@author
+    // @@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -109,11 +109,8 @@ public class Parser {
         case STORAGE:
             return new StorageCommand(arguments);
         
-        case SORT:
-        	return new SortCommand();
-        
-        case UNSORT:
-        	return new UnSortCommand();
+        case SORTBY:
+        	return prepareSort(arguments);
         
         case UNDO:
         	return new UndoCommand();
@@ -173,6 +170,7 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    // @@author A0147924X
     /**
      * Parses arguments in the context of the edit task command.
      * @param args full command args string
@@ -198,7 +196,6 @@ public class Parser {
         } 
     }
     
-    // @@author A0147924X
     /**
      * Parses arguments in the context of the done task command
      * @param args full commmand args string
@@ -233,7 +230,7 @@ public class Parser {
 
     }
 
-    //@@author A0139621H
+    // @@author A0139621H
     /**
      * Parses arguments in the context of the find task command.
      * @param args full command args string
@@ -261,6 +258,7 @@ public class Parser {
      */
     private Command prepareAlias(String args) {
     	String[] splitArgs = args.trim().split(" ");
+    	
     	if (splitArgs.length != 2) {
 			return new IncorrectCommand(AliasCommand.MESSAGE_WRONG_NUM_ARGS);
 		}
@@ -275,8 +273,7 @@ public class Parser {
      */
     private Command prepareHelp(String args) {
     	String[] splitArgs = args.trim().split(" ");
-    	System.out.println(splitArgs.length);
-    	System.out.println(splitArgs);
+    	
     	if (splitArgs.length > 1) {
 			return new IncorrectCommand(HelpCommand.MESSAGE_WRONG_NUM_ARGS);
 		} else if (splitArgs.length == 1 && !splitArgs[0].equals("")) {
@@ -284,5 +281,22 @@ public class Parser {
 		} else {
 			return new HelpCommand(Optional.empty());
 		}
+    }
+    
+    /**
+     * Parses arguments in the context of the sort command
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSort(String args) {
+    	args = args.trim();
+    	
+    	for (SortCommand.SortComparators comparator : SortCommand.SortComparators.values()) {
+			if (args.equals(comparator.getValue())) {
+				return new SortCommand(comparator);
+			}
+		}
+    	
+    	return new IncorrectCommand(SortCommand.MESSAGE_NOT_A_COMPARATOR);
     }
 }

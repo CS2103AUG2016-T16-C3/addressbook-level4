@@ -18,13 +18,11 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.hotel;
-        assertAddSuccess(3, taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(3, currentList, taskToAdd);
+        currentList = assertAddSuccess(taskToAdd, currentList);
 
         //add another task
         taskToAdd = td.india;
-        assertAddSuccess(3, taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(3, currentList, taskToAdd);
+        currentList = assertAddSuccess(taskToAdd, currentList);
 
         //add duplicate task
         commandBox.runCommand(td.hotel.getAddCommand());
@@ -33,7 +31,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(0, td.alpha);
+        assertAddSuccess(td.alpha);
 
         //invalid command
         commandBox.runCommand("helps Johnny");
@@ -45,8 +43,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
      * @param indexToInsert Index at which new task should be inserted into the current list
      * @param taskToAdd The task which should be added to the current list
      * @param currentList Current task list to check panel list against
+     * @return The new list of tasks
      */
-    private void assertAddSuccess(int indexToInsert, TestTask taskToAdd, TestTask... currentList) {
+    private TestTask[] assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
@@ -54,9 +53,10 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addTasksToList(indexToInsert, currentList, taskToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToListSortedByTime(currentList, taskToAdd);
         
         assertTrue(taskListPanel.isListMatching(expectedList));
+        
+        return expectedList;
     }
-
 }
