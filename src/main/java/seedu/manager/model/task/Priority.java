@@ -45,7 +45,7 @@ public class Priority extends TaskProperty {
         return value.value;
     }
     
-    //@@author A0139621H
+    // @@author A0139621H
     /**
      * Checks if the task property matches with that of the search function's input
      */
@@ -56,7 +56,7 @@ public class Priority extends TaskProperty {
         return ((Priority) priority).equals(this);
     }
     
-    //@@author
+    // @@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

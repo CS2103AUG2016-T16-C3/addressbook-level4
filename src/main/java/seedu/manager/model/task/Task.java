@@ -185,14 +185,23 @@ public class Task implements ReadOnlyTask {
     
     // @@author A0147924X
     @Override
-    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other) {
+    /**
+     * Checks whether given properties "match" against this task. Properties match if there's a fuzzy
+     * relationship between them. For an understanding of how different properties "match", see the
+     * overridden method matches in the respective task property classes
+     * @param otherProps The properties to match against
+     * @return Whether the task matches these properties or not
+     */
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> otherProps) {
+    	HashMap<TaskProperties, Optional<TaskProperty>> thisProps = this.getProperties();
+    	
         for (TaskProperties property : TaskProperties.values()) {
-            if (other.get(property).isPresent()) {
-                if (!this.properties.get(property).isPresent()) {
-                	if (!matchStartOrEndTime(other, property)) {
+            if (otherProps.get(property).isPresent()) {
+                if (!thisProps.get(property).isPresent()) {
+                	if (!matchStartOrEndTime(otherProps, property)) {
 						return false;
 					}
-                } else if (!this.properties.get(property).get().matches(other.get(property).get())){
+                } else if (!thisProps.get(property).get().matches(otherProps.get(property).get())){
                     return false;
                 }
             }
@@ -202,7 +211,7 @@ public class Task implements ReadOnlyTask {
     
     /**
      * Tries to match start time against end time in the case that this task doesn't have a start time
-     * and vice versa 
+     * and vice versa
      * @param other Other properties to compare against
      * @param property Property to compare on
      * @return true if property is start or end time and matches with this task, false otherwise
@@ -210,14 +219,14 @@ public class Task implements ReadOnlyTask {
     private boolean matchStartOrEndTime(HashMap<TaskProperties, Optional<TaskProperty>> other, TaskProperties property) {
     	if (property.equals(TaskProperties.STARTTIME)) {
 			if (!(this.properties.get(TaskProperties.ENDTIME).isPresent() &&
-					this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
+				  this.properties.get(TaskProperties.ENDTIME).get().matches(other.get(property).get()))) {
 				return false;
 			} else {
 				return true;
 			}
 		} else if (property.equals(TaskProperties.ENDTIME)) {
 			if (!(this.properties.get(TaskProperties.STARTTIME).isPresent() &&
-					this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
+				  this.properties.get(TaskProperties.STARTTIME).get().matches(other.get(property).get()))) {
 				return false;
 			} else {
 				return true;

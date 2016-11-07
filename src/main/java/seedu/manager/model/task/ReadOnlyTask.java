@@ -88,7 +88,7 @@ public interface ReadOnlyTask {
         		&& other.getDone().equals(this.getDone()))
                 && other.getTag().equals(this.getTag());
     }
-    
+
     // @@author A0148042M-reused
     /**
      * Formats the task as text, showing all properties except done.
@@ -221,6 +221,6 @@ public interface ReadOnlyTask {
     	return compareProperty(this, other, TaskProperties.DONE, TaskProperties.DONE, true);
     }
     
-    // @author A0139621H
-    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> other);
+    // @@author A0139621H
+    public boolean matches(HashMap<TaskProperties, Optional<TaskProperty>> otherProps);
 }

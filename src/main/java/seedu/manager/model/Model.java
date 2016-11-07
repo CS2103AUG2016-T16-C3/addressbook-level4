@@ -24,10 +24,16 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
     
     // @@author A0147924X
-    /** Returns the Command words */
+    /**
+     * Retrieves command keywords from the user preferences
+     * @return the command keywords
+     */
     HashMap<Commands, String> getCommandWords();
     
-    /** Returns the Extension words */
+    /**
+     * Retrieves extension keywords from the user preferences
+     * @return the extension keywords
+     */
     HashMap<Commands, String> getExtensionWords();
     
     // @@author

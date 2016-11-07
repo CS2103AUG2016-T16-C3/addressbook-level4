@@ -133,6 +133,7 @@ being saved to the hard disk and the status bar of the `UI` being updated to ref
 
 The sections below give more details of each component.
 
+<!-- @@author A0148042M -->
 ### `UI` component
 
 <p align="center"><img src="images/UiClassDiagram.png" width="800"><br>
@@ -152,6 +153,15 @@ The `UI`,
 * Binds itself to some data in the `Model` so that the `UI` can auto-update when data in the `Model` changes.
 * Responds to events raised from various parts of the App and updates the `UI` accordingly.
 
+#### Low-level details about the UI Component
+
+Relationship between tagList and taskList: <br>
+The tagList inside `TagListPanel` contains all the tags that taskList has. Whenever there are some changes to the taskList, the tagList will do the same operations to the tags of the changing tasks if they are present.
+
+Respective taskList will show up if their tag is clicked: <br>
+When user click on a specific tag, it will raise up an event called `TagPanelSelectionChangedEvent`, and this event will be handled by `handleTagListPanelSelectionChangedEvent` in `ModelManager` and tasks without the tag clicked will be filtered out and tasks with the tag will remain there.
+
+<!-- @@author A0147924X -->
 ### Logic component
 
 <p align="center"><img src="images/LogicClassDiagram.png" width="800"><br>
@@ -173,7 +183,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 #### Low-level details about the Logic Component
 
-Undo:<br>
+Undo Command:<br>
 The `Command` class keeps a static stack of `UndoableCommand` objects. Every time an `UndoableCommand` is successfully executed, it is added to this stack. When the user wishes to undo an action, an element is popped off the stack, and this command is undone.<br>
 
 Link between `Parser` and `Model`:<br>
@@ -193,6 +203,12 @@ The `Model`,
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the `UI` can be bound to this list so that the `UI` automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
+#### Low-level details about the Model Component
+
+TaskProperty:<br>
+This is an abstract class that all the task properties (like venue and description) inherit from. It provides most of the API that TaskProperty objects need to expose to other classes. These API are sometimes overridden by the subclasses, for example to provide their own version of a pretty string value (the string displayed on the UI).
+
+<!-- @@author -->
 ### Storage component
 
 <p align="center"><img src="images/StorageClassDiagram.png" width="800"><br>
@@ -272,7 +288,7 @@ That means the developer can do other things on the Computer while the tests are
 
 #### Troubleshooting tests
 
- **Problem: Tests fail because of NullPointerException when AssertionError is expected. **
+ **Problem: Tests fail because of NullPointerException when AssertionError is expected.**
 
  * Reason: Assertions are not enabled for JUnit tests.
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later).
@@ -314,44 +330,31 @@ b. Require developers to download those libraries manually (this creates extra w
 <!-- @@author A0147924X -->
 ## Appendix A : User Stories
 
-Likeliness: Likely - `L`, Unlikely - `U`
+As (a)... | I want to... | So that I can...
+:-------- | :--------- | :-----------
+All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
+New User | View info about a command | Learn how to use these commands
+User | Add tasks with a description and a specific deadline | Set deadlines for tasks
+User | Add tasks with description, start time and end time | Create events in the task manager
+User | Add tasks with only a description | Set tasks that do not have certain time, which are called floating tasks
+User | Add tasks that starts from a certain time | Set tasks that do not have an end time
+User | Modify a task | Update deadlines and descriptions
+User | Delete a task | Remove it from the Task Manager's to-do list
+User | Tick off a task | Record that this task is complete by marking it as done
+User | Search for task(s) | Find task(s) and maybe edit it
+User | See upcoming tasks | Decide what to do next
+User | Assign priority to tasks | Gauge which task should be done next
+User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
+User | See tasks in a specific period of time | See what has been scheduled for a certain period
+User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
+User | Undo operation(s) | Remove a mistake
+Advanced User | Edit the storage file | Make changes without going through the manager
+Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
 
-Likeliness | As (a)... | I want to... | So that I can...
--------- | :-------- | :--------- | :-----------
-`L` | All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
-`L` | New User | View info about a command | Learn how to use these commands
-`L` | User | Add tasks with a description and a specific deadline | Set deadlines for tasks
-`L` | User | Add tasks with description, start time and end time | Create events in the task manager
-`L` | User | Add tasks with only a description | Set tasks that do not have certain time, which are called floating tasks
-`L` | User | Add tasks that starts from a certain time | Set tasks that do not have an end time
-`L` | User | Modify a task | Update deadlines and descriptions
-`L` | User | Delete a task | Remove it from the Task Manager's to-do list
-`L` | User | Tick off a task | Record that this task is complete by marking it as done
-`L` | User | Search for task(s) | Find task(s) and maybe edit it
-`L` | User | See upcoming tasks | Decide what to do next
-`L` | User | Assign priority to tasks | Gauge which task should be done next
-`L` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
-`L` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
-`L` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
-`L` | User | Undo operation(s) | Remove a mistake
-`L` | Advanced User | Edit the storage file | Make changes without going through the manager
-`L` | Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
-`U` | New User | View the procedure of creating a task | Learn how to create a task first
-`U` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
-`U` | User | Redo operation(s) | Redo a change that had been undone
-`U` | User | Declare recurring tasks | Remove the need to enter these tasks multiple times
-`U` | User | Search for empty slots (within a given time frame) | Decide when to schedule a task
-`U` | User | Integrate with third-party applications like GCalendar | Access my tasks on another platform too
-`U` | User | List [floating tasks](#floating-task) | See whether I want to complete a floating task next
-`U` | User | Block multiple slots for a task | Choose later which slot I want to assign this task to and keep the selected slots free for that task
-`U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
-`U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
-`U` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
-
-<!-- @@author  -->
+<!-- @@author A0148003U -->
 ## Appendix B : Use Cases
 
-( For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise. )
+(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise.)
 
 #### Use case: Add a task
 
@@ -373,11 +376,11 @@ Use case resumes at step 1.
 > 2b1. User is notified that the task already exists. <br>
 Use case resumes at step 1.
 
-#### Use case: List specific tasks
+#### Use case: Find specific tasks
 
 **MSS**
 
-1. User supplies Task Manager with information about descriptions of tasks to be listed.
+1. User supplies Task Manager with information about descriptions of tasks to be found.
 2. Task Manager shows the list of tasks. <br>
 Use case ends.
 
@@ -438,15 +441,75 @@ Use case resumes at step 3.
 > 4b1. User is shown correct format for data. <br>
 Use case resumes at step 3.
 
-storage, alias, clear
+<!-- @@author A0139621H -->
+#### Use case: Aliasing command keyword
 
-<!-- @@author A0148042M -->
+**MSS**
+
+1. User requests to change the keyword of a command.
+2. Task Manager modifies the corresponding command's old keyword to the new one. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The old command that was entered is invalid.
+
+> 2a1. User is notified that the command word is invalid. <br>
+Use case ends.
+
+2b. The new command keyword is already in use by another command.
+
+> 2b1. User is notified as such, and is shown which command is using this keyword. <br>
+Use case ends.
+
+#### Use case: Storage command
+
+**MSS**
+
+1. User requests to change the storage path and/or filename of the Task Manager.
+2. Task Manager modifies the storage path and/or filename accordingly.
+3. Task Manager also updates the filepath at the bottom of the UI. <br>
+Use case ends.
+
+**Extensions**
+
+2a. The new filepath entered is invalid.
+
+> 2a1. User is notified that the filepath is invalid. <br>
+Use case ends.
+
+2b. The new filepath entered is unaccessible.
+
+> 2b1. User is notified that the filepath cannot be used and is thus invalid. <br>
+User case ends.
+
+2c. The filename entered is already in use.
+
+> 2c1. User is notified that any changes to the new file will overwrite that of the old one. <br>
+User case resumes at step 3
+
+#### Use case: Undo
+
+**MSS**
+
+1. User requests to undo an action.
+2. Task manager undos the user's previous action and displays what was undone. <br>
+Use case ends.
+
+**Extensions**
+
+2a. There are no actions to be undone.
+
+> 2a1. User is notified as such. <br>
+Use case ends.
+
+<!-- @@author A0147924X -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should open within 2 second.
+4. Should open within 2 seconds.
 5. Should complete all operations within 0.5 seconds.
 6. Should not require an internet connection to work.
 7. Should not require installation to work.
@@ -462,6 +525,7 @@ storage, alias, clear
 
 > A task which has no specified date or time
 
+<!-- @@author A0148042M -->
 ## Appendix E : Product Survey
 
 We researched other task managers' special features to better understand the products available and thus enhance design of our own product. Here are the special features we found in four other products:

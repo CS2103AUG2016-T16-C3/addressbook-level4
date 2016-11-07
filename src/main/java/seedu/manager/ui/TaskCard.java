@@ -105,7 +105,7 @@ public class TaskCard extends UiPart{
     			startTime.setText("");
     			endTime.setText("");
     		}
-    		}
+		}
     	
     }
     

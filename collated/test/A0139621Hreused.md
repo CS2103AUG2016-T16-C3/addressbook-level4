@@ -1,5 +1,5 @@
 # A0139621Hreused
-###### \java\seedu\manager\testutil\TypicalTestTasks.java
+###### /java/seedu/manager/testutil/TypicalTestTasks.java
 ``` java
     public TypicalTestTasks() {
         try {
@@ -19,7 +19,7 @@
                     .withStartTime("8:30pm").withEndTime("10:00pm").withPriority("low").withDone("No").withTag("study")
                     .build();
             foxtrot = new TaskBuilder().withDesc("CS2103 group meetup").withVenue("PGP R5")
-                    .withStartTime("8:00pm").withEndTime("10:00pm").withPriority("high").withDone("No").withTag("study")
+                    .withStartTime("8:00pm").withEndTime("10:20pm").withPriority("high").withDone("No").withTag("study")
                     .build();
             golf = new TaskBuilder().withDesc("Buy stuff for mum").withVenue("Popular @ Junction 8")
                     .withStartTime("6:00pm").withEndTime("6:10pm").withPriority("med").withDone("No").withTag("study")

@@ -25,6 +25,11 @@ So what are you waiting for? Download it now over [here](../../releases). Check 
 #### Acknowledgements
 
 * The base code for this application was taken from [Addressbook Level 4](https://github.com/se-edu/addressbook-level4).
+* We are using the following open-source libraries:
+  * [JavaFX](http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784)
+  * [Jackson](https://github.com/FasterXML/jackson)
+  * [Guava](https://github.com/google/guava)
+  * [PrettyTime](http://www.ocpsoft.org/prettytime/)
 
 
 #### Licence : [MIT](LICENSE)

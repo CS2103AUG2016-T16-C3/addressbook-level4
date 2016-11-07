@@ -68,12 +68,8 @@ public class EditCommand extends Command implements UndoableCommand {
             model.addTask(newTask);
             model.deleteTask(taskToEdit);
             
-            if(newTask.getTag().isPresent()) {
-                model.addTag((Tag) newTask.getTag().get());
-            }
-            if(taskToEdit.getTag().isPresent()) {
-                model.deleteTag((Tag) taskToEdit.getTag().get());
-            }
+            addTasksTagToModel(newTask);
+            deleteTasksTagFromModel(taskToEdit);
             
             jumpToTask(newTask);
             this.addUndo(this);
@@ -124,12 +120,8 @@ public class EditCommand extends Command implements UndoableCommand {
     		model.addTask(oldTask);
     		model.deleteTask(newTask);
     		
-            if(oldTask.getTag().isPresent()) {
-                model.addTag((Tag) oldTask.getTag().get());
-            }
-            if(newTask.getTag().isPresent()) {
-                model.deleteTag((Tag) newTask.getTag().get());
-            }
+            addTasksTagToModel(oldTask);
+            deleteTasksTagFromModel(newTask);
             
             jumpToTask(oldTask);
     		
