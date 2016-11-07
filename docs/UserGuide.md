@@ -304,12 +304,12 @@ Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>` | `storage
 Primary | [Alias](#alias) | `alias <command name> <new command name>` | `alias delete -` | Yes
 Primary | [Clear](#clear) | `clear` | `clear` | No
 Primary | [Exit](#exit) | `exit` | `exit` | N/A
-Extension | [Venue](#venue) | `venue <description of venue>` | `venue Avalon` | N/a
-Extension | [Event](#from-to) | `from <start time> to <end time>` | `from 1pm to 3pm` | N/a
-Extension | [At](#at) | `at <time>` | `at 5pm` | N/a
-Extension | [By](#by) | `by <time>` | `by tomorrow evening` | N/a
-Extension | [Priority](#priority) | `priority low/med/high` | `priority med` | N/a
-Extension | [Tag](#tag) | `tag <your tag>` | `tag Camelot` | N/a
+Extension | [Venue](#venue) | `venue <description of venue>` | `venue Avalon` | N/A
+Extension | [Event](#from-to) | `from <start time> to <end time>` | `from 1pm to 3pm` | N/A
+Extension | [At](#at) | `at <time>` | `at 5pm` | N/A
+Extension | [By](#by) | `by <time>` | `by tomorrow evening` | N/A
+Extension | [Priority](#priority) | `priority low/med/high` | `priority med` | N/A
+Extension | [Tag](#tag) | `tag <your tag>` | `tag Camelot` | N/A
 
 
 <!-- @@author A0139621H-->
