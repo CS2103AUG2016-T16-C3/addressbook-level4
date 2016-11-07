@@ -27,6 +27,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Did the initial refactoring from AddressBook to TaskManager [[426d2e4](https://github.com/CS2103AUG2016-T16-C3/main/commit/426d2e40ad05b5ea4d09f92a5f43e0d615c2da83)]
   * Set up Travis and Coveralls
   * Maintain Github [Issues](https://github.com/CS2103AUG2016-T16-C3/main/issues)
+  * [Diagrams for Developer Guide](diagrams/Diagrams.pptx)
 
 -----
 
@@ -43,7 +44,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions:
   * Help other people to proofread and correct grammatical errors in User Guide and Developer Guide
   * Added in [Appendix A](UserGuide.md#appendix-a) (Acceptable Time and Date Input Formats) to User Guide
-
+  * [Diagrams for Developer Guide](diagrams/Diagrams.pptx)
+  
 -----
 
 #### [Zhao Dingfan](https://github.com/ZhaoDingfan)
