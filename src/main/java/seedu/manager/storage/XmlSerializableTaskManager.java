@@ -67,17 +67,18 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
+    
+    // @@author A0148042M
+    /**
+     * These two methods are to get the UniqueTagList and the tag list directly.
+     */
     @Override
     public UniqueTagList getUniqueTagList() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public List<Tag> getTagList() {
-        // TODO Auto-generated method stub
         return null;
     }
-
 }

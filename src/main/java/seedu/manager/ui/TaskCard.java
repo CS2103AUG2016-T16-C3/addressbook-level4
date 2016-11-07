@@ -42,7 +42,7 @@ public class TaskCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
+    // @@author A0148003U
     @FXML
     public void initialize() {
     	initText();
@@ -65,7 +65,11 @@ public class TaskCard extends UiPart{
         }
     }
     
-    // @@author
+    // @@author A0148003U
+    /**
+     * initialize the context(description, id, venue, time, priority,
+     * done, tag and color in each task-card.
+     */
     public void initText() {
         desc.setText(task.getDesc().isPresent() ? task.getDesc().get().getPrettyValue() : "");
     }
@@ -114,6 +118,9 @@ public class TaskCard extends UiPart{
     	tag.setText(task.getTag().isPresent() ? "Tag     : " + task.getTag().get().getPrettyValue() : "");
     }
     
+    /**
+     * change the color by priority of a task
+     */
     public void initPriorityColor() {
         if (task.isPriorityHigh()) {
             setTextColor("red");
@@ -124,6 +131,9 @@ public class TaskCard extends UiPart{
         }
     }
     
+    /**
+     * Set color for a text in the task-card. 
+     */
     public void setTextColor (String color) {
     	desc.setStyle("-fx-text-fill: " + color);        
     }

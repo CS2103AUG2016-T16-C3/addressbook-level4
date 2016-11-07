@@ -30,6 +30,7 @@ public class Done extends TaskProperty {
         return value ? "Yes" : "No";
     }
     
+    //@@author A0139621H
     @Override
     public String getPrettyValue() {
         return value ? "\u2713" : "";

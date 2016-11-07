@@ -229,7 +229,7 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
-    
+
     // @@author A0139621H
     /**
      * Parses arguments in the context of the find task command.

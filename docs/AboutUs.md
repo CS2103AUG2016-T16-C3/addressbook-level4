@@ -58,10 +58,8 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Make Tag list responses for add, delete, edit and clear](https://github.com/CS2103AUG2016-T16-C3/main/pull/88)
    * [Change the components of UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/55)
    * [Check validation of time](https://github.com/CS2103AUG2016-T16-C3/main/commit/0abb21f743a5dfdf3fa9e9ba284bd5e2ab278d15)
-
 * Code written:
 [[functional code](../collated/main/A0148042M.md)][[functional reused code](../collated/main/A0148042Mreused.md)][[test code](../collated/test/A0148042M.md)][[docs](../collated/docs/A0148042M.md)]
-
 * Other major contributions:
   * Help other people to proofread and correct grammatical errors in User Guide
   * Help other people to check collated methods

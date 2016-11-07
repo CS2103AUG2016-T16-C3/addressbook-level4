@@ -59,7 +59,7 @@ public class AddCommand extends Command implements UndoableCommand {
         }
     }
     
-    // @@author
+    // @@author A0148003U
     @Override
 	public CommandResult undoIt() {
     	assert model != null;
