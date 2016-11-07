@@ -137,7 +137,6 @@ public class ExtensionParser {
                 break;
             case TAG:
                 throwExceptionIfDuplicate(properties, TaskProperties.TAG, Commands.TAG);
-                addToTagList(arguments);
                 addToProperties(properties, TaskProperties.TAG, arguments);
                 break;
             default:
