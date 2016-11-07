@@ -57,6 +57,11 @@ public class UndoCommandTest  extends TaskManagerGuiTest  {
 		assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd.getAsPrettyText()));
 	}
 	
+	/**
+	 * Runs the undo command and check whether the result is correct
+	 * response to the expected result(expectedList).
+	 * @param expectedList the list before the undo command is executed.
+	 */
 	private void assertUndoSuccess(TestTask[] expectedList) {
 	    commandBox.runCommand("undo");
 	    assertTrue(taskListPanel.isListMatching(expectedList));
