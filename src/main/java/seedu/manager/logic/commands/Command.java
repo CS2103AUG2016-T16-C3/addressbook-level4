@@ -60,21 +60,31 @@ public abstract class Command {
         EventsCenter.getInstance().post(new JumpToTaskListRequestEvent(taskIndex));
     }
     
-    // @@author
+    
+    public Model getModel() {
+    	return model;
+    }
+    
+    // @@author A0148003U
+    /**
+     * add undo-able command to the undoList.
+     */
     public void addUndo(UndoableCommand newCommand) {
     	if (newCommand != null)
     	undoList.add(newCommand);
     }
     
+    /**
+     * remove an undo-able command from the undoList.
+     */    
     public void removeUndone(){
     	undoList.removeLast();
     }
     
+    /**
+     * check whether the undo-list is empty.
+     */
     public boolean isEmpty() {
     	return undoList == null;
     	}
-    
-    public Model getModel() {
-    	return model;
-    }
 }

@@ -7,8 +7,9 @@ import javafx.scene.layout.HBox;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Tag;
 
+// @@author A0148042M
 /**
- * @@author A0148042M
+ * This TagCard will make UI shows a tag on the left side of task list
  */
 public class TagCard extends UiPart{
 
@@ -46,7 +47,6 @@ public class TagCard extends UiPart{
     @FXML
     public void initialize() {
         id.setText(displayedIndex + ". ");
-    // tag.setText(task.getTag().isPresent() ? task.getTag().get().getPrettyValue() : "");
         tag.setText(tagToLoad.getValue());
     }
 

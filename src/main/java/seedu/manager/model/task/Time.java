@@ -115,16 +115,16 @@ public abstract class Time extends TaskProperty {
     	return groups.get(0);
     }
     
+    //@@author A0148042M
     /**
-     * @@author A0148042M
      * @return this property's time
      */
     public Date getTime() {
         return value;
     }
     
+    //@@author A0139621H
     /**
-     * @@author A0139621H
      * Checks if the start time of a task is equal to or later than that of the search function's input
      */
 	@Override
@@ -138,6 +138,7 @@ public abstract class Time extends TaskProperty {
 		}
     }
 
+	// @@author A0148003U
 	public boolean isBefore(Date time) {
 		if (value.before(time)) {
 			return true;

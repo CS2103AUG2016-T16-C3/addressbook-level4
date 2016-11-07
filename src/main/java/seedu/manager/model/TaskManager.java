@@ -57,12 +57,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         ObservableList<Tag> internalTagList = tags.getInternalList();
         ObservableList<Tag> tagListFromTaskList = getTagsFromTaskList(this.getTasks());
 
-//        try {
-//            tags.mergeFrom(new UniqueTagList(tagListFromTaskList));
-//        } catch (DuplicateTagException e) {
-//            e.printStackTrace();
-//        }
-        
         return combineTwoList(internalTagList, tagListFromTaskList);
     }
     
@@ -95,7 +89,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tagList;
     }
 
-    // @@author
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
@@ -112,7 +105,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(newData.getTaskList());
         clearTagList();
     }
-
+    
+    // @@author
 //// task-level operations
 
     /**
@@ -124,8 +118,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(p);
     }
     
+    // @@author A0148042M
     /**
-     * @@author A0148042M
      * Add a tag to the task manager.
      *
      * @throws UniqueTagList.DuplicateTagException if an equivalent tag already exists.
@@ -133,8 +127,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTag(Tag tag) throws UniqueTagList.DuplicateTagException {
         tags.add(tag);
     }
-    
-    // @@author
+
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
@@ -162,7 +155,8 @@ public class TaskManager implements ReadOnlyTaskManager {
             e.printStackTrace();
         }
     }
-
+    
+    // @@author
 //// util methods
 
     @Override
@@ -176,6 +170,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
     
+    // @@author A0148042M
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
@@ -190,7 +185,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public UniqueTagList getUniqueTagList() {
         return this.tags;
     }
-
+    // @@author
 
     @Override
     public boolean equals(Object other) {

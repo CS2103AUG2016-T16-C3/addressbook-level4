@@ -88,9 +88,9 @@ public interface ReadOnlyTask {
         		&& other.getDone().equals(this.getDone()))
                 && other.getTag().equals(this.getTag());
     }
-
+    
+    // @@author A0148042M-reused
     /**
-     * @@author A0148042M-reused
      * Formats the task as text, showing all properties except done.
      */
     default String getAsText() {

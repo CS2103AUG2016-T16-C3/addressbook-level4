@@ -66,10 +66,25 @@ public class DoneCommand extends Command implements UndoableCommand {
 			return new CommandResult(e.getMessage());
 		}
     }
-    
-    // @@author
+	
+	/**
+	 * Marks the done property of a task
+	 * @param taskToMark The task which should be marked
+	 * @param isDone Whether it should be marked as done or not done
+	 * @return The new marked task
+	 * @throws IllegalValueException
+	 */
+	private Task markDonePropertyOfTask(ReadOnlyTask taskToMark, boolean isDone) throws IllegalValueException {
+		String done = isDone ? "Yes" : "No";
+		HashMap<TaskProperties, Optional<String>> propsToEdit = taskToMark.getPropertiesAsStrings();
+        propsToEdit.put(TaskProperties.DONE, Optional.of(done));
+        return new Task(propsToEdit);
+	}
+	
+    // @@author A0148003U
 	@Override
 	public CommandResult undoIt() {
+
 	    assert model != null;
 
         try {
@@ -83,20 +98,5 @@ public class DoneCommand extends Command implements UndoableCommand {
 			return new CommandResult(e.getMessage());
         }
 		return new CommandResult (UNDO_SUCCESS);
-	}
-	
-	// @@author A0147924X
-	/**
-	 * Marks the done property of a task
-	 * @param taskToMark The task which should be marked
-	 * @param isDone Whether it should be marked as done or not done
-	 * @return The new marked task
-	 * @throws IllegalValueException
-	 */
-	private Task markDonePropertyOfTask(ReadOnlyTask taskToMark, boolean isDone) throws IllegalValueException {
-		String done = isDone ? "Yes" : "No";
-		HashMap<TaskProperties, Optional<String>> propsToEdit = taskToMark.getPropertiesAsStrings();
-        propsToEdit.put(TaskProperties.DONE, Optional.of(done));
-        return new Task(propsToEdit);
 	}
 }

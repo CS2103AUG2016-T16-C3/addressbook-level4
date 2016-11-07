@@ -33,10 +33,12 @@ public interface Model {
     // @@author
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-
+    
+    // @@author A0148042M
     /** Deletes the given tag. */
     void deleteTag(Tag tag);
     
+    // @@author
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     

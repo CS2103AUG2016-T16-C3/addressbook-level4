@@ -15,7 +15,6 @@ import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;
 
 /**
- * @@author A0148042M
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
@@ -109,7 +108,8 @@ public class MainWindow extends UiPart {
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
-
+    
+    // @@author A0148042M
     void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getSortedFilteredTaskList());
         tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getSortedFilteredTagList());
@@ -137,7 +137,8 @@ public class MainWindow extends UiPart {
     public AnchorPane getTagListPlaceholder() {
         return tagListPanelPlaceholder;
     }
-
+    
+    // @@author
     public void hide() {
         primaryStage.hide();
     }

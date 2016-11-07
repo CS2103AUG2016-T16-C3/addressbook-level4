@@ -28,8 +28,8 @@ public class Venue extends TaskProperty {
         return value;
     }
     
+    //@@author A0139621H
     /**
-     * @@author A0139621H
      * Checks if any words from the task's venue matches that with the search function's input words
      */
     @Override
@@ -45,7 +45,7 @@ public class Venue extends TaskProperty {
         return false;
     }
 
-    //@@ author
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
