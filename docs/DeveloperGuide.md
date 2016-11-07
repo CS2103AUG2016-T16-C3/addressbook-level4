@@ -328,8 +328,6 @@ b. Require developers to download those libraries manually (this creates extra w
 <!-- @@author A0147924X -->
 ## Appendix A : User Stories
 
-Likeliness: Likely - `L`, Unlikely - `U`
-
 As (a)... | I want to... | So that I can...
 :-------- | :--------- | :-----------
 All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
