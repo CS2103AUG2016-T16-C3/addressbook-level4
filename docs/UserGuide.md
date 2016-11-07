@@ -331,7 +331,7 @@ _This appendix lists down all the inputs of dates and times that are accepted wh
 _As we are using PrettyTime parser to read in dates and times, we strongly recommend you to follow this table in order to let you have the best experience when using Task Ninja!_<br>
 _You may also refer to the examples in [Event](#from-to), [At](#at) and [By](#by) sections for an overview of how to input your dates and times when adding/editing your task._<br>
 
-> * The current time (in HH:MM:SS) will be timestamped to your tasks should you decide not to enter a time.
+> * The current time will be timestamped to your tasks should you only enter a date and no time.
 > * The following examples use Wed 19 Oct 12:00:00 2016 as the current time and date, unless otherwise specified
 
 Input | Read in as | Comments
