@@ -58,20 +58,19 @@ public class EditCommandTest extends TaskManagerGuiTest {
     /**
      * Asserts that the edit command worked
      * @param editCommand A string representing the command to run
-     * @param index The index of the task to be edited
-     * @param indexToInsert Index at which edited task should be inserted into the current list
+     * @param indexToEdit The index of the task to be edited
      * @param editedTask The edited task Current task list to check panel list against
-     * @param currentList
+     * @param currentList Current task list to check panel list against
      * @return The new list of tasks
      */
-    private TestTask[] assertEditSuccess(String editCommand, int index,
+    private TestTask[] assertEditSuccess(String editCommand, int indexToEdit,
     							   TestTask editedTask, TestTask... currentList) {
-        commandBox.runCommand(String.format(editCommand, index));
+        commandBox.runCommand(String.format(editCommand, indexToEdit));
         
         TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getDesc().get().getValue());
         assertMatching(editedTask, editedCard);
         
-        TestTask[] expectedList = TestUtil.removeTaskFromList(currentList, index);
+        TestTask[] expectedList = TestUtil.removeTaskFromList(currentList, indexToEdit);
         expectedList = TestUtil.addTasksToListSortedByTime(expectedList, editedTask);
         assertTrue(taskListPanel.isListMatching(expectedList));
         

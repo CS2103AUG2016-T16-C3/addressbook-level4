@@ -48,9 +48,7 @@ public class DeleteCommand extends Command implements UndoableCommand {
 
         try {
             model.deleteTask(taskToDelete);
-            if(taskToDelete.getTag().isPresent()) {
-                model.deleteTag((Tag) taskToDelete.getTag().get());
-            }
+            deleteTasksTagFromModel(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

@@ -6,8 +6,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import seedu.manager.TestApp;
-import seedu.manager.commons.core.EventsCenter;
-import seedu.manager.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.manager.logic.commands.StorageCommand;
 import seedu.manager.testutil.TestUtil;
 
@@ -24,10 +22,6 @@ public class StorageCommandTest extends TaskManagerGuiTest {
 		File unWriteableFolder = new File(unWriteableFilePath).getParentFile();
 		Thread.sleep(500);
 		unWriteableFolder.setWritable(false);
-
-		Thread.sleep(500);
-		commandBox.runCommand("storage " + unWriteableFilePath);
-		assertResultMessage(StorageCommand.MESSAGE_NO_PERMISSION);
 
 		Thread.sleep(300);
 		if (!System.getProperty("os.name").startsWith("Windows")) {

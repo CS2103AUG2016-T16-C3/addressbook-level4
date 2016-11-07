@@ -86,18 +86,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    /**
-     * @@author A0147924X
-     * Retrieves command words from the user preferences
-     */
+    // @@author A0147924X
     public HashMap<Commands, String> getCommandWords() {
     	return userPrefs.commandWords;
     }
     
     @Override
-    /**
-     * Retrieves extension words from the user preferences
-     */
     public HashMap<Commands, String> getExtensionWords() {
     	return userPrefs.extensionWords;
     }
@@ -135,7 +129,6 @@ public class ModelManager extends ComponentManager implements Model {
             e.printStackTrace();
         }
         updateFilteredTagListToShowAll();
-//        indicateTaskManagerChanged();
     }
     
     // @@author A0147924X

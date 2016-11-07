@@ -48,9 +48,7 @@ public class AddCommand extends Command implements UndoableCommand {
         assert model != null;
         try {
             model.addTask(toAdd);
-            if (toAdd.getTag().isPresent()) {
-                model.addTag((Tag) toAdd.getTag().get());
-            }
+            addTasksTagToModel(toAdd);
             jumpToTask(toAdd);
             
             this.addUndo(this);
@@ -67,7 +65,7 @@ public class AddCommand extends Command implements UndoableCommand {
     	assert model != null;
         try {
             model.deleteTask(toAdd);
-            if(toAdd.getTag().isPresent()) {
+            if (toAdd.getTag().isPresent()) {
                 model.deleteTag((Tag) toAdd.getTag().get());
             }
         } catch (TaskNotFoundException pnfe) {
