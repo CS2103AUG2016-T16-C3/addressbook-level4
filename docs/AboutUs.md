@@ -12,8 +12,8 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Flexible command structure](UserGuide.md#overview)
    * [Design of command extensions](UserGuide.md#extensions)
    * [Edit any property](UserGuide.md#editing-tasks-edit)
-   * [Sort tasks by priority or time](UserGuide.md#sort-by-priority-level-sort)
-   * [Specify storage folder](UserGuide.md#sortby-sortby)
+   * [Sort tasks by priority or time](UserGuide.md#sortby-sortby)
+   * [Specify storage folder](UserGuide.md#specify-a-storage-folder-storage)
    * [Mark task as done](https://github.com/CS2103AUG2016-T16-C3/main/blob/final-user-guide/docs/UserGuide.md#ticking-off-tasks-done)
    * Alias [commands and extensions](UserGuide.md#alias-commands-alias)
    * Use PrettyTime to [parse dates and times](UserGuide.md#events-that-last-for-a-certain-period-of-time-from-to), and to [display them on UI](https://github.com/CS2103AUG2016-T16-C3/main/pull/49)
@@ -35,14 +35,14 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Logic](DeveloperGuide.md#logic-component), [Model](DeveloperGuide.md#model-component), [Storage](DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Task properties, Testing
 * Features implemented:
-  * [Event](UserGuide.md#from-to)
-  * [Start time (At](UserGuide.md#at))
-  * [End time (Before](UserGuide.md#before))
-  * [Enhanced find command](UserGuide.md#find)
+  * [Event](UserGuide.md#events-that-last-for-a-certain-period-of-time-from-to)
+  * [Start time (At)](UserGuide.md#at-a-certain-timedate-at)
+  * [End time (By)](UserGuide.md#by-a-certain-timedate-by)
+  * [Enhanced find command](UserGuide.md#searching-for-tasks-find)
 * Code written: [[functional code](../collated/main/A0139621H.md)][[test code](../collated/test/A0139621H.md)][[docs](../collated/docs/A0139621H.md)]
 * Other major contributions:
   * Help other people to proofread and correct grammatical errors in User Guide and Developer Guide
-  * Added in Appendix A (Acceptable Time and Date Input Formats) to User Guide
+  * Added in [Appendix A](UserGuide.md#appendix-a) (Acceptable Time and Date Input Formats) to User Guide
 
 -----
 
@@ -84,7 +84,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Other major contributions:
    * Help other people to proofread and correct grammatical errors in Developer Guide
    * Share the display design plan of TaskCard
-
+   
 -----
 
 # Contributors
