@@ -68,9 +68,20 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Jiang Yisong](http://github.com/whateverJ)
 <img src="images/Jiang Yisong.png" width="150"><br><br>
-**Role**: Developer<br>
-**Responsibilities**: Commons
 
+* Components in charge of:
+[Logic](DeveloperGuide.md#model-component),
+[UI](DeveloperGuide.md#ui-component)
+* Aspects/tools in charge of: TaskCard display
+* Features implemented:
+   * [Design of TaskCard display](https://github.com/CS2103AUG2016-T16-C3/main/pull/85)
+   * [Make Undo Commands response for add, delete, edit and done](UserGuide.md#undo-previous-action-undo)
+* Code written:
+[[functional code](../collated/main/A0148003U.md)][[functional reused code](../collated/main/A0148003Ureused.md)][[test code](../collated/test/A0148003U.md)][[docs](../collated/docs/A0148003U.md)]
+* Other major contributions:
+   * Help other people to proofread and correct grammatical errors in Developer Guide
+   * Share the display design plan of TaskCard
+   
 -----
 
 # Contributors
