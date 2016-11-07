@@ -280,7 +280,7 @@ That means the developer can do other things on the Computer while the tests are
 
 #### Troubleshooting tests
 
- **Problem: Tests fail because of NullPointerException when AssertionError is expected. **
+ **Problem: Tests fail because of NullPointerException when AssertionError is expected.**
 
  * Reason: Assertions are not enabled for JUnit tests.
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later).
@@ -359,7 +359,7 @@ Likeliness | As (a)... | I want to... | So that I can...
 <!-- @@author  -->
 ## Appendix B : Use Cases
 
-( For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise. )
+(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise.)
 
 #### Use case: Add a task
 
@@ -381,11 +381,11 @@ Use case resumes at step 1.
 > 2b1. User is notified that the task already exists. <br>
 Use case resumes at step 1.
 
-#### Use case: List specific tasks
+#### Use case: Find specific tasks
 
 **MSS**
 
-1. User supplies Task Manager with information about descriptions of tasks to be listed.
+1. User supplies Task Manager with information about descriptions of tasks to be found.
 2. Task Manager shows the list of tasks. <br>
 Use case ends.
 

@@ -35,16 +35,10 @@ public class ExtensionParser {
             Pattern.compile("(?<startTime>.+?)\\sto\\s(?<endTime>.+)");
     
     private HashMap<Commands, String> extensionWords = null;
-    private ArrayList<Tag> tagList;
     
     public ExtensionParser(HashMap<Commands, String> extensionWordsIn) {
-        tagList = new ArrayList<Tag>();
         extensionWords = extensionWordsIn;
         compileRegexes();
-    }
-    
-    public ArrayList<Tag> getTagList() {
-        return tagList;
     }
     
     public void compileRegexes() {
@@ -247,13 +241,5 @@ public class ExtensionParser {
     private void addToProperties(HashMap<TaskProperties, Optional<String>> properties, 
             					 TaskProperties taskProperty, String arguments) {
         properties.put(taskProperty, arguments.equals("") ? Optional.empty() : Optional.of(arguments));
-    }
-    
-    // @@author A0148042M
-    private void addToTagList(String arguments) throws IllegalValueException {
-        boolean isContained = tagList.contains(new Tag(arguments));
-        if(!isContained) {
-            tagList.add(new Tag(arguments));
-        }
     }
 }
