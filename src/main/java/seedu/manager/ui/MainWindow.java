@@ -9,10 +9,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.manager.commons.core.Config;
+import seedu.manager.commons.core.CommandWord;
 import seedu.manager.commons.core.GuiSettings;
 import seedu.manager.commons.events.ui.ExitAppRequestEvent;
 import seedu.manager.logic.Logic;
 import seedu.manager.model.UserPrefs;
+
+import seedu.manager.model.task.Tag;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +38,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private CommandWord commandWord;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -202,6 +206,7 @@ public class MainWindow extends UiPart {
         return this.tagListPanel;
     }
     
+    // @@author
     /**
      * Rerender Status Bar Footer
      */

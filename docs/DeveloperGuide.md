@@ -113,9 +113,9 @@ _Figure 2_ below shows how the components interact for the scenario where the us
 command `delete 3`.
 <br>
 
-<p align="center"><img src="images\SDforDeleteTask.png" width="800"><br>
+<p align="center"><img src="images/SDforAddTask.jpg" width="800"><br>
 
-<sub>Fig 2: Sequence Diagram for Delete Task</sub></p>
+<sub>Fig 2: Sequence Diagram for Add Task</sub></p>
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -123,9 +123,9 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the `UI` being updated to reflect the 'Last Updated' time. <br>
 
-<p align="center"><img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
+<p align="center"><img src="images/SDforDeleteTaskEventHandling.png" width="800"><br>
 
-<sub>Fig 3: Sequence Diagram for Event Handling for Delete Task</sub></p>
+<sub>Fig 3: Sequence Diagram for Event Handling for Add Task</sub></p>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -140,9 +140,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/manager/ui/Ui.java)
 
-The `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `TagListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+and they can be loaded using the `UiPartLoader`. Moreover, their actions can be captured and managed by `UiManager`.
 
 The `UI` component uses JavaFx UI framework. The layout of these `UI` parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/manager/ui/MainWindow.java) is specified in
@@ -150,7 +149,7 @@ The `UI` component uses JavaFx UI framework. The layout of these `UI` parts are 
 
 The `UI`,
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the `UI` can auto-update when data in the `Model` change.
+* Binds itself to some data in the `Model` so that the `UI` can auto-update when data in the `Model` changes.
 * Responds to events raised from various parts of the App and updates the `UI` accordingly.
 
 ### Logic component
@@ -167,11 +166,19 @@ The `Logic`,
 
 > The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br><br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add Name")` API call.<br><br>
 
-<p align="center"><img src="images/DeleteTaskSdForLogic.png" width="800"><br>
-<sub>Fig 6: Sequence Diagram for Delete command in Logic component</sub></p>
+<p align="center"><img src="images/AddTaskSdForLogic.png" width="800"><br>
+<sub>Fig 6: Sequence Diagram for Add command in Logic component</sub></p>
+
+#### Low-level details about the Logic Component
+
+Undo:<br>
+The `Command` class keeps a static stack of `UndoableCommand` objects. Every time an `UndoableCommand` is successfully executed, it is added to this stack. When the user wishes to undo an action, an element is popped off the stack, and this command is undone.<br>
+
+Link between `Parser` and `Model`:<br>
+The `UserPrefs` object in the model (see [`Model`](#model-component)) stores the command keywords. The `Parser` object keeps a reference to these keywords, so that it can parse commands entered by the user.
+
 
 ### Model component
 
@@ -223,7 +230,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g. App name, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g. App name, logging level and App icon) through the configuration file (default: `config.json`).
 
 
 ## Testing
@@ -247,9 +254,9 @@ We have two types of tests:
    These are in the `guitests` package.
 
 2. **Non-GUI Tests** - These are tests that do not involving the GUI. They include,
-   1. _Unit tests_ targets the lowest level methods/classes. <br>
-      e.g. `seedu.manager.commons.UrlUtilTest`
-   2. _Integration tests_ that check the integration of multiple code units
+   1. _Unit tests_ : targets the lowest level methods/classes. <br>
+      e.g. `seedu.manager.commons.XmlUtilTest`
+   2. _Integration tests_ : checks the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.manager.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These tests check multiple code units as well as
@@ -258,7 +265,7 @@ We have two types of tests:
 
 **Headless GUI Testing**:
 
-* Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the headless mode. In the headless mode, GUI tests do not show up on the screen. <br>
+* Thanks to the [TestFX](https://github.com/TestFX/TestFX) library that we use, our GUI tests can be run in the headless mode. In the headless mode, GUI tests do not show up on the screen. <br>
 That means the developer can do other things on the Computer while the tests are running.<br>
 
 * See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
@@ -311,24 +318,24 @@ Likeliness: Likely - `L`, Unlikely - `U`
 
 Likeliness | As (a)... | I want to... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`L` | All Users | Interact with the manager using a CLI and keys | Get rid of the need for a mouse
-`L` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
+`L` | All Users | Interact with the manager using a CLI and keys | Get rid of the usage for a mouse
 `L` | New User | View info about a command | Learn how to use these commands
 `L` | User | Add tasks with a description and a specific deadline | Set deadlines for tasks
-`L` | User | Add tasks with description, start time and end time | Create events in the calendar
-`L` | User | Add tasks with only a description | Set tasks that need to be completed at some point of time
-`L` | User | Add tasks that starts from a certain time | Set tasks that doesn't have an end time
+`L` | User | Add tasks with description, start time and end time | Create events in the task manager
+`L` | User | Add tasks with only a description | Set tasks that do not have certain time, which are called floating tasks
+`L` | User | Add tasks that starts from a certain time | Set tasks that do not have an end time
 `L` | User | Modify a task | Update deadlines and descriptions
 `L` | User | Delete a task | Remove it from the Task Manager's to-do list
 `L` | User | Tick off a task | Record that this task is complete by marking it as done
-`L` | User | Search for (a) task(s) | Find (a) task(s) and maybe edit it
+`L` | User | Search for task(s) | Find task(s) and maybe edit it
 `L` | User | See upcoming tasks | Decide what to do next
 `L` | User | Assign priority to tasks | Gauge which task should be done next
+`L` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
 `L` | User | See tasks in a specific period of time | See what has been scheduled for a certain period
 `L` | User | See upcoming tasks up until a specified time | See less / more upcoming tasks according to the time frame I want
 `L` | User | Undo operation(s) | Remove a mistake
-`L` | Advanced User | Edit the storage file | Make changes without having to go through the manager
-`L` | Advanced User | Declare my own names for commands | Personalise the experience and make it faster
+`L` | Advanced User | Edit the storage file | Make changes without going through the manager
+`L` | Advanced User | Declare my own names for commands | Personalize the experience and make it more efficient
 `U` | New User | View the procedure of creating a task | Learn how to create a task first
 `U` | User | Declare tasks that have to be done after a certain time | Record these tasks somewhere and not be bothered by them until a certain time
 `U` | User | Redo operation(s) | Redo a change that had been undone
@@ -336,10 +343,10 @@ Likeliness | As (a)... | I want to... | So that I can...
 `U` | User | Search for empty slots (within a given time frame) | Decide when to schedule a task
 `U` | User | Integrate with third-party applications like GCalendar | Access my tasks on another platform too
 `U` | User | List [floating tasks](#floating-task) | See whether I want to complete a floating task next
-`U` | User | Sort upcoming tasks by priority | Make the decision of which task to complete next faster
 `U` | User | Block multiple slots for a task | Choose later which slot I want to assign this task to and keep the selected slots free for that task
 `U` | User | Decide slot for an item blocking multiple slots | Free up the other slots for other tasks
 `U` | User | Receive emails/notifications about pressing deadlines | Be reminded to complete these tasks
+`U` | All Users | Use a keyboard shortcut to activate the manager | Speed up my workflow
 
 <!-- @@author  -->
 ## Appendix B : Use Cases
@@ -431,13 +438,15 @@ Use case resumes at step 3.
 > 4b1. User is shown correct format for data. <br>
 Use case resumes at step 3.
 
+storage, alias, clear
+
 <!-- @@author A0148042M -->
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should open within 1 second.
+4. Should open within 2 second.
 5. Should complete all operations within 0.5 seconds.
 6. Should not require an internet connection to work.
 7. Should not require installation to work.
@@ -447,7 +456,7 @@ Use case resumes at step 3.
 
 ##### Mainstream OS
 
-> Windows, Linux, Unix, OS-X
+> Windows, Linux, Unix, macOS
 
 ##### Floating Task
 

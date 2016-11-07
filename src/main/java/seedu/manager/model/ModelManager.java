@@ -7,6 +7,7 @@ import seedu.manager.commons.core.LogsCenter;
 import seedu.manager.commons.core.UnmodifiableObservableList;
 import seedu.manager.commons.core.CommandWord.Commands;
 import seedu.manager.commons.events.model.TaskManagerChangedEvent;
+import seedu.manager.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.manager.commons.exceptions.IllegalValueException;
 import seedu.manager.model.task.ReadOnlyTask;
 import seedu.manager.model.task.Task;
@@ -21,6 +22,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -134,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             taskManager.addTag(tag);
         } catch (DuplicateTagException e) {
-            e.printStackTrace();
+            // Nothing will happen if there are duplicate tags
         }
         updateFilteredTagListToShowAll();
     }
@@ -218,6 +221,22 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author A0148042M
     public void updateFilteredTagListToShowAll() {
         filteredTags.setPredicate(null);
+    }
+    
+    // @@author A0148042M
+    @Subscribe
+    private void handleTagListPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        HashMap<TaskProperties, Optional<TaskProperty>> tagToMatch = new HashMap<>();
+        Tag selectedTag = event.getNewSelection(); 
+        Optional<TaskProperty> tag = Optional.of(selectedTag);
+        for(TaskProperties prop : TaskProperties.values()) {
+            tagToMatch.put(prop, Optional.empty());
+        }
+        tagToMatch.put(TaskProperties.TAG, tag);
+        
+        updateFilteredTaskList(tagToMatch); 
     }
     
     // @author
