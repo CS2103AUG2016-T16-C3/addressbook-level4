@@ -12,7 +12,6 @@ Add, modify, search, tick off and get reminded about upcoming tasks, all without
 
 <p align="center"><img src="docs/images/Ui.png" width="600"></p><br>
 
-<br>
 So what are you waiting for? Download it now over [here](../../releases). Check out the User Guide below for more information.
 
 #### Site Map
