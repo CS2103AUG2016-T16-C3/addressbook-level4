@@ -620,7 +620,7 @@ public class LogicManagerTest {
                 expectedTM.getTaskList());
     }
     
-    // @@ author A0148003U
+    // @@author A0148003U
     @Test
     public void execute_undo_successful() throws Exception {
         // setup expectations
