@@ -226,7 +226,6 @@ Examples:
  * `done 3`
 
 
-
 <a id="undo"></a>
 #### Undo previous action: `undo`
 _Made a mistake? Fret not! Just use this keyword to revert the last action that you did!_<br>
@@ -264,6 +263,7 @@ Example:
   * `storage data/TaskNinja.xml`
 
 
+<!-- @@author A0147924X -->
 <a id="alias"></a>
 #### Alias Commands: `alias`
 _If you're an advanced user, you may replace our existing commands with a keyword of your own!_<br>
@@ -301,7 +301,6 @@ Tasks are saved in the hard disk automatically after any command that changes th
 There is no need to save manually.
 
 
-<!-- @@author A0147924X -->
 ## Cheat Sheet
 
 Type | Command | Format | Example | Undoable? |
