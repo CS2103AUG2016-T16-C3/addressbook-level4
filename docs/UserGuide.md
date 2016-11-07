@@ -214,6 +214,19 @@ Examples:
 
 
 <!-- @@author A0139621H-->
+<a id="done"></a>
+#### Ticking off tasks: `done`
+_Perhaps the most satisfying command! Let's you mark a task as done._<br>
+Format: `done <task number>`
+
+> Task number specifies which out of the tasks on the screen you wish to tick off
+
+Examples:
+ * `done 1`
+ * `done 3`
+
+
+
 <a id="undo"></a>
 #### Undo previous action: `undo`
 _Made a mistake? Fret not! Just use this keyword to revert the last action that you did!_<br>
@@ -298,6 +311,7 @@ Primary | [Add](#add) | `add <task description> [<extensions>]` | `add Complete 
 Primary | [Find](#find) | `find [<description>] [<extensions>]` | `find dinner priority med` | No
 Primary | [Edit](#edit) | `edit <task number> [<new task description>] [<extensions>]` | `edit 1 Dinner with Mum venue Home` | Yes
 Primary | [Delete](#delete) | `delete <task number>` | `delete 1` | Yes
+Primary | [Done](#done) | `done <task number>` | `done 5` | Yes
 Primary | [Undo](#undo) | `undo` | `undo` | N/A
 Primary | [Sortby](#sortby) | `sortby time/priority` | `sortby priority` | No
 Primary | [Storage](#storage) | `storage <path/to/file/fileName.xml>` | `storage data/TaskNinja.xml` | No
