@@ -5,19 +5,19 @@ To load the sample data, open the app once so that the config.json file is creat
     *Expected Result:*<br>
     No commands to undo
 1.    *Command:*<br>
-    'add'<br>
+    `add`<br>
     *Expected Result:*<br>
     Add commands needs description
 2.    *Command:*<br>
-    'delete 100'<br>
+    `delete 100`<br>
     *Expected Result:*<br>
     The task index provided in invalid
 3.    *Command:*<br>
-    'edit 100 venue BookHeaven'<br>
+    `edit 100 venue BookHeaven`<br>
     *Expected Result:*<br>
     The task index provided in invalid
 4.    *Command:*<br>
-    'edit 20 from 3pm to 2pm'<br>
+    `edit 20 from 3pm to 2pm`<br>
     *Expected Result:*<br>
     The start time should be before end time
 5.	*Command:*<br>
